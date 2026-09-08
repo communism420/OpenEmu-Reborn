@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -127,7 +128,7 @@ final class OEAchievementBannerView: NSView {
             .withSymbolConfiguration(iconConfig)
         if let url = URL(string: badgeURL), !badgeURL.isEmpty {
             currentBadgeURL = url
-            imageTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+            imageTask = URLSession.oeShared.dataTask(with: url) { [weak self] data, _, _ in
                 guard let data, let image = NSImage(data: data) else { return }
                 DispatchQueue.main.async {
                     guard self?.currentBadgeURL == url else { return }
@@ -229,7 +230,7 @@ final class OERetroAchievementsEventToastView: NSVisualEffectView {
         imageView.contentTintColor = .systemYellow
         if let badgeURL, let url = URL(string: badgeURL), !badgeURL.isEmpty {
             currentBadgeURL = url
-            imageTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+            imageTask = URLSession.oeShared.dataTask(with: url) { [weak self] data, _, _ in
                 guard let data, let image = NSImage(data: data) else { return }
                 DispatchQueue.main.async {
                     guard self?.currentBadgeURL == url else { return }
@@ -584,7 +585,7 @@ final class OEGameLayerNotificationView: NSImageView {
     override var wantsUpdateLayer: Bool { return true }
     
     var showNotifications: Bool {
-        return UserDefaults.standard.bool(forKey: Self.OEShowNotificationsKey)
+        return OEPreferences.shared.bool(forKey: Self.OEShowNotificationsKey)
     }
     
     // MARK: - Initialization

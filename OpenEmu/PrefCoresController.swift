@@ -62,8 +62,7 @@ private struct RetroArchCore {
     }
 
     var installedPluginURL: URL {
-        let coresDir = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Library/Application Support/OpenEmu/Cores")
+        let coresDir = URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
         return coresDir.appendingPathComponent("\(pluginName).oecoreplugin")
     }
 
@@ -81,8 +80,8 @@ private struct SystemEntry {
     var retroArchCores: [RetroArchCore] = []
 
     var activeCoreID: String? {
-        get { UserDefaults.standard.string(forKey: "defaultCore.\(systemIdentifier)") }
-        set { UserDefaults.standard.set(newValue, forKey: "defaultCore.\(systemIdentifier)") }
+        get { OEPreferences.shared.string(forKey: "defaultCore.\(systemIdentifier)") }
+        set { OEPreferences.shared.set(newValue, forKey: "defaultCore.\(systemIdentifier)") }
     }
 
     var activeCore: CoreDownload? {
@@ -209,7 +208,7 @@ final class PrefCoresController: NSViewController {
             warningBanner.isHidden = true
         } else {
             let names = collisions.sorted().joined(separator: ", ")
-            warningBanner.stringValue = "⚠ Duplicate core bundles detected: \(names). Open ~/Library/Application Support/OpenEmu/Cores/ and remove the extra copy of each affected core."
+            warningBanner.stringValue = "⚠ Duplicate core bundles detected: \(names). Open \(URL.oeApplicationSupportDirectory.appendingPathComponent("Cores").path) and remove the extra copy of each affected core."
             warningBanner.isHidden = false
         }
         var map: [String: (name: String, cores: [CoreDownload])] = [:]
@@ -758,7 +757,7 @@ extension PrefCoresController {
 
         let macOSDir  = plugin.appendingPathComponent("Contents/MacOS")
         let plistURL  = plugin.appendingPathComponent("Contents/Info.plist")
-        try fm.createDirectory(at: macOSDir, withIntermediateDirectories: true)
+        try fm.oeCreateDirectory(at: macOSDir, withIntermediateDirectories: true)
 
         // Source the stub executable from the canonical bridge bundle inside
         // OpenEmu.app/Contents/Resources/. Falls back to scanning installed
@@ -826,8 +825,7 @@ extension PrefCoresController {
     }
 
     private func findTemplateBinary() -> URL? {
-        let coresDir = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Library/Application Support/OpenEmu/Cores")
+        let coresDir = URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
         guard let plugins = try? FileManager.default.contentsOfDirectory(
             at: coresDir, includingPropertiesForKeys: nil
         ) else { return nil }

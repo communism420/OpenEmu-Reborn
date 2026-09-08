@@ -140,7 +140,7 @@ final class OEGameDocument: NSDocument {
     }
     
     private static let initializeDefaults: Void = {
-        UserDefaults.standard.register(defaults: [
+        OEPreferences.shared.register(defaults: [
             OEScreenshotFileFormatKey : NSBitmapImageRep.FileType.png.rawValue,
             OEScreenshotPropertiesKey : [NSBitmapImageRep.PropertyKey : Any](),
             RAHardcoreEnabledKey      : true,
@@ -178,7 +178,7 @@ final class OEGameDocument: NSDocument {
     /// `isHardcoreEnforcementActive` so users without an RA session don't
     /// lose save states, rewind, etc. by default.
     @objc var isHardcoreModePreferenceEnabled: Bool {
-        UserDefaults.standard.bool(forKey: RAHardcoreEnabledKey)
+        OEPreferences.shared.bool(forKey: RAHardcoreEnabledKey)
     }
 
     /// Whether hardcore restrictions should actually be enforced right now.
@@ -632,7 +632,7 @@ final class OEGameDocument: NSDocument {
             return
         }
         
-        saveState(name: OEDBSaveState.autosaveName) {
+        saveState(name: OEDBSaveState.autosaveName) { _ in
             self.emulationStatus = .terminating
             // TODO: #567 and #568 need to be fixed first
             //removeDeviceNotificationObservers()
@@ -710,8 +710,8 @@ final class OEGameDocument: NSDocument {
                 self.setVolume(self.volume, asDefault: false)
 
                 // set initial image adjustments
-                self.imageSaturation = Self.clampedSaturation((UserDefaults.standard.object(forKey: OEGameSaturationKey) as? Float) ?? 1.0)
-                self.imageGamma = Self.clampedGamma((UserDefaults.standard.object(forKey: OEGameGammaKey) as? Float) ?? 1.0)
+                self.imageSaturation = Self.clampedSaturation((OEPreferences.shared.object(forKey: OEGameSaturationKey) as? Float) ?? 1.0)
+                self.imageGamma = Self.clampedGamma((OEPreferences.shared.object(forKey: OEGameGammaKey) as? Float) ?? 1.0)
 
                 self.gameCoreHelper?.setGlobalShaderParameters(gamma: CGFloat(self.imageGamma), saturation: CGFloat(self.imageSaturation))
 
@@ -733,7 +733,7 @@ final class OEGameDocument: NSDocument {
                 }
 
                 // Pass stored RA credentials so the core can log in at launch
-                let raUsername = UserDefaults.standard.string(forKey: "RAUsername")
+                let raUsername = OEPreferences.shared.string(forKey: "RAUsername")
                 let raToken    = OECredentialStore.shared.get(.retroAchievementsToken)
                 if let username = raUsername, let token = raToken {
                     self.gameCoreManager?.setRetroAchievementsToken(token, username: username)
@@ -826,7 +826,7 @@ final class OEGameDocument: NSDocument {
     private func newGameCoreManager(with corePlugin: OECorePlugin) -> GameCoreManager {
         self.corePlugin = corePlugin
         
-        let lastDisplayModeInfo = UserDefaults.standard.object(forKey: String(format: OEGameCoreDisplayModeKeyFormat, corePlugin.bundleIdentifier)) as? [String : Any]
+        let lastDisplayModeInfo = OEPreferences.shared.object(forKey: String(format: OEGameCoreDisplayModeKeyFormat, corePlugin.bundleIdentifier)) as? [String : Any]
         
         let romURL: URL
         if systemPlugin.systemIdentifier != "openemu.system.arcade",
@@ -859,7 +859,7 @@ final class OEGameDocument: NSDocument {
                                      lockOnRomURL: lockOnROMURL,
                                      lockOnUpmemURL: lockOnUPMEMURL)
         
-        if let managerClassName = UserDefaults.standard.string(forKey: OEGameCoreManagerModePreferenceKey),
+        if let managerClassName = OEPreferences.shared.string(forKey: OEGameCoreManagerModePreferenceKey),
            let managerClass = NSClassFromString(managerClassName),
            managerClass == OEThreadGameCoreManager.self {
             return OEThreadGameCoreManager(startupInfo: info, gameCoreOwner: self)
@@ -879,7 +879,7 @@ final class OEGameDocument: NSDocument {
             return validPlugins.first!
         }
         else {
-            let defaults = UserDefaults.standard
+            let defaults = OEPreferences.shared
             if let coreIdentifier = defaults.string(forKey: "defaultCore.\(systemIdentifier)"),
                let core = OECorePlugin.corePlugin(bundleIdentifier: coreIdentifier) {
                 return core
@@ -914,7 +914,7 @@ final class OEGameDocument: NSDocument {
         let coreName = corePlugin.displayName
         let systemIdentifier = systemPlugin.systemIdentifier
         let systemKey = "\(coreName).\(systemIdentifier)"
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         
         let glitchInfo = defaults.object(forKey: OEGameCoreGlitchesKey) as? [String : Bool] ?? [:]
         let showAlert = !(glitchInfo[systemKey] ?? false)
@@ -1000,7 +1000,7 @@ final class OEGameDocument: NSDocument {
         alert.informativeText = infoMsg
         
         if let download = download, gameWindowController == nil {
-            let defaults = UserDefaults.standard
+            let defaults = OEPreferences.shared
             let prefKey = "defaultCore." + systemIdentifier
             let currentCore = defaults.string(forKey: prefKey)
             let deprecatedIsDefault = currentCore == corePlugin.bundleIdentifier
@@ -1074,7 +1074,7 @@ final class OEGameDocument: NSDocument {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
-            let backgroundPause = UserDefaults.standard.bool(forKey: OEBackgroundPauseKey)
+            let backgroundPause = OEPreferences.shared.bool(forKey: OEBackgroundPauseKey)
             if backgroundPause && self.emulationStatus == .playing {
                 self.requestEmulationPauseRespectingRetroAchievementsHardcore { [weak self] paused in
                     if paused {
@@ -1316,7 +1316,7 @@ final class OEGameDocument: NSDocument {
 
         if willEnforce && HardcoreModePolicy.requiresResetWhenEnabling {
             let revertHardcorePreference = {
-                UserDefaults.standard.set(false, forKey: RAHardcoreEnabledKey)
+                OEPreferences.shared.set(false, forKey: RAHardcoreEnabledKey)
                 NotificationCenter.default.post(
                     name: .OERAHardcoreDidChange,
                     object: nil,
@@ -1489,7 +1489,7 @@ final class OEGameDocument: NSDocument {
     }
     
     @objc func takeScreenshot(_ sender: Any?) {
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         let type = NSBitmapImageRep.FileType(rawValue: UInt(defaults.integer(forKey: OEScreenshotFileFormatKey)))!
         let properties = defaults.dictionary(forKey: OEScreenshotPropertiesKey) as! [NSBitmapImageRep.PropertyKey : Any]
         let takeNativeScreenshots = defaults.bool(forKey: OETakeNativeScreenshots)
@@ -1525,7 +1525,7 @@ final class OEGameDocument: NSDocument {
         displayName = displayName.replacingOccurrences(of: "/", with: "_")
         
         let fileName = "\(displayName) \(timeStamp).png"
-        let temporaryURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let temporaryURL = URL.oeTemporaryDirectory.appendingPathComponent(fileName)
         
         do {
             try imageData.write(to: temporaryURL, options: .atomic)
@@ -1560,7 +1560,7 @@ final class OEGameDocument: NSDocument {
     }
     
     var volume: Float {
-        return UserDefaults.standard.float(forKey: OEGameVolumeKey)
+        return OEPreferences.shared.float(forKey: OEGameVolumeKey)
     }
     
     func setVolume(_ volume: Float, asDefault defaultFlag: Bool) {
@@ -1568,7 +1568,7 @@ final class OEGameDocument: NSDocument {
         gameViewController.reflectVolume(volume)
         
         if defaultFlag {
-            UserDefaults.standard.set(volume, forKey: OEGameVolumeKey)
+            OEPreferences.shared.set(volume, forKey: OEGameVolumeKey)
         }
     }
     
@@ -1576,7 +1576,7 @@ final class OEGameDocument: NSDocument {
         imageSaturation = Self.clampedSaturation(value)
         gameCoreHelper?.setGlobalShaderParameters(gamma: CGFloat(imageGamma), saturation: CGFloat(imageSaturation))
         if asDefault {
-            UserDefaults.standard.set(imageSaturation, forKey: OEGameSaturationKey)
+            OEPreferences.shared.set(imageSaturation, forKey: OEGameSaturationKey)
         }
     }
     
@@ -1584,7 +1584,7 @@ final class OEGameDocument: NSDocument {
         imageGamma = Self.clampedGamma(value)
         gameCoreHelper?.setGlobalShaderParameters(gamma: CGFloat(imageGamma), saturation: CGFloat(imageSaturation))
         if asDefault {
-            UserDefaults.standard.set(imageGamma, forKey: OEGameGammaKey)
+            OEPreferences.shared.set(imageGamma, forKey: OEGameGammaKey)
         }
     }
     
@@ -1672,7 +1672,7 @@ final class OEGameDocument: NSDocument {
               let base = OELibraryDatabase.default?.databaseFolderURL
         else { return nil }
         let dir = base.appendingPathComponent("Cheats", isDirectory: true)
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: dir, withIntermediateDirectories: true)
         return dir.appendingPathComponent("\(md5).json")
     }
 
@@ -2192,7 +2192,7 @@ final class OEGameDocument: NSDocument {
         let prefKey  = modeDict[OEGameCoreDisplayModePrefKeyNameKey] as? String ?? ""
         let prefVal  = modeDict[OEGameCoreDisplayModePrefValueNameKey] as? String ?? ""
         let modeName = modeDict[OEGameCoreDisplayModeNameKey] as? String ?? ""
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         var displayModeInfo: [String : Any]
         
         // Copy existing prefs
@@ -2390,36 +2390,46 @@ final class OEGameDocument: NSDocument {
         let name = OEDBSaveState.nameOfQuickSave(inSlot: slot)
         let didPauseEmulation = pauseEmulationIfNeeded()
         
-        saveState(name: name) {
+        saveState(name: name) { success in
             if didPauseEmulation {
                 self.isEmulationPaused = false
             }
-            self.gameViewController.showQuickSaveNotification()
+            if success {
+                self.gameViewController.showQuickSaveNotification()
+            }
         }
     }
     
-    private func saveState(name stateName: String, completionHandler handler: (() -> Void)? = nil) {
+    private func saveState(name stateName: String, completionHandler handler: ((Bool) -> Void)? = nil) {
         guard
             supportsSaveStates,
             emulationStatus.rawValue > EmulationStatus.starting.rawValue,
             let rom = rom,
-            let core = corePlugin
+            let core = corePlugin,
+            let manager = gameCoreManager
         else {
-            handler?()
+            handler?(false)
             return
         }
         
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let temporaryDirectoryURL = URL.oeTemporaryDirectory
+        do {
+            try FileManager.default.oeCreateDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
+        } catch {
+            DLog("Could not access the save-state temporary folder: \(error)")
+            handler?(false)
+            return
+        }
         var temporaryStateFileURL = URL(string: UUID().uuidString, relativeTo: temporaryDirectoryURL)!
         
         temporaryStateFileURL = temporaryStateFileURL.uniqueURL { triesCount in
             return URL(string: UUID().uuidString, relativeTo: temporaryDirectoryURL)!
         }
         
-        SentryService.addBreadcrumb(message: "Save state written: \(stateName)", category: "savestate")
-        gameCoreManager?.saveStateToFile(at: temporaryStateFileURL) { success, error in
+        manager.saveStateToFile(at: temporaryStateFileURL) { success, error in
             if !success {
-                handler?()
+                DLog("The core could not save its state: \(error?.localizedDescription ?? "unknown error")")
+                handler?(false)
                 return
             }
             
@@ -2433,9 +2443,13 @@ final class OEGameDocument: NSDocument {
             var saveState: OEDBSaveState?
             if stateName.hasPrefix(OEDBSaveState.specialNamePrefix),
                let state = romInContext.saveState(withName: stateName) {
+                guard state.replaceStateFileWithFile(at: temporaryStateFileURL) else {
+                    DLog("Could not replace the existing save state.")
+                    handler?(false)
+                    return
+                }
                 state.coreIdentifier = core.bundleIdentifier
                 state.coreVersion = core.version
-                state.replaceStateFileWithFile(at: temporaryStateFileURL)
                 state.timestamp = Date()
                 saveState = state
             } else {
@@ -2443,7 +2457,8 @@ final class OEGameDocument: NSDocument {
             }
             
             guard let state = saveState else {
-                handler?()
+                DLog("Could not create the save-state bundle.")
+                handler?(false)
                 return
             }
 
@@ -2455,25 +2470,38 @@ final class OEGameDocument: NSDocument {
                 _ = try? FileManager.default.replaceItemAt(sidecarDest, withItemAt: sidecarTemp)
             }
 
-            let mainContext = state.managedObjectContext
-            mainContext?.perform {
-                try? mainContext?.save()
+            do {
+                try context.save()
+            } catch {
+                DLog("Could not save the save-state metadata: \(error)")
+                handler?(false)
+                return
             }
             
-            let defaults = UserDefaults.standard
+            let defaults = OEPreferences.shared
             let type = NSBitmapImageRep.FileType(rawValue: UInt(defaults.integer(forKey: OEScreenshotFileFormatKey)))!
             let properties = defaults.dictionary(forKey: OEScreenshotPropertiesKey) as! [NSBitmapImageRep.PropertyKey : Any]
             
-            self.gameCoreManager?.captureSourceImage() { image in
+            manager.captureSourceImage() { image in
                 let newSize = self.gameViewController.defaultScreenSize
                 let image = image.resized(newSize) ?? image
                 let convertedData = image.representation(using: type, properties: properties)
                 DispatchQueue.main.async {
                     do {
-                        try convertedData?.write(to: state.screenshotURL, options: .atomic)
+                        guard let convertedData else {
+                            DLog("Could not encode the save-state screenshot.")
+                            handler?(false)
+                            return
+                        }
+                        try FileManager.default.oeCreateDirectory(at: state.url, withIntermediateDirectories: true)
+                        try convertedData.write(to: state.screenshotURL, options: .atomic)
                     } catch {
+                        DLog("Could not write the save-state screenshot: \(error)")
+                        handler?(false)
+                        return
                     }
-                    handler?()
+                    SentryService.addBreadcrumb(message: "Save state written: \(stateName)", category: "savestate")
+                    handler?(true)
                 }
             }
         }

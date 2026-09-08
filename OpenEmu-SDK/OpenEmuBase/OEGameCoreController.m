@@ -27,6 +27,7 @@
 #import "OEGameCoreController.h"
 #import "OEAbstractAdditions.h"
 #import "OEGameCore.h"
+#import "OEStoragePaths.h"
 #import <objc/runtime.h>
 
 // unused?
@@ -76,11 +77,7 @@ NSString *OEEventNamespaceKeys[] = { @"", @"OEGlobalNamespace", @"OEKeyboardName
         _gameCoreClass     = NSClassFromString([_bundle objectForInfoDictionaryKey:OEGameCoreClassKey]);
         _playerCount       = [[_bundle objectForInfoDictionaryKey:OEGameCorePlayerCountKey] integerValue];
 
-        NSFileManager *fileManager = NSFileManager.defaultManager;
-        NSArray *urls = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-        NSURL *baseURL = (urls.count > 0) ? urls.firstObject : fileManager.temporaryDirectory;
-
-        NSURL *supportFolder = [baseURL URLByAppendingPathComponent:@"OpenEmu"];
+        NSURL *supportFolder = OEStoragePaths.dataRootURL;
         _supportDirectory = [supportFolder URLByAppendingPathComponent:_pluginName];
         _biosDirectory    = [supportFolder URLByAppendingPathComponent:@"BIOS"];
     }

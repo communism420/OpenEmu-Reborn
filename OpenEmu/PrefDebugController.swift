@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuSystem
 import OpenEmuKit
 
@@ -171,7 +172,7 @@ final class PrefDebugController: NSViewController {
     
     private func createRow(for gridView: NSGridView, item: Any) {
         
-        let defaultDefaults = UserDefaults.standard.volatileDomain(forName: UserDefaults.registrationDomain)
+        let defaultDefaults = OEPreferences.shared.volatileDomain(forName: UserDefaults.registrationDomain)
         
         if let item = item as? Checkbox {
             let label = NSLocalizedString(item.label, tableName: "Debug", comment: "")
@@ -186,7 +187,7 @@ final class PrefDebugController: NSViewController {
                 options[.valueTransformerName] = NSValueTransformerName.negateBooleanTransformerName
             }
             
-            checkbox.bind(.value, to: NSUserDefaultsController.shared, withKeyPath: "values.\(key)", options: options)
+            checkbox.bind(.value, to: OEPreferencesController.shared, withKeyPath: "values.\(key)", options: options)
             
             if let originalValue = defaultDefaults[key] as? NSNumber {
                 let origbool = originalValue.boolValue != negated
@@ -217,7 +218,7 @@ final class PrefDebugController: NSViewController {
                 colorWell = NSColorWell()
             }
             
-            if let colorString = UserDefaults.standard.string(forKey: key),
+            if let colorString = OEPreferences.shared.string(forKey: key),
                let color = NSColor(from: colorString) {
                 colorWell.color = color
             } else {
@@ -303,7 +304,7 @@ final class PrefDebugController: NSViewController {
             
             let inputField = NSTextField(string: "")
             inputField.formatter = numberFormatter
-            inputField.bind(.value, to: NSUserDefaultsController.shared, withKeyPath: "values.\(key)", options: nil)
+            inputField.bind(.value, to: OEPreferencesController.shared, withKeyPath: "values.\(key)", options: nil)
             
             let validRangeFormat = NSLocalizedString("Range: %@ to %@", tableName: "Debug", comment: "Range indicator tooltip for numeric text boxes in the Debug Preferences")
             let min = numberFormatter.string(from: nf.minimum) ?? ""
@@ -334,7 +335,7 @@ final class PrefDebugController: NSViewController {
     private func setUpSelectedItem(for button: NSPopUpButton, item: Popover) {
         
         let key = item.key
-        let currentValue = UserDefaults.standard.object(forKey: key)
+        let currentValue = OEPreferences.shared.object(forKey: key)
         
         let index = button.indexOfItem(withRepresentedObject: currentValue)
         if index != -1 {
@@ -351,7 +352,7 @@ final class PrefDebugController: NSViewController {
         let item = sender.selectedItem
         let value = (item?.representedObject as? Int) ?? -1
         
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         if value == -1 {
             defaults.removeObject(forKey: OELocalizationHelper.OERegionKey)
         } else {
@@ -363,22 +364,22 @@ final class PrefDebugController: NSViewController {
     
     func changeGameMode(_ sender: NSPopUpButton) {
         let selectedItem = sender.selectedItem
-        UserDefaults.standard.set(selectedItem?.representedObject, forKey: OEGameCoreManagerModePreferenceKey)
+        OEPreferences.shared.set(selectedItem?.representedObject, forKey: OEGameCoreManagerModePreferenceKey)
     }
     
     func changeAppAppearance(_ sender: NSPopUpButton) {
         let selectedItem = sender.selectedItem
-        UserDefaults.standard.set(selectedItem?.representedObject, forKey: OEAppearance.Application.key)
+        OEPreferences.shared.set(selectedItem?.representedObject, forKey: OEAppearance.Application.key)
     }
     
     func changeHUDBarAppearance(_ sender: NSPopUpButton) {
         let selectedItem = sender.selectedItem
-        UserDefaults.standard.set(selectedItem?.representedObject, forKey: OEAppearance.HUDBar.key)
+        OEPreferences.shared.set(selectedItem?.representedObject, forKey: OEAppearance.HUDBar.key)
     }
     
     func changeControlsPrefsAppearance(_ sender: NSPopUpButton) {
         let selectedItem = sender.selectedItem
-        UserDefaults.standard.set(selectedItem?.representedObject, forKey: OEAppearance.ControlsPrefs.key)
+        OEPreferences.shared.set(selectedItem?.representedObject, forKey: OEAppearance.ControlsPrefs.key)
         
         let alert = OEAlert()
         alert.messageText = NSLocalizedString("You need to restart the application to commit the change", comment: "")
@@ -388,7 +389,7 @@ final class PrefDebugController: NSViewController {
     
     func changeColor(_ sender: NSColorWell) {
         let color = sender.color.hexString ?? "#000000"
-        UserDefaults.standard.set(color, forKey: sender.stringValue)
+        OEPreferences.shared.set(color, forKey: sender.stringValue)
     }
     
     // MARK: - HUD Bar / Gameplay
@@ -403,10 +404,10 @@ final class PrefDebugController: NSViewController {
     
     func resetMainWindow(_ sender: Any?) {
         
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "NSWindow Frame LibraryWindow")
-        defaults.removeObject(forKey: "NSSplitView Subview Frames OELibraryGamesSplitView")
-        defaults.removeObject(forKey: OELastGridSizeKey)
+        // Cocoa owns frame autosave; only OpenEmu's grid preference is portable.
+        UserDefaults.standard.removeObject(forKey: "NSWindow Frame LibraryWindow")
+        UserDefaults.standard.removeObject(forKey: "NSSplitView Subview Frames OELibraryGamesSplitView")
+        OEPreferences.shared.removeObject(forKey: OELastGridSizeKey)
         
         let mainWindow = NSApp.windows.first(where: { $0.windowController is MainWindowController })
         
@@ -426,7 +427,7 @@ final class PrefDebugController: NSViewController {
     func updateOpenVGDB(_ sender: Any?) {
         DLog("Removing OpenVGDB update check date and version from user defaults to force update.")
         
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         defaults.removeObject(forKey: OpenVGDB.updateCheckKey)
         defaults.removeObject(forKey: OpenVGDB.versionKey)
         
@@ -453,7 +454,7 @@ final class PrefDebugController: NSViewController {
         var request = URLRequest(url: releasesURL, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
         request.setValue("OpenEmu", forHTTPHeaderField: "User-Agent")
         
-        let task = URLSession.shared.dataTask(with: request) { result, response, error in
+        let task = URLSession.oeShared.dataTask(with: request) { result, response, error in
             
             if let result = result,
                let releases = try? JSONSerialization.jsonObject(with: result, options: .allowFragments) as? [AnyHashable],
@@ -463,12 +464,12 @@ final class PrefDebugController: NSViewController {
                 
                 DispatchQueue.main.async {
                     let request = URLRequest(url: url)
-                    let downloadSession = URLSession(configuration: .default)
+                    let downloadSession = URLSession(configuration: .ephemeral)
                     let downloadTask = downloadSession.downloadTask(with: request) { location, response, error in
                         
                         if let location = location {
                             
-                            let tmpDir = FileManager.default.temporaryDirectory
+                            let tmpDir = URL.oeTemporaryDirectory
                                 .appendingPathComponent("org.openemu.OpenEmu", isDirectory: true)
                                 .appendingPathComponent(UUID().uuidString, isDirectory: true)
                             
@@ -500,7 +501,7 @@ final class PrefDebugController: NSViewController {
     // MARK: - Save States
     
     func restoreSaveStatesDirectory(_ sender: Any?) {
-        UserDefaults.standard.removeObject(forKey: OELibraryDatabase.saveStateFolderURLKey)
+        OEPreferences.shared.removeObject(forKey: OELibraryDatabase.saveStateFolderURLKey)
     }
     
     func cleanupAutoSaveStates(_ sender: Any?) {

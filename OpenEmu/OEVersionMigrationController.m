@@ -25,6 +25,7 @@
  */
 
 #import "OEVersionMigrationController.h"
+#import <OpenEmuBase/OEPreferences.h>
 @import Sparkle.SUStandardVersionComparator;
 #import <objc/message.h>
 
@@ -87,9 +88,10 @@ static OEVersionMigrationController *sDefaultMigrationController = nil;
         DLog();
         [self setVersionComparator:[SUStandardVersionComparator defaultComparator]];
         
-        // We'll cheat here and rely on Sparkle's key
-        isFirstRun  = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SUHasLaunchedBefore"];
-        lastVersion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"OEMigrationLastVersion"] copy];
+        lastVersion = [[[OEPreferences shared] objectForKey:@"OEMigrationLastVersion"] copy];
+        // The data folder's migration history is independent of Sparkle's
+        // machine-local update preferences.
+        isFirstRun = lastVersion == nil;
     }
     return self;
 }
@@ -104,7 +106,7 @@ static OEVersionMigrationController *sDefaultMigrationController = nil;
 {
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     NSString  *mostRecentVersion = lastVersion;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    OEPreferences *userDefaults = [OEPreferences shared];
 
     // Start thread to convert old images to new format
     if([userDefaults boolForKey:OEDBImageMigrateImageFormat])
@@ -136,7 +138,7 @@ static OEVersionMigrationController *sDefaultMigrationController = nil;
 {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     void (^block)(void) = ^{
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        OEPreferences *userDefaults = [OEPreferences shared];
         NSBitmapImageFileType format = OEDBImage.gameArtworkFormat;
         NSDictionary     *attributes = OEDBImage.gameArtworkProperties;
 
@@ -204,7 +206,7 @@ static OEVersionMigrationController *sDefaultMigrationController = nil;
 
     [[database mainThreadContext] save:nil];
 
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:OEDBScreenshot.importRequiredKey];
+    [[OEPreferences shared] removeObjectForKey:OEDBScreenshot.importRequiredKey];
 }
 
 - (void)OE_importScreenShotsFromDirectory:(NSURL*)directory
@@ -290,7 +292,7 @@ static OEVersionMigrationController *sDefaultMigrationController = nil;
         }
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"OEMigrationLastVersion"];    
+    [[OEPreferences shared] setObject:currentVersion forKey:@"OEMigrationLastVersion"];
     
     isRunning = YES;
     

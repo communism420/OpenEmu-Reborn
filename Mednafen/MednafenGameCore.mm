@@ -35,6 +35,7 @@
 #include "mednafen/mempatcher-driver.h"
 
 #import "MednafenGameCore.h"
+#import "OEMednafenPlaylist.h"
 #import <OpenEmuBase/OERingBuffer.h>
 #import <OpenEmuBase/OEGameCoreDisplayModes.h>
 #import <OpenEmuBase/OEMemoryRegionDescriptor.h>
@@ -3239,63 +3240,12 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
 
 # pragma mark - Execution
 
-// Look for sibling .cue/.ccd files in the same folder as `diskPath` and, if exactly `totalDiscs`
-// of them exist, write a sibling .m3u listing them in localized-standard order. Returns the .m3u
-// path on success, or nil if siblings can't be found / counts don't match / write fails.
-//
-// Naming for the generated .m3u strips a trailing "(Disc N)" / "Disc N" segment from the imported
-// file's basename so multiple discs in the same folder produce a stable, shared playlist name.
+// Generated playlists live in this core's managed support directory, not beside
+// the user's ROMs. Existing sibling playlists remain read-only inputs.
 - (NSString *)autogenerateMultiDiscM3UFromPath:(NSString *)diskPath totalDiscs:(NSUInteger)totalDiscs
+                         generatedDiscPaths:(NSArray<NSString *> **)generatedDiscPaths error:(NSError **)error
 {
-    NSString *folder = diskPath.stringByDeletingLastPathComponent;
-    NSError *err = nil;
-    NSArray<NSString *> *folderContents = [NSFileManager.defaultManager contentsOfDirectoryAtPath:folder error:&err];
-    if (!folderContents) {
-        NSLog(@"[Mednafen] Could not read folder for auto-m3u: %@", err);
-        return nil;
-    }
-
-    NSMutableArray<NSString *> *cues = [NSMutableArray array];
-    for (NSString *name in folderContents) {
-        NSString *ext = name.pathExtension.lowercaseString;
-        if ([ext isEqualToString:@"cue"] || [ext isEqualToString:@"ccd"])
-            [cues addObject:name];
-    }
-    [cues sortUsingSelector:@selector(localizedStandardCompare:)];
-
-    if (cues.count != totalDiscs) {
-        NSLog(@"[Mednafen] Auto-m3u skipped: game expects %lu discs but folder has %lu .cue/.ccd files (%@)",
-              (unsigned long)totalDiscs, (unsigned long)cues.count, folder);
-        return nil;
-    }
-
-    NSString *baseName = [diskPath.lastPathComponent stringByDeletingPathExtension];
-    NSRegularExpression *cleanup = [NSRegularExpression regularExpressionWithPattern:@"\\s*\\(?\\s*Disc\\s*\\d+\\s*\\)?\\s*"
-                                                                             options:NSRegularExpressionCaseInsensitive
-                                                                               error:nil];
-    NSString *cleanedBase = [cleanup stringByReplacingMatchesInString:baseName
-                                                              options:0
-                                                                range:NSMakeRange(0, baseName.length)
-                                                         withTemplate:@""];
-    cleanedBase = [cleanedBase stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-    if (cleanedBase.length == 0)
-        cleanedBase = baseName;
-    NSString *m3uPath = [folder stringByAppendingPathComponent:[cleanedBase stringByAppendingPathExtension:@"m3u"]];
-
-    if ([NSFileManager.defaultManager fileExistsAtPath:m3uPath]) {
-        NSLog(@"[Mednafen] Auto-m3u already exists, reusing: %@", m3uPath);
-        return m3uPath;
-    }
-
-    NSString *m3uContents = [[cues componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"];
-    NSError *writeError = nil;
-    if (![m3uContents writeToFile:m3uPath atomically:YES encoding:NSUTF8StringEncoding error:&writeError]) {
-        NSLog(@"[Mednafen] Failed to write auto-m3u at %@: %@", m3uPath, writeError);
-        return nil;
-    }
-
-    NSLog(@"[Mednafen] Auto-generated %lu-disc m3u: %@", (unsigned long)cues.count, m3uPath);
-    return m3uPath;
+    return OEMednafenCreateMultiDiscPlaylist(diskPath, totalDiscs, self.supportDirectory, generatedDiscPaths, error);
 }
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
@@ -3324,7 +3274,8 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
     // Parse number of discs in m3u
     if([path.pathExtension.lowercaseString isEqualToString:@"m3u"])
     {
-        NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:error];
+        if (!m3uString) return NO;
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue|.*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
         NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
 
@@ -3337,7 +3288,7 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
             NSRange range = result.range;
             NSString *match = [m3uString substringWithRange:range];
 
-            if([match containsString:@".cue"])
+            if([match.pathExtension.lowercaseString isEqualToString:@"cue"])
                 [_allCueSheetFiles addObject:[m3uString substringWithRange:range]];
         }];
     }
@@ -3352,27 +3303,55 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
     // Auto-generate an .m3u for multi-disc PSX games loaded via a single .cue/.ccd, when all sibling
     // discs are present in the same folder. Mednafen requires .m3u for multi-disc to keep save files
     // and disc-swap state coherent (#294).
+    NSArray<NSString *> *generatedDiscPaths = nil;
     if ([_mednafenCoreModule isEqualToString:@"psx"]
         && _isMultiDiscGame
         && ![path.pathExtension.lowercaseString isEqualToString:@"m3u"])
     {
-        NSString *autoM3UPath = [self autogenerateMultiDiscM3UFromPath:path totalDiscs:_multiDiscTotal];
+        NSError *playlistError = nil;
+        NSString *autoM3UPath = [self autogenerateMultiDiscM3UFromPath:path totalDiscs:_multiDiscTotal
+                                                generatedDiscPaths:&generatedDiscPaths error:&playlistError];
         if (autoM3UPath) {
             path = autoM3UPath;
-            // Re-populate _allCueSheetFiles from the new .m3u so SBI handling below sees the cue list.
+            // The generated list already contains absolute paths. A user's
+            // existing playlist keeps its ordinary relative-path interpretation.
             [_allCueSheetFiles removeAllObjects];
-            NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-            NSRegularExpression *cueRegex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue|.*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
-            [cueRegex enumerateMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                NSString *match = [m3uString substringWithRange:result.range];
-                if ([match containsString:@".cue"])
-                    [_allCueSheetFiles addObject:match];
-            }];
+            if (generatedDiscPaths) {
+                for (NSString *discPath in generatedDiscPaths) {
+                    if ([discPath.pathExtension.lowercaseString isEqualToString:@"cue"])
+                        [_allCueSheetFiles addObject:discPath];
+                }
+            } else {
+                NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:error];
+                if (!m3uString) return NO;
+                NSRegularExpression *cueRegex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue|.*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
+                [cueRegex enumerateMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                    NSString *match = [m3uString substringWithRange:result.range];
+                    if ([match.pathExtension.lowercaseString isEqualToString:@"cue"])
+                        [_allCueSheetFiles addObject:match];
+                }];
+            }
             _maxDiscs = _multiDiscTotal;
+        } else if (playlistError) {
+            NSLog(@"[Mednafen] Could not create a multi-disc playlist: %@", playlistError);
+            if (error) *error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
+                NSLocalizedDescriptionKey: @"Could not prepare the multi-disc playlist.",
+                NSLocalizedRecoverySuggestionErrorKey: @"Make sure all discs are in the same folder and the chosen OpenEmu data folder is available and writable.",
+                NSUnderlyingErrorKey: playlistError
+            }];
+            return NO;
         }
     }
 
-    game = MDFNI_LoadGame(_mednafenCoreModule.UTF8String, &::Mednafen::NVFS, path.fileSystemRepresentation);
+    if (generatedDiscPaths) {
+        // Only our freshly validated list may bypass M3U path parsing. Loading
+        // each CUE/CCD still uses NVFS and its normal file-inclusion checks.
+        std::vector<std::string> discs;
+        for (NSString *discPath in generatedDiscPaths) discs.emplace_back(discPath.fileSystemRepresentation);
+        game = MDFNI_LoadGameFromGeneratedPlaylist(_mednafenCoreModule.UTF8String, path.fileSystemRepresentation, discs);
+    } else {
+        game = MDFNI_LoadGame(_mednafenCoreModule.UTF8String, &::Mednafen::NVFS, path.fileSystemRepresentation);
+    }
 
     if(!game)
         return NO;
@@ -3458,8 +3437,6 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
         // Handle required SBI files for games
         if(_isSBIRequired && _allCueSheetFiles.count && ([path.pathExtension.lowercaseString isEqualToString:@"cue"] || [path.pathExtension.lowercaseString isEqualToString:@"m3u"]))
         {
-            NSURL *romPath = [NSURL fileURLWithPath:path.stringByDeletingLastPathComponent];
-
             BOOL missingFileStatus = NO;
             NSUInteger missingFileCount = 0;
             NSMutableString *missingFilesList = [NSMutableString string];
@@ -3467,8 +3444,8 @@ static uint32_t mednafen_rc_read_memory(uint32_t address, uint8_t *buffer,
             // Build a path to SBI file and check if it exists
             for(NSString *cueSheetFile in _allCueSheetFiles)
             {
-                NSString *extensionlessFilename = cueSheetFile.stringByDeletingPathExtension;
-                NSURL *sbiFile = [romPath URLByAppendingPathComponent:[extensionlessFilename stringByAppendingPathExtension:@"sbi"]];
+                NSString *extensionlessFilename = cueSheetFile.lastPathComponent.stringByDeletingPathExtension;
+                NSURL *sbiFile = OEMednafenSBIURLForCueSheet(cueSheetFile, path);
 
                 // Check if the required SBI files exist
                 if(![sbiFile checkResourceIsReachableAndReturnError:nil])

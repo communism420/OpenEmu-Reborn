@@ -23,13 +23,14 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 
 /// The main object used for managing shaders and parameters assigned to a system.
 @objc public class OESystemShaderStore: NSObject {
-    private let store: UserDefaults
+    private let store: OEPreferencesStore
     private let shaders: OEShaderStore
     
-    public init(store: UserDefaults, shaders: OEShaderStore) {
+    public init(store: OEPreferencesStore, shaders: OEShaderStore) {
         self.store      = store
         self.shaders    = shaders
         
@@ -96,18 +97,7 @@ import Foundation
     }
 }
 
-protocol ShaderModelStore {
-    /// Read the customised shader parameters for the shader and system identifer.
-    func read(parametersForShader name: String, identifier: String) -> String?
-    
-    /// Write the customised shader parameters for the shader and system identifer.
-    func write(parameters params: String, forShader name: String, identifier: String)
-    
-    /// Remove the customised shader parameters for the shader and system identifer.
-    func remove(parametersForShader name: String, identifier: String)
-}
-
-extension UserDefaults: ShaderModelStore {
+extension OEPreferencesStore {
     func read(parametersForShader name: String, identifier: String) -> String? {
         string(forKey: makeSystemKey(name, identifier))
     }
@@ -128,9 +118,9 @@ extension UserDefaults: ShaderModelStore {
 @objc public class OESystemShaderModel: NSObject {
     public let shader: OEShaderModel
     public let system: String
-    let store: ShaderModelStore
+    let store: OEPreferencesStore
     
-    init(shader: OEShaderModel, identifier: String, store: ShaderModelStore) {
+    init(shader: OEShaderModel, identifier: String, store: OEPreferencesStore) {
         self.shader = shader
         self.system = identifier
         self.store  = store

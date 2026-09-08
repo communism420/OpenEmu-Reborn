@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuSystem
 
 final class ControlsButtonSetupView: NSView {
@@ -321,7 +322,7 @@ final class ControlsButtonSetupView: NSView {
         var newKey: String?
         
         if i + 1 >= orderedKeys.count {
-            if UserDefaults.standard.bool(forKey: Self.controlsButtonHighlightRollsOver) {
+            if OEPreferences.shared.bool(forKey: Self.controlsButtonHighlightRollsOver) {
                 newKey = orderedKeys[0]
             }
         } else {
@@ -339,7 +340,7 @@ final class ControlsButtonSetupView: NSView {
         var newKey: String?
         
         if i + 1 >= orderedKeys.count {
-            if UserDefaults.standard.bool(forKey: Self.controlsButtonHighlightRollsOver) {
+            if OEPreferences.shared.bool(forKey: Self.controlsButtonHighlightRollsOver) {
                 newKey = orderedKeys[0]
             }
         } else {

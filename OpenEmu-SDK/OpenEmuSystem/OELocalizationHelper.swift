@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 
 @objc
 @objcMembers
@@ -63,11 +64,11 @@ public class OELocalizationHelper: NSObject {
         super.init()
         updateRegion()
         
-        UserDefaults.standard.addObserver(self, forKeyPath: Self.OERegionKey, options: [], context: nil)
+        OEPreferences.shared.addObserver(self, forKeyPath: Self.OERegionKey, options: [], context: nil)
     }
     
     deinit {
-        UserDefaults.standard.removeObserver(self, forKeyPath: Self.OERegionKey)
+        OEPreferences.shared.removeObserver(self, forKeyPath: Self.OERegionKey)
     }
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -75,7 +76,7 @@ public class OELocalizationHelper: NSObject {
     }
     
     private func updateRegion() {
-        if let value = UserDefaults.standard.value(forKey: Self.OERegionKey) as? Int {
+        if let value = OEPreferences.shared.value(forKey: Self.OERegionKey) as? Int {
             region = OELocalizationHelper.OERegion(rawValue: value) ?? .other
         }
         else if let regionCode = Locale.current.regionCode {

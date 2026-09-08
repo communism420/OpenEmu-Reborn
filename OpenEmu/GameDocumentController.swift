@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuKit
 
 @objc
@@ -158,7 +159,7 @@ class GameDocumentController: NSDocumentController {
 
             if let document = document as? OEGameDocument {
 
-                let fullScreen = UserDefaults.standard.bool(forKey: OEFullScreenGameWindowKey)
+                let fullScreen = OEPreferences.shared.bool(forKey: OEFullScreenGameWindowKey)
                 self.setUpGameDocument(document, display: true, fullScreen: fullScreen, completionHandler: nil)
             }
             

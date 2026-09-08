@@ -191,6 +191,6 @@
             </constraints>
             <point key="canvasLocation" x="390" y="598"/>
         </view>
-        <userDefaultsController id="28" userLabel="Shared User Defaults Controller"/>
+        <customObject id="28" userLabel="OpenEmu Preferences" customClass="OEPreferencesController"/>
     </objects>
 </document>

@@ -131,7 +131,7 @@ DQ
             </constraints>
             <point key="canvasLocation" x="-234" y="-253.5"/>
         </visualEffectView>
-        <userDefaultsController representsSharedInstance="YES" id="bTF-7U-evr"/>
+        <customObject id="bTF-7U-evr" customClass="OEPreferencesController"/>
     </objects>
     <resources>
         <image name="list_indicator_missing" width="12" height="12"/>

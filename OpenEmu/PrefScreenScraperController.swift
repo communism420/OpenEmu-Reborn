@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -179,7 +180,7 @@ final class PrefScreenScraperController: NSViewController {
     // MARK: - Credential Management
 
     private func loadSavedCredentials() {
-        usernameField.stringValue = UserDefaults.standard.string(forKey: "ScreenScraperUsername") ?? ""
+        usernameField.stringValue = OEPreferences.shared.string(forKey: "ScreenScraperUsername") ?? ""
         // Password is stored encrypted — show placeholder only, don't pre-fill for security
         if OECredentialStore.shared.has(.screenScraperPassword) {
             passwordField.placeholderString = "••••••••  (saved)"
@@ -187,7 +188,7 @@ final class PrefScreenScraperController: NSViewController {
     }
 
     private func updateStatus() {
-        let username = UserDefaults.standard.string(forKey: "ScreenScraperUsername") ?? ""
+        let username = OEPreferences.shared.string(forKey: "ScreenScraperUsername") ?? ""
         let isSignedIn = !username.isEmpty && OECredentialStore.shared.has(.screenScraperPassword)
 
         if isSignedIn {
@@ -255,7 +256,7 @@ final class PrefScreenScraperController: NSViewController {
             return
         }
 
-        UserDefaults.standard.set(username, forKey: "ScreenScraperUsername")
+        OEPreferences.shared.set(username, forKey: "ScreenScraperUsername")
         OECredentialStore.shared.set(password, forKey: .screenScraperPassword)
         passwordField.stringValue = ""
         passwordField.placeholderString = "••••••••  (saved)"
@@ -287,7 +288,7 @@ final class PrefScreenScraperController: NSViewController {
     }
 
     @objc private func clearCredentials() {
-        UserDefaults.standard.removeObject(forKey: "ScreenScraperUsername")
+        OEPreferences.shared.removeObject(forKey: "ScreenScraperUsername")
         OECredentialStore.shared.remove(.screenScraperPassword)
         usernameField.stringValue = ""
         passwordField.stringValue = ""
@@ -311,5 +312,4 @@ extension PrefScreenScraperController: PreferencePane {
 
     var viewSize: NSSize { NSSize(width: 468, height: 360) }
 }
-
 

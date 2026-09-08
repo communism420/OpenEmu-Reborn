@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuKit
 
 let OEForcePopoutGameWindowKey = "forcePopout"
@@ -176,7 +177,7 @@ final class MainWindowController: NSWindowController {
     }
     
     private func setUpCurrentContentController() {
-        if !UserDefaults.standard.bool(forKey: SetupAssistant.hasFinishedKey) {
+        if !OEPreferences.shared.bool(forKey: SetupAssistant.hasFinishedKey) {
             let setupAssistant = SetupAssistant()
             setupAssistant.completionBlock = {
                 self.currentContentController = self.libraryController
@@ -268,7 +269,7 @@ extension MainWindowController: LibraryControllerDelegate {
         if isLaunchingGame { return }
         isLaunchingGame = true
         
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         let openInSeparateWindow = mainWindowRunsGame || defaults.bool(forKey: OEForcePopoutGameWindowKey)
         let fullScreen = defaults.bool(forKey: OEFullScreenGameWindowKey)
         

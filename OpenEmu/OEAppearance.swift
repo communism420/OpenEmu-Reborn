@@ -22,6 +22,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import OpenEmuBase
+
 enum OEAppearance {
     
     enum Application: Int {
@@ -40,14 +42,14 @@ enum OEAppearance {
     }
     
     static var application: Application {
-        Application(rawValue: UserDefaults.standard.integer(forKey: Application.key)) ?? .dark
+        Application(rawValue: OEPreferences.shared.integer(forKey: Application.key)) ?? .dark
     }
     
     static var hudBar: HUDBar {
-        HUDBar(rawValue: UserDefaults.standard.integer(forKey: HUDBar.key)) ?? .dark
+        HUDBar(rawValue: OEPreferences.shared.integer(forKey: HUDBar.key)) ?? .dark
     }
     
     static var controlsPrefs: ControlsPrefs {
-        ControlsPrefs(rawValue: UserDefaults.standard.integer(forKey: ControlsPrefs.key)) ?? .vibrant
+        ControlsPrefs(rawValue: OEPreferences.shared.integer(forKey: ControlsPrefs.key)) ?? .vibrant
     }
 }

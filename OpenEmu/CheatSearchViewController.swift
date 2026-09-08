@@ -191,7 +191,7 @@ final class CheatSearchViewController: NSViewController {
     // MARK: - Persist / Restore Selections
 
     private func restoreSavedSelections() {
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
 
         let dataSize = defaults.integer(forKey: Self.dataSizeKey)
         if dataSize >= 0 && dataSize < dataSizeCombo.numberOfItems {
@@ -916,12 +916,12 @@ final class CheatSearchViewController: NSViewController {
         if tag >= Self.dataTypeTagBase && tag < Self.compareToTagBase {
             let index = tag - Self.dataTypeTagBase
             selectRadio(in: dataTypeRadios, index: index)
-            UserDefaults.standard.set(index, forKey: Self.dataTypeKey)
+            OEPreferences.shared.set(index, forKey: Self.dataTypeKey)
             reloadTable()
         } else if tag >= Self.compareToTagBase && tag < Self.compareToTagBase + 100 {
             let index = tag - Self.compareToTagBase
             selectRadio(in: compareToRadios, index: index)
-            UserDefaults.standard.set(index, forKey: Self.compareToKey)
+            OEPreferences.shared.set(index, forKey: Self.compareToKey)
         }
     }
 
@@ -929,7 +929,7 @@ final class CheatSearchViewController: NSViewController {
 
     @objc private func dataSizeChanged(_ sender: Any?) {
         guard !isRebuildingCombo else { return }
-        UserDefaults.standard.set(dataSizeCombo.indexOfSelectedItem, forKey: Self.dataSizeKey)
+        OEPreferences.shared.set(dataSizeCombo.indexOfSelectedItem, forKey: Self.dataSizeKey)
         reloadTable()
     }
 
@@ -958,7 +958,7 @@ final class CheatSearchViewController: NSViewController {
     }
 
     @objc private func comparisonChanged(_ sender: Any?) {
-        UserDefaults.standard.set(comparisonCombo.indexOfSelectedItem, forKey: Self.comparisonKey)
+        OEPreferences.shared.set(comparisonCombo.indexOfSelectedItem, forKey: Self.comparisonKey)
     }
 
     /// Update enabled state of Stored/Previous radios and Store Values button
@@ -975,7 +975,7 @@ final class CheatSearchViewController: NSViewController {
         let selectedIdx = compareToRadios.firstIndex(where: { $0.state == .on }) ?? 0
         if !compareToRadios[selectedIdx].isEnabled {
             selectRadio(in: compareToRadios, index: CompareTo.thisValue.rawValue)
-            UserDefaults.standard.set(CompareTo.thisValue.rawValue, forKey: Self.compareToKey)
+            OEPreferences.shared.set(CompareTo.thisValue.rawValue, forKey: Self.compareToKey)
         }
     }
 

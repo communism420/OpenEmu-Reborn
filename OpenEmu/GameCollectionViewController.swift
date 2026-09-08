@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -176,7 +177,7 @@ extension GameCollectionViewController: CollectionViewExtendedDelegate, NSMenuIt
         }
         else {
             // FIXME: starting multiple games only starts the first of the selected games
-            /*if UserDefaults.standard.bool(forKey: OEForcePopoutGameWindowKey) {
+            /*if OEPreferences.shared.bool(forKey: OEForcePopoutGameWindowKey) {
                 menu.addItem(withTitle: NSLocalizedString("Play Games (Caution)", comment: ""),
                              action: #selector(LibraryController.startSelectedGame(_:)),
                              keyEquivalent: "")

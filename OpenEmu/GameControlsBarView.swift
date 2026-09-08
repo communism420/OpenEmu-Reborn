@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -122,7 +123,7 @@ final class GameControlsBarView: NSView {
         volume.isContinuous = true
         volume.minValue = 0
         volume.maxValue = 1
-        volume.floatValue = UserDefaults.standard.float(forKey: OEGameVolumeKey)
+        volume.floatValue = OEPreferences.shared.float(forKey: OEGameVolumeKey)
         volume.action = #selector(OEGameDocument.changeVolume(_:))
         volume.toolTip = NSLocalizedString("Change Volume", comment: "HUD bar, tooltip")
         addSubview(volume)

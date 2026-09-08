@@ -64,7 +64,7 @@ final class CoreDownload: NSObject {
         
         assert(downloadSession == nil, "There shouldn't be a previous download session.")
         
-        let downloadSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        let downloadSession = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: .main)
         downloadSession.sessionDescription = bundleIdentifier
         self.downloadSession = downloadSession
         pendingFinish = false
@@ -146,8 +146,8 @@ extension CoreDownload: URLSessionDownloadDelegate {
         let stagingDirectory = coresFolder.appendingPathComponent(".CoreDownload-\(UUID().uuidString)", isDirectory: true)
 
         do {
-            try fileManager.createDirectory(at: coresFolder, withIntermediateDirectories: true)
-            try fileManager.createDirectory(at: stagingDirectory, withIntermediateDirectories: false)
+            try fileManager.oeCreateDirectory(at: coresFolder, withIntermediateDirectories: true)
+            try fileManager.oeCreateDirectory(at: stagingDirectory, withIntermediateDirectories: false)
 
             guard ArchiveHelper.decompressFileInArchive(at: location, toDirectory: stagingDirectory) != nil else {
                 throw CoreDownloadError.invalidArchive

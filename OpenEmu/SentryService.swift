@@ -25,6 +25,7 @@
  */
 
 import Cocoa
+import OpenEmuBase
 import Sentry
 
 enum SentryService {
@@ -52,7 +53,7 @@ enum SentryService {
     private static let consentKey    = "OEIntelSentryCrashReportingEnabled"
     private static let hasPromptedKey = "OEIntelSentryCrashReportingPrompted"
 
-    // Game-context keys mirrored into CFPreferences so the helper process
+    // Game-context keys saved in Settings.plist so the helper process
     // (which crashes most often) can attach the same context to its events.
     private static let ctxGameKey   = "OESentryActiveGame"
     private static let ctxSystemKey = "OESentryActiveSystem"
@@ -64,7 +65,7 @@ enum SentryService {
     static func configureIfNeeded() {
         guard dsn != nil else { return }
 
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
 
         if !defaults.bool(forKey: hasPromptedKey) {
             showConsentPrompt()
@@ -88,10 +89,8 @@ enum SentryService {
                 "core": coreIdentifier,
             ], key: "emulation")
         }
-        // Mirror into CFPrefs so the helper process picks up the same context
-        // when it starts Sentry. Synchronize forces the write to disk before
-        // the helper launches.
-        let defaults = UserDefaults.standard
+        // Save before the helper starts. File-backed setters are synchronous.
+        let defaults = OEPreferences.shared
         defaults.set(gameName,         forKey: ctxGameKey)
         defaults.set(systemIdentifier, forKey: ctxSystemKey)
         defaults.set(coreIdentifier,   forKey: ctxCoreKey)
@@ -103,7 +102,7 @@ enum SentryService {
         SentrySDK.configureScope { scope in
             scope.removeContext(key: "emulation")
         }
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         defaults.removeObject(forKey: ctxGameKey)
         defaults.removeObject(forKey: ctxSystemKey)
         defaults.removeObject(forKey: ctxCoreKey)
@@ -168,7 +167,7 @@ enum SentryService {
     }
 
     private static func persistConsent(_ opted: Bool) {
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         defaults.set(opted, forKey: consentKey)
         defaults.set(true,  forKey: hasPromptedKey)
         if opted { start() }
@@ -180,6 +179,7 @@ enum SentryService {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
         let build   = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         SentrySDK.start { options in
+            options.cacheDirectoryPath = OEStoragePaths.cachesURL.appendingPathComponent("Sentry/App", isDirectory: true).path
             options.dsn              = dsn
             options.debug            = false
             options.releaseName      = "\(releasePrefix)@\(version)+\(build)"

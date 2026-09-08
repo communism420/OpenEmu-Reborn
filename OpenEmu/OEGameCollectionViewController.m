@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2014, OpenEmu Team
+#import <OpenEmuBase/OEPreferences.h>
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -69,7 +70,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     [super viewDidLoad];
     
     // Restore grid/list view mode.
-    OECollectionViewControllerViewTag tag = [[NSUserDefaults standardUserDefaults] integerForKey:OELastCollectionViewKey];
+    OECollectionViewControllerViewTag tag = [[OEPreferences shared] integerForKey:OELastCollectionViewKey];
     self.selectedViewTag = tag != -1 ? tag : 0;
 
     [[self listView] setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
@@ -196,7 +197,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
         [archivableRepresentations addObject:representation];
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:archivableRepresentations forKey:OESelectedGamesKey];
+    [[OEPreferences shared] setObject:archivableRepresentations forKey:OESelectedGamesKey];
     
     [NSNotificationCenter.defaultCenter postNotificationName:OEGameCollectionViewControllerDidSetSelectionIndexesNotification object:self];
 }
@@ -221,7 +222,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     [self _validateToolbarItems];
     
     if (tag != OEBlankSlateTag)
-        [[NSUserDefaults standardUserDefaults] setInteger:self.selectedViewTag forKey:OELastCollectionViewKey];
+        [[OEPreferences shared] setInteger:self.selectedViewTag forKey:OELastCollectionViewKey];
 }
 
 #pragma mark -
@@ -247,7 +248,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     NSManagedObjectContext *context = self.database.mainThreadContext;
     NSPersistentStoreCoordinator *persistentStoreCoordinator = context.persistentStoreCoordinator;
     NSMutableIndexSet *gameIndexesToSelect = [NSMutableIndexSet indexSet];
-    for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:OESelectedGamesKey]) {
+    for (NSData *data in [[OEPreferences shared] objectForKey:OESelectedGamesKey]) {
         
         NSURL *representation = [NSKeyedUnarchiver unarchivedObjectOfClass:NSURL.class fromData:data error:nil];
         
@@ -795,7 +796,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     else
     {
         // FIXME: starting multiple games only starts the first of the selected games
-        //if([[NSUserDefaults standardUserDefaults] boolForKey:OEForcePopoutGameWindowKey])
+        //if([[OEPreferences shared] boolForKey:OEForcePopoutGameWindowKey])
         //{
         //    [menu addItemWithTitle:NSLocalizedString(@"Play Games (Caution)", @"") action:@selector(startSelectedGame:) keyEquivalent:@""];
         //}
@@ -1090,7 +1091,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     
     if (self.listView.sortDescriptors.count == 0)
     {
-        NSData *savedSortDescriptors = [NSUserDefaults.standardUserDefaults dataForKey:OEGameTableSortDescriptorsKey];
+        NSData *savedSortDescriptors = [OEPreferences.shared dataForKey:OEGameTableSortDescriptorsKey];
         
         if (savedSortDescriptors != nil)
         {
@@ -1135,7 +1136,7 @@ static NSString * const OEGameTableSortDescriptorsKey = @"OEGameTableSortDescrip
     [[self listView] reloadData];
     
     NSData *sortDescriptors = [NSKeyedArchiver archivedDataWithRootObject:self.listView.sortDescriptors requiringSecureCoding:YES error:nil];
-    [NSUserDefaults.standardUserDefaults setObject:sortDescriptors forKey:OEGameTableSortDescriptorsKey];
+    [OEPreferences.shared setObject:sortDescriptors forKey:OEGameTableSortDescriptorsKey];
 }
 
 #pragma mark - TableView Drag and Drop

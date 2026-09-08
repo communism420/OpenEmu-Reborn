@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Foundation
 
@@ -35,12 +36,12 @@ import Foundation
     init(_ key: Key, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
-        UserDefaults.standard.register(defaults: [key.rawValue: defaultValue])
+        OEPreferences.shared.register(defaults: [key.rawValue: defaultValue])
     }
 
     var wrappedValue: T {
-        get { UserDefaults.standard.value(forKey: key.rawValue) as? T ?? defaultValue }
-        set { UserDefaults.standard.set(newValue, forKey: key.rawValue) }
+        get { OEPreferences.shared.value(forKey: key.rawValue) as? T ?? defaultValue }
+        set { OEPreferences.shared.set(newValue, forKey: key.rawValue) }
     }
     
     // MARK: - Observation
@@ -62,7 +63,7 @@ import Foundation
             self.cb  = cb
             super.init()
             
-            UserDefaults.standard.addObserver(self, forKeyPath: key.rawValue, options: [.old, .new], context: nil)
+            OEPreferences.shared.addObserver(self, forKeyPath: key.rawValue, options: [.old, .new], context: nil)
         }
         
         override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -72,7 +73,7 @@ import Foundation
         }
         
         deinit {
-            UserDefaults.standard.removeObserver(self, forKeyPath: key.rawValue, context: nil)
+            OEPreferences.shared.removeObserver(self, forKeyPath: key.rawValue, context: nil)
         }
     }
 }

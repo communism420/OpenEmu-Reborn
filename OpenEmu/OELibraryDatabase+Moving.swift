@@ -21,13 +21,14 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Foundation
 
 extension OELibraryDatabase {
     
     func moveGameLibraryToDefaultLocation() {
-        let defaultDatabasePath = (UserDefaults.standard.string(forKey: OELibraryDatabase.defaultDatabasePathKey)! as NSString).expandingTildeInPath
+        let defaultDatabasePath = (OEPreferences.shared.string(forKey: OELibraryDatabase.defaultDatabasePathKey)! as NSString).expandingTildeInPath
         let location = URL(fileURLWithPath: defaultDatabasePath, isDirectory: true).deletingLastPathComponent()
         
         moveGameLibrary(to: location)

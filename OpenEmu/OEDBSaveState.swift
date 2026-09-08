@@ -159,7 +159,7 @@ final class OEDBSaveState: OEDBItem {
                 if i != 0 {
                     fileName = "SaveState \(i).\(bundleExtension)"
                 }
-                return FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: true)
+                return URL.oeTemporaryDirectory.appendingPathComponent(fileName, isDirectory: true)
             }
             
             var temporaryURL: URL
@@ -210,7 +210,7 @@ final class OEDBSaveState: OEDBItem {
             return nil
         }
         
-        let temporaryURL = FileManager.default.temporaryDirectory
+        let temporaryURL = URL.oeTemporaryDirectory
             .appendingPathComponent("org.openemu.openemu", isDirectory: true)
             .appendingPathComponent("SaveState.\(bundleExtension)", isDirectory: true)
         
@@ -222,7 +222,7 @@ final class OEDBSaveState: OEDBItem {
         saveState.url = temporaryURL
         
         do {
-            try FileManager.default.createDirectory(at: temporaryURL, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.oeCreateDirectory(at: temporaryURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
             DLog("Could not create save state bundle!")
             DLog("\(error)")
@@ -319,6 +319,7 @@ final class OEDBSaveState: OEDBItem {
         }
         
         do {
+            try FileManager.default.oeCreateDirectory(at: url, withIntermediateDirectories: true)
             try infoPlist.write(to: infoPlistURL)
         } catch {
             DLog("Unable to write Info.plist file!")
@@ -434,6 +435,14 @@ final class OEDBSaveState: OEDBItem {
     @discardableResult
     func replaceStateFileWithFile(at stateFileURL: URL) -> Bool {
         do {
+            // Check before deleting or replacing anything in an existing
+            // bundle; a disconnected folder or symlink is not a new location.
+            try FileManager.default.oeCreateDirectory(at: url, withIntermediateDirectories: true)
+        } catch {
+            DLog("Could not access the save state folder: \(error)")
+            return false
+        }
+        do {
             try FileManager.default.removeItem(at: dataFileURL)
         } catch {
             DLog("Could not delete previous state file!")
@@ -496,6 +505,9 @@ final class OEDBSaveState: OEDBItem {
         }
         
         do {
+            // The path getters preserve their non-throwing API, so repeat the
+            // guarded directory check here and propagate a failure to callers.
+            try FileManager.default.oeCreateDirectory(at: saveStateDirectoryURL, withIntermediateDirectories: true)
             try FileManager.default.moveItem(at: currentURL, to: url)
         } catch {
             DLog("Could not move save state to new location!")

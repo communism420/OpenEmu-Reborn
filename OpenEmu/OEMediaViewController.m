@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2013, OpenEmu Team
+#import <OpenEmuBase/OEPreferences.h>
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -120,7 +121,7 @@ static NSString * const OESelectedMediaKey = @"_OESelectedMediaKey";
     NSMutableIndexSet *mediaItemsToSelect = [NSMutableIndexSet indexSet];
     NSString *defaultsKey = [self.OE_entityName stringByAppendingString:OESelectedMediaKey];
     
-    for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey]) {
+    for (NSData *data in [[OEPreferences shared] objectForKey:defaultsKey]) {
         
         NSURL *representation = [NSKeyedUnarchiver unarchivedObjectOfClass:NSURL.class fromData:data error:nil];
         
@@ -312,7 +313,7 @@ static NSString * const OESelectedMediaKey = @"_OESelectedMediaKey";
     }
 
     NSString *defaultsKey = [[self OE_entityName] stringByAppendingString:OESelectedMediaKey];
-    [[NSUserDefaults standardUserDefaults] setObject:archivableRepresentations forKey:defaultsKey];
+    [[OEPreferences shared] setObject:archivableRepresentations forKey:defaultsKey];
     
     [self refreshPreviewPanelIfNeeded];
 }

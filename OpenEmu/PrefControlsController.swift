@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import Carbon.HIToolbox.Events
 import OpenEmuSystem
 import OpenEmuKit
@@ -62,7 +63,7 @@ final class PrefControlsController: NSViewController {
         set {
             if selectedPlayer != newValue {
                 _selectedPlayer = newValue
-                UserDefaults.standard.set(selectedPlayer, forKey: lastControlsPlayerKey)
+                OEPreferences.shared.set(selectedPlayer, forKey: lastControlsPlayerKey)
                 playerPopupButton.selectItem(withTag: Int(selectedPlayer))
                 updateInputPopupButtonSelection()
             }
@@ -138,7 +139,7 @@ final class PrefControlsController: NSViewController {
         // Restore previous state.
         changeInputDevice(nil)
         
-        let pluginName = UserDefaults.standard.string(forKey: lastControlsPluginIdentifierKey)
+        let pluginName = OEPreferences.shared.string(forKey: lastControlsPluginIdentifierKey)
         consolesPopupButton.selectItem(at: 0)
         let itemIndex = consolesPopupButton.indexOfItem(withRepresentedObject: pluginName)
         if itemIndex != -1 {
@@ -303,7 +304,7 @@ final class PrefControlsController: NSViewController {
         
         playerPopupButton.menu = playerMenu
         
-        playerPopupButton.selectItem(withTag: UserDefaults.standard.integer(forKey: lastControlsPlayerKey))
+        playerPopupButton.selectItem(withTag: OEPreferences.shared.integer(forKey: lastControlsPlayerKey))
     }
     
     private func setUpInputMenu() {
@@ -344,13 +345,13 @@ final class PrefControlsController: NSViewController {
     }
     
     private func updateInputPopupButtonSelection() {
-        let keyboardIsSelected = UserDefaults.standard.bool(forKey: keyboardBindingsIsSelectedKey)
+        let keyboardIsSelected = OEPreferences.shared.bool(forKey: keyboardBindingsIsSelectedKey)
         
         let currentDeviceHandler = currentSystemBindings?.devicePlayerBindings(forPlayer: selectedPlayer)?.deviceHandler
         let representedObject = (keyboardIsSelected || currentDeviceHandler == nil) ? keyboardMenuItemRepresentedObject as NSString : currentDeviceHandler
         
         if !keyboardIsSelected && currentDeviceHandler == nil {
-            UserDefaults.standard.set(true, forKey: keyboardBindingsIsSelectedKey)
+            OEPreferences.shared.set(true, forKey: keyboardBindingsIsSelectedKey)
         }
         
         for item in inputPopupButton.itemArray {
@@ -429,7 +430,7 @@ final class PrefControlsController: NSViewController {
     
     @IBAction func changeSystem(_ sender: Any?) {
         let menuItem = consolesPopupButton.selectedItem
-        let systemIdentifier = menuItem?.representedObject as? String ?? UserDefaults.standard.string(forKey: lastControlsPluginIdentifierKey)
+        let systemIdentifier = menuItem?.representedObject as? String ?? OEPreferences.shared.string(forKey: lastControlsPluginIdentifierKey)
         
         var newPlugin = OESystemPlugin.systemPlugin(forIdentifier: systemIdentifier!)
         if newPlugin == nil {
@@ -473,7 +474,7 @@ final class PrefControlsController: NSViewController {
             }
         }
         
-        UserDefaults.standard.set(systemIdentifier, forKey: lastControlsPluginIdentifierKey)
+        OEPreferences.shared.set(systemIdentifier, forKey: lastControlsPluginIdentifierKey)
         
         changePlayer(playerPopupButton)
         changeInputDevice(inputPopupButton)
@@ -496,7 +497,7 @@ final class PrefControlsController: NSViewController {
         willChangeValue(forKey: "currentPlayerBindings")
         
         let isSelectingKeyboard = representedObject as? String == keyboardMenuItemRepresentedObject
-        UserDefaults.standard.set(isSelectingKeyboard, forKey: keyboardBindingsIsSelectedKey)
+        OEPreferences.shared.set(isSelectingKeyboard, forKey: keyboardBindingsIsSelectedKey)
         
         if !isSelectingKeyboard {
             guard let deviceHandler = representedObject as? OEDeviceHandler
@@ -584,7 +585,7 @@ final class PrefControlsController: NSViewController {
     private func setCurrentBindings(for event: OEHIDEvent) {
         willChangeValue(forKey: "currentPlayerBindings")
         let isKeyboardEvent = event.type == .keyboard
-        UserDefaults.standard.set(isKeyboardEvent, forKey: keyboardBindingsIsSelectedKey)
+        OEPreferences.shared.set(isKeyboardEvent, forKey: keyboardBindingsIsSelectedKey)
         
         if !isKeyboardEvent {
             selectedPlayer = currentSystemBindings?.playerNumber(for: event) ?? 0

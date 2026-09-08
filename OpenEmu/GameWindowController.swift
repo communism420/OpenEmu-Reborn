@@ -80,7 +80,7 @@ final class GameWindowController: NSWindowController {
             window.animationBehavior = .documentWindow
             window.minSize = Self.windowMinSize
             
-            if UserDefaults.standard.bool(forKey: OEPopoutGameWindowAlwaysOnTopKey) {
+            if OEPreferences.shared.bool(forKey: OEPopoutGameWindowAlwaysOnTopKey) {
                 window.level = .floating
             }
         }
@@ -204,7 +204,7 @@ final class GameWindowController: NSWindowController {
     private func loadScaleDefaults(windowSize: inout NSSize) {
         let systemID = gameDocument.systemIdentifier
         let key = String(format: Self.systemIntegralScaleKeyFormat, systemID)
-        let integralScaleInfo = UserDefaults.standard.dictionary(forKey: key)
+        let integralScaleInfo = OEPreferences.shared.dictionary(forKey: key)
         
         let maxScale = maximumIntegralScale
         let windowedScale = integralScaleInfo?[Self.windowedIntegralScaleKey] as? Int
@@ -243,11 +243,11 @@ final class GameWindowController: NSWindowController {
         ]
         let systemID = gameDocument.systemIdentifier
         let key = String(format: Self.systemIntegralScaleKeyFormat, systemID)
-        UserDefaults.standard.set(integralScaleInfo, forKey: key)
+        OEPreferences.shared.set(integralScaleInfo, forKey: key)
     }
     
     private var shouldSnapResize: Bool {
-        let snapResizeEnabled = UserDefaults.standard.bool(forKey: OEPopoutGameWindowIntegerScalingOnlyKey)
+        let snapResizeEnabled = OEPreferences.shared.bool(forKey: OEPopoutGameWindowIntegerScalingOnlyKey)
         let shiftKeyPressed = NSEvent.modifierFlags.contains(.shift)
         
         return (snapResizeEnabled && !shiftKeyPressed) || (!snapResizeEnabled && shiftKeyPressed)
@@ -367,7 +367,7 @@ final class GameWindowController: NSWindowController {
         let defaultSize = gameDocument.gameViewController.defaultScreenSize
         var contentSize = defaultSize.scaled(by: CGFloat(integralScale))
         
-        if UserDefaults.standard.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
+        if OEPreferences.shared.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
            let backingScaleFactor = window?.backingScaleFactor
         {
             contentSize = NSSize(width: contentSize.width / backingScaleFactor,
@@ -385,7 +385,7 @@ final class GameWindowController: NSWindowController {
     
     private func changeGameViewIntegralScale(_ newScale: Int) {
         if fullScreenStatus == .nonFullScreen {
-            if UserDefaults.standard.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels) == false,
+            if OEPreferences.shared.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels) == false,
                windowedIntegralScale == newScale
             {
                 return
@@ -420,7 +420,7 @@ final class GameWindowController: NSWindowController {
                 window?.animator().setFrame(newWindowFrame, display: true)
             }
         } else { // fullScreenStatus == .fullScreen
-            if UserDefaults.standard.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels) == false,
+            if OEPreferences.shared.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels) == false,
                fullScreenIntegralScale == newScale
             {
                 return
@@ -487,7 +487,7 @@ extension GameWindowController: GameIntegralScalingDelegate {
               let defaultSize = gameDocument?.gameViewController.defaultScreenSize
         else { return 1 }
         
-        if UserDefaults.standard.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
+        if OEPreferences.shared.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
            let backingScaleFactor = window?.backingScaleFactor
         {
             maxContentSize = NSSize(width: maxContentSize.width * backingScaleFactor,
@@ -627,7 +627,7 @@ extension GameWindowController: NSWindowDelegate {
     func windowDidChangeBackingProperties(_ notification: Notification) {
         // If a game started on an x2 screen is moved to an x1 screen, ensure that the size stays about the same
         // and that we don’t end up with an x.5 scaling if the scale is explicitly set to an integer.
-        if UserDefaults.standard.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
+        if OEPreferences.shared.bool(forKey: OEPopoutGameWindowTreatScaleFactorAsPixels),
            let oldScaleFactor = notification.userInfo?[NSWindow.oldScaleFactorUserInfoKey] as? NSNumber,
            let backingScaleFactor = window?.backingScaleFactor,
            oldScaleFactor.doubleValue != backingScaleFactor
@@ -750,7 +750,7 @@ extension GameWindowController: NSWindowDelegate {
         gameViewController?.controlsWindow.hide(animated: true)
         gameViewController?.controlsWindow.canShow = true
         
-        let bgColorString = UserDefaults.standard.string(forKey: OEPopoutGameWindowBackgroundColorKey)
+        let bgColorString = OEPreferences.shared.string(forKey: OEPopoutGameWindowBackgroundColorKey)
         var bgColor: NSColor?
         if let bgColorString {
             bgColor = NSColor(from: bgColorString)
@@ -952,7 +952,7 @@ extension NSScreen {
 
 extension NSWindow {
     var isAdaptiveSyncSchedulingAvailable: Bool {
-        guard UserDefaults.standard.bool(forKey: OEAdaptiveSyncEnabledKey),
+        guard OEPreferences.shared.bool(forKey: OEAdaptiveSyncEnabledKey),
               let screen
         else { return false }
         

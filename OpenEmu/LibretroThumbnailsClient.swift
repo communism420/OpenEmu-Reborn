@@ -115,7 +115,7 @@ final class LibretroThumbnailsClient {
         request.httpMethod = "HEAD"
         request.timeoutInterval = 8
 
-        let task = URLSession.shared.dataTask(with: request) { _, response, error in
+        let task = URLSession.oeShared.dataTask(with: request) { _, response, error in
             defer { semaphore.signal() }
             if let error = error {
                 os_log(.debug, log: .default, "LibretroThumbnails HEAD error: %{public}@", error.localizedDescription)

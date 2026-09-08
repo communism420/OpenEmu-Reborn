@@ -21,6 +21,9 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#if !OEALERT_TEST
+import OpenEmuBase
+#endif
 
 import Cocoa
 
@@ -265,8 +268,8 @@ final class OEAlert: NSObject {
     }
     
     private func checkIfSuppressed() -> NSApplication.ModalResponse {
-        if let key = suppressionUDKey, UserDefaults.standard.value(forKey: key) != nil {
-            let suppressionValue = UserDefaults.standard.integer(forKey: key)
+        if let key = suppressionUDKey, suppressionPreferences.object(forKey: key) != nil {
+            let suppressionValue = suppressionPreferences.integer(forKey: key)
             result = (suppressionValue == 1 || suppressOnDefaultReturnOnly ? .alertFirstButtonReturn : .alertSecondButtonReturn)
             performCallback()
             return result
@@ -380,7 +383,7 @@ final class OEAlert: NSObject {
         if result != .alertThirdButtonReturn && suppressionButton.state == .on && (result == .alertFirstButtonReturn || !suppressOnDefaultReturnOnly),
            let key = suppressionUDKey {
             let suppressionValue = result == .alertFirstButtonReturn ? 1 : 0
-            UserDefaults.standard.set(suppressionValue, forKey: key)
+            suppressionPreferences.set(suppressionValue, forKey: key)
         }
         
         stopModal()
@@ -451,6 +454,14 @@ final class OEAlert: NSObject {
     }
     
     // MARK: - Suppression Button
+
+    // Only the standalone alert test app has no SDK or selected data folder.
+    // The main app must always use its file-backed preferences.
+#if OEALERT_TEST
+    private var suppressionPreferences: UserDefaults { .standard }
+#else
+    private var suppressionPreferences: OEPreferences { .shared }
+#endif
     
     var suppressionUDKey: String?
     
@@ -467,7 +478,7 @@ final class OEAlert: NSObject {
         showsSuppressionButton = true
         suppressionUDKey = key
         
-        let checked = UserDefaults.standard.value(forKey: key) != nil
+        let checked = suppressionPreferences.object(forKey: key) != nil
         suppressionButton.state = checked ? .on : .off
     }
     
@@ -484,7 +495,7 @@ final class OEAlert: NSObject {
     @objc func suppressionButtonAction(_ sender: NSButton) {
         if let key = suppressionUDKey,
            sender.state == .off && suppressOnDefaultReturnOnly {
-            UserDefaults.standard.removeObject(forKey: key)
+            suppressionPreferences.removeObject(forKey: key)
         }
     }
     

@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import OpenEmuSystem
 
 public class OESystemPlugin: OEPlugin {
@@ -173,11 +174,9 @@ public class OESystemPlugin: OEPlugin {
     
     override public var isOutOfSupport: Bool {
         // system plugins are shipped inside the application bundle;
-        // all plugins located in the application support directory must be removed
+        // all plugins located in the data folder must be removed
         let bundleURL = bundle.bundleURL
-        let fm = FileManager.default
-        let systemsDirectory = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("OpenEmu", isDirectory: true)
+        let systemsDirectory = OEStoragePaths.dataRootURL
             .appendingPathComponent(Self.pluginFolder, isDirectory: true)
         if bundleURL.isSubpath(of: systemsDirectory) {
             return true

@@ -34,7 +34,7 @@ final class GameControlsBar: NSWindow {
     static let showsAudioOutputKey = "HUDBarShowAudioOutput"
     private static let fadeOutDelayKey = "fadeoutdelay"
     private static let initializeDefaults: Void = {
-        UserDefaults.standard.register(defaults: [
+        OEPreferences.shared.register(defaults: [
             // Time until hud controls bar fades out
             fadeOutDelayKey : 1.5,
             showsAutoSaveStateKey : false,
@@ -52,7 +52,7 @@ final class GameControlsBar: NSWindow {
     private var lastMouseMovement: Date! {
         willSet {
             if fadeTimer == nil {
-                let interval = TimeInterval(UserDefaults.standard.double(forKey: Self.fadeOutDelayKey))
+                let interval = TimeInterval(OEPreferences.shared.double(forKey: Self.fadeOutDelayKey))
                 fadeTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidFire(_:)), userInfo: nil, repeats: true)
             }
         }
@@ -218,7 +218,7 @@ final class GameControlsBar: NSWindow {
     }
     
     @objc private func timerDidFire(_ timer: Timer) {
-        let interval = TimeInterval(UserDefaults.standard.double(forKey: Self.fadeOutDelayKey))
+        let interval = TimeInterval(OEPreferences.shared.double(forKey: Self.fadeOutDelayKey))
         let hideDate = lastMouseMovement.addingTimeInterval(interval)
         
         if hideDate.timeIntervalSinceNow <= 0 {
@@ -228,7 +228,7 @@ final class GameControlsBar: NSWindow {
                 
                 hide()
             } else {
-                let interval = TimeInterval(UserDefaults.standard.double(forKey: Self.fadeOutDelayKey))
+                let interval = TimeInterval(OEPreferences.shared.double(forKey: Self.fadeOutDelayKey))
                 let nextTime = Date(timeIntervalSinceNow: interval)
                 
                 fadeTimer?.fireDate = nextTime
@@ -405,7 +405,7 @@ final class GameControlsBar: NSWindow {
         menu.addItem(item)
         
         // audio output
-        if UserDefaults.standard.bool(forKey: Self.showsAudioOutputKey) {
+        if OEPreferences.shared.bool(forKey: Self.showsAudioOutputKey) {
             item = NSMenuItem()
             item.title = NSLocalizedString("Select Audio Output Device", comment: "")
             if let audioOutputMenu = audioOutputMenu {
@@ -689,9 +689,9 @@ final class GameControlsBar: NSWindow {
         else { return menu }
         rom.removeMissingStates()
         
-        let includeAutoSaveState = UserDefaults.standard.bool(forKey: Self.showsAutoSaveStateKey)
-        let includeQuickSaveState = UserDefaults.standard.bool(forKey: Self.showsQuickSaveStateKey)
-        let useQuickSaveSlots = UserDefaults.standard.bool(forKey: OEDBSaveState.useQuickSaveSlotsKey)
+        let includeAutoSaveState = OEPreferences.shared.bool(forKey: Self.showsAutoSaveStateKey)
+        let includeQuickSaveState = OEPreferences.shared.bool(forKey: Self.showsQuickSaveStateKey)
+        let useQuickSaveSlots = OEPreferences.shared.bool(forKey: OEDBSaveState.useQuickSaveSlotsKey)
         var saveStates = rom.normalSaveStatesByTimestamp(ascending: true)
         
         if includeQuickSaveState && !useQuickSaveSlots, let quickSaveState = rom.quickSaveState(inSlot: 0) {

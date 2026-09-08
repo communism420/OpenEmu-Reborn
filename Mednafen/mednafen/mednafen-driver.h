@@ -68,6 +68,12 @@ void MDFNI_Power(void);
 //
 MDFNGI* MDFNI_LoadGame(const char* force_module, VirtualFS* vfs, const char* path, bool force_cd = false) MDFN_COLD;
 
+// OpenEmu wrapper only: load a playlist it has just generated from validated
+// sibling CUE/CCD files. The absolute paths are supplied directly, not read from
+// an arbitrary M3U. CUE/CCD contents retain the normal NVFS safety checks.
+MDFNGI* MDFNI_LoadGameFromGeneratedPlaylist(const char* force_module, const char* playlist_path,
+                                          const std::vector<std::string>& disc_paths) MDFN_COLD;
+
 // Advanced usage; normally don't call.
 class CDInterface;
 MDFNGI *MDFNI_LoadExternalCD(const char* force_module, const char* path_hint, CDInterface* cdif) MDFN_COLD;

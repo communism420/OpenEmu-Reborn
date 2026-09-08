@@ -23,6 +23,7 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#import <OpenEmuBase/OEPreferences.h>
 
 #import "OECollectionViewController.h"
 
@@ -88,7 +89,7 @@ static void *OEViewEffectiveAppearanceKVOContext      = &OEViewEffectiveAppearan
     // Make sure not to reinitialize for subclassed objects
     if(self != OECollectionViewController.class) return;
 
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ OELastGridSizeKey : @1.0f }];
+    [[OEPreferences shared] registerDefaults:@{ OELastGridSizeKey : @1.0f }];
 }
 
 - (instancetype)init
@@ -102,7 +103,7 @@ static void *OEViewEffectiveAppearanceKVOContext      = &OEViewEffectiveAppearan
 
 - (void)dealloc
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    OEPreferences *defaults = [OEPreferences shared];
     [defaults removeObserver:self
                   forKeyPath:OEDBGame.displayGameTitleKey
                      context:OEUserDefaultsDisplayGameTitleKVOContext];
@@ -165,7 +166,7 @@ static void *OEViewEffectiveAppearanceKVOContext      = &OEViewEffectiveAppearan
                   options:NSKeyValueObservingOptionNew
                   context:OEViewEffectiveAppearanceKVOContext];
 
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    OEPreferences *standardUserDefaults = [OEPreferences shared];
     [standardUserDefaults addObserver:self
                            forKeyPath:OEDBGame.displayGameTitleKey
                               options:0
@@ -223,7 +224,7 @@ static void *OEViewEffectiveAppearanceKVOContext      = &OEViewEffectiveAppearan
     
     // Update grid view with current size slider zoom value.
     NSSlider *sizeSlider = self.toolbar.gridSizeSlider;
-    sizeSlider.floatValue = [NSUserDefaults.standardUserDefaults floatForKey:OELastGridSizeKey];
+    sizeSlider.floatValue = [OEPreferences.shared floatForKey:OELastGridSizeKey];
     [self zoomGridViewWithValue:[sizeSlider floatValue]];
     
     // update frame of the blank slate view (in viewDidLoad we didn't have a
@@ -733,7 +734,7 @@ static void *OEViewEffectiveAppearanceKVOContext      = &OEViewEffectiveAppearan
 - (void)zoomGridViewWithValue:(CGFloat)zoomValue
 {
     _gridView.cellSize = OEScaleCGSize(defaultGridSize, zoomValue);
-    [[NSUserDefaults standardUserDefaults] setFloat:zoomValue forKey:OELastGridSizeKey];
+    [[OEPreferences shared] setFloat:zoomValue forKey:OELastGridSizeKey];
 }
 
 // MARK: - Mojave Grid View Hack

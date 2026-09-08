@@ -23,24 +23,28 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 
 public class UserDefaultsPresetStorage: ShaderPresetStorage {
     static let presetPrefix = "videoShader.user.preset.data."
 
-    let store: UserDefaults
+    let store: OEPreferencesStore
     let queue: DispatchQueue = DispatchQueue(label: "org.openemu.userDefaultsPresetStore", attributes: .concurrent,
                                              target: DispatchQueue.global(qos: .userInitiated))
     
     var indexByShader: [String: [String]] = [:]
     
-    public init(store: UserDefaults) {
+    public init(store: OEPreferencesStore) {
         self.store = store
         
         // populate indices
         queue.async(flags: .barrier) {
             // Collect all the shader preset keys
             let keys    = store.dictionaryRepresentation().keys.filter { $0.hasPrefix(Self.presetPrefix) }
-            let presets = keys.compactMap(self.load(_:))
+            // Preference keys are not preset IDs. Keep the original ID after
+            // reopening the store, including associations saved by system.
+            let ids     = keys.map { String($0.dropFirst(Self.presetPrefix.count)) }
+            let presets = ids.compactMap(self.load(_:))
             
             // Groups presets by shader and then remaps the values from [ShaderPresetData] → [\.id]
             self.indexByShader = Dictionary(grouping: presets, by: { $0.shader })

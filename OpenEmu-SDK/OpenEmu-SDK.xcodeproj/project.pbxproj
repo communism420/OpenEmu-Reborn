@@ -60,6 +60,10 @@
 		C6772A731710BD6200ED580A /* OEAbstractAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C6772A651710BD6200ED580A /* OEAbstractAdditions.m */; };
 		C6772A741710BD6200ED580A /* OEGameCoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = C6772A661710BD6200ED580A /* OEGameCoreController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6772A751710BD6200ED580A /* OEGameCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6772A671710BD6200ED580A /* OEGameCoreController.m */; };
+		E5DA20260905000100000001 /* OEStoragePaths.h in Headers */ = {isa = PBXBuildFile; fileRef = E5DA20260905000100000003 /* OEStoragePaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5DA20260905000100000002 /* OEStoragePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DA20260905000100000004 /* OEStoragePaths.m */; };
+		E5DA20260905000100000005 /* OEPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = E5DA20260905000100000007 /* OEPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5DA20260905000100000006 /* OEPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DA20260905000100000008 /* OEPreferences.m */; };
 		C6772A761710BD6200ED580A /* OERingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C6772A681710BD6200ED580A /* OERingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6772A771710BD6200ED580A /* OERingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = C6772A691710BD6200ED580A /* OERingBuffer.m */; };
 		C6772A781710BD6200ED580A /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C6772A6A1710BD6200ED580A /* TPCircularBuffer.c */; };
@@ -209,6 +213,10 @@
 		C6772A651710BD6200ED580A /* OEAbstractAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OEAbstractAdditions.m; sourceTree = "<group>"; };
 		C6772A661710BD6200ED580A /* OEGameCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OEGameCoreController.h; sourceTree = "<group>"; };
 		C6772A671710BD6200ED580A /* OEGameCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OEGameCoreController.m; sourceTree = "<group>"; };
+		E5DA20260905000100000003 /* OEStoragePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OEStoragePaths.h; sourceTree = "<group>"; };
+		E5DA20260905000100000004 /* OEStoragePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OEStoragePaths.m; sourceTree = "<group>"; };
+		E5DA20260905000100000007 /* OEPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OEPreferences.h; sourceTree = "<group>"; };
+		E5DA20260905000100000008 /* OEPreferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OEPreferences.m; sourceTree = "<group>"; };
 		C6772A681710BD6200ED580A /* OERingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OERingBuffer.h; sourceTree = "<group>"; };
 		C6772A691710BD6200ED580A /* OERingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OERingBuffer.m; sourceTree = "<group>"; };
 		C6772A6A1710BD6200ED580A /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
@@ -382,6 +390,10 @@
 				C6772A651710BD6200ED580A /* OEAbstractAdditions.m */,
 				C6772A661710BD6200ED580A /* OEGameCoreController.h */,
 				C6772A671710BD6200ED580A /* OEGameCoreController.m */,
+				E5DA20260905000100000003 /* OEStoragePaths.h */,
+				E5DA20260905000100000004 /* OEStoragePaths.m */,
+				E5DA20260905000100000007 /* OEPreferences.h */,
+				E5DA20260905000100000008 /* OEPreferences.m */,
 				05FF41B722B08C5F00BB7283 /* OELogging.h */,
 				05FF41B622B08C5F00BB7283 /* OELogging.m */,
 				011829A620ACA8AA0030B347 /* OEAudioBuffer.h */,
@@ -562,6 +574,8 @@
 				C6772A721710BD6200ED580A /* OEAbstractAdditions.h in Headers */,
 				C6772A701710BD6200ED580A /* OEGameCore.h in Headers */,
 				C6772A741710BD6200ED580A /* OEGameCoreController.h in Headers */,
+				E5DA20260905000100000001 /* OEStoragePaths.h in Headers */,
+				E5DA20260905000100000005 /* OEPreferences.h in Headers */,
 				01F306FB20AA1C64005C8F18 /* NSUserDefaults+OpenEmuSDK.h in Headers */,
 				C6772A761710BD6200ED580A /* OERingBuffer.h in Headers */,
 				8363A434193CA52400F18425 /* OEGeometry.h in Headers */,
@@ -806,6 +820,8 @@
 				C6772A731710BD6200ED580A /* OEAbstractAdditions.m in Sources */,
 				27FC95191A92F12700CF1DC6 /* OEDiffQueue.mm in Sources */,
 				C6772A751710BD6200ED580A /* OEGameCoreController.m in Sources */,
+				E5DA20260905000100000002 /* OEStoragePaths.m in Sources */,
+				E5DA20260905000100000006 /* OEPreferences.m in Sources */,
 				011FAED52325B8F900DBEC62 /* NSDictionary+OpenEmuSDK.m in Sources */,
 				C6772A771710BD6200ED580A /* OERingBuffer.m in Sources */,
 				C6772A781710BD6200ED580A /* TPCircularBuffer.c in Sources */,

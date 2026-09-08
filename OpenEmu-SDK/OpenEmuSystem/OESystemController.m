@@ -25,6 +25,7 @@
  */
 
 #import "OESystemController.h"
+#import <OpenEmuBase/OEPreferences.h>
 
 #import "OEBindingDescription_Internal.h"
 #import "OEBindingsController.h"
@@ -215,7 +216,7 @@ static NSMapTable<NSString *, OESystemController *> *_registeredSystemController
     static NSArray<NSArray<NSDictionary<NSString *, NSString *> *> *> *globalKeys;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        globalKeys = @[[[NSUserDefaults standardUserDefaults] boolForKey:OEPrefControlsShowAllGlobalKeys] ?
+        globalKeys = @[[OEPreferences.shared boolForKey:OEPrefControlsShowAllGlobalKeys] ?
         // All available 'global' buttons
         @[Button(@"Rapid Fire Toggle", OEGlobalButtonRapidFireToggle),
           Button(@"Rapid Fire Clear", OEGlobalButtonRapidFireClear),

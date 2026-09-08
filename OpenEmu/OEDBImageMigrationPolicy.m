@@ -25,6 +25,7 @@
  */
 
 #import "OEDBImageMigrationPolicy.h"
+#import <OpenEmuBase/OEPreferences.h>
 #import "OpenEmu-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -43,7 +44,7 @@ NSString * const OEDBImageMigrateImageFormat = @"OEDBImageMigrateImageFormat";
     // Version 1.1 and 1.0 both share version identifier 1.0 :/
     if([sourceVersion isEqualTo:@"1.0"] && entities[@"ImageThumbnail"] != nil)
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OEDBImageMigrateImageFormat];
+        [[OEPreferences shared] setBool:YES forKey:OEDBImageMigrateImageFormat];
 
         NSSet *versions = [oldObject valueForKey:@"versions"];
         __block CGFloat size = 0;
@@ -94,7 +95,7 @@ NSString * const OEDBImageMigrateImageFormat = @"OEDBImageMigrateImageFormat";
 
 - (NSURL *)coverFolderURL
 {
-    NSUserDefaults *standardDefaults  = [NSUserDefaults standardUserDefaults];
+    OEPreferences *standardDefaults  = [OEPreferences shared];
     NSString       *libraryFolderPath = [[standardDefaults stringForKey:OELibraryDatabase.databasePathKey] stringByExpandingTildeInPath];
     NSString       *coverFolderPath   = [libraryFolderPath stringByAppendingPathComponent:@"Artwork/"];
 

@@ -142,12 +142,16 @@ cp OpenEmu/OEGoogleDriveSecrets.template.swift OpenEmu/OEGoogleDriveSecrets.swif
 ### Default core selection
 
 For systems with multiple cores, OpenEmu uses the value at
-`defaultCore.openemu.system.<sysid>` in `UserDefaults`. The host app seeds a default in `OpenEmu/AppDelegate.swift` for two systems today:
+`defaultCore.openemu.system.<sysid>` through `OEPreferences.shared`, backed by `Settings.plist` in the selected data folder. The host app seeds a default in `OpenEmu/AppDelegate.swift` for two systems today:
 
 - `openemu.system.nes` → `org.openemu.Nestopia`
 - `openemu.system.snes` → `org.openemu.SNES9x`
 
 For any other multi-core system (e.g. ColecoVision — JollyCV / CrabEmu / blueMSX), no default is seeded and the user picks from Preferences → Cores. Adding a default seed is a one-line change in `AppDelegate.swift` if a default is wanted; until that is done, behavior is whatever the picker chooses to surface first.
+
+### Selected data folder
+
+The app selects its data folder before loading the library, plugins or core controllers. Use `OEStoragePaths` for shared paths and `OEPreferences.shared` for app-owned settings; Cocoa bindings use `OEPreferencesController`. The small folder locator uses the shared `org.openemu.OpenEmu` defaults suite in both Debug and Release. `UserDefaults.standard` remains for macOS/framework-owned settings, not ordinary OpenEmu preferences. See [docs/data-folder.md](docs/data-folder.md) for recovery, external-path exceptions and isolated testing.
 
 ### Libretro / RetroArch cores
 
@@ -335,11 +339,13 @@ The main app is **BSD 2-Clause**. Emulator cores are mostly **GPL v2**. Key rule
 
 > **Core plugin work has a process gate.**
 >
-> OpenEmu loads cores from `~/Library/Application Support/OpenEmu/Cores/`, **not** from the build directory. Building a core does *not* affect what OpenEmu loads. Before claiming any test result on a core change:
+> OpenEmu loads installed cores from `<selected data folder>/Cores/` before the app's bundled cores, **not** from the build directory. An installed bundle with the same plugin name can override a bundled one. Building a core does *not* affect what OpenEmu loads. Before claiming any test result on a core change:
 >
 > 1. Build the core scheme (or run `./Scripts/verify.sh --arch "$(uname -m)" --core <CoreName>` which does this for you, with `--release` if testing a Release-only behavior).
 > 2. Run `./Scripts/install-core.sh <CoreName>` (use `--release` for Release builds). This is automatic when you use `verify.sh --core`.
 > 3. Run `./Scripts/verify-core-installed.sh <CoreName>` and confirm `OK`. If it prints `FAIL`, the installed plugin doesn't match the build and your test result is invalid.
+>
+> The install/preflight scripts use the remembered data folder. For isolated tests, pass the same `--data-folder <existing identified folder>` and `--derived-data <existing build folder>` to verification, installation and preflight, then launch the app with that same `--data-folder`. The legacy `~/Library/Application Support/OpenEmu` fallback is used only when no folder-locator preferences exist; an unavailable remembered folder must not fall back. Full examples are in [docs/data-folder.md](docs/data-folder.md).
 >
 > The most common silent failure is testing against a stale installed plugin from a previous session. The preflight script catches this in under a second; run it before reporting any "still broken" or "now working" result.
 >
@@ -397,6 +403,8 @@ Use the install script — it quits OpenEmu first and copies files correctly:
 ```bash
 ./Scripts/install-core.sh Dolphin
 ```
+
+For another identified data folder or an isolated build, add `--data-folder "/absolute/path/to/OpenEmu Data"` and `--derived-data "/absolute/path/to/DerivedData"` to both the install and `verify-core-installed.sh` commands. A test app launched with `--data-folder` must use that same folder.
 
 **Never use `cp -Rf` to install a core plugin.** macOS merges bundle directories rather than replacing them, so old files silently stay in place. Always use the script or `cp -f` on individual files. Always quit OpenEmu before installing — the helper process holds the binary open while running and `cp` will silently fail to replace it.
 

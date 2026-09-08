@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuKit
 
 // MARK: - Notification
@@ -86,7 +87,7 @@ final class PrefRetroAchievementsController: NSViewController {
             queue: .main
         ) { [weak self] note in
             let enabled = (note.userInfo?[OEHardcoreEnabledKey] as? Bool)
-                ?? UserDefaults.standard.bool(forKey: RAHardcoreEnabledKey)
+                ?? OEPreferences.shared.bool(forKey: RAHardcoreEnabledKey)
             self?.hardcoreCheckbox.state = enabled ? .on : .off
         }
     }
@@ -103,7 +104,7 @@ final class PrefRetroAchievementsController: NSViewController {
         // Cover the case where the preference was changed while this view
         // wasn't loaded (e.g. another controller wrote to UserDefaults). The
         // observer above handles in-session changes; this handles the gap.
-        hardcoreCheckbox.state = UserDefaults.standard.bool(forKey: RAHardcoreEnabledKey) ? .on : .off
+        hardcoreCheckbox.state = OEPreferences.shared.bool(forKey: RAHardcoreEnabledKey) ? .on : .off
     }
 
     // MARK: - Build UI
@@ -171,7 +172,7 @@ final class PrefRetroAchievementsController: NSViewController {
 
         hardcoreCheckbox.target = self
         hardcoreCheckbox.action = #selector(toggleHardcore(_:))
-        hardcoreCheckbox.state = UserDefaults.standard.bool(forKey: RAHardcoreEnabledKey) ? .on : .off
+        hardcoreCheckbox.state = OEPreferences.shared.bool(forKey: RAHardcoreEnabledKey) ? .on : .off
         hardcoreCheckbox.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hardcoreCheckbox)
 
@@ -335,7 +336,7 @@ final class PrefRetroAchievementsController: NSViewController {
 
     @objc private func toggleHardcore(_ sender: NSButton) {
         let enabled = (sender.state == .on)
-        UserDefaults.standard.set(enabled, forKey: RAHardcoreEnabledKey)
+        OEPreferences.shared.set(enabled, forKey: RAHardcoreEnabledKey)
         NotificationCenter.default.post(
             name: .OERAHardcoreDidChange,
             object: nil,
@@ -346,14 +347,14 @@ final class PrefRetroAchievementsController: NSViewController {
     // MARK: - Credential Management
 
     private func loadSavedCredentials() {
-        usernameField.stringValue = UserDefaults.standard.string(forKey: "RAUsername") ?? ""
+        usernameField.stringValue = OEPreferences.shared.string(forKey: "RAUsername") ?? ""
         if OECredentialStore.shared.has(.retroAchievementsToken) {
             passwordField.placeholderString = "••••••••  (saved)"
         }
     }
 
     private func updateStatus() {
-        let username = UserDefaults.standard.string(forKey: "RAUsername") ?? ""
+        let username = OEPreferences.shared.string(forKey: "RAUsername") ?? ""
         let isSignedIn = !username.isEmpty && OECredentialStore.shared.has(.retroAchievementsToken)
         if isSignedIn {
             statusLabel.stringValue = "✓  Signed in as \(username)"
@@ -402,7 +403,7 @@ final class PrefRetroAchievementsController: NSViewController {
             switch result {
             case .success(let token):
                 OECredentialStore.shared.set(token, forKey: .retroAchievementsToken)
-                UserDefaults.standard.set(username, forKey: "RAUsername")
+                OEPreferences.shared.set(username, forKey: "RAUsername")
                 self.passwordField.stringValue = ""
                 self.passwordField.placeholderString = "••••••••  (saved)"
                 self.setStatus("✓  Signed in as \(username)", isError: false)
@@ -420,7 +421,7 @@ final class PrefRetroAchievementsController: NSViewController {
     }
 
     @objc private func signOut() {
-        UserDefaults.standard.removeObject(forKey: "RAUsername")
+        OEPreferences.shared.removeObject(forKey: "RAUsername")
         OECredentialStore.shared.remove(.retroAchievementsToken)
         usernameField.stringValue = ""
         passwordField.stringValue = ""
@@ -484,7 +485,7 @@ private enum RetroAchievementsAPI {
         request.httpMethod = "GET"
         request.setValue("OpenEmu-Silicon/1.0 (macOS)", forHTTPHeaderField: "User-Agent")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.oeShared.dataTask(with: request) { data, response, error in
             if let error = error {
                 NSLog("[RA] Network error: %@", error.localizedDescription)
                 DispatchQueue.main.async { completion(.failure(.networkError(error))) }

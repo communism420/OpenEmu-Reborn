@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import Finite
 
 final class SetupAssistant: NSViewController {
@@ -109,7 +110,7 @@ final class SetupAssistant: NSViewController {
                 
                 for systemID in systemIDs {
                     let key = "defaultCore.\(systemID)"
-                    if let defaultCoreID = UserDefaults.standard.string(forKey: key),
+                    if let defaultCoreID = OEPreferences.shared.string(forKey: key),
                        defaultCoreID.caseInsensitiveCompare(coreID) == .orderedSame {
                         coreInfo.isDefaultCore = true
                     }
@@ -150,7 +151,7 @@ final class SetupAssistant: NSViewController {
         
         fsm.onTransitions(from: .lastScreen, to: .end) { [unowned self] in
             // Mark setup done
-            UserDefaults.standard.set(true, forKey: Self.hasFinishedKey)
+            OEPreferences.shared.set(true, forKey: Self.hasFinishedKey)
             
             if let completionBlock = completionBlock {
                 completionBlock()

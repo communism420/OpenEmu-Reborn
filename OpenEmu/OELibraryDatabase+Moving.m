@@ -23,6 +23,7 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#import <OpenEmuBase/OEPreferences.h>
 
 #import "OEFileManager.h"
 
@@ -90,7 +91,7 @@
     
     if(sameVolume)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:[newLocation path] forKey:OELibraryDatabase.databasePathKey];
+        [[OEPreferences shared] setObject:[newLocation path] forKey:OELibraryDatabase.databasePathKey];
         [library setRomsFolderURL:newRomsURL];
         [[library writerContext] performBlockAndWait:^{
             [[library writerContext] save:nil];
@@ -232,7 +233,7 @@
                     }];
                     
                     // note new rom folder loation in library
-                    [[NSUserDefaults standardUserDefaults] setObject:[newLocation path] forKey:OELibraryDatabase.databasePathKey];
+                    [[OEPreferences shared] setObject:[newLocation path] forKey:OELibraryDatabase.databasePathKey];
                     [library setRomsFolderURL:newRomsURL];
                     NSError *error = nil;
                     [context save:&error];
@@ -274,7 +275,7 @@
     if(success)
     {
         // point openemu to new library location
-        [[NSUserDefaults standardUserDefaults] setObject:[[newLocation path] stringByAbbreviatingWithTildeInPath] forKey:OELibraryDatabase.databasePathKey];
+        [[OEPreferences shared] setObject:[[newLocation path] stringByAbbreviatingWithTildeInPath] forKey:OELibraryDatabase.databasePathKey];
 
         OEAlert *alert = [[OEAlert alloc] init];
         alert.messageText = NSLocalizedString(@"Your library was moved sucessfully.", @"");
@@ -285,7 +286,7 @@
     {
         DLog(@"restore meta data");
         // restore meta data
-        [[NSUserDefaults standardUserDefaults] setObject:[currentLocation path] forKey:OELibraryDatabase.databasePathKey];
+        [[OEPreferences shared] setObject:[currentLocation path] forKey:OELibraryDatabase.databasePathKey];
         NSURL *url = [currentLocation URLByAppendingPathComponent:[[library romsFolderURL] lastPathComponent] isDirectory:YES];
         [library setRomsFolderURL:url];
         [[library writerContext] performBlockAndWait:^{

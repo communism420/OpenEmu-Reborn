@@ -48,13 +48,15 @@ enum ArchiveHelper {
         let folder = Bundle.main.bundleIdentifier ?? "OpenEmu"
         
         let fm = FileManager.default
-        let folderURL = fm.temporaryDirectory.appendingPathComponent(folder, isDirectory: true).appendingPathComponent(finalHash, isDirectory: true)
+        let folderURL = URL.oeTemporaryDirectory.appendingPathComponent(folder, isDirectory: true).appendingPathComponent(finalHash, isDirectory: true)
         
         do {
-            try fm.createDirectory(at: folderURL, withIntermediateDirectories: true)
+            try fm.oeCreateDirectory(at: folderURL, withIntermediateDirectories: true)
         } catch {
             DLog("Couldn't create temp directory \(folderURL.path), \(error)")
-            return fm.temporaryDirectory
+            // Keep the failed destination: extraction must fail here, not write
+            // into a different directory after the selected disk disappears.
+            return folderURL
         }
         
         return folderURL

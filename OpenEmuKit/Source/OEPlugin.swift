@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 internal import os.log
 
 public enum OEGameCorePluginError: Int, CustomNSError {
@@ -202,19 +203,9 @@ public class OEPlugin: NSObject {
         if plugins == nil {
             let fm = FileManager.default
             
-            // load plugins in Application Support
-            let appSupportDir: URL
-            #if swift(>=5.7)
-            if #available(macOS 13.0, *) {
-                appSupportDir = .applicationSupportDirectory
-            } else {
-                appSupportDir = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            }
-            #else
-            appSupportDir = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            #endif
-            let pluginsDir = appSupportDir.appendingPathComponent("OpenEmu", isDirectory: true)
-                                          .appendingPathComponent(Self.pluginFolder, isDirectory: true)
+            // Load installed plugins from the selected data folder.
+            let pluginsDir = OEStoragePaths.dataRootURL
+                .appendingPathComponent(Self.pluginFolder, isDirectory: true)
             let pluginURLs = try? fm.contentsOfDirectory(at: pluginsDir, includingPropertiesForKeys: [])
             for bundleURL in pluginURLs ?? [] where bundleURL.pathExtension == Self.pluginExtension {
                 _ = try? plugin(bundleAtURL: bundleURL, forceReload: true)

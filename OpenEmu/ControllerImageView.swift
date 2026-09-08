@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import QuartzCore
 
 final class ControllerImageView: NSView {
@@ -123,7 +124,7 @@ final class ControllerImageView: NSView {
         
         image.draw(in: targetRect, from: .zero, operation: .copy, fraction: 1, respectFlipped: false, hints: [.interpolation: NSNumber(value: NSImageInterpolation.none.rawValue)])
         
-        if UserDefaults.standard.bool(forKey: Self.drawControllerMaskKey) {
+        if OEPreferences.shared.bool(forKey: Self.drawControllerMaskKey) {
             imageMask?.draw(in: targetRect, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: false, hints: [.interpolation: NSNumber(value: NSImageInterpolation.none.rawValue)])
         }
         

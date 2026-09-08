@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import Carbon.HIToolbox.Events
 import OpenEmuKit
 
@@ -332,7 +333,7 @@ final class SidebarController: NSViewController {
               let coreIdentifier = data["core"] as? String else { return }
         
         let defaultCoreKey = "defaultCore.\(systemIdentifier)"
-        UserDefaults.standard.set(coreIdentifier, forKey: defaultCoreKey)
+        OEPreferences.shared.set(coreIdentifier, forKey: defaultCoreKey)
     }
     
     @objc func editControls(_ sender: NSMenuItem) {
@@ -639,7 +640,7 @@ extension SidebarController: NSMenuDelegate {
                 
                 let systemIdentifier = item.systemIdentifier
                 let defaultCoreKey = "defaultCore.\(systemIdentifier)"
-                let defaultCoreIdentifier = UserDefaults.standard.object(forKey: defaultCoreKey) as? String
+                let defaultCoreIdentifier = OEPreferences.shared.object(forKey: defaultCoreKey) as? String
                 
                 let coreItem = NSMenuItem()
                 coreItem.title = NSLocalizedString("Default Core", comment: "Sidebar context menu item to pick default core for a system")
@@ -725,4 +726,3 @@ class SidebarGroupItem: NSObject, SidebarItem {
 extension Key {
     static let lastSidebarSelection: Key = "lastSidebarSelection"
 }
-

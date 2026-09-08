@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -170,7 +171,7 @@ final class OELibraryDatabase: NSObject {
         defaultDB.createInitialItemsIfNeeded()
         
         let path = (defaultDB.databaseURL.path as NSString).abbreviatingWithTildeInPath
-        UserDefaults.standard.set(path, forKey: Self.databasePathKey)
+        OEPreferences.shared.set(path, forKey: Self.databasePathKey)
         
         let romImporter = defaultDB.importer
         romImporter.loadQueue()
@@ -224,7 +225,7 @@ final class OELibraryDatabase: NSObject {
         
         // remeber last location as database path
         let path = (databaseURL.path as NSString).abbreviatingWithTildeInPath
-        UserDefaults.standard.set(path, forKey: Self.databasePathKey)
+        OEPreferences.shared.set(path, forKey: Self.databasePathKey)
         
         os_log(.debug, log: .library, "ROMs folder URL: %{public}@", romsFolderURL?.path ?? "nil")
     }
@@ -443,7 +444,7 @@ final class OELibraryDatabase: NSObject {
     // MARK: - Folders
     
     var databaseFolderURL: URL {
-        let libraryFolderPath = UserDefaults.standard.string(forKey: Self.databasePathKey)!
+        let libraryFolderPath = OEPreferences.shared.string(forKey: Self.databasePathKey)!
         let path = (libraryFolderPath as NSString).expandingTildeInPath
         return URL(fileURLWithPath: path, isDirectory: true)
     }
@@ -460,7 +461,7 @@ final class OELibraryDatabase: NSObject {
             }
         } else {
             let result = databaseFolderURL.appendingPathComponent("roms", isDirectory: true)
-            try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+            try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
             setRomsFolderURL(result)
             
             return result
@@ -497,20 +498,20 @@ final class OELibraryDatabase: NSObject {
         let unsortedFolderName = "unsorted"
         
         let result = romsFolderURL!.appendingPathComponent(unsortedFolderName, isDirectory: true)
-        try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
         
         return result
     }
     
     func romsFolderURL(for system: OEDBSystem) -> URL {
         let result = romsFolderURL!.appendingPathComponent(system.name, isDirectory: true)
-        try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
         
         return result
     }
     
     var stateFolderURL: URL {
-        if let urlString = UserDefaults.standard.string(forKey: Self.saveStateFolderURLKey),
+        if let urlString = OEPreferences.shared.string(forKey: Self.saveStateFolderURLKey),
            let url = URL(string: urlString)
         {
             return url
@@ -518,9 +519,8 @@ final class OELibraryDatabase: NSObject {
         
         let saveStateFolderName = "Save States"
         let result = URL.oeApplicationSupportDirectory.appendingPathComponent(saveStateFolderName, isDirectory: true)
-            .resolvingSymlinksInPath() // In case one of the appended components is a symlink.
-        
-        // try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        // Keep the path inside the selected root so safe directory creation
+        // can reject a symbolic link; only an explicit override may be external.
         
         return result.standardized
     }
@@ -529,7 +529,7 @@ final class OELibraryDatabase: NSObject {
         let displayName = system?.plugin?.displayName ?? "Unkown System"
         
         let result = stateFolderURL.appendingPathComponent(displayName, isDirectory: true)
-        try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
         
         return result
     }
@@ -544,13 +544,13 @@ final class OELibraryDatabase: NSObject {
         fileName = (fileName as NSString).deletingPathExtension
         
         let result = stateFolderURL(for: rom.game?.system).appendingPathComponent(fileName, isDirectory: true)
-        try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
         
         return result.standardized
     }
     
     var screenshotFolderURL: URL {
-        if let urlString = UserDefaults.standard.string(forKey: Self.screenshotFolderURLKey),
+        if let urlString = OEPreferences.shared.string(forKey: Self.screenshotFolderURLKey),
            let url = URL(string: urlString)
         {
             return url
@@ -559,7 +559,7 @@ final class OELibraryDatabase: NSObject {
         let screenshotFolderName = "Screenshots"
         let result = URL.oeApplicationSupportDirectory.appendingPathComponent(screenshotFolderName, isDirectory: true)
         
-        try? FileManager.default.createDirectory(at: result, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: result, withIntermediateDirectories: true)
         
         return result.standardized
     }
@@ -576,7 +576,7 @@ final class OELibraryDatabase: NSObject {
             return cached
         }
         let coverFolderURL = base.appendingPathComponent("Artwork", isDirectory: true)
-        try? FileManager.default.createDirectory(at: coverFolderURL, withIntermediateDirectories: true)
+        try? FileManager.default.oeCreateDirectory(at: coverFolderURL, withIntermediateDirectories: true)
         let standardized = coverFolderURL.standardized
         _cachedCoverFolderURL = standardized
         _cachedCoverFolderBase = base

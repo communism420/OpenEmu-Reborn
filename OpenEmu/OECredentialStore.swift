@@ -59,7 +59,7 @@ enum OECredentialKey: String, CaseIterable {
 ///    same app, always the same key — so it never needs to be stored anywhere.
 /// 2. All credentials are kept as a `[String: String]` dictionary, serialised to JSON,
 ///    and encrypted with AES-GCM.
-/// 3. The sealed blob is written to `~/Library/Application Support/OpenEmu/.oe_credentials`.
+/// 3. The sealed blob is written to `.oe_credentials` in the selected data folder.
 ///
 /// Reads and writes are fast (local file I/O + in-process AES) and never trigger any
 /// OS permission dialogs.
@@ -76,12 +76,9 @@ final class OECredentialStore {
     // MARK: - Storage path
 
     private static var storeURL: URL {
-        let support = FileManager.default.urls(
-            for: .applicationSupportDirectory, in: .userDomainMask
-        ).first!
         // Leading dot makes the file hidden in Finder, matching the convention for
         // internal app data files that users should not edit directly.
-        return support.appendingPathComponent("OpenEmu/.oe_credentials", isDirectory: false)
+        return URL.oeApplicationSupportDirectory.appendingPathComponent(".oe_credentials", isDirectory: false)
     }
 
     // MARK: - In-memory cache
@@ -218,7 +215,7 @@ final class OECredentialStore {
         let key = deriveKey()
         do {
             let dir = url.deletingLastPathComponent()
-            try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+            try FileManager.default.oeCreateDirectory(at: dir, withIntermediateDirectories: true)
 
             let plaintext = try JSONEncoder().encode(cache)
             let sealed    = try AES.GCM.seal(plaintext, using: key)

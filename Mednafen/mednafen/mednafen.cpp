@@ -857,7 +857,8 @@ static MDFN_COLD void LoadCommonPost(VirtualFS* vfs, const char* path)
 	last_pixel_format = MDFN_PixelFormat();
 }
 
-static MDFNGI *LoadCD(const char *force_module, VirtualFS* vfs, const char *path, CDInterface* cdif = nullptr)
+static MDFNGI *LoadCD(const char *force_module, VirtualFS* vfs, const char *path, CDInterface* cdif = nullptr,
+                     const std::vector<std::string>* generated_disc_paths = nullptr)
 {
  std::vector<M3U_ListEntry> file_list;
  uint8 LayoutMD5[16];
@@ -877,7 +878,12 @@ static MDFNGI *LoadCD(const char *force_module, VirtualFS* vfs, const char *path
   }
   else
   {
-   if(strlen(path) > 4 && !MDFN_strazicmp(path + strlen(path) - 4, ".m3u"))
+   if(generated_disc_paths)
+   {
+    for(const std::string& disc_path : *generated_disc_paths)
+     file_list.emplace_back(M3U_ListEntry({disc_path}));
+   }
+   else if(strlen(path) > 4 && !MDFN_strazicmp(path + strlen(path) - 4, ".m3u"))
     ReadM3U(file_list, &default_cd, vfs, path);
    else
     file_list.emplace_back(M3U_ListEntry({ path }));
@@ -1161,6 +1167,18 @@ static MDFN_COLD MDFNGI* FindCompatibleModule(const char* force_module, GameFile
  //}
 
  return(NULL);
+}
+
+MDFNGI *MDFNI_LoadGameFromGeneratedPlaylist(const char* force_module, const char* playlist_path,
+                                         const std::vector<std::string>& disc_paths)
+{
+ // Do not turn malformed wrapper input into an ordinary single-disc load.
+ if(!playlist_path || !*playlist_path || disc_paths.empty())
+  return nullptr;
+
+ MDFNI_CloseGame();
+ MDFN_printf(_("Loading %s...\n"), playlist_path);
+ return LoadCD(force_module, &::Mednafen::NVFS, playlist_path, nullptr, &disc_paths);
 }
 
 MDFNGI *MDFNI_LoadGame(const char *force_module, VirtualFS* vfs, const char* path, bool force_cd)

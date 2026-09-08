@@ -32,6 +32,7 @@
 #import "OEDeviceManager.h"
 #import "OEDeviceHandler.h"
 #import <OpenEmuBase/OEPropertyList.h>
+#import <OpenEmuBase/OEStoragePaths.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,7 +63,6 @@ NSNotificationName const OEBindingsRepairedNotification = @"OEBindingsRepairedNo
 static dispatch_queue_t bindingsControllerQueue;
 static NSMutableDictionary<NSString *, OEBindingsController *> *bindingsControllers;
 static NSMutableSet<OESystemController *> *systemControllers;
-static NSURL *configurationsFolder;
 
 + (void)initialize
 {
@@ -73,14 +73,6 @@ static NSURL *configurationsFolder;
         systemControllers = [[NSMutableSet alloc] init];
         bindingsControllers = [[NSMutableDictionary alloc] initWithCapacity:1];
         
-        NSFileManager *fileManager = NSFileManager.defaultManager;
-        NSArray *urls = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-        
-        if(urls.count > 0)
-        {
-            configurationsFolder = [[urls.firstObject URLByAppendingPathComponent:@"OpenEmu"] URLByAppendingPathComponent:@"Bindings"];
-            [fileManager createDirectoryAtURL:configurationsFolder withIntermediateDirectories:YES attributes:nil error:NULL];
-        }
     }
 }
 
@@ -114,6 +106,7 @@ static NSURL *configurationsFolder;
 
 + (NSURL *)fileURLForConfigurationWithName:(NSString *)aName;
 {
+    NSURL *configurationsFolder = [OEStoragePaths.dataRootURL URLByAppendingPathComponent:@"Bindings" isDirectory:YES];
     return [[configurationsFolder URLByAppendingPathComponent:aName] URLByAppendingPathExtension:@"oebindings"];
 }
 
@@ -252,7 +245,19 @@ static NSURL *configurationsFolder;
         return NO;
     }
 
-    if([data writeToURL:self.fileURL options:NSDataWritingAtomic error:&error]) {
+    NSURL *fileURL = self.fileURL;
+    // A configured root must already exist: never recreate a disconnected data
+    // folder merely because a controller needs to save its bindings.
+    BOOL createdDirectory = OEStoragePaths.isConfigured
+        ? [OEStoragePaths createDirectoryAtURL:fileURL.URLByDeletingLastPathComponent error:&error]
+        : [NSFileManager.defaultManager createDirectoryAtURL:fileURL.URLByDeletingLastPathComponent
+                                withIntermediateDirectories:YES attributes:nil error:&error];
+    if(!createdDirectory) {
+        NSLog(@"Could not create bindings folder with error: %@", error);
+        return NO;
+    }
+
+    if([data writeToURL:fileURL options:NSDataWritingAtomic error:&error]) {
         requiresSynchronization = NO;
         return YES;
     }

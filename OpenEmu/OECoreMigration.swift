@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import AppKit
 
@@ -50,9 +51,7 @@ enum OECoreMigration {
     }
 
     private static var coresDirectory: URL {
-        let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
-        let appSupport = URL(fileURLWithPath: paths.first!).appendingPathComponent("OpenEmu")
-        return appSupport.appendingPathComponent("Cores")
+        URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
     }
 
     static func runIfNeeded() {
@@ -77,7 +76,7 @@ enum OECoreMigration {
 
             // Incompatible core — move it to Legacy/
             do {
-                try fm.createDirectory(at: legacy, withIntermediateDirectories: true)
+                try fm.oeCreateDirectory(at: legacy, withIntermediateDirectories: true)
                 let dest = legacy.appendingPathComponent(item.lastPathComponent)
                 if fm.fileExists(atPath: dest.path) {
                     try fm.removeItem(at: dest)
@@ -97,7 +96,7 @@ enum OECoreMigration {
             alert.informativeText = """
                 OpenEmu found \(movedCores.count == 1 ? "a core" : "\(movedCores.count) cores") \
                 that cannot run on this Mac and moved \(movedCores.count == 1 ? "it" : "them") to \
-                ~/Library/Application Support/OpenEmu/Cores/Legacy/.
+                \(legacy.path).
 
                 Moved: \(movedCores.joined(separator: ", "))
 
@@ -120,7 +119,7 @@ enum OECoreMigration {
     static func resignCoresIfNeeded() {
         let versionKey = "OECoresResignedForVersion"
         let currentVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
-        guard UserDefaults.standard.string(forKey: versionKey) != currentVersion else { return }
+        guard OEPreferences.shared.string(forKey: versionKey) != currentVersion else { return }
 
         let fm = FileManager.default
         let cores = coresDirectory
@@ -137,6 +136,6 @@ enum OECoreMigration {
             task.waitUntilExit()
         }
 
-        UserDefaults.standard.set(currentVersion, forKey: versionKey)
+        OEPreferences.shared.set(currentVersion, forKey: versionKey)
     }
 }

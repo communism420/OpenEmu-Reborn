@@ -57,7 +57,7 @@ class Download: NSObject {
         
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
         
-        let downloadSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        let downloadSession = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: .main)
         downloadSession.sessionDescription = url.absoluteString
         self.downloadSession = downloadSession
         
@@ -121,12 +121,12 @@ extension Download: URLSessionDownloadDelegate {
         
         DLog("Download (\(session.sessionDescription ?? "")) did finish downloading temporary data.")
         
-        let temporaryDirectory = FileManager.default.temporaryDirectory
+        let temporaryDirectory = URL.oeTemporaryDirectory
             .appendingPathComponent("org.openemu.OpenEmu", isDirectory: true)
             .appendingPathComponent(UUID().uuidString, isDirectory: true)
         let destination = temporaryDirectory.appendingPathComponent(url.lastPathComponent)
         
-        try? FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.oeCreateDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
         
         try? FileManager.default.copyItem(at: location, to: destination)
         

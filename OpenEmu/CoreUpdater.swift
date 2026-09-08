@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import OpenEmuKit
 import Sparkle.SUStandardVersionComparator
 import OSLog
@@ -78,9 +79,7 @@ final class CoreUpdater: NSObject {
     
     // Backup directory
     private var coresDirectory: URL {
-        let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
-        let appSupportDir = URL(fileURLWithPath: paths.first!).appendingPathComponent("OpenEmu")
-        return appSupportDir.appendingPathComponent("Cores")
+        URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
     }
     
     override init() {
@@ -131,7 +130,7 @@ final class CoreUpdater: NSObject {
     private func checkForUpdateInformation(url: URL, plugin: OECorePlugin, handler: @escaping (CoreAppcastItem) -> Void) {
         var request = URLRequest(url: url)
         request.cachePolicy = .reloadIgnoringLocalCacheData
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.oeShared.dataTask(with: request) { data, response, error in
             if let error {
                 if #available(macOS 11.0, *) {
                     Logger.download.error("Failed to download \(url, privacy: .public): \(error, privacy: .public)")
@@ -204,7 +203,7 @@ final class CoreUpdater: NSObject {
         
         var coreListRequest = URLRequest(url: coreListURL)
         coreListRequest.cachePolicy = .reloadIgnoringLocalCacheData
-        lastCoreListURLTask = URLSession.shared.dataTask(with: coreListRequest) { data, response, error in
+        lastCoreListURLTask = URLSession.oeShared.dataTask(with: coreListRequest) { data, response, error in
             defer {
                 DispatchQueue.main.async {
                     if error == nil {
@@ -341,7 +340,7 @@ final class CoreUpdater: NSObject {
                 // Check if a core is set as default in AppDelegate
                 var defaultCore: CoreDownload?
                 let key = "defaultCore.\(systemIdentifier)"
-                if let defaultCoreID = UserDefaults.standard.string(forKey: key) {
+                if let defaultCoreID = OEPreferences.shared.string(forKey: key) {
                     defaultCore = validPlugins.first(where: { defaultCoreID.caseInsensitiveCompare($0.bundleIdentifier) == .orderedSame })
                 }
                 
@@ -619,7 +618,7 @@ private final class CoreAppcast {
         let url = url
         var request = URLRequest(url: url)
         request.cachePolicy = .reloadIgnoringLocalCacheData
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.oeShared.dataTask(with: request) { data, response, error in
             defer { handler?() }
             
             guard let data else { return }

@@ -23,11 +23,17 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import OpenEmuShaders
 
 public extension ShaderCompilerOptions {
     static func makeOptions() -> ShaderCompilerOptions {
         let options = ShaderCompilerOptions()
+
+        if OEStoragePaths.isConfigured {
+            options.cacheDir = OEStoragePaths.cachesURL.appendingPathComponent("Shaders", isDirectory: true)
+            return options
+        }
         
         guard
             let url = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)

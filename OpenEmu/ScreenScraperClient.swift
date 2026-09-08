@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import os.log
 import OpenEmuSystem
 
@@ -86,7 +87,7 @@ final class ScreenScraperClient {
             URLQueryItem(name: "softname",    value: "OpenEmu-Silicon"),
         ]
         guard let url = components.url else { return false }
-        let (_, response) = try await URLSession.shared.data(from: url)
+        let (_, response) = try await URLSession.oeShared.data(from: url)
         guard let http = response as? HTTPURLResponse else { return false }
         let ok = (200..<300).contains(http.statusCode)
         if ok { await MainActor.run { hasVerifiedCredentials = true } }
@@ -289,7 +290,7 @@ final class ScreenScraperClient {
 
         // User credentials — optional, attached when the user has saved their own account.
         // Increases the user's personal rate limit beyond the anonymous shared quota.
-        let ssUsername = UserDefaults.standard.string(forKey: "ScreenScraperUsername") ?? ""
+        let ssUsername = OEPreferences.shared.string(forKey: "ScreenScraperUsername") ?? ""
         let ssPassword = OECredentialStore.shared.get(.screenScraperPassword) ?? ""
         if !ssUsername.isEmpty && !ssPassword.isEmpty {
             queryItems.append(URLQueryItem(name: "ssid",       value: ssUsername))
@@ -310,7 +311,7 @@ final class ScreenScraperClient {
         var fetchResult: Result<ScreenScraperResult?, ScreenScraperFetchError> = .success(nil)
         let semaphore = DispatchSemaphore(value: 0)
 
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        let task = URLSession.oeShared.dataTask(with: url) { [weak self] data, response, error in
             defer { semaphore.signal() }
 
             guard let self = self else { return }

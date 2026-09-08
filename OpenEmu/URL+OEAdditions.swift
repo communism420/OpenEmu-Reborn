@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 
 extension URL {
     static let userGuideBIOSFiles = URL(string: "https://github.com/OpenEmu/OpenEmu/wiki/User-guide:-BIOS-files")!
@@ -32,19 +33,38 @@ extension URL {
 
 extension URL {
     
-    /// The “OpenEmu” subdirectory of the application support directory for the current user.
+    /// The data folder selected before the library and plugins are loaded.
     static var oeApplicationSupportDirectory: URL {
-#if swift(>=5.7)
-        if #available(macOS 13.0, *) {
-            return URL.applicationSupportDirectory.appending(path: "OpenEmu", directoryHint: .isDirectory)
+        OEStoragePaths.dataRootURL
+    }
+
+    static var oeTemporaryDirectory: URL {
+        OEStoragePaths.temporaryDirectoryURL
+    }
+}
+
+extension URLSession {
+    /// Application requests do not leave a second persistent HTTP/cookie store
+    /// in the user's Library. Download staging itself is managed by macOS.
+    static let oeShared = URLSession(configuration: .ephemeral)
+}
+
+extension FileManager {
+    /// Guard application-owned directories against a disconnected/replaced
+    /// root and symlinks escaping it. Explicit exports and external backups
+    /// still use the locations the user separately selected for those actions.
+    func oeCreateDirectory(at url: URL, withIntermediateDirectories: Bool,
+                           attributes: [FileAttributeKey: Any]? = nil) throws {
+        let path = url.standardizedFileURL.path
+        let rootPath = OEStoragePaths.dataRootURL.standardizedFileURL.path
+        if OEStoragePaths.isConfigured && (path == rootPath || path.hasPrefix(rootPath + "/")) {
+            try OEStoragePaths.createDirectory(at: url)
+            if let attributes, !attributes.isEmpty {
+                try setAttributes(attributes, ofItemAtPath: url.path)
+            }
         } else {
-            return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-                .appendingPathComponent("OpenEmu", isDirectory: true)
+            try createDirectory(at: url, withIntermediateDirectories: withIntermediateDirectories, attributes: attributes)
         }
-#else
-        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-                .appendingPathComponent("OpenEmu", isDirectory: true)
-#endif
     }
 }
 

@@ -487,6 +487,13 @@ jobs:
           cp OpenEmu/ScreenScraperDevCredentials.template.swift OpenEmu/ScreenScraperDevCredentials.swift
           cp OpenEmu/OEGoogleDriveSecrets.template.swift OpenEmu/OEGoogleDriveSecrets.swift
 
+      - name: Test selected data folder and settings (${{ matrix.arch }})
+        run: |
+          ./Scripts/Tests/test-storage-sdk.sh
+          ./Scripts/Tests/test-data-folder-setup.sh
+          python3 ./Scripts/Tests/test-core-data-folder.py
+          ./Mednafen/Tests/test-generated-playlists.sh
+
       - name: Build OpenEmu (Debug, ${{ matrix.arch }})
         run: |
           xcodebuild build \
@@ -573,6 +580,27 @@ jobs:
             app="$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/$configuration/OpenEmu.app"
             codesign --verify --deep --strict "$app"
           done
+
+      - name: Smoke-test app data folder (Release, ${{ matrix.arch }})
+        timeout-minutes: 5
+        run: |
+          set -euo pipefail
+          # The harness refuses other running app instances and terminates
+          # only its own processes before component tests start.
+          ./Scripts/Tests/test-data-folder-app.sh \
+            "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app" \
+            2>&1 | tee "$RUNNER_TEMP/app-data-folder-smoke.log"
+
+      - name: Upload app data-folder smoke logs (${{ matrix.arch }})
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenEmu-data-folder-smoke-${{ matrix.arch }}
+          path: |
+            ${{ runner.temp }}/app-data-folder-smoke.log
+            /private/tmp/openemu-data-folder-app-*/*.log
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Run component tests (${{ matrix.arch }})
         run: |

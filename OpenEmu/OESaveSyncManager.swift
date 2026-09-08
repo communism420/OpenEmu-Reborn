@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import Network
 import os.log
 
@@ -119,14 +120,14 @@ final class OESaveSyncManager: NSObject {
     
     /// The date and time when the last successful sync operation completed.
     @objc private(set) var lastSyncDate: Date? {
-        get { UserDefaults.standard.object(forKey: "OELastSaveSyncDate") as? Date }
-        set { UserDefaults.standard.set(newValue, forKey: "OELastSaveSyncDate") }
+        get { OEPreferences.shared.object(forKey: "OELastSaveSyncDate") as? Date }
+        set { OEPreferences.shared.set(newValue, forKey: "OELastSaveSyncDate") }
     }
     
     // MARK: - URLSession
     
     private lazy var session: URLSession = {
-        let config = URLSessionConfiguration.default
+        let config = URLSessionConfiguration.ephemeral
         config.timeoutIntervalForRequest  = 30
         config.timeoutIntervalForResource = 120
         return URLSession(configuration: config)
@@ -548,7 +549,7 @@ final class OESaveSyncManager: NSObject {
                 .appendingPathComponent(systemShort)
                 .appendingPathComponent("Battery Saves")
                 .appendingPathComponent(fileName)
-            try? FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try? FileManager.default.oeCreateDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
             return destination
         } else {
             // Save state — put under Save States/<systemShort>/<gameName>/
@@ -557,7 +558,7 @@ final class OESaveSyncManager: NSObject {
                 .appendingPathComponent("Save States")
                 .appendingPathComponent(systemShort)
                 .appendingPathComponent(gameName)
-            try? FileManager.default.createDirectory(at: stateDir, withIntermediateDirectories: true)
+            try? FileManager.default.oeCreateDirectory(at: stateDir, withIntermediateDirectories: true)
             return stateDir.appendingPathComponent((cloudName as NSString).lastPathComponent)
         }
     }
@@ -917,4 +918,3 @@ enum OESaveSyncError: LocalizedError {
         }
     }
 }
-

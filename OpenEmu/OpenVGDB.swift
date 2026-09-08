@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Foundation
 
@@ -42,7 +43,7 @@ final class OpenVGDB: NSObject {
     
     private static let initializeDefaults: Void = {
         let onceADayInterval = 60 * 60 * 24 * 1
-        UserDefaults.standard.register(defaults: [
+        OEPreferences.shared.register(defaults: [
             OpenVGDB.versionKey : "",
             OpenVGDB.updateCheckKey : Date(timeIntervalSince1970: 0),
             OpenVGDB.updateIntervalKey : onceADayInterval,
@@ -69,7 +70,7 @@ final class OpenVGDB: NSObject {
         
         if (try? databaseURL.checkResourceIsReachable()) != true {
             DispatchQueue.global(qos: .utility).async {
-                let defaults = UserDefaults.standard
+                let defaults = OEPreferences.shared
                 defaults.removeObject(forKey: OpenVGDB.updateCheckKey)
                 defaults.removeObject(forKey: OpenVGDB.versionKey)
                 
@@ -89,7 +90,7 @@ final class OpenVGDB: NSObject {
             
             // check for updates
             DispatchQueue.global(qos: .utility).async {
-                let defaults = UserDefaults.standard
+                let defaults = OEPreferences.shared
                 let lastUpdateCheck = defaults.object(forKey: OpenVGDB.updateCheckKey) as! Date
                 let updateInterval = defaults.double(forKey: OpenVGDB.updateIntervalKey)
                 
@@ -127,12 +128,12 @@ final class OpenVGDB: NSObject {
         var request = URLRequest(url: OpenVGDB.updateURL, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
         request.setValue("OpenEmu", forHTTPHeaderField: "User-Agent")
         
-        let task = URLSession.shared.dataTask(with: request) { result, response, error in
+        let task = URLSession.oeShared.dataTask(with: request) { result, response, error in
             
             if let result = result {
                 let releases = try? JSONSerialization.jsonObject(with: result, options: .allowFragments) as? [AnyHashable]
                 if let releases = releases {
-                    let defaults = UserDefaults.standard
+                    let defaults = OEPreferences.shared
                     
                     let currentVersion = defaults.string(forKey: OpenVGDB.versionKey)!
                     var nextVersion = currentVersion
@@ -185,7 +186,7 @@ final class OpenVGDB: NSObject {
             
             let request = URLRequest(url: url)
             
-            let downloadSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+            let downloadSession = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: .main)
             self.downloadSession = downloadSession
             
             let downloadTask = downloadSession.downloadTask(with: request)
@@ -237,7 +238,7 @@ extension OpenVGDB: URLSessionDownloadDelegate {
         
         database = try? SQLiteDatabase(url: url)
         if database != nil {
-            UserDefaults.standard.set(downloadVersion, forKey: OpenVGDB.versionKey)
+            OEPreferences.shared.set(downloadVersion, forKey: OpenVGDB.versionKey)
         }
         
         isUpdating = false

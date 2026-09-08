@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -76,14 +77,14 @@ final class GameTableView: NSTableView {
                 tableColumn(withIdentifier: .systemColumn)?.isHidden = true
             }
             
-            UserDefaults.standard.set(headerState, forKey: headerStateKey)
+            OEPreferences.shared.set(headerState, forKey: headerStateKey)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        if let savedHeaderState = UserDefaults.standard.dictionary(forKey: headerStateKey) as? [String: Bool] {
+        if let savedHeaderState = OEPreferences.shared.dictionary(forKey: headerStateKey) as? [String: Bool] {
             headerState = savedHeaderState
         } else {
             headerState = [String: Bool](uniqueKeysWithValues: tableColumns.map({ ($0.identifier.rawValue, false) }))

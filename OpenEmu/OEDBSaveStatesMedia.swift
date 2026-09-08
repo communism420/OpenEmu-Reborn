@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Foundation
 
@@ -36,7 +37,7 @@ final class OEDBSaveStatesMedia: NSObject, CollectionViewItemProtocol {
     var baseFilterPredicate: NSPredicate {
         
         var subpredicates = [NSPredicate]()
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         
         if !defaults.bool(forKey: Self.showsAutoSavesKey) {
             subpredicates.append(NSPredicate(format: "name != %@", OEDBSaveState.autosaveName))

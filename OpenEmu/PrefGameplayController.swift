@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuKit
 
 final class PrefGameplayController: NSViewController {
@@ -62,8 +63,8 @@ final class PrefGameplayController: NSViewController {
     // MARK: - Slider injection
 
     private func addSliders() {
-        let sat = OEGameDocument.clampedSaturation((UserDefaults.standard.object(forKey: OEGameSaturationKey) as? Float) ?? 1.0)
-        let gam = OEGameDocument.clampedGamma((UserDefaults.standard.object(forKey: OEGameGammaKey) as? Float) ?? 1.0)
+        let sat = OEGameDocument.clampedSaturation((OEPreferences.shared.object(forKey: OEGameSaturationKey) as? Float) ?? 1.0)
+        let gam = OEGameDocument.clampedGamma((OEPreferences.shared.object(forKey: OEGameGammaKey) as? Float) ?? 1.0)
 
         // The XIB has one NSGridView (2 columns) as the only direct subview.
         // Walk up from the shader popup to find it, then insert two new rows
@@ -141,7 +142,7 @@ final class PrefGameplayController: NSViewController {
     @objc private func saturationChanged(_ sender: NSSlider) {
         let v = OEGameDocument.clampedSaturation(sender.floatValue)
         saturationLabel?.stringValue = String(format: "%.0f%%", v * 100)
-        UserDefaults.standard.set(v, forKey: OEGameSaturationKey)
+        OEPreferences.shared.set(v, forKey: OEGameSaturationKey)
         
         NSDocumentController.shared.documents.forEach {
             ($0 as? OEGameDocument)?.setSaturation(v, asDefault: false)
@@ -151,7 +152,7 @@ final class PrefGameplayController: NSViewController {
     @objc private func gammaChanged(_ sender: NSSlider) {
         let v = OEGameDocument.clampedGamma(sender.floatValue)
         gammaLabel?.stringValue = String(format: "%.0f%%", v * 100)
-        UserDefaults.standard.set(v, forKey: OEGameGammaKey)
+        OEPreferences.shared.set(v, forKey: OEGameGammaKey)
         
         NSDocumentController.shared.documents.forEach {
             ($0 as? OEGameDocument)?.setGamma(v, asDefault: false)

@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import OpenEmuSystem
 
 protocol GameInfoDatabase {
@@ -68,7 +69,7 @@ final class GameInfoHelper {
             // ScreenScraper credentials — resolved lazily so we don't hit the Keychain
             // on every ROM lookup (e.g. during a full library scan).
             lazy var hasSScredentials: Bool = {
-                let user = UserDefaults.standard.string(forKey: "ScreenScraperUsername") ?? ""
+                let user = OEPreferences.shared.string(forKey: "ScreenScraperUsername") ?? ""
                 guard !user.isEmpty else { return false }
                 return OECredentialStore.shared.has(.screenScraperPassword)
             }()

@@ -612,7 +612,7 @@ private final class OERetroAchievementsPlacardView: NSVisualEffectView {
             modeLabel.textColor = .labelColor
 
             if let urlString = info[OERetroAchievementsGameBadgeURLKey] as? String, let url = URL(string: urlString) {
-                URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+                URLSession.oeShared.dataTask(with: url) { [weak self] data, _, _ in
                     guard let data, let image = NSImage(data: data) else { return }
                     DispatchQueue.main.async { self?.imageView.image = image }
                 }.resume()
@@ -1095,7 +1095,7 @@ final class RetroAchievementsGameViewController: NSViewController {
             return
         }
 
-        URLSession.shared.dataTask(with: url) { data, _, _ in
+        URLSession.oeShared.dataTask(with: url) { data, _, _ in
             guard let data, let image = NSImage(data: data) else { return }
             Self.imageCache.setObject(image, forKey: cacheKey)
             DispatchQueue.main.async { imageView.image = image }

@@ -229,7 +229,7 @@ public class OECorePlugin: OEPlugin {
     private func prepareForRemoval() {
         let replacements = infoDictionary[OEGameCoreSuggestedReplacement] as? [String: String]
         
-        let defaults = UserDefaults.standard
+        let defaults: OEPreferencesStore = OEPreferences.isConfigured ? OEPreferences.shared : UserDefaults.standard
         for systemIdentifier in systemIdentifiers {
             let prefKey = "defaultCore." + systemIdentifier
             if let currentCore = defaults.string(forKey: prefKey),

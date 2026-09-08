@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -155,6 +156,7 @@ final class LibraryGamesViewController: NSSplitViewController {
         
         let autosaveName = "OELibraryGamesSplitView"
         
+        // NSSplitView itself owns its autosaved geometry in macOS preferences.
         if UserDefaults.standard.object(forKey: "NSSplitView Subview Frames \(autosaveName)") == nil {
             splitView.setPosition(sidebarDefaultWidth, ofDividerAt: 0)
         }
@@ -222,7 +224,7 @@ final class LibraryGamesViewController: NSSplitViewController {
                system.plugin?.supportsDiscsWithDescriptorFile ?? false,
                system.games.isEmpty,
                !self.discGuideMessageSystemIDs.contains(system.systemIdentifier),
-               !UserDefaults.standard.bool(forKey: Self.skipDiscGuideMessageKey),
+               !OEPreferences.shared.bool(forKey: Self.skipDiscGuideMessageKey),
                let window = self.view.window {
                 
                 let alert = NSAlert()
@@ -277,4 +279,3 @@ extension LibraryGamesViewController: NSMenuItemValidation {
         }
     }
 }
-

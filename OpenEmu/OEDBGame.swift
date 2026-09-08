@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -42,17 +43,17 @@ final class OEDBGame: OEDBItem {
     
     static let displayGameTitleKey = "displayGameTitle"
 
-    private static var _showGameTitle: Bool = UserDefaults.standard.bool(forKey: displayGameTitleKey)
+    private static var _showGameTitle: Bool = OEPreferences.shared.bool(forKey: displayGameTitleKey)
     private static var _prefObserver: NSObjectProtocol?
 
     static func startObservingDisplayPreference() {
         guard _prefObserver == nil else { return }
         _prefObserver = NotificationCenter.default.addObserver(
-            forName: UserDefaults.didChangeNotification,
+            forName: Notification.Name("OEPreferencesDidChangeNotification"),
             object: nil,
             queue: .main
         ) { _ in
-            _showGameTitle = UserDefaults.standard.bool(forKey: displayGameTitleKey)
+            _showGameTitle = OEPreferences.shared.bool(forKey: displayGameTitleKey)
         }
     }
 

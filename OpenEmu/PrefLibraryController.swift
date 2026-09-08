@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -125,7 +126,7 @@ final class PrefLibraryController: NSViewController {
     
     private func showResetLocationButtonIfNeeded() {
         
-        let defaultDatabasePath = (UserDefaults.standard.string(forKey: OELibraryDatabase.defaultDatabasePathKey)! as NSString).expandingTildeInPath
+        let defaultDatabasePath = (OEPreferences.shared.string(forKey: OELibraryDatabase.defaultDatabasePathKey)! as NSString).expandingTildeInPath
         let defaultLocation = URL(fileURLWithPath: defaultDatabasePath, isDirectory: true)
         
         let currentLocation = OELibraryDatabase.default?.databaseFolderURL
@@ -156,7 +157,7 @@ final class PrefLibraryController: NSViewController {
         ]
         
         keysToRemove.forEach { key in
-            UserDefaults.standard.removeObject(forKey: key)
+            OEPreferences.shared.removeObject(forKey: key)
         }
     }
 }

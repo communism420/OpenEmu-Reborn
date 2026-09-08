@@ -24,17 +24,26 @@
 
 import Foundation
 import OpenEmuKit
+import OpenEmuBase
 import Sentry
 
-// Initialize Sentry in the helper process if the user opted in via the host app.
-// CFPreferencesCopyValue reads the host app's preference domain directly, which is
-// safe in this non-sandboxed helper process and avoids any IPC or file-sharing setup.
-let consentValue = CFPreferencesCopyValue(
-    "OEIntelSentryCrashReportingEnabled" as CFString,
-    "org.openemu.OpenEmu" as CFString,
-    kCFPreferencesAnyUser,
-    kCFPreferencesAnyHost
-)
+// Configure before telemetry, bindings, shaders or core controllers can cache
+// paths. Never fall back to the legacy Library folder in a helper process.
+let dataRootPrefix = "--org.openemu.data-root="
+let dataRootArguments = ProcessInfo.processInfo.arguments.filter { $0.hasPrefix(dataRootPrefix) }
+do {
+    guard dataRootArguments.count == 1 else { throw CocoaError(.fileReadInvalidFileName) }
+    let path = String(dataRootArguments[0].dropFirst(dataRootPrefix.count))
+    guard (path as NSString).isAbsolutePath else { throw CocoaError(.fileReadInvalidFileName) }
+    try OEStoragePaths.configure(dataRootURL: URL(fileURLWithPath: path, isDirectory: true))
+    try OEPreferences.configure(url: OEStoragePaths.dataRootURL.appendingPathComponent("Settings.plist"), readOnly: true)
+} catch {
+    FileHandle.standardError.write(Data("OpenEmu helper data folder: \(error.localizedDescription)\n".utf8))
+    exit(EXIT_FAILURE)
+}
+
+// The host is the sole settings writer; this process reads the same file.
+let consentValue = OEPreferences.shared.bool(forKey: "OEIntelSentryCrashReportingEnabled")
 let sentryDSN = (Bundle.main.object(forInfoDictionaryKey: "OESentryDSN") as? String)?
     .trimmingCharacters(in: .whitespacesAndNewlines)
 let sentryReleasePrefix = (Bundle.main.object(forInfoDictionaryKey: "OESentryReleasePrefix") as? String)?
@@ -42,10 +51,11 @@ let sentryReleasePrefix = (Bundle.main.object(forInfoDictionaryKey: "OESentryRel
 let effectiveSentryReleasePrefix = sentryReleasePrefix.flatMap { $0.isEmpty ? nil : $0 }
     ?? "openemu-intel"
 
-if (consentValue as? Bool) == true, let sentryDSN, !sentryDSN.isEmpty {
+if consentValue, let sentryDSN, !sentryDSN.isEmpty {
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     let build   = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
     SentrySDK.start { options in
+        options.cacheDirectoryPath = OEStoragePaths.cachesURL.appendingPathComponent("Sentry/Helper", isDirectory: true).path
         options.dsn              = sentryDSN
         options.releaseName      = "\(effectiveSentryReleasePrefix)@\(version)+\(build)"
         options.environment      = "production"
@@ -56,14 +66,9 @@ if (consentValue as? Bool) == true, let sentryDSN, !sentryDSN.isEmpty {
         options.appHangTimeoutInterval = 1.0
     }
 
-    // Tag this helper process with the active game/system/core. The host writes
-    // these into its preference domain just before launching the helper, and
-    // CFPreferencesCopyValue reads from the host domain (this helper is not
-    // sandboxed). Without this, every helper crash arrives with no emulation
-    // context — and most crashes happen in the helper, not the host.
-    let domain = "org.openemu.OpenEmu" as CFString
+    // Read the game context saved by the host before launching this process.
     func ctx(_ key: String) -> String? {
-        CFPreferencesCopyValue(key as CFString, domain, kCFPreferencesAnyUser, kCFPreferencesAnyHost) as? String
+        OEPreferences.shared.string(forKey: key)
     }
     let game   = ctx("OESentryActiveGame")
     let system = ctx("OESentryActiveSystem")

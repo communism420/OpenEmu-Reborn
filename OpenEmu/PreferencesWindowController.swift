@@ -25,6 +25,7 @@
  */
 
 import Cocoa
+import OpenEmuBase
 import AudioToolbox.AudioServices
 
 final class PreferencesWindowController: NSWindowController {
@@ -112,7 +113,7 @@ extension PreferencesWindowController: NSWindowDelegate {
                 
                 if self.konamiCodeIndex == self.konamiCode.count {
                     
-                    let defaults = UserDefaults.standard
+                    let defaults = OEPreferences.shared
                     let debugModeActivated = !defaults.bool(forKey: PreferencesWindowController.debugModeKey)
                     defaults.set(debugModeActivated, forKey: PreferencesWindowController.debugModeKey)
                     
@@ -175,7 +176,7 @@ final class PreferencesTabViewController: NSTabViewController {
         ]
         
         // Check if the debug pane should be included.
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         if defaults.bool(forKey: PreferencesWindowController.debugModeKey) {
             preferencePanes.append(PrefDebugController())
         }
@@ -229,7 +230,7 @@ final class PreferencesTabViewController: NSTabViewController {
         }
         
         // Record the selected pane index in user defaults.
-        UserDefaults.standard.set(selectedTabViewItemIndex, forKey: PreferencesWindowController.selectedPreferencesTabKey)
+        OEPreferences.shared.set(selectedTabViewItemIndex, forKey: PreferencesWindowController.selectedPreferencesTabKey)
     }
     
     // MARK: -

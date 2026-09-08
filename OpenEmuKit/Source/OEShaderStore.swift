@@ -32,7 +32,7 @@ extension NSNotification.Name {
 
 /// The main object used for accessing system and user-installed shaders.
 @objc public class OEShaderStore: NSObject {
-    private let store: UserDefaults
+    private let store: OEPreferencesStore
     private let userPathName: String
     private let bundle: Bundle
     
@@ -41,12 +41,13 @@ extension NSNotification.Name {
     
     /// Creates a shader model used for accessing shaders and their user state.
     /// - Parameters:
-    ///   - store: The user defaults store to read and write to.
+    ///   - store: The settings store to read and write to. Both OpenEmu's
+    ///     file-backed preferences and standalone `UserDefaults` are supported.
     ///   - bundle: The main bundle used to locate shaders.
     ///   - name: The name of the path used to read and write user-specified shaders,
     ///     from within the application support directory. A `nil`
     ///     value will use the `kCFBundleNameKey` from the main bundle; otherwise, `OpenEmuKit` will be used.
-    @objc public init(store: UserDefaults, bundle: Bundle = .main, userPathName name: String? = nil) {
+    @objc public init(store: OEPreferencesStore, bundle: Bundle = .main, userPathName name: String? = nil) {
         self.store          = store
         self.bundle         = bundle
         self.userPathName   = name ?? bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? "OpenEmuKit"
@@ -132,6 +133,10 @@ extension NSNotification.Name {
     }
     
     @objc public var userShadersPath: URL? {
+        if OEStoragePaths.isConfigured {
+            return OEStoragePaths.dataRootURL.appendingPathComponent("Shaders", isDirectory: true)
+        }
+        // Preserve the named directory for standalone OpenEmuKit clients.
         guard
             let path = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         else { return nil }
@@ -140,6 +145,9 @@ extension NSNotification.Name {
     }
     
     @objc public var shadersCachePath: URL? {
+        if OEStoragePaths.isConfigured {
+            return OEStoragePaths.cachesURL.appendingPathComponent("Shaders", isDirectory: true)
+        }
         guard
             let path = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         else { return nil }

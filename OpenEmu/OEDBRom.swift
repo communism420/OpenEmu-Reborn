@@ -350,7 +350,7 @@ final class OEDBRom: OEDBItem {
                     return unsortedFolder.deletingLastPathComponent().appendingPathComponent(newName, isDirectory: true)
                 }
                 
-                try? FileManager.default.createDirectory(at: unsortedFolder, withIntermediateDirectories: true, attributes: nil)
+                try? FileManager.default.oeCreateDirectory(at: unsortedFolder, withIntermediateDirectories: true, attributes: nil)
             }
             var romURL = unsortedFolder.appendingPathComponent(fullName as String, isDirectory: false)
             romURL = romURL.uniqueURL { triesCount in

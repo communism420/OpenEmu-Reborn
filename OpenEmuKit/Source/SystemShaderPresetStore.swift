@@ -23,15 +23,16 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 
 /// An object that manages the association of shader presets
 /// to system cores.
 public class SystemShaderPresetStore {
-    let store: UserDefaults
+    let store: OEPreferencesStore
     let presets: ShaderPresetStore
     let shaders: OEShaderStore
     
-    public init(store: UserDefaults, presets: ShaderPresetStore, shaders: OEShaderStore) {
+    public init(store: OEPreferencesStore, presets: ShaderPresetStore, shaders: OEShaderStore) {
         self.store      = store
         self.presets    = presets
         self.shaders    = shaders

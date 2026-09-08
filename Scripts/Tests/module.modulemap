@@ -1,0 +1,7 @@
+// Minimal real SDK exports for standalone storage/bootstrap tests. The tests
+// compile the production Objective-C implementations, not mock replacements.
+module OpenEmuBase {
+    header "../../OpenEmu-SDK/OpenEmuBase/OEStoragePaths.h"
+    header "../../OpenEmu-SDK/OpenEmuBase/OEPreferences.h"
+    export *
+}

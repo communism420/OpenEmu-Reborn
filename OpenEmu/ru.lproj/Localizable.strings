@@ -753,5 +753,39 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>Показаны первые %1$@ из %2$@ совпадений, уточните поиск</string>
 
+	<key>Choose OpenEmu Data Folder</key>
+	<string>Выберите папку данных OpenEmu</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Выберите или создайте отдельную папку для библиотеки, импортированных игр, BIOS, сохранений, ядер, настроек, шейдеров и кэшей. Старые данные автоматически не перемещаются. Чтобы использовать прежнюю библиотеку, выберите её папку данных OpenEmu.</string>
+	<key>Use This Folder</key>
+	<string>Использовать эту папку</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Выберите пустую папку или существующую папку данных OpenEmu.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu не может открыть папку данных</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Подключите диск и повторите попытку либо укажите ту же папку. Ваша библиотека не будет заменена.
+
+%@
+
+%@</string>
+	<key>Try Again</key>
+	<string>Повторить</string>
+	<key>Locate Folder…</key>
+	<string>Найти папку…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Укажите выбранную ранее папку данных OpenEmu. Другая или пустая папка не заменит вашу библиотеку.</string>
+	<key>This folder cannot be used</key>
+	<string>Эту папку нельзя использовать</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>Не удалось сохранить настройки OpenEmu</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>Не удалось сохранить настройки OpenEmu. Убедитесь, что диск с данными подключён и доступен для записи.</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Убедитесь, что диск с данными подключён и доступен для записи. Прежние настройки сохранены.</string>
 </dict>
 </plist>

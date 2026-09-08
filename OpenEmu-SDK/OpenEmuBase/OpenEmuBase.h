@@ -38,6 +38,8 @@
 #import <OpenEmuBase/OEGameCore.h>
 #import <OpenEmuBase/OELibretroCoreTranslator.h>
 #import <OpenEmuBase/OEGameCoreController.h>
+#import <OpenEmuBase/OEStoragePaths.h>
+#import <OpenEmuBase/OEPreferences.h>
 #import <OpenEmuBase/OERingBuffer.h>
 #import <OpenEmuBase/OESystemResponderClient.h>
 #import <OpenEmuBase/OETimingUtils.h>

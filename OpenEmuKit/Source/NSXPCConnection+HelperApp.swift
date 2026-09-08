@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 internal import os.log
 
 extension NSXPCConnection {
@@ -46,6 +47,9 @@ extension NSXPCConnection {
         let task = Process()
         task.executableURL = url
         task.arguments = ["\(Self.helperIdentifierArgumentPrefix)\(identifier)", "\(Self.helperServiceNameArgumentPrefix)\(name)"]
+        if OEStoragePaths.isConfigured {
+            task.arguments?.append("--org.openemu.data-root=\(OEStoragePaths.dataRootURL.path)")
+        }
         task.terminationHandler = { task in
             os_log(.error, log: .helper,
                    "Helper terminated unexpectedly. { id = %{public}@, reason = %ld, exit = %d }",

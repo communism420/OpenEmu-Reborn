@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
+import OpenEmuBase
 import CryptoKit
 import OpenEmuKit
 import OpenEmuSystem
@@ -263,7 +264,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
         }
         
         do {
-            try fileManager.createDirectory(at: destination, withIntermediateDirectories: true, attributes: nil)
+            try fileManager.oeCreateDirectory(at: destination, withIntermediateDirectories: true, attributes: nil)
         } catch {
             os_log(.error, log: .import, "Could not create directory '%{public}@' before copying shader: %{public}@", destination.path, error.localizedDescription)
             return .notHandled
@@ -282,7 +283,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
     
     @discardableResult
     private static func trySBIFile(at url: URL) -> ImportResult {
-        let copyToLibrary = UserDefaults.standard.bool(forKey: OECopyToLibraryKey)
+        let copyToLibrary = OEPreferences.shared.bool(forKey: OECopyToLibraryKey)
         
         let pathExtension = url.pathExtension.lowercased()
         guard pathExtension == "sbi" && copyToLibrary else {
@@ -320,7 +321,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
         let destination = sbiSubFolderURL.appendingPathComponent(sbiFilename, isDirectory: false)
         
         do {
-            try fileManager.createDirectory(at: sbiSubFolderURL, withIntermediateDirectories: true)
+            try fileManager.oeCreateDirectory(at: sbiSubFolderURL, withIntermediateDirectories: true)
         } catch {
             DLog("Could not create directory before copying SBI file at \(url)")
             DLog("\(error)");
@@ -867,7 +868,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
             }
             validSystems = systems
         }
-        else if UserDefaults.standard.bool(forKey: OEImportManualSystems) {
+        else if OEPreferences.shared.bool(forKey: OEImportManualSystems) {
             validSystems = OEDBSystem.allSystems(in: context)
         }
         else {
@@ -928,7 +929,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
     }
     
     private func performImportStepOrganize() {
-        let copyToLibrary = UserDefaults.standard.bool(forKey: OECopyToLibraryKey)
+        let copyToLibrary = OEPreferences.shared.bool(forKey: OECopyToLibraryKey)
         
         if !copyToLibrary {
             // There is nothing to do in this method if we do not have to copy or move the file.
@@ -993,7 +994,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
                     return systemFolder.deletingLastPathComponent().appendingPathComponent(newName, isDirectory: true)
                 }
                 
-                try? FileManager.default.createDirectory(at: systemFolder, withIntermediateDirectories: true)
+                try? FileManager.default.oeCreateDirectory(at: systemFolder, withIntermediateDirectories: true)
             }
             
             var romURL = systemFolder.appendingPathComponent(fullName, isDirectory: false)
@@ -1110,7 +1111,7 @@ final class ImportOperation: Operation, NSCopying, @unchecked Sendable {
         if let game = game {
             rom.game = game
             
-            if UserDefaults.standard.bool(forKey: OEAutomaticallyGetInfoKey) {
+            if OEPreferences.shared.bool(forKey: OEAutomaticallyGetInfoKey) {
                 game.status = .processing
             }
             

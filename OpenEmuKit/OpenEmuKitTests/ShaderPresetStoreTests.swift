@@ -24,6 +24,7 @@
 
 import XCTest
 import Nimble
+import OpenEmuBase
 @testable import OpenEmuKit
 
 class UserDefaultsPresetStorageTests: XCTestCase {
@@ -81,5 +82,49 @@ class UserDefaultsPresetStorageTests: XCTestCase {
             try store.save(ShaderPresetData(name: "foo", shader: "MAME", parameters: [:], id: "id1"))
         }
         .to(throwError(ShaderPresetStorageError.shaderModified))
+    }
+
+    func testPresetIndexReloadsFromInjectedPreferencesStore() throws {
+        // Keep standalone UserDefaults clients working through the same
+        // interface used by OpenEmu's file-backed settings.
+        let preferences: OEPreferencesStore = defaults
+        let first = UserDefaultsPresetStorage(store: preferences)
+        try first.save(ShaderPresetData(name: "Custom CRT", shader: "CRT", parameters: ["brightness": 0.5], id: "custom"))
+
+        let reloaded = UserDefaultsPresetStorage(store: preferences)
+        XCTAssertEqual(reloaded.findPresets(byShader: "CRT").map(\.id), ["custom"])
+        XCTAssertEqual(reloaded.findPreset(byID: "custom")?.parameters, ["brightness": 0.5])
+        XCTAssertTrue(reloaded.exists(byID: UserDefaultsPresetStorage.makeKey("custom")))
+        reloaded.remove(try XCTUnwrap(reloaded.findPreset(byID: "custom")))
+        XCTAssertTrue(reloaded.findPresets(byShader: "CRT").isEmpty)
+        XCTAssertNil(preferences.string(forKey: UserDefaultsPresetStorage.makeKey("custom")))
+    }
+
+    func testSystemShaderSettingsUseInjectedPreferencesStore() {
+        let preferences: OEPreferencesStore = defaults
+        let shaders = OEShaderStore(store: preferences, bundle: Bundle(for: Self.self))
+        let systems = OESystemShaderStore(store: preferences, shaders: shaders)
+        let shader = OEShaderModel(name: "CRT")
+        let identifier = "openemu.system.nes"
+
+        shaders.defaultShaderName = "CRT"
+        XCTAssertEqual(preferences.string(forKey: "videoShader"), "CRT")
+        systems.setShader(shader, forSystem: identifier)
+        XCTAssertEqual(preferences.string(forKey: "videoShader.\(identifier)"), "CRT")
+        systems.write(parameters: "brightness=0.5", forShader: "CRT", identifier: identifier)
+        let model = systems.shader(withShader: shader, forSystem: identifier)
+        XCTAssertEqual(model.parameters, ["brightness": 0.5])
+        systems.remove(parametersForShader: "CRT", identifier: identifier)
+        XCTAssertNil(model.parameters)
+        systems.resetShader(forSystem: identifier)
+        XCTAssertNil(preferences.string(forKey: "videoShader.\(identifier)"))
+
+        let presets = ShaderPresetStore(store: store, shaders: shaders)
+        let systemPresets = SystemShaderPresetStore(store: preferences, presets: presets, shaders: shaders)
+        let preset = ShaderPreset(name: "Custom CRT", shader: shader, parameters: [:], id: "custom")
+        systemPresets.setPreset(preset, forSystem: identifier)
+        XCTAssertEqual(preferences.string(forKey: "videoShader.\(identifier).preset"), "custom")
+        systemPresets.resetPresetForSystem(identifier)
+        XCTAssertNil(preferences.string(forKey: "videoShader.\(identifier).preset"))
     }
 }

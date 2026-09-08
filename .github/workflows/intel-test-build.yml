@@ -403,13 +403,27 @@ jobs:
             --output "$RUNNER_TEMP/IntelPackage"
 
       - name: Smoke-check Intel app startup
+        timeout-minutes: 5
         run: |
+          set -euo pipefail
           # This is a startup check on a fresh CI account, not gameplay or a
           # claim that any installed core has run successfully.
           app="$RUNNER_TEMP/IntelPackage/OpenEmu-Intel-test/OpenEmu.app"
+          log="$RUNNER_TEMP/intel-startup.log"
+          # This checkout is plan.source_sha, which may be an older original
+          # build during recovery. Use the harness from that source revision;
+          # a present but failing/broken harness must never use the fallback.
+          harness=./Scripts/Tests/test-data-folder-app.sh
+          if [ -e "$harness" ] || [ -L "$harness" ]; then
+            test -f "$harness"
+            "$harness" "$app" 2>&1 | tee "$log"
+            exit 0
+          fi
+
+          # Older source revisions predate --data-folder. Preserve their
+          # original 15-second startup check when no harness exists there.
           smoke=$(mktemp -d "$RUNNER_TEMP/OpenEmuSmoke.XXXXXX")
           marker=$(mktemp "$smoke/before-launch.XXXXXX")
-          log="$RUNNER_TEMP/intel-startup.log"
           pid=""
           cleanup() {
             if [ -n "$pid" ]; then
@@ -450,7 +464,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: OpenEmu-Intel-startup-smoke
-          path: ${{ runner.temp }}/intel-startup.log
+          path: |
+            ${{ runner.temp }}/intel-startup.log
+            /private/tmp/openemu-data-folder-app-*/*.log
           if-no-files-found: ignore
           retention-days: 14
 

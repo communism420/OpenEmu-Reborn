@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import OpenEmuKit
 
 final class LibraryController: NSTabViewController, NSMenuItemValidation {
@@ -48,7 +49,7 @@ final class LibraryController: NSTabViewController, NSMenuItemValidation {
             selectedTabViewItemIndex = newValue.rawValue
             toolbar.categorySelector.selectedSegment = newValue.rawValue
             
-            UserDefaults.standard.set(newValue.rawValue, forKey: DefaultKeys.lastCategory.rawValue)
+            OEPreferences.shared.set(newValue.rawValue, forKey: DefaultKeys.lastCategory.rawValue)
         }
     }
     
@@ -79,7 +80,7 @@ final class LibraryController: NSTabViewController, NSMenuItemValidation {
         super.viewDidLoad()
         
         //set initial zoom value
-        let zoomValue = UserDefaults.standard.float(forKey: OELastGridSizeKey)
+        let zoomValue = OEPreferences.shared.float(forKey: OELastGridSizeKey)
         toolbar.gridSizeSlider.floatValue = zoomValue
         
         tabView.autoresizingMask = [.width, .height]
@@ -93,7 +94,7 @@ final class LibraryController: NSTabViewController, NSMenuItemValidation {
         // HACK: force NIB to load, so GameScannerViewController is initialized
         _ = tabViewItems[0].view
         
-        if let category = Category(rawValue: UserDefaults.standard.integer(forKey: DefaultKeys.lastCategory.rawValue)) {
+        if let category = Category(rawValue: OEPreferences.shared.integer(forKey: DefaultKeys.lastCategory.rawValue)) {
             selectedCatagory = category
         }
         

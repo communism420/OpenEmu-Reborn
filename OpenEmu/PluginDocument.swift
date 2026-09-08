@@ -86,7 +86,7 @@ final class PluginDocument: NSDocument {
                 try fm.trashItem(at: newURL, resultingItemURL: nil)
             }
             if !fm.fileExists(atPath: coresDir.path) {
-                try fm.createDirectory(at: coresDir, withIntermediateDirectories: true)
+                try fm.oeCreateDirectory(at: coresDir, withIntermediateDirectories: true)
             }
             try fm.copyItem(at: url, to: newURL)
             

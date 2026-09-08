@@ -36,6 +36,18 @@ static NSString *OEStringFromCString(const char *string)
     return value ?: @"";
 }
 
+static NSURLSession *OERetroAchievementsSession(void)
+{
+    // Reuse connections without creating a second persistent HTTP/cookie
+    // store outside the data folder selected by the host application.
+    static NSURLSession *session;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
+    });
+    return session;
+}
+
 NSString *OEHostAppVersion(void)
 {
     // In the host app process the main bundle carries the version. The RA client
@@ -301,7 +313,7 @@ void oeRetroAchievementsServerCall(const rc_api_request_t *request,
     }
 
     NSURLSessionDataTask *task =
-        [[NSURLSession sharedSession]
+        [OERetroAchievementsSession()
             dataTaskWithRequest:urlRequest
               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error || !data) {

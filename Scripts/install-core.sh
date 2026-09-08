@@ -3,7 +3,10 @@
 # install-core.sh — install a built core plugin into the OE cores directory
 #
 # Usage:
-#   ./Scripts/install-core.sh <CoreName> [--debug|--release]
+#   ./Scripts/install-core.sh <CoreName> [--debug|--release] [--data-folder <folder>]
+#   Uses the folder selected in OpenEmu, or the legacy location for older builds.
+#   --data-folder selects an existing, identified folder without changing settings.
+#   --derived-data <folder> uses only that existing build directory, never another build.
 #
 # Examples:
 #   ./Scripts/install-core.sh Dolphin                # default: install the Debug build
@@ -26,11 +29,33 @@ set -euo pipefail
 
 CORE=""
 CONFIG="Debug"
+DATA_FOLDER=""
+DERIVED_DATA=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --debug)   CONFIG="Debug";   shift ;;
     --release) CONFIG="Release"; shift ;;
+    --derived-data)
+      if [ $# -lt 2 ] || [ -z "$2" ] || [[ "$2" == --* ]]; then
+        echo "error: --derived-data requires an existing build directory." >&2
+        exit 2
+      fi
+      if [ -n "$DERIVED_DATA" ]; then
+        echo "error: --derived-data may only be specified once." >&2
+        exit 2
+      fi
+      DERIVED_DATA="$2"; shift 2 ;;
+    --data-folder)
+      if [ $# -lt 2 ] || [ -z "$2" ] || [[ "$2" == --* ]]; then
+        echo "error: --data-folder requires an existing OpenEmu data folder." >&2
+        exit 2
+      fi
+      if [ -n "$DATA_FOLDER" ]; then
+        echo "error: --data-folder may only be specified once." >&2
+        exit 2
+      fi
+      DATA_FOLDER="$2"; shift 2 ;;
     -h|--help)
       sed -n '2,16p' "$0"
       exit 0 ;;
@@ -49,11 +74,13 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "$CORE" ]; then
-  echo "Usage: $0 <CoreName> [--debug|--release]" >&2
+  echo "Usage: $0 <CoreName> [--debug|--release] [--data-folder <folder>] [--derived-data <folder>]" >&2
   exit 2
 fi
-
-DEST="$HOME/Library/Application Support/OpenEmu/Cores/${CORE}.oecoreplugin"
+if ! [[ "$CORE" =~ ^[A-Za-z0-9][A-Za-z0-9._+-]*$ ]]; then
+  echo "error: invalid core name: $CORE" >&2
+  exit 2
+fi
 
 # Look in two places, in this order, and pick the most recently built:
 #   1. ~/Builds/openemu/<branch>/  — worktree mode build path, used by verify.sh
@@ -68,6 +95,21 @@ DEST="$HOME/Library/Application Support/OpenEmu/Cores/${CORE}.oecoreplugin"
 # spent hours debugging — see issue #214.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+source "$SCRIPT_DIR/core-data-folder.sh"
+DATA_FOLDER=$(oe_core_data_folder "$DATA_FOLDER") || exit 2
+DEST="$DATA_FOLDER/Cores/${CORE}.oecoreplugin"
+if [ -n "$DERIVED_DATA" ]; then
+  if [ ! -d "$DERIVED_DATA" ]; then
+    echo "error: --derived-data is not an existing directory: $DERIVED_DATA" >&2
+    exit 2
+  fi
+  DERIVED_DATA=$(cd "$DERIVED_DATA" && pwd -P) || exit 2
+  DERIVED="$DERIVED_DATA/Build/Products/$CONFIG/${CORE}.oecoreplugin"
+  if [ ! -f "$DERIVED/Contents/MacOS/$CORE" ]; then
+    echo "error: the selected DerivedData directory has no $CONFIG build of $CORE: $DERIVED" >&2
+    exit 1
+  fi
+else
 WORKTREE_BUILD=""
 if [ -f "$REPO_ROOT/.git" ]; then
   BRANCH=$(cd "$REPO_ROOT" && git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's|/|-|g')
@@ -92,6 +134,7 @@ for CANDIDATE in "$WORKTREE_BUILD" "$LOCAL_CORE_BUILD" "$DERIVED_BUILD"; do
     DERIVED_MTIME="$CANDIDATE_MTIME"
   fi
 done
+fi
 
 if [ -z "$DERIVED" ]; then
   echo "error: ${CORE}.oecoreplugin not found in any known build location (${CONFIG})."
@@ -147,6 +190,7 @@ PY
 
 echo "Installing ${CORE}.oecoreplugin (${CONFIG}) from:"
 echo "  ${DERIVED}"
+echo "Into data folder: ${DATA_FOLDER}"
 mkdir -p "$(dirname "$DEST")"
 TMP_DEST="${DEST}.tmp.$$"
 rm -rf "${TMP_DEST}"

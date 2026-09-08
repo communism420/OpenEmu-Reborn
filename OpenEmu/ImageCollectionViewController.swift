@@ -21,6 +21,7 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+import OpenEmuBase
 
 import Cocoa
 
@@ -454,7 +455,7 @@ extension ImageCollectionViewController: NSCollectionViewDelegate {
         }
         
         let defaultsKey = "\(dataSourceDelegate.entityName)\(Self.mediaKey)"
-        UserDefaults.standard.set(archivable, forKey: defaultsKey)
+        OEPreferences.shared.set(archivable, forKey: defaultsKey)
         
         collectionView.refreshPreviewPanelIfNeeded()
     }
@@ -465,7 +466,7 @@ extension ImageCollectionViewController: NSCollectionViewDelegate {
         
         var set = Set<IndexPath>()
         let defaultsKey = "\(dataSourceDelegate.entityName)\(Self.mediaKey)"
-        guard let archival = UserDefaults.standard.object(forKey: defaultsKey) as? [Data] else { return }
+        guard let archival = OEPreferences.shared.object(forKey: defaultsKey) as? [Data] else { return }
         
         for data in archival {
             guard
@@ -573,4 +574,3 @@ extension ImageCollectionViewController {
     @UserDefault(.lastGridSize, defaultValue: 1.0)
     static var lastGridSize: Float
 }
-

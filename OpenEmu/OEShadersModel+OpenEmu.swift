@@ -24,24 +24,25 @@
 
 import Foundation
 import OpenEmuKit
+import OpenEmuBase
 
 extension OEShaderStore {
     @objc
     public static var shared: OEShaderStore = {
-        .init(store: .standard, bundle: .main)
+        .init(store: OEPreferences.shared, bundle: .main)
     }()
 }
 
 extension OESystemShaderStore {
     @objc
     public static var shared: OESystemShaderStore = {
-        .init(store: .standard, shaders: .shared)
+        .init(store: OEPreferences.shared, shaders: .shared)
     }()
 }
 
 extension UserDefaultsPresetStorage {
     public static var shared: UserDefaultsPresetStorage = {
-        .init(store: .standard)
+        .init(store: OEPreferences.shared)
     }()
 }
 
@@ -53,6 +54,6 @@ extension ShaderPresetStore {
 
 extension SystemShaderPresetStore {
     public static var shared: SystemShaderPresetStore = {
-        .init(store: .standard, presets: .shared, shaders: .shared)
+        .init(store: OEPreferences.shared, presets: .shared, shaders: .shared)
     }()
 }

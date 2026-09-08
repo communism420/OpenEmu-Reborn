@@ -121,7 +121,7 @@ typedef struct OEPlayerRapidFireState {
 
 + (void)load
 {
-    NSUserDefaults *ud = [NSUserDefaults oe_applicationUserDefaults];
+    OEPreferences *ud = OEPreferences.shared;
     [ud registerDefaults:@{
         @"OESystemResponderADCThreshold": @0.5
     }];
@@ -170,7 +170,7 @@ typedef struct OEPlayerRapidFireState {
             }
         }];
         
-        NSUserDefaults *ud = [NSUserDefaults oe_applicationUserDefaults];
+        OEPreferences *ud = OEPreferences.shared;
         NSNumber *val = [ud objectForKey:@"OESystemResponderADCThreshold"];
         if (val && [val isKindOfClass:[NSNumber class]]) {
             _analogToDigitalThreshold = val.doubleValue;

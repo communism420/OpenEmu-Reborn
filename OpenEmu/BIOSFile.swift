@@ -179,7 +179,7 @@ enum BIOSFile {
             if md5.caseInsensitiveCompare(biosSystemFileMD5) == .orderedSame {
                 
                 do {
-                    try fileManager.createDirectory(at: biosFolderURL, withIntermediateDirectories: true)
+                    try fileManager.oeCreateDirectory(at: biosFolderURL, withIntermediateDirectories: true)
                 } catch {
                     DLog("Could not create directory before copying bios at \(url)")
                     DLog("\(error)")

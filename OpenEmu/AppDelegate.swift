@@ -54,7 +54,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
     lazy var preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
     
-    var documentController = GameDocumentController.shared
+    lazy var documentController = GameDocumentController.shared
     
     var restoreWindow = false
     var libraryDidLoadObserverForRestoreWindow: NSObjectProtocol?
@@ -128,17 +128,25 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         
         super.init()
 
+        // This must precede every plugin/controller singleton: cores cache
+        // their BIOS and save paths when their controllers are created.
+        // Cocoa constructs its application delegate on the main thread, but
+        // NSObject's inherited initializer is not actor-isolated in Swift.
+        MainActor.assumeIsolated {
+            OEDataFolderSetup.configureOrQuit()
+        }
+
         // Get the game library path.
         let libraryDirectory = URL.oeApplicationSupportDirectory
             .appendingPathComponent("Game Library", isDirectory: true)
         let path = (libraryDirectory.path as NSString).abbreviatingWithTildeInPath
         
         #if !DEBUG
-            UserDefaults.standard.removeObject(forKey: OEGameCoreManagerModePreferenceKey)
+            OEPreferences.shared.removeObject(forKey: OEGameCoreManagerModePreferenceKey)
         #endif
         
         // Register defaults.
-        UserDefaults.standard.register(defaults: [
+        OEPreferences.shared.register(defaults: [
             OELibraryDatabase.defaultDatabasePathKey: path,
             OELibraryDatabase.databasePathKey: path,
             OECopyToLibraryKey: true,
@@ -164,6 +172,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         ])
         
         // Don't let an old setting override automatically checking for app updates.
+        // Sparkle owns this framework preference; it does not use Settings.plist.
         if let automaticChecksEnabled = UserDefaults.standard.object(forKey: "SUEnableAutomaticChecks") as? Bool, automaticChecksEnabled == false {
             UserDefaults.standard.removeObject(forKey: "SUEnableAutomaticChecks")
         }
@@ -183,14 +192,14 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     }
     
     deinit {
-        NSUserDefaultsController.shared.removeObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", context: &appearancePrefChangedKVOContext)
+        OEPreferencesController.shared.removeObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", context: &appearancePrefChangedKVOContext)
     }
     
     // MARK: - Library Database
     
     func loadDatabase() {
         
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         
         let defaultDatabasePath = (defaults.string(forKey: OELibraryDatabase.defaultDatabasePathKey)! as NSString).expandingTildeInPath
         let databasePath: String
@@ -216,7 +225,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     fileprivate func loadDatabaseAsynchronously(from url: URL, createIfNecessary: Bool) {
         
         if createIfNecessary {
-            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            try? FileManager.default.oeCreateDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         
         do {
@@ -322,7 +331,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
                 
                 let databaseURL = savePanel.url!
                 try? FileManager.default.removeItem(at: databaseURL)
-                try? FileManager.default.createDirectory(at: databaseURL, withIntermediateDirectories: true, attributes: nil)
+                try? FileManager.default.oeCreateDirectory(at: databaseURL, withIntermediateDirectories: true, attributes: nil)
                 
                 loadDatabaseAsynchronously(from: databaseURL, createIfNecessary: true)
                 
@@ -340,7 +349,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     fileprivate func validateDefaultPluginAssignments() {
 
         // Remove Higan WIP systems as defaults if found, since our core port does not support them.
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         if defaults.string(forKey: "defaultCore.openemu.system.gb") == "org.openemu.Higan" {
             defaults.removeObject(forKey: "defaultCore.openemu.system.gb")
         }
@@ -381,7 +390,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     /// system; if none is installed, removes the pref so the resolver picks a
     /// native default.
     fileprivate func migrateStaleRACoreDefaults() {
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         for (key, value) in defaults.dictionaryRepresentation()
             where key.hasPrefix("defaultCore.") {
             guard
@@ -426,8 +435,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             return
         }
 
-        let coresDir = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Library/Application Support/OpenEmu/Cores")
+        let coresDir = URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
         guard let entries = try? FileManager.default.contentsOfDirectory(at: coresDir, includingPropertiesForKeys: nil) else {
             return
         }
@@ -510,8 +518,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         let canonicalPrefix = "https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/Appcasts/"
         feedURLRefreshReport = ([], [])
 
-        let coresDir = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Library/Application Support/OpenEmu/Cores")
+        let coresDir = URL.oeApplicationSupportDirectory.appendingPathComponent("Cores", isDirectory: true)
         guard let entries = try? FileManager.default.contentsOfDirectory(at: coresDir, includingPropertiesForKeys: nil) else {
             return
         }
@@ -567,7 +574,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     /// One-shot diagnostic written at startup so we can see what core plugins
     /// actually loaded and which systems they advertise. Output goes to
-    /// ~/Library/Logs/OpenEmu/core-inventory.txt — easier to read than the
+    /// Logs/core-inventory.txt in the data folder — easier to read than the
     /// unified log, and survives across launches. Useful when triaging
     /// "core X doesn't appear in the picker for system Y" reports.
     fileprivate func logCorePluginInventory() {
@@ -667,9 +674,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             for d in dropped { out += "  \(d)\n" }
         }
 
-        let logsDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Logs/OpenEmu")
-        try? FileManager.default.createDirectory(at: logsDir, withIntermediateDirectories: true)
+        let logsDir = OEStoragePaths.logsURL
+        try? FileManager.default.oeCreateDirectory(at: logsDir, withIntermediateDirectories: true)
         let outURL = logsDir.appendingPathComponent("core-inventory.txt")
         try? out.write(to: outURL, atomically: true, encoding: .utf8)
     }
@@ -766,7 +772,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             \(affectedCores)
 
             You can keep them now and back up the files in:
-            ~/Library/Application Support/OpenEmu/Save States/
+            \(database.stateFolderURL.path)
             before deleting, or remove them immediately.
             """
         alert.alertStyle = .warning
@@ -790,7 +796,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         // re-trigger after every rebuild or TCC reset during development.
         // Grant the permission once via System Settings → Privacy & Security →
         // Input Monitoring; this key prevents the nag alert from firing again.
-        UserDefaults.standard.set(true, forKey: "pleaseDoNotAnnoyMeWithThePermissionsAlertEveryTimeIRunThisAppFromXcode")
+        OEPreferences.shared.set(true, forKey: "pleaseDoNotAnnoyMeWithThePermissionsAlertEveryTimeIRunThisAppFromXcode")
         #endif
 
         // Set up OEBindingsController.
@@ -814,16 +820,16 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
                 // access. Avoid re-prompting if we recorded a prior grant — the
                 // permission is still in effect even if IOHIDCheckAccess can't confirm it.
                 let previouslyGrantedKey = "OEInputMonitoringPreviouslyGranted"
-                if !UserDefaults.standard.bool(forKey: previouslyGrantedKey) {
+                if !OEPreferences.shared.bool(forKey: previouslyGrantedKey) {
                     if dm.requestAccess() {
-                        UserDefaults.standard.set(true, forKey: previouslyGrantedKey)
+                        OEPreferences.shared.set(true, forKey: previouslyGrantedKey)
                     }
                 }
 
             case .denied:
                 // User explicitly revoked — clear our cached grant so we prompt again
                 // if they ever re-grant and TCC falls back to unknown.
-                UserDefaults.standard.removeObject(forKey: "OEInputMonitoringPreviouslyGranted")
+                OEPreferences.shared.removeObject(forKey: "OEInputMonitoringPreviouslyGranted")
                 DispatchQueue.main.async {
                     self.showInputMonitoringPermissionsAlert()
                 }
@@ -844,14 +850,14 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     fileprivate func showInputMonitoringPermissionsAlert() {
         #if DEBUG
-        if UserDefaults.standard.bool(forKey: "pleaseDoNotAnnoyMeWithThePermissionsAlertEveryTimeIRunThisAppFromXcode") {
+        if OEPreferences.shared.bool(forKey: "pleaseDoNotAnnoyMeWithThePermissionsAlertEveryTimeIRunThisAppFromXcode") {
             return
         }
         #endif
 
         // Suppress the alert if the user has already dismissed it this session.
         let suppressionKey = OEAlert.OEInputMonitoringAlertSuppressionKey
-        if UserDefaults.standard.bool(forKey: suppressionKey) {
+        if OEPreferences.shared.bool(forKey: suppressionKey) {
             return
         }
 
@@ -876,7 +882,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         alert.alternateButtonTitle = NSLocalizedString("Ignore", comment: "")
         alert.otherButtonTitle = NSLocalizedString("Reset Permission", comment: "Button to reset the Input Monitoring permission when toggling it in System Settings hasn't fixed keyboard input")
 
-        UserDefaults.standard.set(true, forKey: suppressionKey)
+        OEPreferences.shared.set(true, forKey: suppressionKey)
 
         guard let window = mainWindowController.window else { return }
         alert.beginSheetModal(for: window) { res in
@@ -917,8 +923,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             return
         }
 
-        UserDefaults.standard.removeObject(forKey: "OEInputMonitoringPreviouslyGranted")
-        UserDefaults.standard.removeObject(forKey: OEAlert.OEInputMonitoringAlertSuppressionKey)
+        OEPreferences.shared.removeObject(forKey: "OEInputMonitoringPreviouslyGranted")
+        OEPreferences.shared.removeObject(forKey: OEAlert.OEInputMonitoringAlertSuppressionKey)
 
         // Re-requesting access in this same process immediately after the
         // reset is unreliable: IOHIDRequestAccess can race with tccd and
@@ -1035,7 +1041,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
     @objc(migrationRemoveCoreDefaults:)
     func migrationRemoveCoreDefaults() throws {
-        let defaults = UserDefaults.standard
+        let defaults = OEPreferences.shared
         for key in defaults.dictionaryRepresentation().keys where key.contains("defaultCore.openemu.system.") {
             defaults.removeObject(forKey: key)
         }
@@ -1157,7 +1163,7 @@ extension AppDelegate: NSMenuDelegate {
         let currentLoadItem = controlsMenu.item(withTag: loadItemTag)!
         let currentSaveItem = controlsMenu.item(withTag: saveItemTag)!
         
-        let useSlots = UserDefaults.standard.bool(forKey: OEDBSaveState.useQuickSaveSlotsKey)
+        let useSlots = OEPreferences.shared.bool(forKey: OEDBSaveState.useQuickSaveSlotsKey)
         
         let newLoadItem: NSMenuItem
         let newSaveItem: NSMenuItem
@@ -1248,7 +1254,7 @@ extension AppDelegate: NSMenuDelegate {
         }
         AppMover.moveIfNecessary()
         
-        NSUserDefaultsController.shared.addObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", options: [.initial], context: &appearancePrefChangedKVOContext)
+        OEPreferencesController.shared.addObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", options: [.initial], context: &appearancePrefChangedKVOContext)
         
         NotificationCenter.default.addObserver(self, selector: #selector(removeLibraryDidLoadObserverForRestoreWindowFromNotificationCenter), name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
     }
@@ -1355,7 +1361,7 @@ extension AppDelegate: NSMenuDelegate {
         SentryService.configureIfNeeded()
         removeIncompatibleSaveStates(from: database)
 
-        let userDefaultsController = NSUserDefaultsController.shared
+        let userDefaultsController = OEPreferencesController.shared
         bind(.logHIDEvents, to: userDefaultsController, withKeyPath: "values.logsHIDEvents", options: nil)
         bind(.logKeyboardEvents, to: userDefaultsController, withKeyPath: "values.logsHIDEventsNoKeyboard", options: nil)
         bind(.backgroundControllerPlay, to: userDefaultsController, withKeyPath: "values.backgroundControllerPlay", options: nil)
@@ -1417,7 +1423,7 @@ extension AppDelegate: NSMenuDelegate {
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
         let urls = filenames.compactMap { URL(fileURLWithPath: $0) }
         
-        guard UserDefaults.standard.bool(forKey: SetupAssistant.hasFinishedKey) else {
+        guard OEPreferences.shared.bool(forKey: SetupAssistant.hasFinishedKey) else {
             NSApp.reply(toOpenOrPrint: .cancel)
             return
         }

@@ -23,6 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
+import OpenEmuBase
 import os.log
 
 private let log = OSLog(subsystem: "org.openemu.OpenEmu", category: "FolderBackup")
@@ -69,19 +70,19 @@ extension Notification.Name {
 
     @objc var backupFolderURL: URL? {
         get {
-            guard let path = UserDefaults.standard.string(forKey: kBackupFolderPathKey) else { return nil }
+            guard let path = OEPreferences.shared.string(forKey: kBackupFolderPathKey) else { return nil }
             return URL(fileURLWithPath: path)
         }
         set {
-            UserDefaults.standard.set(newValue?.path, forKey: kBackupFolderPathKey)
+            OEPreferences.shared.set(newValue?.path, forKey: kBackupFolderPathKey)
         }
     }
 
     @objc var isEnabled: Bool { backupFolderURL != nil && (status == .idle || status == .failed) }
 
     @objc private(set) var lastBackupDate: Date? {
-        get { UserDefaults.standard.object(forKey: kLastBackupDateKey) as? Date }
-        set { UserDefaults.standard.set(newValue, forKey: kLastBackupDateKey) }
+        get { OEPreferences.shared.object(forKey: kLastBackupDateKey) as? Date }
+        set { OEPreferences.shared.set(newValue, forKey: kLastBackupDateKey) }
     }
 
     // MARK: - Private
@@ -306,7 +307,7 @@ extension Notification.Name {
     @discardableResult
     private func copyFile(from src: URL, to dest: URL, direction: String) -> Bool {
         let fm = FileManager.default
-        try? fm.createDirectory(at: dest.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try? fm.oeCreateDirectory(at: dest.deletingLastPathComponent(), withIntermediateDirectories: true)
         let temp = dest.deletingLastPathComponent().appendingPathComponent("." + UUID().uuidString)
         do {
             try fm.copyItem(at: src, to: temp)
