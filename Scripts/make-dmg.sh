@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# make-dmg.sh — Build the OpenEmu-Silicon styled DMG installer.
+# make-dmg.sh — Build the OpenEmu-Intel styled DMG installer.
 #
 # Pipeline:
 #   1. Render Scripts/dmg-assets/background.html → background.png via offscreen WebKit.
@@ -24,7 +24,7 @@ die() { echo "ERROR: $*" >&2; exit 1; }
 
 APP="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 OUTPUT="$2"
-VOLNAME="OpenEmu-Silicon"
+VOLNAME="OpenEmu-Intel"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ASSETS="$SCRIPT_DIR/dmg-assets"

@@ -1,6 +1,6 @@
 # DMG Installer Pipeline
 
-Builds the styled `.dmg` users see when they download OpenEmu-Silicon — retro-synthwave background with the real OpenEmu app icon on the left, the system Applications folder on the right, and a glowing arrow between them.
+Builds the styled `.dmg` users see when they download OpenEmu-Intel — retro-synthwave background with the real OpenEmu app icon on the left, the system Applications folder on the right, and a glowing arrow between them.
 
 This document captures the load-bearing knowledge we learned the hard way. **Read it before changing anything.**
 
@@ -40,7 +40,7 @@ background.png                                  (1920 × 1360 px @ 144 DPI — F
        │
        │  dmgbuild -s dmgbuild_settings.py
        ▼
-OpenEmu-Silicon.dmg                             (UDZO, with .DS_Store written directly via mac_alias)
+OpenEmu-Intel.dmg                               (UDZO, with .DS_Store written directly via mac_alias)
 ```
 
 | File | Role |
@@ -116,7 +116,7 @@ After `bash Scripts/make-dmg.sh <app> /tmp/test.dmg && open /tmp/test.dmg`:
 - [ ] Applications folder icon (blue with "A") centred on the blue pedestal on the right
 - [ ] Cyan arrow connects the two pedestals horizontally
 - [ ] All four corner marks visible: `SYS // DMG-01`, `PLAYER 1`, `© 2026 OPENEMU`, `READY`
-- [ ] OpenEmu logo + `NATIVE APPLE SILICON` badge centred at the top
+- [ ] OpenEmu logo + `APPLE SILICON + INTEL` badge centred at the top
 - [ ] Headline `DRAG OPENEMU INTO APPLICATIONS` centred and not clipped
 - [ ] Drag hint at the bottom centre, fully visible
 - [ ] `Finder` filename labels for `OpenEmu` and `Applications` appear under their respective icons (drawn by Finder, not the background)
@@ -134,7 +134,7 @@ sips -g pixelWidth -g pixelHeight -g dpiWidth -g dpiHeight \
 
 ```bash
 python3 -c "
-with open('/Volumes/OpenEmu-Silicon/.DS_Store', 'rb') as f:
+with open('/Volumes/OpenEmu-Intel/.DS_Store', 'rb') as f:
     d = f.read()
 print('size:', len(d), 'bytes')
 print('backgroundImageAlias:', b'backgroundImageAlias' in d)

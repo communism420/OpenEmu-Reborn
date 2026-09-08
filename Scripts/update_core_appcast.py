@@ -3,7 +3,7 @@
 #
 # Usage:
 #   python3 Scripts/update_core_appcast.py <appcast.xml> <core_name> <version> \
-#       <download_url> <length> [--sign-zip <path/to/core.zip>]
+#       <download_url> <length> --sign-zip <path/to/core.zip>
 #
 # Arguments:
 #   appcast.xml    Path to the core's appcast file (e.g. Appcasts/flycast.xml)
@@ -13,10 +13,9 @@
 #   length         Byte size of the zip file (overridden when --sign-zip parses one)
 #
 # Options:
-#   --sign-zip <path>   Run Sparkle's sign_update against the local zip and embed
-#                       sparkle:edSignature on the new <enclosure>. The host app's
-#                       Sparkle keypair (already in keychain for the host appcast)
-#                       is reused — no new keypair is generated.
+#   --sign-zip <path>   Required. Verify that the archive version matches and
+#                       every binary is universal, then run Sparkle's sign_update
+#                       and embed its metadata on the new <enclosure>.
 #   --sign-update <bin> Path to sign_update. Defaults to release.sh's lookup
 #                       (DerivedData → repo SPM cache).
 
@@ -114,6 +113,55 @@ def verify_zip_version(zip_path, expected_version):
           f'requested sparkle:version="{expected_version}".')
 
 
+def verify_zip_is_universal(zip_path):
+    """Require both supported CPU slices before touching a shared appcast."""
+    verifier = os.path.join(
+        REPO_ROOT, 'Scripts', 'verify-bundle-architectures.sh'
+    )
+
+    try:
+        with tempfile.TemporaryDirectory(prefix='openemu-core-appcast-') as tmp:
+            with zipfile.ZipFile(zip_path) as zf:
+                zf.extractall(tmp)
+
+            plugins = []
+            for root, dirnames, _filenames in os.walk(tmp):
+                for dirname in dirnames:
+                    if dirname.endswith('.oecoreplugin'):
+                        plugins.append(os.path.join(root, dirname))
+                dirnames[:] = [
+                    dirname for dirname in dirnames
+                    if not dirname.endswith('.oecoreplugin')
+                ]
+
+            if len(plugins) != 1:
+                print(
+                    f'ERROR: expected exactly one .oecoreplugin in '
+                    f'{zip_path}, found {len(plugins)}.',
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+
+            for arch in ('arm64', 'x86_64'):
+                result = subprocess.run(
+                    [verifier, '--arch', arch, plugins[0]],
+                    text=True,
+                    check=False,
+                )
+                if result.returncode != 0:
+                    print(
+                        f'ERROR: refusing to update a shared appcast with '
+                        f'a non-universal core archive (missing {arch}).',
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+    except zipfile.BadZipFile as exc:
+        print(f'ERROR: could not inspect {zip_path}: {exc}', file=sys.stderr)
+        sys.exit(1)
+
+    print('Verified: core archive contains arm64 and x86_64 slices.')
+
+
 def find_sign_update():
     derived = os.path.expanduser('~/Library/Developer/Xcode/DerivedData')
     candidates = []
@@ -167,22 +215,18 @@ def main():
     parser.add_argument('version')
     parser.add_argument('download_url')
     parser.add_argument('length')
-    parser.add_argument('--sign-zip', default=None,
-                        help='Local zip to sign with Sparkle EdDSA.')
+    parser.add_argument('--sign-zip', required=True,
+                        help='Universal local zip to verify and sign.')
     parser.add_argument('--sign-update', default=None,
                         help='Path to sign_update binary.')
     args = parser.parse_args()
 
-    ed_sig = None
-    length = args.length
-    if args.sign_zip:
-        # Enforce the cores-v1.2.0 class of bug at the script level. Refuses
-        # to continue if the zip's CFBundleVersion does not match the version
-        # we're about to advertise in the appcast. See verify_zip_version().
-        verify_zip_version(args.sign_zip, args.version)
-        ed_sig, length = sign_zip(args.sign_update, args.sign_zip)
+    # Enforce version and architecture safety before mutating a shared appcast.
+    verify_zip_version(args.sign_zip, args.version)
+    verify_zip_is_universal(args.sign_zip)
+    ed_sig, length = sign_zip(args.sign_update, args.sign_zip)
 
-    sig_attr = f'\n        sparkle:edSignature="{ed_sig}"' if ed_sig else ''
+    sig_attr = f'\n        sparkle:edSignature="{ed_sig}"'
     new_item = f"""    <item>
       <title>{args.core_name} {args.version}</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>

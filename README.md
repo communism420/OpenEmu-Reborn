@@ -1,4 +1,4 @@
-# OpenEmu-Silicon — Native Apple Silicon Port
+# OpenEmu-Intel — OpenEmu for Apple Silicon and Intel Macs
 
 <p align="center">
   <img width="301" height="91" alt="logo" src="https://github.com/user-attachments/assets/e4c7ee8d-b526-4fa7-bf61-153dc1594372" />
@@ -12,11 +12,11 @@
 
 ## Current Status
 
-**Actively maintained. Runs natively on Apple Silicon (no Rosetta required).**
+**Actively maintained. Targets both Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs.**
 
-This is a community-maintained fork of OpenEmu for M-series Macs. The app runs on macOS 11.0+ and has been tested on macOS Sequoia and macOS 26 (Tahoe).
+This community-maintained fork preserves the native Apple Silicon work from OpenEmu-Silicon while restoring support for Intel Macs. The app targets macOS 11.0 or later on both processor architectures.
 
-> **Download:** Get the latest signed DMG from the **[Releases](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/releases)** page. The app is notarized — no Gatekeeper workaround needed.
+> **Intel status:** Intel support is newly restored. Until an `x86_64` or universal build is published on this fork's **[Releases](https://github.com/communism420/OpenEmu-Intel/releases)** page, Intel users should build from source. Downloads from the upstream OpenEmu-Silicon project are Apple Silicon-only.
 
 ### Recent Updates
 - RetroAchievements verified with official hardcore mode support across Phase 1 Systems, [see wiki for more details](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/RetroAchievements)
@@ -30,14 +30,17 @@ This is a community-maintained fork of OpenEmu for M-series Macs. The app runs o
 
 ## Download
 
-Get the latest build from the **[Releases](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/releases)** page.
+Get the latest build from this fork's **[Releases](https://github.com/communism420/OpenEmu-Intel/releases)** page. Before downloading, check that the asset is marked `x86_64`, `arm64`, or universal for your Mac.
 
-### Install via Homebrew
+If no compatible release is available yet, follow the source-build steps in [Contributing](.github/CONTRIBUTING.md). The upstream `openemu-silicon` Homebrew cask does not install an Intel build.
 
-```bash
-brew tap OpenEmu-Silicon/OpenEmu-Silicon https://github.com/OpenEmu-Silicon/OpenEmu-Silicon
-brew install --cask openemu-silicon
-```
+### Core availability on Intel
+
+On Intel Macs, OpenEmu uses the legacy official OpenEmu 2.4.1 core catalog so it downloads releases that contain compatible `x86_64` binaries. That catalog was last updated in December 2023, so it is a compatibility bootstrap rather than a source of current core updates. Apple Silicon Macs continue to use the OpenEmu-Silicon core catalog.
+
+Some newer or fork-only cores do not yet publish `x86_64` artifacts. Those cores may be unavailable through the Intel catalog and must be built locally from their Xcode scheme until an Intel or universal release is published. Compatibility of legacy core releases with current macOS should be tested per core. Never install an `arm64`-only core on an Intel Mac.
+
+The in-tree Mupen64Plus core uses its cached interpreter on Intel. This avoids committing the precompiled `linkage.o` used by the old x64 dynarec, but Nintendo 64 emulation will be slower than a dynarec-enabled build. The existing Apple Silicon wrapper continues to use its pure-interpreter fallback while its ARM64 dynarec correctness issue remains unresolved.
 
 ---
 
@@ -51,16 +54,16 @@ Quick summary: 30+ systems work today, including NES, SNES, Game Boy, GBA, N64, 
 
 ## Known Issues
 
-- **Save state compatibility** — Save states from certain older cores are incompatible with current ARM64 builds and will crash if loaded. On launch, the app detects these and shows a warning dialog. **Back up your save states before your first launch** — see [Migrating from OpenEmu](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/Migrating-from-OpenEmu) for the full list and instructions.
+- **Save state compatibility** — Save states belong to a particular core and core version. Some states created by older Intel cores are incompatible with current Apple Silicon core builds and can crash if loaded. **Back up your save states before your first launch** — see [Migrating from OpenEmu](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/Migrating-from-OpenEmu) for details.
 - Input Monitoring permission may need to be granted manually in System Settings → Privacy & Security.
-- A few cores have quirks on Apple Silicon still being investigated (see open issues).
+- Core availability is not yet identical between `arm64` and `x86_64`; see the Intel note above.
 
 ---
 
 ## Requirements
 
 - macOS 11.0 (Big Sur) or later
-- Apple Silicon Mac (M1 / M2 / M3 / M4)
+- An Apple Silicon Mac or a 64-bit Intel Mac
 
 ---
 
@@ -68,12 +71,13 @@ Quick summary: 30+ systems work today, including NES, SNES, Game Boy, GBA, N64, 
 
 The original OpenEmu is still an amazing piece of Mac software. [stuartcarnie](https://github.com/stuartcarnie) brought Metal rendering to the app in 2019. [MaddTheSane](https://github.com/MaddTheSane) ported the emulation cores to ARM64 starting in 2021. [cyco](https://github.com/cyco), [clobber](https://github.com/clobber), [J-rg](https://github.com/J-rg), and the rest of the OpenEmu team built the application, the plugin architecture, and the library experience over more than a decade. That work is the foundation everything here stands on.
 
-The original project went quiet around 2024 after the last release. By that time, the original team had already done significant work on the ARM64 cores. The ARM64 core work was real and substantial, but it was never assembled into a release — the last official binary (December 2023) was stated as Intel-only. [bazley82](https://github.com/bazley82) published a downloadable ARM64 build in early 2026, pulling together the ARM64-capable core submodules the original team had prepared into a single repo and release. This fork continued from there: RetroAchievements shipped across 9+ cores; a Libretro Bridge was built to load RetroArch cores directly inside OpenEmu; ScreenScraper cover art was integrated; Dreamcast was migrated from Reicast to Flycast; save persistence, system detection, and the core update pipeline were all fixed; and the app was hardened for macOS 26 (Tahoe).
+The original project went quiet around 2024 after the last release. By that time, the original team had already done significant work on the ARM64 cores. The ARM64 core work was real and substantial, but it was never assembled into a release — the last official binary (December 2023) was stated as Intel-only. [bazley82](https://github.com/bazley82) published a downloadable ARM64 build in early 2026, pulling together the ARM64-capable core submodules the original team had prepared into a single repo and release. OpenEmu-Silicon continued from there: RetroAchievements shipped across 9+ cores; a Libretro Bridge was built to load RetroArch cores directly inside OpenEmu; ScreenScraper cover art was integrated; Dreamcast was migrated from Reicast to Flycast; save persistence, system detection, and the core update pipeline were all fixed; and the app was hardened for macOS 26 (Tahoe). This fork carries that work forward while making Intel a supported build target again.
 
 **Lineage:**
 - [OpenEmu/OpenEmu](https://github.com/OpenEmu/OpenEmu) — the original project
 - [bazley82/OpenEmuARM64](https://github.com/bazley82/OpenEmuARM64) — ARM64 build, built on the original team's core work and what I started building upon
-- **This repo** — continued development and maintenance by [@nickybmon](https://github.com/nickybmon) and others.
+- [OpenEmu-Silicon/OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon) — the actively developed Apple Silicon fork
+- **This repo** — dual-architecture work maintained by [@communism420](https://github.com/communism420)
 
 ---
 

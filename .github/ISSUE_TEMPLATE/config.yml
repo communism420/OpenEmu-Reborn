@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 
 contact_links:
-  - name: OpenEmu-Silicon — project README
-    url: https://github.com/OpenEmu-Silicon/OpenEmu-Silicon#readme
+  - name: OpenEmu-Intel — project README
+    url: https://github.com/communism420/OpenEmu-Intel#readme
     about: Setup instructions, known issues, and how to install cores

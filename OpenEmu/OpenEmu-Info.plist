@@ -175,10 +175,14 @@
 	<string>https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/oecores.xml</string>
 	<key>OELongBuildVersion</key>
 	<string></string>
+	<key>OESentryDSN</key>
+	<string></string>
+	<key>OESentryReleasePrefix</key>
+	<string>openemu-intel</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/communism420/OpenEmu-Intel/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>wVICc/NGoDFzkEbDb63QMFpKlRs14e/WhIiwIngQGsg=</string>
 	<key>UTExportedTypeDeclarations</key>

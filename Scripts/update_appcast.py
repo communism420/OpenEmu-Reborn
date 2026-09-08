@@ -17,6 +17,7 @@
 
 import sys
 import re
+import os
 
 
 def markdown_to_html(path):
@@ -65,6 +66,8 @@ def main():
     ed_sig = sys.argv[5]
     length = sys.argv[6]
     notes_file = sys.argv[7] if len(sys.argv) >= 8 else None
+    release_repo = os.environ.get('OPENEMU_RELEASE_REPO', 'communism420/OpenEmu-Intel')
+    dmg_name = os.environ.get('OPENEMU_DMG_NAME', 'OpenEmu-Intel.dmg')
 
     if notes_file:
         notes_html = markdown_to_html(notes_file)
@@ -72,17 +75,17 @@ def main():
         notes_html = '<p>TODO: add release notes before publishing.</p>'
 
     new_item = f"""    <item>
-      <title>OpenEmu-Silicon {version}</title>
+      <title>OpenEmu-Intel {version}</title>
       <description>
         <![CDATA[
-        <h2>OpenEmu-Silicon {version}</h2>
+        <h2>OpenEmu-Intel {version}</h2>
         {notes_html}
         ]]>
       </description>
       <pubDate>{pub_date}</pubDate>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <enclosure
-        url="https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/releases/download/v{version}/OpenEmu-Silicon.dmg"
+        url="https://github.com/{release_repo}/releases/download/v{version}/{dmg_name}"
         sparkle:version="{sparkle_version}"
         sparkle:shortVersionString="{version}"
         sparkle:edSignature="{ed_sig}"

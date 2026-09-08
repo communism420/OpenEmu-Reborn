@@ -546,12 +546,14 @@ static void MupenSetAudioSpeed(int percent)
     // Until that is resolved, keep the pure interpreter on aarch64 so that
     // games that were working continue to work.  Track as issue #463.
     //
-    // On x86_64 the dynarec is known-good and is used as before.
+    // The x86_64 new-dynarec linkage is NASM-generated and is not part of this
+    // flattened source tree. Use the cached interpreter there instead of
+    // depending on an untracked precompiled linkage.o.
     m64p_handle section;
 #ifdef __aarch64__
     int ival = EMUMODE_PURE_INTERPRETER;
 #else
-    int ival = EMUMODE_DYNAREC;
+    int ival = EMUMODE_INTERPRETER;
 #endif
 
     ConfigOpenSection("Core", &section);

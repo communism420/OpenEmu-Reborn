@@ -25,18 +25,29 @@
 import AppKit
 
 /// Scans the user's OpenEmu cores directory on every launch and moves any
-/// Intel-only (x86_64) core bundles to a `Legacy/` subdirectory.
+/// core bundles that cannot run on the current CPU to a `Legacy/` subdirectory.
 ///
-/// This prevents x86-only cores (from a previous OpenEmu installation, a backup
-/// restore, or a UserDefaults reset) from conflicting with ARM64 cores and
+/// This prevents cores copied from a Mac with a different CPU architecture
+/// (from a previous OpenEmu installation, a backup restore, or a UserDefaults
+/// reset) from conflicting with compatible cores and
 /// causing "doesn't contain a version for the current architecture" errors.
 ///
 /// Runs on every launch — the scan is lightweight (one pass over the Cores
-/// directory) and is a no-op when no x86_64-only cores are present.
-/// ARM64 replacements are downloaded automatically by the `checkForNewCores()`
-/// call that follows in AppDelegate.
+/// directory) and is a no-op when every core supports the current architecture.
+/// Compatible replacements are downloaded automatically when available by the
+/// `checkForNewCores()` call that follows in AppDelegate.
 /// Call `runIfNeeded()` before `loadPlugins(with:)` in AppDelegate.
 enum OECoreMigration {
+
+    private static var currentExecutableArchitecture: NSNumber? {
+#if arch(arm64)
+        NSNumber(value: NSBundleExecutableArchitectureARM64)
+#elseif arch(x86_64)
+        NSNumber(value: NSBundleExecutableArchitectureX86_64)
+#else
+        nil
+#endif
+    }
 
     private static var coresDirectory: URL {
         let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
@@ -45,6 +56,8 @@ enum OECoreMigration {
     }
 
     static func runIfNeeded() {
+
+        guard let currentExecutableArchitecture else { return }
 
         let fm = FileManager.default
         let cores = coresDirectory
@@ -59,10 +72,10 @@ enum OECoreMigration {
             guard let bundle = Bundle(url: item),
                   let archs = bundle.executableArchitectures else { continue }
 
-            let hasARM64 = archs.contains(NSNumber(value: NSBundleExecutableArchitectureARM64))
-            guard !hasARM64 else { continue }
+            let supportsCurrentArchitecture = archs.contains(currentExecutableArchitecture)
+            guard !supportsCurrentArchitecture else { continue }
 
-            // Intel-only core — move it to Legacy/
+            // Incompatible core — move it to Legacy/
             do {
                 try fm.createDirectory(at: legacy, withIntermediateDirectories: true)
                 let dest = legacy.appendingPathComponent(item.lastPathComponent)
@@ -80,15 +93,15 @@ enum OECoreMigration {
 
         DispatchQueue.main.async {
             let alert = NSAlert()
-            alert.messageText = "Legacy Cores Moved"
+            alert.messageText = "Incompatible Cores Moved"
             alert.informativeText = """
-                OpenEmu-Silicon found \(movedCores.count == 1 ? "an Intel-only core" : "\(movedCores.count) Intel-only cores") \
-                that cannot run on Apple Silicon and moved \(movedCores.count == 1 ? "it" : "them") to \
+                OpenEmu found \(movedCores.count == 1 ? "a core" : "\(movedCores.count) cores") \
+                that cannot run on this Mac and moved \(movedCores.count == 1 ? "it" : "them") to \
                 ~/Library/Application Support/OpenEmu/Cores/Legacy/.
 
                 Moved: \(movedCores.joined(separator: ", "))
 
-                ARM64 replacements will download automatically.
+                Compatible replacements will download automatically when available.
                 """
             alert.alertStyle = .informational
             alert.addButton(withTitle: "OK")

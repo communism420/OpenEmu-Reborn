@@ -72,8 +72,13 @@ body:
   - type: dropdown
     id: chip
     attributes:
-      label: Apple Silicon Chip
+      label: Mac Processor
       options:
+        - Intel Core i3
+        - Intel Core i5
+        - Intel Core i7
+        - Intel Core i9
+        - Intel Xeon
         - M1
         - M1 Pro / Max / Ultra
         - M2
@@ -82,14 +87,15 @@ body:
         - M3 Pro / Max / Ultra
         - M4
         - M4 Pro / Max / Ultra
+        - Other / Not sure (describe below)
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: OpenEmu-Silicon Version or Commit
-      description: Found in OpenEmu-Silicon → About, or paste the git commit hash
+      label: OpenEmu-Intel Version or Commit
+      description: Found in OpenEmu → About, or paste the git commit hash
       placeholder: e.g., v1.4.2 or a1b2c3d
     validations:
       required: true

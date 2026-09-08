@@ -96,7 +96,7 @@ if [ -z "${BUILT}" ] || [ ! -e "${BUILT}/Contents/MacOS/${CORE}" ]; then
   echo "FAIL — no ${CONFIG} build of ${CORE} found in any known build location." >&2
   echo "       Build the core scheme first:" >&2
   echo "       xcodebuild -workspace OpenEmu-metal.xcworkspace -scheme \"OpenEmu + ${CORE}\" \\" >&2
-  echo "         -configuration ${CONFIG} -destination 'platform=macOS,arch=arm64' build" >&2
+  echo "         -configuration ${CONFIG} -destination 'platform=macOS,arch=$(uname -m)' build" >&2
   exit 4
 fi
 

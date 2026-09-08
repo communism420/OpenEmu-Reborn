@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# verify.sh — Autonomous verification floor for OpenEmu-Silicon
+# verify.sh — Autonomous verification floor for OpenEmu
 #
 # Usage:
 #   ./Scripts/verify.sh                        # build + analyze + plist + codesign on the main app
@@ -9,6 +9,7 @@
 #   ./Scripts/verify.sh --core <CoreName> --release  # use Release configuration (for Release-only bugs)
 #   ./Scripts/verify.sh --core <CoreName> --launch
 #   ./Scripts/verify.sh --worktree             # build to ~/Builds/openemu/<branch>/ for stable permissions
+#   ./Scripts/verify.sh --arch x86_64           # verify a specific CPU architecture (default: current Mac)
 #
 # When run inside a git worktree (or with --worktree), the script builds and
 # locates artifacts at ~/Builds/openemu/<branch>/ so macOS privacy permissions
@@ -24,7 +25,7 @@
 #     script prefers the combined scheme but falls back to the bare name. If --core <Name>
 #     fails to find a scheme, fall back to building manually with the explicit combined name:
 #         xcodebuild -workspace OpenEmu-metal.xcworkspace -scheme 'OpenEmu + <Name>' \
-#           -configuration Debug -destination 'platform=macOS,arch=arm64' build
+#           -configuration Debug -destination "platform=macOS,arch=$(uname -m)" build
 #         Scripts/install-core.sh <Name>
 #     This has been observed with FCEU specifically.
 #   - --test: requires the OpenEmu scheme (which has the test target wired up). Do not pass
@@ -74,20 +75,35 @@ CORE=""
 RUN_TESTS=0
 WORKTREE=0
 CONFIG="Debug"
+TARGET_ARCH="${OPENEMU_ARCH:-$(uname -m)}"
 FAILURES=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --launch) LAUNCH=1; shift ;;
-    --core) CORE="${2:-}"; shift 2 ;;
+    --core)
+      [ $# -ge 2 ] && [ -n "$2" ] || { echo "--core requires a core name" >&2; exit 2; }
+      CORE="$2"
+      shift 2
+      ;;
     --test) RUN_TESTS=1; shift ;;
     --worktree) WORKTREE=1; shift ;;
     --debug) CONFIG="Debug"; shift ;;
     --release) CONFIG="Release"; shift ;;
+    --arch)
+      [ $# -ge 2 ] && [ -n "$2" ] || { echo "--arch requires arm64 or x86_64" >&2; exit 2; }
+      TARGET_ARCH="$2"
+      shift 2
+      ;;
     -h|--help) sed -n '2,17p' "$0"; exit 0 ;;
     *) echo "unknown flag: $1" >&2; exit 2 ;;
   esac
 done
+
+case "$TARGET_ARCH" in
+  arm64|x86_64) ;;
+  *) echo "unsupported architecture: $TARGET_ARCH (expected arm64 or x86_64)" >&2; exit 2 ;;
+esac
 
 # Auto-detect worktree if not explicitly set.
 # `git rev-parse --show-superproject-working-tree` returns non-empty for submodules; use a different signal.
@@ -189,15 +205,16 @@ if [ -n "$CORE" ]; then
   else
     SCHEME="$CORE"
   fi
-  info "Building core scheme: $SCHEME"
+  info "Building core scheme: $SCHEME ($TARGET_ARCH)"
 else
   SCHEME="OpenEmu"
-  info "Building main app scheme: $SCHEME"
+  info "Building main app scheme: $SCHEME ($TARGET_ARCH)"
 fi
 
 BUILD_LOG=$(mktemp -t verify_build.XXXXXX)
 XCODEBUILD_ARGS=(-workspace "$WORKSPACE" -scheme "$SCHEME"
-                 -configuration "$CONFIG" -destination 'platform=macOS,arch=arm64')
+                 -configuration "$CONFIG" -destination "platform=macOS,arch=$TARGET_ARCH"
+                 ARCHS="$TARGET_ARCH" ONLY_ACTIVE_ARCH=YES)
 if [ "$WORKTREE" -eq 1 ]; then
   XCODEBUILD_ARGS+=(-derivedDataPath "$BUILD_DIR_OVERRIDE")
   info "worktree mode — building to $BUILD_DIR_OVERRIDE"
@@ -205,7 +222,9 @@ fi
 
 wait_for_build_db
 
+BUILD_SUCCEEDED=0
 if xcodebuild "${XCODEBUILD_ARGS[@]}" build > "$BUILD_LOG" 2>&1; then
+  BUILD_SUCCEEDED=1
   pass "build ($SCHEME)"
 else
   fail "build ($SCHEME) — see $BUILD_LOG (last 30 lines below)"
@@ -280,10 +299,18 @@ else
   fi
 fi
 
+ARTIFACT_ARCH_OK=0
 if [ -z "$ARTIFACT" ] || [ ! -e "$ARTIFACT" ]; then
   fail "locate built artifact (expected in DerivedData)"
 else
   info "artifact: $ARTIFACT"
+  if ./Scripts/verify-bundle-architectures.sh --arch "$TARGET_ARCH" "$ARTIFACT" >/dev/null 2>&1; then
+    ARTIFACT_ARCH_OK=1
+    pass "all bundle binaries contain $TARGET_ARCH"
+  else
+    fail "bundle contains binaries incompatible with $TARGET_ARCH"
+    ./Scripts/verify-bundle-architectures.sh --arch "$TARGET_ARCH" "$ARTIFACT" || true
+  fi
   if codesign --verify --deep --strict "$ARTIFACT" 2>/dev/null; then
     pass "codesign --verify --deep --strict"
   else
@@ -294,7 +321,8 @@ fi
 
 # --- Core install + post-install verification --------------------------------
 
-if [ -n "$CORE" ] && [ -n "${ARTIFACT:-}" ] && [ -e "$ARTIFACT" ]; then
+if [ -n "$CORE" ] && [ "$BUILD_SUCCEEDED" -eq 1 ] && [ "$ARTIFACT_ARCH_OK" -eq 1 ] \
+   && [ "$TARGET_ARCH" = "$(uname -m)" ]; then
   INSTALL_DEST="$INSTALLED_APP_DEFAULT/Cores/${CORE}.oecoreplugin"
   CONFIG_FLAG="--$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')"
   if [ -x "./Scripts/install-core.sh" ]; then
@@ -327,6 +355,12 @@ if [ -n "$CORE" ] && [ -n "${ARTIFACT:-}" ] && [ -e "$ARTIFACT" ]; then
       ./Scripts/verify-core-installed.sh "$CORE" "$CONFIG_FLAG" || true
     fi
   fi
+fi
+
+if [ -n "$CORE" ] && { [ "$BUILD_SUCCEEDED" -ne 1 ] || [ "$ARTIFACT_ARCH_OK" -ne 1 ]; }; then
+  info "skipping core installation because the build or architecture check failed"
+elif [ -n "$CORE" ] && [ "$TARGET_ARCH" != "$(uname -m)" ]; then
+  info "skipping core installation for non-native $TARGET_ARCH artifact"
 fi
 
 # --- Optional smoke launch -----------------------------------------------
@@ -378,7 +412,8 @@ if [ "$RUN_TESTS" -eq 1 ] && [ -z "$CORE" ]; then
        -workspace "$WORKSPACE" \
        -scheme OpenEmu \
        -configuration Debug \
-       -destination 'platform=macOS,arch=arm64' \
+       -destination "platform=macOS,arch=$TARGET_ARCH" \
+       ARCHS="$TARGET_ARCH" ONLY_ACTIVE_ARCH=YES \
        > "$TEST_LOG" 2>&1; then
     PASS_COUNT=$(grep -c 'passed' "$TEST_LOG" 2>/dev/null || true)
     pass "OpenEmuTests ($PASS_COUNT tests passed)"
@@ -403,7 +438,7 @@ if [ "$FAILURES" -eq 0 ]; then
   # re-running a second full build, which is what causes concurrent-xcodebuild
   # pile-ups. Only stamp for full app Debug runs so partial checks can't trick it.
   if [ -z "$CORE" ] && [ "$CONFIG" = "Debug" ]; then
-    STAMP_FILE=$(git rev-parse --git-path verify-passed 2>/dev/null || true)
+    STAMP_FILE=$(git rev-parse --git-path "verify-passed-$TARGET_ARCH" 2>/dev/null || true)
     if [ -n "$STAMP_FILE" ]; then
       TREE_SHA=$(git rev-parse HEAD^{tree} 2>/dev/null || echo "")
       if [ -n "$TREE_SHA" ]; then

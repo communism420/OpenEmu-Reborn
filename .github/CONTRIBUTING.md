@@ -1,6 +1,6 @@
-# Contributing to OpenEmu-Silicon
+# Contributing to OpenEmu-Intel
 
-OpenEmu-Silicon is a community-maintained Apple Silicon fork of [OpenEmu](https://github.com/OpenEmu/OpenEmu). It's kept alive by a small group of contributors and testers. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting.
+OpenEmu-Intel is a community-maintained fork of [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon) for both Apple Silicon and Intel Macs. It's kept alive by contributors and testers. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting.
 
 ---
 
@@ -26,15 +26,15 @@ Not sure where to start? Open a Discussion in the Q&A category and say what you'
 
 - macOS 11.0 (Big Sur) or later — macOS 14 (Sonoma) or later recommended
 - Xcode with the latest stable toolchain, including the Metal toolchain
-- Apple Silicon Mac (M1 or later) — this fork does not target Intel
+- An Apple Silicon (`arm64`) or 64-bit Intel (`x86_64`) Mac
 - No additional Homebrew dependencies required for the main app
 
 ### Steps
 
 ```bash
-# 1. Fork and clone with submodules (cores live in submodules — this will take a few minutes)
-git clone --recursive https://github.com/YOUR_USERNAME/OpenEmu-Silicon.git
-cd OpenEmu-Silicon
+# 1. Fork and clone (core sources are already flattened into this repository)
+git clone https://github.com/YOUR_USERNAME/OpenEmu-Intel.git
+cd OpenEmu-Intel
 
 # 2. Copy credential stubs (required — real credentials are never committed)
 cp OpenEmu/ScreenScraperDevCredentials.template.swift OpenEmu/ScreenScraperDevCredentials.swift
@@ -47,33 +47,36 @@ open OpenEmu-metal.xcworkspace
 Select the **OpenEmu** scheme and build for **My Mac**, or verify from the command line:
 
 ```bash
+ARCH="$(uname -m)"
 xcodebuild build \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme OpenEmu \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 ```
 
 Or use the project's verify script, which also runs a codesign check:
 
 ```bash
-./Scripts/verify.sh
+./Scripts/verify.sh --arch "$(uname -m)"
 ```
+
+Pass `--arch arm64` on Apple Silicon or `--arch x86_64` on Intel when you need to select the architecture explicitly. Changes to architecture-sensitive code should pass for both architectures in CI.
 
 ### Common Setup Issues
 
-**Submodules not initialized:** If cores are missing from the workspace, run `git submodule update --init --recursive`. This can take 5–10 minutes the first time.
+**Core source missing:** Core directories are regular directories in this fork, not submodules. Do not run `git submodule update`; check that your clone completed and that you opened `OpenEmu-metal.xcworkspace`.
 
 **Missing credential files:** If the build fails with "no such file" errors for Swift credential files, re-run the `cp` commands above. Template files are in the repo; real ones are not and are never committed.
 
-**Wrong architecture:** Make sure the build destination is `arm64`. If Xcode defaults to Rosetta or an Intel simulator, change it in the scheme settings.
+**Wrong architecture:** Make sure the build destination matches your Mac: `arm64` for Apple Silicon or `x86_64` for Intel. In Xcode, select **My Mac** and check the scheme's architecture settings.
 
 **Missing Metal toolchain:** Some command-line builds may fail with misleading errors from subprojects or external dependencies if the Metal toolchain is not installed. Make sure the Metal toolchain is included in your Xcode installation.
 
 ### Worktree builds
 
-If you're working in a git worktree, use `./Scripts/build-for-worktree.sh` and `./Scripts/verify.sh --worktree`. Plain `xcodebuild` will break permission persistence between builds. See [docs/worktree-workflow.md](../docs/worktree-workflow.md) for the full workflow.
+If you're working in a git worktree, use `./Scripts/build-for-worktree.sh` and `./Scripts/verify.sh --arch "$(uname -m)" --worktree`. Plain `xcodebuild` will break permission persistence between builds. See [docs/worktree-workflow.md](../docs/worktree-workflow.md) for the full workflow.
 
 ---
 
@@ -87,9 +90,10 @@ If you're working in a git worktree, use `./Scripts/build-for-worktree.sh` and `
 
 ### PR Checklist
 
-- [ ] Builds cleanly on Apple Silicon with no new warnings (`./Scripts/verify.sh`)
+- [ ] Builds cleanly on the local Mac with no new warnings (`./Scripts/verify.sh --arch "$(uname -m)"`)
+- [ ] Architecture-sensitive changes pass the `arm64` and `x86_64` CI jobs
 - [ ] Tested the affected core or system with at least one game
-- [ ] Submodules pinned correctly if cores were updated
+- [ ] Flattened core sources are updated cleanly if cores were changed
 - [ ] AI tool use disclosed in PR description if applicable
 - [ ] No build logs, binaries, or credentials committed
 
@@ -110,7 +114,7 @@ AI tools (Claude, Cursor, Copilot) are used in the development of this project. 
 
 ## Good First Issues
 
-Issues tagged [`good first issue`](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues?q=is%3Aopen+label%3A%22good+first+issue%22) are chosen because:
+Issues tagged [`good first issue`](https://github.com/communism420/OpenEmu-Intel/issues?q=is%3Aopen+label%3A%22good+first+issue%22) are chosen because:
 
 - The scope is well-defined
 - The relevant file or function is identified in the issue body
@@ -149,7 +153,7 @@ Engage with a few issues first — ask clarifying questions, look for duplicates
 
 The compatibility list lives in the [project wiki](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki). To contribute:
 1. Test a game on the latest release build
-2. Note: core name, macOS version, M-chip generation, and what you observed
+2. Note: core name, macOS version, processor model (Intel or M-series), and what you observed
 3. Submit a PR against the wiki or open a Discussion with your findings
 
 ### RetroAchievements Testing
@@ -170,4 +174,4 @@ This project follows the [Contributor Covenant](https://www.contributor-covenant
 
 ---
 
-*Questions? Open a [Discussion](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/discussions).*
+*Questions? Open a [Discussion](https://github.com/communism420/OpenEmu-Intel/discussions).*

@@ -1,8 +1,8 @@
-# MAME Core for OpenEmu-Silicon
+# MAME Core for OpenEmu
 
-This directory contains the OpenEmu MAME core wrapper, based on OpenEmu/UME-Core, with the small changes needed to build natively on Apple Silicon against this fork.
+This directory contains the OpenEmu MAME core wrapper, based on OpenEmu/UME-Core, with the changes needed to build natively for Apple Silicon or Intel against this fork.
 
-Status: WIP. The core builds as arm64 and loads as `org.openemu.MAME`, but polygonal 3D arcade rendering still needs validation/debugging. Use Sega Virtua Racing as the main repro case from issue #500.
+Status: WIP. The build script now has explicit `arm64` and `x86_64` paths, but the Intel path is not yet covered by CI or a native runtime smoke test because the large MAME source dependency is not vendored. Treat Intel MAME support as experimental until that validation is complete. Polygonal 3D arcade rendering also still needs validation/debugging; use Sega Virtua Racing as the main repro case from issue #500.
 
 ## Source dependency
 
@@ -24,12 +24,19 @@ To reproduce the full local build:
 ./Scripts/build-mame-core.sh
 ```
 
+The script uses the current Mac architecture by default. To select one explicitly:
+
+```sh
+./Scripts/build-mame-core.sh --arch x86_64
+./Scripts/build-mame-core.sh --arch arm64
+```
+
 The script automatically mirrors the checkout to a temporary no-space path when the repository path contains whitespace, because MAME's project generator cannot reliably build from paths such as `Open Emu`.
 
 The script does the following:
 
 1. Prepares `MAME/deps/mame` if needed.
-2. Builds `mamearcade_headless.dylib` as arm64 with the headless OSD.
+2. Builds `mamearcade_headless.dylib` for the selected architecture with the headless OSD.
 3. Builds `OpenEmuBase.framework` into the same DerivedData path.
 4. Builds `MAME.oecoreplugin`.
 
@@ -43,12 +50,14 @@ MAME/build/XcodeDerived/Build/Products/Release/MAME.oecoreplugin
 
 ```sh
 cd MAME/deps/mame
-make NOWERROR=1 REGENIE=1 macosx_arm64_clang \
+make NOWERROR=1 REGENIE=1 macosx_x64_clang \
   OSD="headless" verbose=1 TARGETOS="macosx" CONFIG="release" \
   TARGET=mame SUBTARGET=arcade MACOSX_DEPLOYMENT_TARGET=11.0 \
   -j"$(sysctl -n hw.ncpu)"
 install_name_tool -id mamearcade_headless.dylib mamearcade_headless.dylib
 ```
+
+Use `macosx_arm64_clang` instead when building on Apple Silicon.
 
 Then build `OpenEmuBase` and the `MAME` project with the same `-derivedDataPath`.
 

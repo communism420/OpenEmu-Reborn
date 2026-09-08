@@ -10,6 +10,7 @@
 # Usage:
 #   ./Scripts/build-for-worktree.sh                  # builds the OpenEmu scheme
 #   ./Scripts/build-for-worktree.sh "OpenEmu + FCEU" # builds a specific scheme
+#   ./Scripts/build-for-worktree.sh --arch x86_64    # builds for a specific CPU
 #
 # After building once, grant Input Monitoring (and any other permissions you
 # need) to the printed app path in System Settings → Privacy & Security.
@@ -25,7 +26,26 @@ REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 cd "$REPO_ROOT"
 
 WORKSPACE="OpenEmu-metal.xcworkspace"
-SCHEME="${1:-OpenEmu}"
+SCHEME="OpenEmu"
+TARGET_ARCH="${OPENEMU_ARCH:-$(uname -m)}"
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --arch)
+      [ $# -ge 2 ] && [ -n "$2" ] || { echo "error: --arch requires arm64 or x86_64" >&2; exit 2; }
+      TARGET_ARCH="$2"
+      shift 2
+      ;;
+    -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
+    -*) echo "error: unknown flag: $1" >&2; exit 2 ;;
+    *) SCHEME="$1"; shift ;;
+  esac
+done
+
+case "$TARGET_ARCH" in
+  arm64|x86_64) ;;
+  *) echo "error: unsupported architecture '$TARGET_ARCH'" >&2; exit 2 ;;
+esac
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's|/|-|g')
 if [ -z "$BRANCH" ] || [ "$BRANCH" = "HEAD" ]; then
@@ -36,17 +56,22 @@ fi
 BUILD_DIR="$HOME/Builds/openemu/$BRANCH"
 mkdir -p "$BUILD_DIR"
 
-echo "Building scheme '$SCHEME' for branch '$BRANCH'"
+echo "Building scheme '$SCHEME' for branch '$BRANCH' ($TARGET_ARCH)"
 echo "Output: $BUILD_DIR/Build/Products/Debug/"
 echo ""
 
-xcodebuild \
+if ! xcodebuild \
   -workspace "$WORKSPACE" \
   -scheme "$SCHEME" \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$TARGET_ARCH" \
+  ARCHS="$TARGET_ARCH" \
+  ONLY_ACTIVE_ARCH=YES \
   -derivedDataPath "$BUILD_DIR" \
-  build
+  build; then
+  echo "error: xcodebuild failed; refusing to reuse or re-sign a stale app bundle" >&2
+  exit 1
+fi
 
 # Auto-resolve a stable Apple Development signing identity if available.
 # Falls back to ad-hoc (-) if no Developer cert is in the keychain.

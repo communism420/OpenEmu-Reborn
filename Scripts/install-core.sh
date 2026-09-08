@@ -101,7 +101,7 @@ if [ -z "$DERIVED" ]; then
   echo "         ~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-*/Build/Products/${CONFIG}/"
   echo "       Build the '${CORE}' scheme first:"
   echo "       xcodebuild -workspace OpenEmu-metal.xcworkspace -scheme \"OpenEmu + ${CORE}\" \\"
-  echo "         -configuration ${CONFIG} -destination 'platform=macOS,arch=arm64' build"
+  echo "         -configuration ${CONFIG} -destination 'platform=macOS,arch=$(uname -m)' build"
   exit 1
 fi
 

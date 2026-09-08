@@ -1,4 +1,4 @@
-# AGENTS.md — OpenEmu-Silicon
+# AGENTS.md — OpenEmu-Intel
 
 Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working in this repository.
 
@@ -12,12 +12,13 @@ Before doing any work, read this file fully. It is the authoritative source for 
 
 ## About This Project
 
-OpenEmu-Silicon is a community-maintained fork of OpenEmu, rebuilt to run natively on Apple Silicon (arm64) without Rosetta. It descends from:
+OpenEmu-Intel is a community-maintained fork of OpenEmu-Silicon that targets both Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. It descends from:
 
 - [OpenEmu/OpenEmu](https://github.com/OpenEmu/OpenEmu) — the original project
 - [bazley82/OpenEmuARM64](https://github.com/bazley82/OpenEmuARM64) — the foundational ARM64 port
+- [OpenEmu-Silicon/OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon) — the actively maintained Apple Silicon fork
 
-The goal is to honor the original OpenEmu spirit — a beautifully designed, first-class native macOS game emulation frontend — while making it work reliably on M-series Macs with modern macOS and Swift.
+The goal is to honor the original OpenEmu spirit — a beautifully designed, first-class native macOS game emulation frontend — while making the same source tree work reliably on both current Mac processor architectures.
 
 **The maintainer is not a professional developer.** If you are writing explanations, commit messages, or comments, please use plain language. Avoid jargon where a plain word works just as well.
 
@@ -48,19 +49,22 @@ The goal is to honor the original OpenEmu spirit — a beautifully designed, fir
 The canonical verification floor is `Scripts/verify.sh`. It builds, runs the static analyzer, validates Info.plist and entitlements, and checks codesign — a stricter floor than a bare `xcodebuild build`.
 
 ```bash
-./Scripts/verify.sh                 # build + analyze + plist + codesign
-./Scripts/verify.sh --launch        # above + 5s smoke launch with crash check
-./Scripts/verify.sh --test          # above + run OpenEmuTests unit target
+./Scripts/verify.sh --arch "$(uname -m)"          # build + analyze + plist + codesign
+./Scripts/verify.sh --arch "$(uname -m)" --launch # above + 5s smoke launch with crash check
+./Scripts/verify.sh --arch "$(uname -m)" --test   # above + run OpenEmuTests unit target
 ```
+
+Use `--arch arm64` on Apple Silicon and `--arch x86_64` on Intel. Architecture-sensitive changes must pass once for each architecture, normally through CI when both kinds of Mac are not available locally.
 
 A bare build check is acceptable for quick iteration:
 
 ```bash
+ARCH="$(uname -m)"
 xcodebuild \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme OpenEmu \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -30
 ```
 
@@ -169,7 +173,7 @@ These rules exist because AI-assisted sessions have previously created orphaned 
 
 **PRs:**
 
-- **Target branch:** `main` on `OpenEmu-Silicon/OpenEmu-Silicon`
+- **Target branch:** `main` on `communism420/OpenEmu-Intel`
 - **Push and open a PR in the same step — never push without immediately opening a PR**
 - **PR title format:** `fix: description` / `feat: description` / `chore: description`
 - **Use the PR template** — `.github/PULL_REQUEST_TEMPLATE.md` auto-populates. Fill every section.
@@ -185,14 +189,15 @@ These rules exist because AI-assisted sessions have previously created orphaned 
 ## How to test locally
 
 # 1. Check out this PR
-gh pr checkout <N> --repo OpenEmu-Silicon/OpenEmu-Silicon
+gh pr checkout <N> --repo communism420/OpenEmu-Intel
 
 # 2. Build
+ARCH="$(uname -m)"
 xcodebuild \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme OpenEmu \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -20
 
 # 3. Launch
@@ -205,14 +210,15 @@ open ~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-*/Build/Products/Debug/
 ## How to test locally
 
 # 1. Check out this PR
-gh pr checkout <N> --repo OpenEmu-Silicon/OpenEmu-Silicon
+gh pr checkout <N> --repo communism420/OpenEmu-Intel
 
 # 2. Build the core scheme (the main OpenEmu scheme does not build core plugins)
+ARCH="$(uname -m)"
 xcodebuild \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme <CoreName> \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -20
 
 # 3. Install the core (quits OpenEmu automatically, then copies binary + Info.plist)
@@ -230,7 +236,7 @@ Replace `<N>` with the actual PR number and `<CoreName>` with the scheme name (e
 
 ## Issue Tracker
 
-The issue tracker at `OpenEmu-Silicon/OpenEmu-Silicon` is the primary place for bug reports, feature requests, core integration work, and release checklists.
+The issue tracker at `communism420/OpenEmu-Intel` is the primary place for bug reports, feature requests, core integration work, and release checklists.
 
 **Issue templates** — always use the appropriate template:
 
@@ -238,17 +244,17 @@ The issue tracker at `OpenEmu-Silicon/OpenEmu-Silicon` is the primary place for 
 |----------|----------|
 | `bug_report` | Runtime crash, wrong behavior |
 | `feature_request` | New core, new capability |
-| `core_integration` | Core fails to build, missing from workspace, needs ARM64 porting |
+| `core_integration` | Core fails to build, is missing from the workspace, or needs `arm64`/`x86_64` porting |
 | `checklist` | Release milestone tracking — one open checklist per milestone max |
 
 **Issue hygiene rules (non-negotiable):**
 
-1. **Search before opening.** Run `gh issue list --repo OpenEmu-Silicon/OpenEmu-Silicon --state open` first. If the problem is already tracked, comment — don't open a duplicate.
+1. **Search before opening.** Run `gh issue list --repo communism420/OpenEmu-Intel --state open` first. If the problem is already tracked, comment — don't open a duplicate.
 2. **No type prefixes in titles.** Never write `note:`, `fix:`, `feat:`, `bug:` in the issue title. Labels carry the type. The title describes the problem.
    - Good: `PokeMini — OpenEmuBase header missing in standalone build`
    - Bad: `note: PokeMini — needs workspace integration`
 3. **One issue per concern.** Same root cause + same fix = one issue covering both.
-4. **Close resolved issues immediately.** The moment a fix is committed, run: `gh issue close #N --repo OpenEmu-Silicon/OpenEmu-Silicon --comment "Resolved in <sha>."` Do not leave issues open for a later cleanup pass.
+4. **Close resolved issues immediately.** The moment a fix is committed, run: `gh issue close #N --repo communism420/OpenEmu-Intel --comment "Resolved in <sha>."` Do not leave issues open for a later cleanup pass.
 5. **Close superseded issues immediately.** If you open a more comprehensive issue that replaces an older one, close the old one in the same session.
 6. **Only one checklist per milestone.** If one is already open, update it.
 
@@ -260,7 +266,7 @@ The issue tracker at `OpenEmu-Silicon/OpenEmu-Silicon` is the primary place for 
 - Do not add new dependencies without discussion — the project intentionally has no package manager
 - Do not remove or rename existing core directories — they are referenced by the Xcode project
 - Do not commit the `build_*.log` files that exist at root — they are legacy artifacts
-- Do not change `MACOSX_DEPLOYMENT_TARGET` below `11.0` — this is the ARM64 baseline
+- Do not change `MACOSX_DEPLOYMENT_TARGET` below `11.0` — this is the project baseline for both architectures
 - Do not commit secrets (like `OEGoogleDriveSecrets.swift` or `ScreenScraperDevCredentials.swift`) — they are gitignored for a reason; they hold real OAuth credentials or API keys
 - Do not add debug `+load` / `+initialize` methods that write to `/tmp` or hardcode local paths
 - Do not commit large binaries (`.zip`, `.tar.gz`, compiled executables) — these belong in GitHub Releases
@@ -285,7 +291,7 @@ Bump rules:
 
 ## Core update channel
 
-Every shipped core plugin embeds a `SUFeedURL` in its `Info.plist`. Sparkle reads it from the **installed** plugin bundle, so it controls updates for users who already have the core.
+Every shipped core plugin embeds a `SUFeedURL` in its `Info.plist`. The custom updater reads it from the **installed** plugin bundle, so it controls updates for users who already have the core.
 
 The canonical pattern, used by all cores nickybmon ships, is:
 
@@ -293,14 +299,17 @@ The canonical pattern, used by all cores nickybmon ships, is:
 https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/Appcasts/<core>.xml
 ```
 
-`<core>` is the lowercased core name (e.g. `dolphin`, `mednafen`, `bluemsx`). The matching file must exist under `Appcasts/` in this repo — that is the file Sparkle fetches.
+`<core>` is the lowercased core name (e.g. `dolphin`, `mednafen`, `bluemsx`). These URLs remain owned by OpenEmu-Silicon. Files under `Appcasts/` in this fork are mirrors and are not a fork-owned publication channel.
 
 Rules:
 
-- Never re-introduce `OpenEmu-Update`, `raw.github.com/OpenEmu`, or `appcast.openemu.org` URLs into a core `Info.plist`. That update channel is upstream-owned and dormant; updates published here will not reach users.
-- When adding a new core, add its appcast file to `Appcasts/<core>.xml` *and* set the `Info.plist` `SUFeedURL` to the canonical URL above in the same commit.
+- Keep existing Apple Silicon core feed URLs intact until this fork owns a complete architecture-aware core catalog and feed.
+- Do not point a core at this fork's `Appcasts/` directory yet. Intel deliberately blocks the ARM-only fork/Silicon feeds, and publishing a thin build there would be unsafe for the other architecture.
 - `Scripts/check-core-feed-urls.sh` enforces both rules and is wired into `Scripts/verify.sh --core` as a precondition.
-- Core appcast entries should be EdDSA-signed when newly published. `Scripts/update_core_appcast.py --sign-zip <path-to-zip>` runs Sparkle's `sign_update` against the local zip and embeds `sparkle:edSignature` on the new `<enclosure>`. The host app's existing Sparkle keypair is reused — do not generate a new one.
+- `Scripts/package-core.sh` produces universal, manual test artifacts only and requires an explicit DerivedData path. It does not publish them.
+- `Scripts/update_core_appcast.py --sign-zip <path-to-zip>` refuses non-universal archives and writes Sparkle signature metadata. The current custom core updater does not verify that EdDSA field, so do not describe core downloads as cryptographically authenticated until verification is implemented.
+
+The app selects its downloadable core catalog at runtime. Apple Silicon uses the OpenEmu-Silicon catalog; Intel uses the legacy official OpenEmu catalog as a compatibility bootstrap so it receives `x86_64` releases. That catalog is still served from a mutable `master` URL; downloaded bundles must therefore pass runtime architecture validation before replacing an installed core. Do not replace the CPU-specific selection with one shared catalog. Fork-only cores without published `x86_64` artifacts must be built locally on Intel for now.
 
 ---
 
@@ -328,7 +337,7 @@ The main app is **BSD 2-Clause**. Emulator cores are mostly **GPL v2**. Key rule
 >
 > OpenEmu loads cores from `~/Library/Application Support/OpenEmu/Cores/`, **not** from the build directory. Building a core does *not* affect what OpenEmu loads. Before claiming any test result on a core change:
 >
-> 1. Build the core scheme (or run `./Scripts/verify.sh --core <CoreName>` which does this for you, with `--release` if testing a Release-only behavior).
+> 1. Build the core scheme (or run `./Scripts/verify.sh --arch "$(uname -m)" --core <CoreName>` which does this for you, with `--release` if testing a Release-only behavior).
 > 2. Run `./Scripts/install-core.sh <CoreName>` (use `--release` for Release builds). This is automatic when you use `verify.sh --core`.
 > 3. Run `./Scripts/verify-core-installed.sh <CoreName>` and confirm `OK`. If it prints `FAIL`, the installed plugin doesn't match the build and your test result is invalid.
 >
@@ -347,10 +356,10 @@ Before merging any PR, check it out locally, build, and verify the behaviors des
 
 ```bash
 # gh looks up the branch name automatically
-gh pr checkout <PR_NUMBER> --repo OpenEmu-Silicon/OpenEmu-Silicon
+gh pr checkout <PR_NUMBER> --repo communism420/OpenEmu-Intel
 
 # Example
-gh pr checkout 54 --repo OpenEmu-Silicon/OpenEmu-Silicon
+gh pr checkout 54 --repo communism420/OpenEmu-Intel
 ```
 
 ### Build
@@ -358,22 +367,24 @@ gh pr checkout 54 --repo OpenEmu-Silicon/OpenEmu-Silicon
 For main app changes:
 
 ```bash
+ARCH="$(uname -m)"
 xcodebuild \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme OpenEmu \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -30
 ```
 
 For core plugin changes, use the core's own scheme (e.g. `Dolphin`, `Flycast`):
 
 ```bash
+ARCH="$(uname -m)"
 xcodebuild \
   -workspace OpenEmu-metal.xcworkspace \
   -scheme Dolphin \
   -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
+  -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -30
 ```
 
@@ -405,8 +416,9 @@ git worktree add ../openemu-pr54 fix/flycast-input-crash
 
 # Build and run from that directory
 cd ../openemu-pr54
+ARCH="$(uname -m)"
 xcodebuild -workspace OpenEmu-metal.xcworkspace -scheme OpenEmu \
-  -configuration Debug -destination 'platform=macOS,arch=arm64' build
+  -configuration Debug -destination "platform=macOS,arch=$ARCH" build
 
 # Clean up when done
 git worktree remove ../openemu-pr54
@@ -434,8 +446,9 @@ git fetch origin && git merge origin/main
 git checkout -b fix/your-description
 
 # Build check before committing
+ARCH="$(uname -m)"
 xcodebuild -workspace OpenEmu-metal.xcworkspace -scheme OpenEmu \
-  -configuration Debug -destination 'platform=macOS,arch=arm64' \
+  -configuration Debug -destination "platform=macOS,arch=$ARCH" \
   build 2>&1 | tail -10
 
 # Stage and commit
@@ -444,5 +457,5 @@ git commit -m "fix: description"
 
 # Push and open a PR — always in the same step, never one without the other
 git push -u origin fix/your-description
-gh pr create --repo OpenEmu-Silicon/OpenEmu-Silicon --base main --title "fix: your-description" --body "..."
+gh pr create --repo communism420/OpenEmu-Intel --base main --title "fix: your-description" --body "..."
 ```

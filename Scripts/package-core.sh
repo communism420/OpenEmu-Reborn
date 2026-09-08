@@ -1,20 +1,29 @@
 #!/usr/bin/env bash
 # package-core.sh — Sign, upload dSYM to Sentry, and zip a built core plugin for release.
 #
-# Run this after verify.sh --core <Name> --release confirms a clean build.
-# It produces a signed, verified zip at /tmp/<CoreName>.oecoreplugin.zip ready
-# for upload to the GitHub Release, and prints the byte count needed for the appcast.
+# Run this after an explicit universal Release build. For example:
+#
+#   xcodebuild build -workspace OpenEmu-metal.xcworkspace \
+#     -scheme "OpenEmu + Gambatte" -configuration Release \
+#     -destination generic/platform=macOS \
+#     -derivedDataPath "$PWD/.derived-data" \
+#     ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO
+#
+# The script produces a signed, universal zip at
+# /tmp/<CoreName>.oecoreplugin.zip.
+# The explicit DerivedData path prevents an old build from being packaged by
+# accident. Shared appcasts must only contain universal core archives.
 #
 # Usage:
-#   ./Scripts/package-core.sh <CoreName> <Version>
+#   OPENEMU_DERIVED_DATA_PATH=/path/to/DerivedData ./Scripts/package-core.sh <CoreName> <Version>
 #
 # Example:
-#   ./Scripts/package-core.sh Gambatte 0.5.3
+#   OPENEMU_DERIVED_DATA_PATH="$PWD/.derived-data" ./Scripts/package-core.sh Gambatte 0.5.3
 #
 # Prerequisites:
-#   - Core built in Release config (verify.sh --core <Name> --release passes)
+#   - Core built as a universal Release bundle (arm64 + x86_64)
 #   - Developer ID Application cert in keychain
-#   - sentry-cli installed and authenticated (non-fatal if absent — warns and continues)
+#   - sentry-cli only when OPENEMU_SENTRY_ORG/PROJECT enable upload
 
 set -euo pipefail
 
@@ -32,13 +41,21 @@ VERSION="$2"
 # ── 1. Locate the Release artifact ───────────────────────────────────────────
 step "Locating Release artifact"
 
-DERIVED_DATA=$(find ~/Library/Developer/Xcode/DerivedData -maxdepth 1 \
-  -name "OpenEmu-metal-*" -type d 2>/dev/null | head -1)
-[ -n "$DERIVED_DATA" ] || die "DerivedData for OpenEmu-metal not found. Build via: ./Scripts/verify.sh --core $CORE --release"
+DERIVED_DATA="${OPENEMU_DERIVED_DATA_PATH:-}"
+[ -n "$DERIVED_DATA" ] || die "OPENEMU_DERIVED_DATA_PATH is required.
+  Point it at the exact DerivedData directory used for this release build;
+  automatic discovery is intentionally disabled to prevent stale packaging."
+[ -d "$DERIVED_DATA" ] || die "DerivedData directory not found: $DERIVED_DATA"
 
 PLUGIN="$DERIVED_DATA/Build/Products/Release/${CORE}.oecoreplugin"
-[ -d "$PLUGIN" ] || die "Plugin not found: $PLUGIN — run ./Scripts/verify.sh --core $CORE --release first."
+[ -d "$PLUGIN" ] || die "Plugin not found: $PLUGIN — run the universal xcodebuild command documented at the top of this script."
 ok "Found: $PLUGIN"
+
+"$SCRIPT_DIR/verify-bundle-architectures.sh" --arch arm64 "$PLUGIN" \
+  || die "Plugin is not universal: an arm64 slice is missing."
+"$SCRIPT_DIR/verify-bundle-architectures.sh" --arch x86_64 "$PLUGIN" \
+  || die "Plugin is not universal: an x86_64 slice is missing."
+ok "All plugin binaries contain arm64 and x86_64"
 
 # ── 2. Verify CFBundleVersion matches ────────────────────────────────────────
 step "Verifying CFBundleVersion"
@@ -47,15 +64,15 @@ BUILT_VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" \
   "$PLUGIN/Contents/Info.plist" 2>/dev/null || true)
 [ "$BUILT_VERSION" = "$VERSION" ] \
   || die "CFBundleVersion mismatch: plugin has '$BUILT_VERSION', expected '$VERSION'.
-  Did the plist bump land in this build? Re-run: ./Scripts/verify.sh --core $CORE --release"
+  Did the plist bump land in this build? Clean and repeat the universal Release build."
 ok "CFBundleVersion = $BUILT_VERSION"
 
 # ── 3. Sign with Developer ID Application ────────────────────────────────────
 step "Signing with Developer ID"
 
-# Require the full identity so signing is deterministic, not just the first
-# matching cert. AJC82Q6789 is Nick Blackmon's Developer Program Team ID.
-IDENTITY="Developer ID Application: Nick Blackmon (AJC82Q6789)"
+# Set OPENEMU_SIGNING_IDENTITY to a full certificate name when multiple
+# Developer ID identities are installed. Never hard-code an upstream team.
+IDENTITY="${OPENEMU_SIGNING_IDENTITY:-Developer ID Application}"
 security find-identity -v -p codesigning | grep -q "Developer ID Application" \
   || die "Developer ID Application certificate not found in keychain.
   Check with: security find-identity -v | grep 'Developer ID Application'"
@@ -66,14 +83,27 @@ codesign --verify --deep --strict "$PLUGIN" \
   || die "codesign --verify failed after signing. Bundle may be malformed."
 
 # ── 4. Verify and upload dSYM to Sentry ──────────────────────────────────────
-step "Verifying and uploading dSYM to Sentry"
+step "Verifying dSYM"
 
-"$SCRIPT_DIR/verify-sentry-symbols.sh" \
-  --upload \
-  --wait-for 120 \
-  --binary-root "$PLUGIN" \
-  --dsym-root "$DERIVED_DATA/Build/Products/Release" \
+SENTRY_ARGS=(
+  --binary-root "$PLUGIN"
+  --dsym-root "$DERIVED_DATA/Build/Products/Release"
   --allow-missing '\.so$'
+)
+if [ -n "${OPENEMU_SENTRY_ORG:-}" ] || [ -n "${OPENEMU_SENTRY_PROJECT:-}" ]; then
+  [ -n "${OPENEMU_SENTRY_ORG:-}" ] && [ -n "${OPENEMU_SENTRY_PROJECT:-}" ] \
+    || die "Set both OPENEMU_SENTRY_ORG and OPENEMU_SENTRY_PROJECT, or neither."
+  SENTRY_ARGS+=(
+    --upload
+    --wait-for 120
+    --org "$OPENEMU_SENTRY_ORG"
+    --project "$OPENEMU_SENTRY_PROJECT"
+  )
+else
+  warn "Sentry upload disabled; set OPENEMU_SENTRY_ORG and OPENEMU_SENTRY_PROJECT to enable it."
+fi
+
+"$SCRIPT_DIR/verify-sentry-symbols.sh" "${SENTRY_ARGS[@]}"
 
 # ── 5. Zip with ditto ────────────────────────────────────────────────────────
 step "Creating zip"
@@ -106,13 +136,8 @@ echo "════════════════════════�
 echo "  Zip:   $ZIP"
 echo "  Bytes: $BYTE_COUNT"
 echo ""
-echo "Next steps:"
-echo "  1. Upload to GitHub Release:"
-echo "     gh release upload <cores-tag> \"$ZIP\" --repo OpenEmu-Silicon/OpenEmu-Silicon"
-echo ""
-echo "  2. Update appcast (generates EdDSA signature automatically):"
-echo "     python3 Scripts/update_core_appcast.py \\"
-echo "       Appcasts/<core>.xml \"$CORE\" \"$VERSION\" \\"
-echo "       https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/releases/download/<cores-tag>/${CORE}.oecoreplugin.zip \\"
-echo "       $BYTE_COUNT \\"
-echo "       --sign-zip \"$ZIP\""
+echo "This is a manual release artifact. The fork currently keeps Apple Silicon"
+echo "cores on the OpenEmu-Silicon feeds and Intel cores on the legacy official"
+echo "feeds, so uploading this zip does not publish it to either architecture."
+echo "Do not change a shared appcast until the fork has an architecture-aware"
+echo "core feed and catalog."

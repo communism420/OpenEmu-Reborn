@@ -41,11 +41,11 @@ extension OEDBRom: CachedLastPlayedInfoItem {}
 @objcMembers
 class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
-    static let websiteAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon"
+    static let websiteAddress = "https://github.com/communism420/OpenEmu-Intel"
     static let userGuideAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki"
-    static let releaseNotesAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/releases"
-    static let feedbackAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/new/choose"
-    static let bugReportAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/new"
+    static let releaseNotesAddress = "https://github.com/communism420/OpenEmu-Intel/releases"
+    static let feedbackAddress = "https://github.com/communism420/OpenEmu-Intel/issues/new/choose"
+    static let bugReportAddress = "https://github.com/communism420/OpenEmu-Intel/issues/new"
 
     @IBOutlet weak var fileMenu: NSMenu!
     @IBOutlet weak var helpMenu: NSMenu!
@@ -501,6 +501,12 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     /// the host's `disable-library-validation` entitlement covers any plugin
     /// signature drift, so re-codesigning is not required.
     fileprivate func refreshStaleCoreFeedURLs() {
+#if arch(x86_64)
+        // The fork-hosted core appcasts currently publish Apple Silicon builds.
+        // Keep Intel plugins on their existing x86_64-compatible update feeds.
+        feedURLRefreshReport = ([], [])
+        return
+#else
         let canonicalPrefix = "https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/Appcasts/"
         feedURLRefreshReport = ([], [])
 
@@ -556,6 +562,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
 
         feedURLRefreshReport = (refreshed, failed)
         os_log(.info, log: .default, "SUFeedURL refresh summary: refreshed=%{public}d failed=%{public}d", refreshed.count, failed.count)
+#endif
     }
 
     /// One-shot diagnostic written at startup so we can see what core plugins

@@ -23,17 +23,18 @@ if [ "${SKIP_VERIFY:-0}" = "1" ]; then
   exit 0
 fi
 
-STAMP_FILE=$(git rev-parse --git-path verify-passed 2>/dev/null || true)
+VERIFY_ARCH="${OPENEMU_ARCH:-$(uname -m)}"
+STAMP_FILE=$(git rev-parse --git-path "verify-passed-$VERIFY_ARCH" 2>/dev/null || true)
 TREE_SHA=$(git rev-parse HEAD^{tree} 2>/dev/null || echo "")
 
 if [ -n "$STAMP_FILE" ] && [ -f "$STAMP_FILE" ] && [ -n "$TREE_SHA" ]; then
   STAMPED_SHA=$(cat "$STAMP_FILE" 2>/dev/null || echo "")
   if [ "$STAMPED_SHA" = "$TREE_SHA" ] && git diff --quiet && git diff --cached --quiet; then
-    echo "[pre-push] verify.sh passed for this code — push allowed"
+    echo "[pre-push] verify.sh passed for this code on $VERIFY_ARCH — push allowed"
     exit 0
   fi
 fi
 
-echo "[pre-push] Note: verify.sh has not been run on this code."
-echo "[pre-push] Build check will run on GitHub CI. To verify locally: ./Scripts/verify.sh"
+echo "[pre-push] Note: verify.sh has not been run on this code for $VERIFY_ARCH."
+echo "[pre-push] Build check will run on GitHub CI. To verify locally: ./Scripts/verify.sh --arch $VERIFY_ARCH"
 exit 0

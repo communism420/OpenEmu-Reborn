@@ -36,6 +36,8 @@ public extension Scanner {
             return nil
         }
         
-        return s as String?
+        // `scanUpTo` leaves its result unset when the closing quote follows
+        // immediately.  An empty quoted string is nevertheless valid.
+        return (s as String?) ?? ""
     }
 }

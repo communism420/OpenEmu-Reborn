@@ -3393,10 +3393,15 @@
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
 					"$(inherited)",
 					"NEW_DYNAREC=NEW_DYNAREC_ARM64",
+					DYNAREC,
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
 					"$(inherited)",
-					"NEW_DYNAREC=NEW_DYNAREC_X64",
+					"NO_ASM=1",
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=x86_64]" = (
+					linkage_arm64.S,
+					new_dynarec.c,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/mupen64plus-core/src\"",
@@ -3419,7 +3424,6 @@
 				OTHER_CFLAGS = (
 					"-DIN_OPENEMU",
 					"-DM64P_PARALLEL",
-					"-DDYNAREC",
 					"-DNDEBUG",
 					"-DNOCRYPT",
 					"-DNOUNCRYPT",
@@ -3457,10 +3461,15 @@
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
 					"$(inherited)",
 					"NEW_DYNAREC=NEW_DYNAREC_ARM64",
+					DYNAREC,
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
 					"$(inherited)",
-					"NEW_DYNAREC=NEW_DYNAREC_X64",
+					"NO_ASM=1",
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=x86_64]" = (
+					linkage_arm64.S,
+					new_dynarec.c,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/mupen64plus-core/src\"",
@@ -3483,7 +3492,6 @@
 				OTHER_CFLAGS = (
 					"-DIN_OPENEMU",
 					"-DM64P_PARALLEL",
-					"-DDYNAREC",
 					"-DNDEBUG",
 					"-DNOCRYPT",
 					"-DNOUNCRYPT",
@@ -3494,7 +3502,6 @@
 					"$(OTHER_CFLAGS)",
 					"-fvisibility-inlines-hidden",
 				);
-				ARCHS = arm64;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Mupen64Plus;
 				SKIP_INSTALL = YES;

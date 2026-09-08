@@ -1,8 +1,8 @@
 ---
 name: Core integration
-about: An emulator core fails to build, is missing from the workspace, or needs ARM64 porting work
+about: An emulator core fails to build, is missing from the workspace, or needs architecture porting work
 title: ''
-labels: core: other
+labels: "core: other"
 assignees: ''
 
 ---
@@ -23,7 +23,7 @@ assignees: ''
 
 ## Root cause
 
-<!-- What is causing the failure? Missing headers? Submodule not initialized? No ARM64 dynarec? -->
+<!-- What is causing the failure? Missing headers? Missing source? No arm64 or x86_64 dynarec? -->
 
 ## Proposed fix
 
@@ -32,7 +32,7 @@ assignees: ''
 ## Notes
 
 - [ ] System plugin already exists in `OpenEmu/SystemPlugins/`
-- [ ] No `VALID_ARCHS` restriction (ARM64 not blocked)
+- [ ] No `VALID_ARCHS` restriction unintentionally blocks `arm64` or `x86_64`
 - [ ] Source is fully inlined (no submodules to initialize)
 - [ ] Core is added to `OpenEmu-metal.xcworkspace`
 

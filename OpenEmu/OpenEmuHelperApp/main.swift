@@ -30,17 +30,24 @@ import Sentry
 // CFPreferencesCopyValue reads the host app's preference domain directly, which is
 // safe in this non-sandboxed helper process and avoids any IPC or file-sharing setup.
 let consentValue = CFPreferencesCopyValue(
-    "OESentryCrashReportingEnabled" as CFString,
+    "OEIntelSentryCrashReportingEnabled" as CFString,
     "org.openemu.OpenEmu" as CFString,
     kCFPreferencesAnyUser,
     kCFPreferencesAnyHost
 )
-if (consentValue as? Bool) == true {
+let sentryDSN = (Bundle.main.object(forInfoDictionaryKey: "OESentryDSN") as? String)?
+    .trimmingCharacters(in: .whitespacesAndNewlines)
+let sentryReleasePrefix = (Bundle.main.object(forInfoDictionaryKey: "OESentryReleasePrefix") as? String)?
+    .trimmingCharacters(in: .whitespacesAndNewlines)
+let effectiveSentryReleasePrefix = sentryReleasePrefix.flatMap { $0.isEmpty ? nil : $0 }
+    ?? "openemu-intel"
+
+if (consentValue as? Bool) == true, let sentryDSN, !sentryDSN.isEmpty {
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     let build   = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
     SentrySDK.start { options in
-        options.dsn              = "https://387777a8153aae33cb514deea3601946@o4511164820815872.ingest.us.sentry.io/4511164891529216"
-        options.releaseName      = "openemu-silicon@\(version)+\(build)"
+        options.dsn              = sentryDSN
+        options.releaseName      = "\(effectiveSentryReleasePrefix)@\(version)+\(build)"
         options.environment      = "production"
         options.debug            = false
         options.tracesSampleRate = 0.2

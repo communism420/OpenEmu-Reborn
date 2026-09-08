@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before submitting, check [existing feature requests](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues?q=is%3Aopen+label%3Aenhancement) to avoid duplicates. The fastest path to seeing something happen is opening a PR — but requests are welcome even if you can't build it yourself.
+        Before submitting, check [existing feature requests](https://github.com/communism420/OpenEmu-Intel/issues?q=is%3Aopen+label%3Aenhancement) to avoid duplicates. The fastest path to seeing something happen is opening a PR — but requests are welcome even if you can't build it yourself.
 
   - type: textarea
     id: problem
@@ -48,8 +48,10 @@ body:
       required: false
 
   - type: checkboxes
-    id: silicon
+    id: platform
     attributes:
-      label: Apple Silicon / macOS Specific
+      label: Platform Specific
       options:
-        - label: This is specific to Apple Silicon or macOS (not a general OpenEmu request)
+        - label: This is specific to Apple Silicon (`arm64`)
+        - label: This is specific to Intel (`x86_64`)
+        - label: This is specific to a macOS version

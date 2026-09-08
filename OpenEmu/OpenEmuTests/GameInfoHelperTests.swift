@@ -26,9 +26,26 @@ import XCTest
 @testable import OpenEmu
 
 class GameInfoHelperTests: XCTestCase {
+
+    private final class DatabaseStub: GameInfoDatabase {
+        func executeQuery(_ sql: String) throws -> [[String : Any]] {
+            switch sql {
+            case let sql where sql.contains("systemhashless") && sql.contains("openemu.system.arcade"):
+                return [["hashless": Int32(1)]]
+            case let sql where sql.contains("systemheader") && sql.contains("openemu.system.saturn"):
+                return [["header": Int32(1)]]
+            case let sql where sql.contains("systemserial") && sql.contains("openemu.system.psx"):
+                return [["serial": "1"]]
+            case let sql where sql.contains("systemheadersizebytes") && sql.contains("openemu.system.nes"):
+                return [["size": Int32(16)]]
+            default:
+                return []
+            }
+        }
+    }
     
     func testROMChecks() {
-        let helper = GameInfoHelper.shared
+        let helper = GameInfoHelper(database: DatabaseStub())
         
         let arcade = "openemu.system.arcade"
         let saturn = "openemu.system.saturn"

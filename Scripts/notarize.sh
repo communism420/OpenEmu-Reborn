@@ -5,8 +5,9 @@
 #   ./Scripts/notarize.sh                          # uses latest xcarchive
 #   ./Scripts/notarize.sh "path/to/archive.xcarchive"
 
-IDENTITY="Developer ID Application"
-PROFILE_NAME="OpenEmu"
+IDENTITY="${OPENEMU_SIGNING_IDENTITY:-Developer ID Application}"
+PROFILE_NAME="${OPENEMU_NOTARY_PROFILE:-OpenEmu-Intel}"
+DMG_NAME="${OPENEMU_DMG_NAME:-OpenEmu-Intel.dmg}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 ENTITLEMENTS="$REPO_ROOT/OpenEmu/OpenEmu.entitlements"
@@ -57,10 +58,10 @@ else
   if ! xcrun notarytool history --keychain-profile "$PROFILE_NAME" &>/dev/null; then
     echo ""
     echo "ERROR: No keychain profile '$PROFILE_NAME' found."
-    echo "Run this once in Terminal: xcrun notarytool store-credentials OpenEmu"
-    echo "  Apple ID:              nick.r.blackmon@gmail.com"
+    echo "Run this once in Terminal: xcrun notarytool store-credentials $PROFILE_NAME"
+    echo "  Apple ID:              your Apple Developer account"
     echo "  App-specific password: from appleid.apple.com → Security → App-Specific Passwords"
-    echo "  Team ID:               AJC82Q6789"
+    echo "  Team ID:               your Apple Developer Team ID"
     rm -rf "$WORK_DIR"; exit 1
   fi
   echo "Using keychain profile: $PROFILE_NAME"
@@ -220,7 +221,7 @@ if grep -q "status: Accepted" "$NOTARIZE_LOG"; then
   xcrun stapler staple "$APP" || die "Stapling failed."
 
   # ── 8. Create DMG with custom background ────────────────────────────────
-  DMG="$REPO_ROOT/Releases/OpenEmu-Silicon.dmg"
+  DMG="$REPO_ROOT/Releases/$DMG_NAME"
   mkdir -p "$REPO_ROOT/Releases"
   echo ""
   echo "=== Creating styled DMG ==="
@@ -228,7 +229,7 @@ if grep -q "status: Accepted" "$NOTARIZE_LOG"; then
   # Use ditto (not cp -R) to preserve extended attributes and code-seal xattrs.
   STAGED_APP="$REPO_ROOT/Releases/OpenEmu.app"
   rm -rf "$STAGED_APP"
-  ditto "$APP" "$STAGED_APP"
+ditto "$APP" "$STAGED_APP" || die "Failed to stage app for DMG creation."
   "$SCRIPT_DIR/make-dmg.sh" "$STAGED_APP" "$DMG" \
     || { rm -rf "$STAGED_APP"; die "make-dmg.sh failed."; }
   rm -rf "$STAGED_APP"

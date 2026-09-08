@@ -29,11 +29,28 @@ import Sentry
 
 enum SentryService {
 
-    private static let dsn = "https://387777a8153aae33cb514deea3601946@o4511164820815872.ingest.us.sentry.io/4511164891529216"
+    /// Crash reporting is disabled unless this fork's maintainer supplies a DSN
+    /// in OpenEmu-Info.plist. Never send fork users' data to an inherited
+    /// upstream project.
+    private static var dsn: String? {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: "OESentryDSN") as? String else {
+            return nil
+        }
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
+    private static var releasePrefix: String {
+        let value = Bundle.main.object(forInfoDictionaryKey: "OESentryReleasePrefix") as? String
+        return value?.trimmingCharacters(in: .whitespacesAndNewlines).nonEmpty
+            ?? "openemu-intel"
+    }
 
     // UserDefaults keys
-    private static let consentKey    = "OESentryCrashReportingEnabled"
-    private static let hasPromptedKey = "OESentryCrashReportingPrompted"
+    // Fork-specific keys ensure a consent decision made for another project's
+    // telemetry endpoint is never silently reused here.
+    private static let consentKey    = "OEIntelSentryCrashReportingEnabled"
+    private static let hasPromptedKey = "OEIntelSentryCrashReportingPrompted"
 
     // Game-context keys mirrored into CFPreferences so the helper process
     // (which crashes most often) can attach the same context to its events.
@@ -45,6 +62,8 @@ enum SentryService {
     /// On first launch, shows a consent prompt. On subsequent launches,
     /// starts Sentry automatically if the user previously opted in.
     static func configureIfNeeded() {
+        guard dsn != nil else { return }
+
         let defaults = UserDefaults.standard
 
         if !defaults.bool(forKey: hasPromptedKey) {
@@ -156,12 +175,14 @@ enum SentryService {
     }
 
     private static func start() {
+        guard let dsn else { return }
+
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
         let build   = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         SentrySDK.start { options in
             options.dsn              = dsn
             options.debug            = false
-            options.releaseName      = "openemu-silicon@\(version)+\(build)"
+            options.releaseName      = "\(releasePrefix)@\(version)+\(build)"
             options.environment      = "production"
             options.tracesSampleRate = 0.2  // sample 20% of sessions for performance tracing
             options.enableLogs       = true
@@ -170,4 +191,8 @@ enum SentryService {
             options.enableMetricKit  = true
         }
     }
+}
+
+private extension String {
+    var nonEmpty: String? { isEmpty ? nil : self }
 }

@@ -18,6 +18,10 @@
 	<true/>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>OESentryDSN</key>
+	<string></string>
+	<key>OESentryReleasePrefix</key>
+	<string>openemu-intel</string>
 	<key>OpenEmuKit</key>
 	<dict>
 		<key>XPCBrokerServiceName</key>

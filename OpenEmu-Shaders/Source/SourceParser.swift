@@ -214,7 +214,10 @@ class SourceParser {
                 if line.hasPrefix(Prefixes.pragma) {
                     hasPreprocessor = true
                     if try processPragma(line: line) {
-                        // skip line
+                        // Skip the pragma itself, but keep generated source line
+                        // numbers aligned with the original file.
+                        buffer.append("#line \(lno + 1) \"\(filename)\"")
+                        lno += 1
                         continue
                     }
                 } else if line.hasPrefix(Prefixes.endif) {

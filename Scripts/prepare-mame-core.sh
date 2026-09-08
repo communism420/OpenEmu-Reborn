@@ -15,13 +15,32 @@ REMOTE="https://github.com/stuartcarnie/mame.git"
 mkdir -p "$DEPS_DIR"
 
 if [ ! -e "$SRC_DIR/.git" ]; then
-  echo "Cloning stuartcarnie/mame into $SRC_DIR..."
-  git clone --no-tags "$REMOTE" "$SRC_DIR"
+  echo "Initializing stuartcarnie/mame in $SRC_DIR..."
+  git init -q "$SRC_DIR"
 fi
 
 cd "$SRC_DIR"
 
-git fetch --no-tags origin "$REVISION"
+# Use a dedicated remote so an interrupted first run can repair itself without
+# replacing a developer's existing origin (which may intentionally be a fork).
+PINNED_REMOTE="openemu-pinned"
+if git remote get-url "$PINNED_REMOTE" >/dev/null 2>&1; then
+  git remote set-url "$PINNED_REMOTE" "$REMOTE"
+else
+  git remote add "$PINNED_REMOTE" "$REMOTE"
+fi
+
+# Fetch only the pinned revision. The complete upstream repository is over
+# 1.5 GB, while this shallow checkout contains everything needed for the build
+# and remains compatible with existing full clones.
+if git cat-file -e "$REVISION^{commit}" 2>/dev/null; then
+  echo "Pinned MAME revision is already available."
+elif ! git rev-parse --verify HEAD >/dev/null 2>&1 || [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+  git fetch --no-tags --depth=1 "$PINNED_REMOTE" "$REVISION"
+else
+  # Do not turn an existing full developer clone into a shallow repository.
+  git fetch --no-tags "$PINNED_REMOTE" "$REVISION"
+fi
 git checkout --detach "$REVISION"
 
 if git apply --check "$PATCH_FILE" >/dev/null 2>&1; then

@@ -1,0 +1,465 @@
+name: Intel test build
+
+on:
+  workflow_call:
+    inputs:
+      reuse_run:
+        description: Original packaging run whose successful inputs should be reused
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  plan:
+    name: Select Intel build inputs
+    runs-on: ubuntu-latest
+    outputs:
+      source_sha: ${{ steps.plan.outputs.source_sha }}
+      app: ${{ steps.plan.outputs.app }}
+      cores: ${{ steps.plan.outputs.cores }}
+      mame: ${{ steps.plan.outputs.mame }}
+    steps:
+      - name: Find missing inputs from the original source revision
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          CURRENT_SHA: ${{ github.sha }}
+          REUSE_RUN: ${{ inputs.reuse_run }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import subprocess
+
+          repo = os.environ['REPOSITORY']
+          reuse = os.environ['REUSE_RUN']
+          source_sha = os.environ['CURRENT_SHA']
+          names = set()
+          cores = '4DO Atari800 Bliss BSNES CrabEmu DeSmuME Dolphin FCEU Flycast Gambatte GenesisPlus JollyCV Mednafen mGBA Mupen64Plus Nestopia O2EM Picodrive PokeMini Potator PPSSPP ProSystem SNES9x Stella VecXGL VirtualJaguar blueMSX'.split()
+
+          def api(path):
+              return json.loads(subprocess.check_output(['gh', 'api', path]))
+
+          if reuse:
+              if not re.fullmatch(r'[1-9][0-9]*', reuse):
+                  raise SystemExit('reuse_run must be a numeric GitHub run ID')
+              run = api(f'repos/{repo}/actions/runs/{reuse}')
+              if (run['status'] != 'completed'
+                  or run['event'] != 'workflow_dispatch'
+                  or run['path'] != '.github/workflows/build-check.yml'
+                  or run['head_repository']['id'] != run['repository']['id']):
+                  raise SystemExit('Reuse requires a completed manual build in this repository')
+              source_sha = run['head_sha']
+              artifacts = api(f'repos/{repo}/actions/runs/{reuse}/artifacts?per_page=100')
+              if artifacts['total_count'] > 100:
+                  raise SystemExit('Unexpected artifact count; inspect the original run')
+              if any(a['name'] == 'intel-recovery-source' for a in artifacts['artifacts']):
+                  raise SystemExit('Select the original full build, not a recovery run')
+              if any(a['expired'] and (a['name'] == 'intel-app' or a['name'].startswith('intel-core-'))
+                     for a in artifacts['artifacts']):
+                  raise SystemExit('Intel inputs expired; start a new full build')
+              for artifact in artifacts['artifacts']:
+                  if not artifact['expired']:
+                      names.add(artifact['name'])
+              if not any(n == 'intel-app' or n.startswith('intel-core-') for n in names):
+                  raise SystemExit('No reusable Intel inputs remain in the selected run')
+
+          if not re.fullmatch(r'[0-9a-f]{40}', source_sha):
+              raise SystemExit('Invalid source commit')
+          outputs = {
+              'source_sha': source_sha,
+              'app': str('intel-app' not in names).lower(),
+              'cores': json.dumps([c for c in cores if f'intel-core-{c}' not in names]),
+              'mame': str('intel-core-MAME' not in names).lower(),
+          }
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              for key, value in outputs.items():
+                  print(f'{key}={value}', file=output)
+          if reuse:
+              with open(os.path.join(os.environ['RUNNER_TEMP'], 'intel-recovery-source.txt'), 'w') as marker:
+                  print(f'Original run: {reuse}\nSource commit: {source_sha}', file=marker)
+          print(json.dumps(outputs, indent=2))
+          PY
+
+      - name: Record recovery provenance
+        if: inputs.reuse_run != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: intel-recovery-source
+          path: ${{ runner.temp }}/intel-recovery-source.txt
+          if-no-files-found: error
+          retention-days: 14
+
+  app:
+    name: Package Intel app
+    needs: plan
+    if: needs.plan.outputs.app == 'true'
+    runs-on: macos-26-intel
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.source_sha }}
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Clear SPM binary artifact cache
+        run: rm -rf ~/Library/Caches/org.swift.swiftpm/artifacts/
+
+      - name: Generate credentials stubs
+        run: |
+          cp OpenEmu/ScreenScraperDevCredentials.template.swift OpenEmu/ScreenScraperDevCredentials.swift
+          cp OpenEmu/OEGoogleDriveSecrets.template.swift OpenEmu/OEGoogleDriveSecrets.swift
+
+      - name: Build Intel app
+        run: |
+          xcodebuild build \
+            -workspace OpenEmu-metal.xcworkspace \
+            -scheme OpenEmu \
+            -configuration Release \
+            -destination 'platform=macOS,arch=x86_64' \
+            -derivedDataPath "$RUNNER_TEMP/OpenEmuDerivedData" \
+            ARCHS=x86_64 \
+            ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=YES \
+            DEVELOPMENT_TEAM=""
+
+      - name: Verify and zip Intel app
+        run: |
+          app="$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app"
+          ./Scripts/verify-bundle-architectures.sh --arch x86_64 "$app"
+          codesign --verify --deep --strict "$app"
+          ditto -c -k --keepParent --norsrc "$app" "$RUNNER_TEMP/intel-app.zip"
+
+      - name: Upload Intel app input
+        uses: actions/upload-artifact@v4
+        with:
+          name: intel-app
+          path: ${{ runner.temp }}/intel-app.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  cores:
+    name: Package Intel core (${{ matrix.core }})
+    needs: plan
+    if: needs.plan.outputs.cores != '[]'
+    runs-on: macos-26-intel
+    # Combined schemes can still include the host app; allow slow Intel runners
+    # enough time to finish that work as well as the core.
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        core: ${{ fromJson(needs.plan.outputs.cores) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.source_sha }}
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Clear SPM binary artifact cache
+        run: rm -rf ~/Library/Caches/org.swift.swiftpm/artifacts/
+
+      - name: Generate credentials stubs
+        run: |
+          cp OpenEmu/ScreenScraperDevCredentials.template.swift OpenEmu/ScreenScraperDevCredentials.swift
+          cp OpenEmu/OEGoogleDriveSecrets.template.swift OpenEmu/OEGoogleDriveSecrets.swift
+
+      - name: Build Intel core
+        env:
+          CORE: ${{ matrix.core }}
+          REUSE_RUN: ${{ inputs.reuse_run }}
+        run: |
+          # Recovery avoids rebuilding the host app that was already saved.
+          # These two explicit targets have no dependency on the app target.
+          if [ -n "$REUSE_RUN" ] && [ "$CORE" = Mupen64Plus ]; then
+            mupen_build="$RUNNER_TEMP/OpenEmuDerivedData/Build"
+            common=(
+              -configuration Release -sdk macosx -jobs 2
+              ARCHS=x86_64 ONLY_ACTIVE_ARCH=YES
+              CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=-
+              CODE_SIGNING_ALLOWED=YES CODE_SIGNING_REQUIRED=NO DEVELOPMENT_TEAM=
+              "SYMROOT=$mupen_build/Products"
+              "OBJROOT=$mupen_build/Intermediates"
+              "CONFIGURATION_BUILD_DIR=$mupen_build/Products/Release"
+            )
+            xcodebuild build -project OpenEmu-SDK/OpenEmu-SDK.xcodeproj \
+              -target OpenEmuBase "${common[@]}"
+            xcodebuild build -project Mupen64Plus/Mupen64Plus.xcodeproj \
+              -target Mupen64Plus "${common[@]}"
+            exit 0
+          fi
+
+          # Match the proven build-check scheme selection. Preparation removes
+          # only the explicit host BuildAction entry; Xcode can still include
+          # the host in its build graph. These edits stay in the CI checkout.
+          case "$CORE" in
+            DeSmuME|Dolphin) scheme="$CORE" ;;
+            *)
+              scheme="OpenEmu + $CORE"
+              ./Scripts/prepare-core-ci-scheme.py \
+                "OpenEmu-metal.xcworkspace/xcshareddata/xcschemes/${scheme}.xcscheme"
+              ;;
+          esac
+
+          xcodebuild build \
+            -workspace OpenEmu-metal.xcworkspace \
+            -scheme "$scheme" \
+            -configuration Release \
+            -destination 'platform=macOS,arch=x86_64' \
+            -derivedDataPath "$RUNNER_TEMP/OpenEmuDerivedData" \
+            ARCHS=x86_64 \
+            ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=YES \
+            DEVELOPMENT_TEAM=""
+
+      - name: Verify and zip Intel core
+        env:
+          CORE: ${{ matrix.core }}
+        run: |
+          release_dir="$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release"
+          # Xcode can also produce OpenEmuLibretroBridge.oecoreplugin here.
+          # Select the requested native core, not every sibling build product.
+          plugin="$release_dir/$CORE.oecoreplugin"
+          test -d "$plugin/Contents"
+          ./Scripts/verify-bundle-architectures.sh --arch x86_64 "$plugin"
+          codesign --verify --deep --strict "$plugin"
+          ditto -c -k --keepParent --norsrc "$plugin" "$RUNNER_TEMP/intel-core-$CORE.zip"
+
+      - name: Upload Intel core input
+        uses: actions/upload-artifact@v4
+        with:
+          name: intel-core-${{ matrix.core }}
+          path: ${{ runner.temp }}/intel-core-${{ matrix.core }}.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  mame:
+    name: Package Intel core (MAME)
+    needs: plan
+    if: needs.plan.outputs.mame == 'true'
+    runs-on: macos-26-intel
+    timeout-minutes: 180
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.source_sha }}
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Restore prepared MAME source
+        id: mame-source-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: MAME/deps/mame
+          key: mame-source-v1-${{ runner.os }}-x86_64-${{ hashFiles('MAME/deps-mame-revision.txt', 'MAME/patches/**', 'Scripts/prepare-mame-core.sh') }}
+
+      - name: Prepare MAME source
+        run: |
+          ./Scripts/prepare-mame-core.sh
+          du -sh MAME/deps/mame
+          df -h "$RUNNER_TEMP"
+
+      - name: Save prepared MAME source
+        if: steps.mame-source-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: MAME/deps/mame
+          key: ${{ steps.mame-source-cache.outputs.cache-primary-key }}
+
+      - name: Build Intel MAME
+        env:
+          IGNORE_GIT: '1'
+        run: ./Scripts/build-mame-core.sh --arch x86_64
+
+      - name: Verify and zip Intel MAME
+        run: |
+          release_dir="$GITHUB_WORKSPACE/MAME/build/XcodeDerived/Build/Products/Release"
+          plugin="$release_dir/MAME.oecoreplugin"
+          test -d "$plugin/Contents"
+          ./Scripts/verify-bundle-architectures.sh --arch x86_64 "$plugin"
+          codesign --verify --deep --strict "$plugin"
+          ditto -c -k --keepParent --norsrc "$plugin" "$RUNNER_TEMP/intel-core-MAME.zip"
+
+      - name: Upload Intel MAME input
+        uses: actions/upload-artifact@v4
+        with:
+          name: intel-core-MAME
+          path: ${{ runner.temp }}/intel-core-MAME.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  package:
+    name: Assemble Intel test build
+    needs: [plan, app, cores, mame]
+    if: >-
+      always() && !cancelled() && needs.plan.result == 'success' &&
+      (needs.app.result == 'success' || needs.app.result == 'skipped') &&
+      (needs.cores.result == 'success' || needs.cores.result == 'skipped') &&
+      (needs.mame.result == 'success' || needs.mame.result == 'skipped')
+    runs-on: macos-26-intel
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.source_sha }}
+
+      - name: Download original Intel inputs
+        if: inputs.reuse_run != ''
+        uses: actions/download-artifact@v4
+        with:
+          pattern: intel-*
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.reuse_run }}
+          merge-multiple: true
+          path: ${{ runner.temp }}/IntelInputs
+
+      - name: Download Intel inputs
+        if: needs.app.result == 'success' || needs.cores.result == 'success' || needs.mame.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: intel-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/IntelInputs
+
+      - name: Unpack verified bundle inputs
+        run: |
+          # All inputs were built from plan.source_sha, including recovered
+          # inputs. Inspect paths before asking ditto
+          # to restore the executable modes and framework symlinks in each ZIP.
+          stage=$(mktemp -d "$RUNNER_TEMP/IntelStaging.XXXXXX")
+          mkdir "$stage/App" "$stage/Cores"
+
+          unpack_bundle() {
+            archive="$1"
+            expected_root="$2"
+            destination="$3"
+            python3 - "$archive" "$expected_root" <<'PY'
+          import posixpath
+          import stat
+          import sys
+          import zipfile
+
+          archive, expected_root = sys.argv[1:]
+          with zipfile.ZipFile(archive) as bundle:
+              entries = bundle.infolist()
+              if not entries:
+                  raise SystemExit(f"Empty bundle archive: {archive}")
+              for entry in entries:
+                  path = entry.filename.rstrip("/")
+                  parts = path.split("/")
+                  if parts[0] != expected_root or any(p in ("", ".", "..") for p in parts):
+                      raise SystemExit(f"Unsafe or unexpected archive entry: {entry.filename}")
+                  if stat.S_ISLNK(entry.external_attr >> 16):
+                      target = bundle.read(entry).decode("utf-8")
+                      resolved = posixpath.normpath(posixpath.join(posixpath.dirname(path), target))
+                      if target.startswith("/") or not resolved.startswith(expected_root + "/"):
+                          raise SystemExit(f"Symlink escapes bundle: {path} -> {target}")
+          PY
+            test ! -e "$destination/$expected_root"
+            ditto -x -k "$archive" "$destination"
+            test -d "$destination/$expected_root/Contents"
+          }
+
+          shopt -s nullglob
+          archives=("$RUNNER_TEMP/IntelInputs"/*.zip)
+          test "${#archives[@]}" -eq 29
+          unpack_bundle "$RUNNER_TEMP/IntelInputs/intel-app.zip" OpenEmu.app "$stage/App"
+          for core in 4DO Atari800 Bliss BSNES CrabEmu DeSmuME Dolphin FCEU Flycast Gambatte GenesisPlus JollyCV MAME Mednafen mGBA Mupen64Plus Nestopia O2EM Picodrive PokeMini Potator PPSSPP ProSystem SNES9x Stella VecXGL VirtualJaguar blueMSX; do
+            unpack_bundle "$RUNNER_TEMP/IntelInputs/intel-core-$core.zip" "$core.oecoreplugin" "$stage/Cores"
+          done
+          echo "INTEL_STAGE=$stage" >> "$GITHUB_ENV"
+
+      - name: Package Intel app with all native cores
+        run: |
+          ./Scripts/package-intel-test-build.sh \
+            --app "$INTEL_STAGE/App/OpenEmu.app" \
+            --cores "$INTEL_STAGE/Cores" \
+            --output "$RUNNER_TEMP/IntelPackage"
+
+      - name: Smoke-check Intel app startup
+        run: |
+          # This is a startup check on a fresh CI account, not gameplay or a
+          # claim that any installed core has run successfully.
+          app="$RUNNER_TEMP/IntelPackage/OpenEmu-Intel-test/OpenEmu.app"
+          smoke=$(mktemp -d "$RUNNER_TEMP/OpenEmuSmoke.XXXXXX")
+          marker=$(mktemp "$smoke/before-launch.XXXXXX")
+          log="$RUNNER_TEMP/intel-startup.log"
+          pid=""
+          cleanup() {
+            if [ -n "$pid" ]; then
+              kill -TERM "$pid" 2>/dev/null || true
+              wait "$pid" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
+
+          "$app/Contents/MacOS/OpenEmu" \
+            -databasePath "$smoke/Library" \
+            -defaultDatabasePath "$smoke/Library" \
+            -SUEnableAutomaticChecks NO >"$log" 2>&1 &
+          pid=$!
+          sleep 15
+          if ! kill -0 "$pid" 2>/dev/null; then
+            echo "::error::Intel app exited during its 15-second startup check"
+            sed -n '1,200p' "$log"
+            exit 1
+          fi
+
+          reports="$HOME/Library/Logs/DiagnosticReports"
+          if [ -d "$reports" ]; then
+            crashes=$(find "$reports" -type f -newer "$marker" \
+              \( -name 'OpenEmu*.ips' -o -name 'OpenEmu*.crash' \) -print)
+            if [ -n "$crashes" ]; then
+              echo "::error::OpenEmu wrote crash reports during startup"
+              printf '%s\n' "$crashes"
+              sed -n '1,200p' "$log"
+              exit 1
+            fi
+          fi
+          echo "PASS: Intel app stayed alive for 15 seconds with no new OpenEmu crash reports."
+          sed -n '1,200p' "$log"
+
+      - name: Upload Intel startup log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenEmu-Intel-startup-smoke
+          path: ${{ runner.temp }}/intel-startup.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload complete Intel test build
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenEmu-Intel-test
+          path: |
+            ${{ runner.temp }}/IntelPackage/*.zip
+            ${{ runner.temp }}/IntelPackage/*.sha256
+          if-no-files-found: error
+          retention-days: 14

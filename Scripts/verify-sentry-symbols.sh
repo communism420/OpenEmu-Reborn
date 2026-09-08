@@ -21,8 +21,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
-ORG="openemu-silicon"
-PROJECT="openemu-silicon"
+ORG="${OPENEMU_SENTRY_ORG:-}"
+PROJECT="${OPENEMU_SENTRY_PROJECT:-}"
 UPLOAD=0
 CHECK=0
 INCLUDE_SOURCES=0
@@ -48,8 +48,8 @@ Options:
   --check                Run sentry-cli debug-files check without uploading.
   --include-sources      Include source context in Sentry upload.
   --wait-for <seconds>   Wait for Sentry processing after upload, e.g. 120.
-  --org <slug>           Sentry org. Default: openemu-silicon.
-  --project <slug>       Sentry project. Default: openemu-silicon.
+  --org <slug>           Sentry org. Required with --upload (or set OPENEMU_SENTRY_ORG).
+  --project <slug>       Sentry project. Required with --upload (or set OPENEMU_SENTRY_PROJECT).
   --generated-dsym-root <path>
                           Where fallback dSYMs are written. Default: temp dir.
   --allow-missing <regex> Allow a missing dSYM for matching binary paths. Repeatable.
@@ -58,7 +58,7 @@ Options:
                           Defaults only cover known prebuilt third-party frameworks.
   -h, --help             Show this help.
 
-If no roots are provided, the script uses the newest OpenEmu-Silicon archive
+If no roots are provided, the script uses the newest OpenEmu-Intel archive
 and its dSYMs directory.
 EOF
 }
@@ -107,9 +107,9 @@ can_generate_fallback_dsym() {
 
 if [ ${#BINARY_ROOTS[@]} -eq 0 ] && [ ${#DSYM_ROOTS[@]} -eq 0 ]; then
   ARCHIVE=$(find "$HOME/Library/Developer/Xcode/Archives" \
-    -name "OpenEmu-Silicon-*.xcarchive" -type d 2>/dev/null \
+    -name "OpenEmu-Intel-*.xcarchive" -type d 2>/dev/null \
     | sort | tail -1)
-  [ -n "$ARCHIVE" ] || die "No OpenEmu-Silicon archive found. Pass --binary-root and --dsym-root explicitly."
+  [ -n "$ARCHIVE" ] || die "No OpenEmu-Intel archive found. Pass --binary-root and --dsym-root explicitly."
   BINARY_ROOTS+=("$ARCHIVE/Products/Applications/OpenEmu.app")
   DSYM_ROOTS+=("$ARCHIVE/dSYMs")
 fi
@@ -126,6 +126,9 @@ if [ "$CHECK" -eq 1 ] && ! command -v sentry-cli >/dev/null 2>&1; then
 fi
 if [ "$UPLOAD" -eq 1 ] && ! sentry-cli info >/dev/null 2>&1; then
   die "sentry-cli is not authenticated. Run: sentry-cli login or set SENTRY_AUTH_TOKEN."
+fi
+if [ "$UPLOAD" -eq 1 ] && { [ -z "$ORG" ] || [ -z "$PROJECT" ]; }; then
+  die "Sentry upload requires --org and --project (or OPENEMU_SENTRY_ORG and OPENEMU_SENTRY_PROJECT)."
 fi
 
 TMPDIR=$(mktemp -d)

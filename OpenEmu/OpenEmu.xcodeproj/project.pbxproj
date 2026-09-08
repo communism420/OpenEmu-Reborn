@@ -38,6 +38,7 @@
 			dependencies = (
 				87F077B023B68C64001FFC9B /* PBXTargetDependency */,
 				87FBC0C21BFC7A0000AECF5A /* PBXTargetDependency */,
+				87FBC0A81C07996B00AECF5A /* PBXTargetDependency */,
 				873A363E1FE233BA0004D81D /* PBXTargetDependency */,
 				87BD9E231C2A6652006722DF /* PBXTargetDependency */,
 				87BD9E211C2A663B006722DF /* PBXTargetDependency */,
@@ -355,6 +356,7 @@
 		87FBC0821BFC76A000AECF5A /* Controller-Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87FBC07C1BFC76A000AECF5A /* Controller-Preferences.plist */; };
 		87FBC0831BFC76A000AECF5A /* Keyboard-Mappings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87FBC07D1BFC76A000AECF5A /* Keyboard-Mappings.plist */; };
 		87FBC0851BFC76E200AECF5A /* OpenEmuSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D120C417112E1300E868A8 /* OpenEmuSystem.framework */; };
+		87FBC0941C0790B600AECF5A /* Atari 8bit.oesystemplugin in Copy System Plugins to App Plugins */ = {isa = PBXBuildFile; fileRef = 87FBC08E1C0790B400AECF5A /* Atari 8bit.oesystemplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87FBC0951C07929D00AECF5A /* OpenEmuSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D120C417112E1300E868A8 /* OpenEmuSystem.framework */; };
 		87FBC09A1C0796B800AECF5A /* OEA8SystemResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FBC0981C0796B800AECF5A /* OEA8SystemResponder.m */; };
 		87FBC0A21C07985900AECF5A /* Keyboard-Mappings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87FBC0A11C07985900AECF5A /* Keyboard-Mappings.plist */; };
@@ -908,6 +910,13 @@
 			remoteGlobalIDString = 94CEB26C17A84809005A2107;
 			remoteInfo = GameCube;
 		};
+		87FBC0A71C07996B00AECF5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87FBC08D1C0790B400AECF5A;
+			remoteInfo = "Atari 8bit";
+		};
 		87FBC0C11BFC7A0000AECF5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -1091,6 +1100,7 @@
 				87BD9E251C2A66BC006722DF /* Atari 7800.oesystemplugin in Copy System Plugins to App Plugins */,
 				1BB9BDE24AAA476991EB4F41 /* Arcade.oesystemplugin in Copy System Plugins to App Plugins */,
 				87BD9E241C2A66B1006722DF /* Atari 5200.oesystemplugin in Copy System Plugins to App Plugins */,
+				87FBC0941C0790B600AECF5A /* Atari 8bit.oesystemplugin in Copy System Plugins to App Plugins */,
 				946C7ABB19EE4AF4000F9466 /* Atari 2600.oesystemplugin in Copy System Plugins to App Plugins */,
 				94CEB29C17A8D507005A2107 /* Sega 32X.oesystemplugin in Copy System Plugins to App Plugins */,
 				940553B917A35FB4009B505D /* PC Engine.oesystemplugin in Copy System Plugins to App Plugins */,
@@ -6927,6 +6937,11 @@
 			isa = PBXTargetDependency;
 			target = 94CEB26C17A84809005A2107 /* GameCube */;
 			targetProxy = 87F077AF23B68C64001FFC9B /* PBXContainerItemProxy */;
+		};
+		87FBC0A81C07996B00AECF5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87FBC08D1C0790B400AECF5A /* Atari 8bit */;
+			targetProxy = 87FBC0A71C07996B00AECF5A /* PBXContainerItemProxy */;
 		};
 		87FBC0C21BFC7A0000AECF5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

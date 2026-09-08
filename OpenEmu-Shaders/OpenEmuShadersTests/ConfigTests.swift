@@ -71,7 +71,7 @@ class ConfigScannerTests: XCTestCase {
     
     @available(OSX 10.15, *)
     func testPerformanceExample() {
-        measure(metrics: [XCTCPUMetric(limitingToCurrentThread: true), XCTClockMetric()]) {
+        measure(metrics: [XCTCPUMetric(), XCTClockMetric()]) {
             var c = ConfigScanner(
                 """
                 shaders = 5

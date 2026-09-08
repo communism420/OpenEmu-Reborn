@@ -36,7 +36,11 @@ extension OEShaders {
         case v21 = "2.1"
         
         static var `default`: Self {
-            .v24
+            if #available(macOS 12.0, *) {
+                return .v24
+            } else {
+                return .v23
+            }
         }
     }
 
@@ -72,6 +76,9 @@ extension OEShaders {
             options.isCacheDisabled = cache == false
             switch languageVersion {
             case .v24:
+                guard #available(macOS 12.0, *) else {
+                    throw ValidationError("Metal language version 2.4 requires macOS 12.0 or newer.")
+                }
                 options.languageVersion = .version2_4
             case .v23:
                 options.languageVersion = .version2_3
