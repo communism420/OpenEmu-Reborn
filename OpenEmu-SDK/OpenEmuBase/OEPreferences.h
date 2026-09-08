@@ -64,6 +64,8 @@ NS_SWIFT_SENDABLE
 @property(class, nonatomic, readonly) OEPreferences *shared;
 @property(class, nonatomic, readonly) BOOL isConfigured;
 @property(nonatomic, readonly, nullable) NSError *lastError;
+/// YES after a successful reset. Shutdown code must not recreate settings files.
+@property(nonatomic, readonly, getter=isResettingForTermination) BOOL resettingForTermination;
 
 /// Configure once, before application settings are used. The file may not exist
 /// yet but its parent directory must. Registration is permitted before this call
@@ -80,6 +82,13 @@ NS_SWIFT_SENDABLE
 /// the previous file unchanged. Arguments and registrations are not persisted.
 - (BOOL)setValues:(NSDictionary<NSString *, id> *)values error:(NSError * _Nullable * _Nullable)error
     NS_SWIFT_NAME(setValues(_:));
+
+/// Atomically save an empty settings dictionary and disable writes until this
+/// process exits. Existing values remain readable for orderly shutdown, and the
+/// writer lock stays held. Failure keeps the previous file and values; the caller
+/// presents the returned error. Repeated successful resets are harmless.
+- (BOOL)resetForTerminationWithError:(NSError * _Nullable * _Nullable)error
+    NS_SWIFT_NAME(resetForTermination());
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key;

@@ -1,6 +1,8 @@
-# Contributing to OpenEmu-Intel
+# Contributing to OpenEmu Reborn
 
-OpenEmu-Intel is a community-maintained fork of [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon) for both Apple Silicon and Intel Macs. It's kept alive by contributors and testers. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting.
+OpenEmu Reborn is an independent, fan-maintained revival based on [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon), targeting Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting. Version `1.0.0` starts a new application version line, not new emulator-core versions. Recent local fixes still need Apple Silicon runtime verification; see [project identity and scope](../docs/project-identity.md).
+
+Issues are currently disabled and no Reborn release has been published. Use a [pull request](https://github.com/communism420/OpenEmu-Reborn/pulls) for a proposed change or non-confidential report. References below to Issues or Discussions apply only if those features are enabled; do not open Reborn reports in upstream repositories instead.
 
 ---
 
@@ -33,8 +35,8 @@ Not sure where to start? Open a Discussion in the Q&A category and say what you'
 
 ```bash
 # 1. Fork and clone (core sources are already flattened into this repository)
-git clone https://github.com/YOUR_USERNAME/OpenEmu-Intel.git
-cd OpenEmu-Intel
+git clone https://github.com/YOUR_USERNAME/OpenEmu-Reborn.git
+cd OpenEmu-Reborn
 
 # 2. Copy credential stubs (required — real credentials are never committed)
 cp OpenEmu/ScreenScraperDevCredentials.template.swift OpenEmu/ScreenScraperDevCredentials.swift
@@ -76,17 +78,17 @@ Pass `--arch arm64` on Apple Silicon or `--arch x86_64` on Intel when you need t
 
 ### Worktree builds
 
-If you're working in a git worktree, use `./Scripts/build-for-worktree.sh` and `./Scripts/verify.sh --arch "$(uname -m)" --worktree`. Plain `xcodebuild` will break permission persistence between builds. See [docs/worktree-workflow.md](../docs/worktree-workflow.md) for the full workflow.
+If you're working in a git worktree, use `./Scripts/build-for-worktree.sh` and `./Scripts/verify.sh --arch "$(uname -m)" --worktree`. Keep local user-facing publication in the single `OpenEmu-Intel-test` folder. A stable path alone does not guarantee macOS permission persistence; see [docs/worktree-workflow.md](../docs/worktree-workflow.md) and [local signing](../docs/local-signing.md).
 
 ---
 
 ## Submitting a Pull Request
 
-1. **Open an issue first** for anything beyond a trivial fix. This prevents duplicate work and lets us agree on approach before you invest time writing code.
+1. **Agree on the scope first** for anything beyond a trivial fix. When Issues are enabled, search and open or comment on the relevant issue. Otherwise explain the proposal in a draft PR.
 2. **Branch from `main`**. Name your branch descriptively: `fix/snes-audio-regression` or `feat/retroachievements-badge`.
 3. **Keep PRs focused.** One logical change per PR. If your fix touches three systems, open three PRs.
 4. **Fill out the PR template completely.** It asks what changed, how you tested it, and whether AI tools were used.
-5. **Expect a 1–2 week review window.** This project is maintained by one person. A polite ping after two weeks is welcome.
+5. **Review is best-effort.** This is a fan-maintained project without a guaranteed response schedule.
 
 ### PR Checklist
 
@@ -107,14 +109,14 @@ AI tools (Claude, Cursor, Copilot) are used in the development of this project. 
 
 1. **Disclose AI use in your PR description.** "Drafted with Claude Code" or "used Cursor for scaffolding" is sufficient — not a penalty.
 2. **You must be able to explain every line on request.** If a reviewer asks "why does this work?" and you don't know, the PR will be closed. You are responsible for the code you submit.
-3. **AI-only PRs with no issue link will be closed.** Open or comment on an issue first to agree the fix is worth pursuing and discuss approach.
-4. **Low-effort AI PRs — vague description, no testing, no issue link — will be closed without review.** This is a capacity constraint, not a judgment.
+3. **Explain the problem and agreed scope in the PR.** Include an issue link when Issues are enabled; otherwise use the draft PR itself for that discussion.
+4. **Low-effort AI PRs — vague description, no testing, no explained scope — will be closed without review.** This is a capacity constraint, not a judgment.
 
 ---
 
 ## Good First Issues
 
-Issues tagged [`good first issue`](https://github.com/communism420/OpenEmu-Intel/issues?q=is%3Aopen+label%3A%22good+first+issue%22) are chosen because:
+Issues tagged [`good first issue`](https://github.com/communism420/OpenEmu-Reborn/issues?q=is%3Aopen+label%3A%22good+first+issue%22) are chosen because:
 
 - The scope is well-defined
 - The relevant file or function is identified in the issue body
@@ -127,7 +129,7 @@ Comment on an issue before you start work to avoid duplicates.
 
 ## Working on RetroAchievements Integration
 
-RA core integration is tracked in [issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258). The implementation pattern and known pitfalls are documented in [docs/retro-achievements/retroachievements-implementation-guide.md](../docs/retro-achievements/retroachievements-implementation-guide.md). Read that before wiring up a new core.
+The inherited RA integration history is tracked in [upstream issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258); it is not Reborn's issue tracker or evidence of Reborn approval. The implementation pattern and known pitfalls are documented in [docs/retro-achievements/retroachievements-implementation-guide.md](../docs/retro-achievements/retroachievements-implementation-guide.md). Read that before wiring up a new core.
 
 For testing RA as a user or tester rather than as a developer, see [docs/retro-achievements/retroachievements-community-guide.md](../docs/retro-achievements/retroachievements-community-guide.md).
 
@@ -135,7 +137,7 @@ For testing RA as a user or tester rather than as a developer, see [docs/retro-a
 
 ## Working on the Libretro Bridge
 
-The libretro bridge loads some emulator cores from pre-built libretro binaries instead of building them from source. See [The Libretro Bridge](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/The-Libretro-Bridge) on the wiki for context.
+The libretro host loads externally built RetroArch cores. See the current [libretro architecture](../docs/libretro-architecture.md); the [upstream Libretro Bridge wiki](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/The-Libretro-Bridge) is background, not Reborn-specific support documentation.
 
 Bridge work branches from `main`. The integration branch (`feat/libretro-bridge`) has merged. Coordinate before touching `OpenEmu-SDK/OpenEmuBase/OEGameCore.h/.m` — that file is the base class for every core and is the highest-conflict file in the repo.
 
@@ -151,10 +153,11 @@ Engage with a few issues first — ask clarifying questions, look for duplicates
 
 ### Compatibility Testing
 
-The compatibility list lives in the [project wiki](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki). To contribute:
-1. Test a game on the latest release build
+The [upstream wiki](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki) records upstream compatibility, not verification of Reborn builds. To contribute Reborn results:
+
+1. Test a game on a clearly identified Reborn build; include its architecture
 2. Note: core name, macOS version, processor model (Intel or M-series), and what you observed
-3. Submit a PR against the wiki or open a Discussion with your findings
+3. Submit a documentation PR with your findings, or use Issues/Discussions if enabled
 
 ### RetroAchievements Testing
 
@@ -174,4 +177,4 @@ This project follows the [Contributor Covenant](https://www.contributor-covenant
 
 ---
 
-*Questions? Open a [Discussion](https://github.com/communism420/OpenEmu-Intel/discussions).*
+*Questions? Use a [draft PR](https://github.com/communism420/OpenEmu-Reborn/pulls), or a Discussion if that feature is enabled.*

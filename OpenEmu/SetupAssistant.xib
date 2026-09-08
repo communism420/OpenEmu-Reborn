@@ -77,7 +77,7 @@
                             <subviews>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="315">
                                     <rect key="frame" x="17" y="220" width="150" height="16"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to OpenEmu" id="316">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to OpenEmu Reborn" id="316">
                                         <font key="font" metaFont="systemBold"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -92,7 +92,7 @@
                                     </constraints>
                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" state="on" id="318">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <string key="title">OpenEmu runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+                                        <string key="title">OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
 
 This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</string>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -191,7 +191,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                     </constraints>
                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" state="on" id="328">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <string key="title">OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</string>
+                                        <string key="title">OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</string>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -326,7 +326,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                             <subviews>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="400">
                                     <rect key="frame" x="17" y="220" width="62" height="16"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What’s New in OpenEmu" id="401">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What’s New in OpenEmu Reborn" id="401">
                                         <font key="font" metaFont="systemBold"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

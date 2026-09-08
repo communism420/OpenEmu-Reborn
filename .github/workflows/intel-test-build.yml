@@ -1,4 +1,4 @@
-name: Intel test build
+name: OpenEmu Reborn Intel test build
 
 on:
   workflow_call:
@@ -314,7 +314,7 @@ jobs:
           retention-days: 14
 
   package:
-    name: Assemble Intel test build
+    name: Assemble OpenEmu Reborn Intel test build
     needs: [plan, app, cores, mame]
     if: >-
       always() && !cancelled() && needs.plan.result == 'success' &&
@@ -397,7 +397,9 @@ jobs:
 
       - name: Package Intel app with all native cores
         run: |
+          # CI artifacts are ad-hoc test builds, not stable developer-signed apps.
           ./Scripts/package-intel-test-build.sh \
+            --ad-hoc-sign \
             --app "$INTEL_STAGE/App/OpenEmu.app" \
             --cores "$INTEL_STAGE/Cores" \
             --output "$RUNNER_TEMP/IntelPackage"
@@ -463,17 +465,17 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: OpenEmu-Intel-startup-smoke
+          name: OpenEmu-Reborn-Intel-startup-smoke
           path: |
             ${{ runner.temp }}/intel-startup.log
             /private/tmp/openemu-data-folder-app-*/*.log
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload complete Intel test build
+      - name: Upload complete OpenEmu Reborn Intel test build
         uses: actions/upload-artifact@v4
         with:
-          name: OpenEmu-Intel-test
+          name: OpenEmu-Reborn-Intel-test
           path: |
             ${{ runner.temp }}/IntelPackage/*.zip
             ${{ runner.temp }}/IntelPackage/*.sha256

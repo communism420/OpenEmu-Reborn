@@ -1,4 +1,6 @@
-# Progress Report Template — OpenEmu-Silicon
+# Progress Report Template — OpenEmu Reborn
+
+This is a template for future reports, not an existing release or verification record. Reborn has no published releases and Issues are disabled; confirm Discussions/Issues availability before using those sections, or publish a documentation PR. App `1.0.0` is not a core version, and the latest local fixes have not been runtime-tested on Apple Silicon.
 
 Reusable template for two related but distinct content types:
 
@@ -17,17 +19,17 @@ Use `/progress-report` in a Claude Code session to draft a filled-in version fro
 
 - **Cadence:** Monthly is ideal. Bimonthly is sustainable. Less frequent than that dilutes the recognition effect.
 - **Where:** GitHub Discussions → Announcements category. Pin the current report; unpin the previous one.
-- **Cross-post:** After publishing on GitHub Discussions, share a link (not the full text) in community spaces — the Mac gaming subreddit, the RetroAchievements forum thread for OpenEmu-Silicon, etc.
+- **Cross-post:** Share a link only in appropriate existing community spaces. Do not assume a Reborn RetroAchievements thread or official listing exists.
 
 ---
 
 ### Template
 
-**Title:** `OpenEmu-Silicon Progress Report — [MONTH YEAR]`
+**Title:** `OpenEmu Reborn Progress Report — [MONTH YEAR]`
 
 ---
 
-> Hello everyone — here's what's been happening with OpenEmu-Silicon over the past [month / two months].
+> Hello everyone — here's what's been happening with OpenEmu Reborn over the past [month / two months].
 
 > Open with 1–2 sentences of genuine context — what was the big theme of this period? A major bug fix, a new core, progress on RA integration, a lot of under-the-hood cleanup? Keep it conversational.
 
@@ -47,7 +49,7 @@ Use `/progress-report` in a Claude Code session to draft a filled-in version fro
 
 #### Core Updates
 
-> List any core submodule bumps this period, with the version change and a brief note on what changed upstream. RA-relevant updates should be called out explicitly.
+> List only actual core source/binary updates this period, with each core's version change and what changed upstream. App-only builds and app version changes are not fresh-core updates. Call out RA-relevant changes explicitly.
 
 | Core | Previous | New | Notable Changes |
 |------|----------|-----|-----------------|
@@ -106,16 +108,16 @@ Use `/progress-report` in a Claude Code session to draft a filled-in version fro
 #### How to Get Involved
 
 New to the project? Here's where to start:
-- [`good first issue`](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues?q=is%3Aopen+label%3A%22good+first+issue%22) — well-scoped bugs and improvements with pointers to the relevant code
-- [`help wanted`](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues?q=is%3Aopen+label%3A%22help+wanted%22) — things the maintainer wants help with but can't prioritize right now
+- [`good first issue`](https://github.com/communism420/OpenEmu-Reborn/issues?q=is%3Aopen+label%3A%22good+first+issue%22) — well-scoped bugs and improvements with pointers to the relevant code
+- [`help wanted`](https://github.com/communism420/OpenEmu-Reborn/issues?q=is%3Aopen+label%3A%22help+wanted%22) — things the maintainer wants help with but can't prioritize right now
 - [CONTRIBUTING.md](../.github/CONTRIBUTING.md) — how to set up a build, submit a PR, and the AI contribution policy
 - [RetroAchievements Community Guide](retro-achievements/retroachievements-community-guide.md) — if you're an RA user or achievement set developer
 
-Questions? Open a [Discussion](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/discussions).
+Questions? Use a draft PR, or a Discussion if that feature is enabled.
 
 ---
 
-*Thanks for using and supporting OpenEmu-Silicon. — @nickybmon*
+*Thanks for using and supporting OpenEmu Reborn. — @communism420*
 
 ---
 
@@ -167,9 +169,9 @@ Thanks to everyone who contributed to this release: @[HANDLE_1] and @[HANDLE_2] 
 
 #### Installation
 
-Download the `.dmg` or `.zip` from the assets below. Requires macOS 11.0 or later on Apple Silicon.
+Download the `.dmg` or `.zip` marked for your Mac's architecture from the assets below. The app targets macOS 11.0 or later on Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`); state which architectures this release's app and bundled cores actually contain and which were runtime-tested.
 
-For installation help, see the [Wiki](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki) or open a [Discussion](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/discussions).
+For installation help, see the [README](../README.md) and [data-folder guide](data-folder.md). Link a wiki or Discussion only if that resource actually exists.
 
 ---
 

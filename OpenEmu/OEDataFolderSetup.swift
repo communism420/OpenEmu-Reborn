@@ -47,6 +47,13 @@ struct OEDataFolderIdentity: Codable, Equatable {
 
     /// Never changes an existing marker or adopts another library during recovery.
     static func prepare(at root: URL, expectedID: UUID? = nil) throws -> Self {
+        try prepareForUse(at: root, expectedID: expectedID).identity
+    }
+
+    /// Only the call that creates the marker may import legacy preferences.
+    /// A missing Settings.plist in an already marked folder means a fresh start,
+    /// not permission to restore settings the user has removed.
+    static func prepareForUse(at root: URL, expectedID: UUID? = nil) throws -> (identity: Self, createdMarker: Bool) {
         let fm = FileManager.default
         let properties = try root.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey])
         guard root.isFileURL, root.standardizedFileURL.path != "/",
@@ -59,7 +66,7 @@ struct OEDataFolderIdentity: Codable, Equatable {
             guard expectedID == nil || identity.identifier == expectedID else {
                 throw CocoaError(.fileReadCorruptFile)
             }
-            return identity
+            return (identity, false)
         }
         guard expectedID == nil else { throw CocoaError(.fileNoSuchFile) }
 
@@ -77,7 +84,7 @@ struct OEDataFolderIdentity: Codable, Equatable {
         encoder.outputFormat = .xml
         // Exclusive creation protects another process/library's marker.
         try encoder.encode(identity).write(to: marker, options: .withoutOverwriting)
-        return identity
+        return (identity, true)
     }
 }
 
@@ -186,30 +193,49 @@ enum OEDataFolderSetup {
         return UserDefaults(suiteName: bootstrapDomain)
     }
 
+    static func makeResetSettingsAlert() -> NSAlert {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Reset all settings and quit OpenEmu?", comment: "Settings reset confirmation")
+        alert.informativeText = NSLocalizedString("All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.\n\nGames, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.\n\nThis cannot be undone after confirmation.", comment: "Settings reset explanation")
+        let cancel = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel settings reset"))
+        cancel.keyEquivalent = "\r"
+        let reset = alert.addButton(withTitle: NSLocalizedString("Reset and Quit", comment: "Confirm settings reset"))
+        reset.keyEquivalent = ""
+        reset.hasDestructiveAction = true
+        return alert
+    }
+
+    static func resetApplicationDefaults() {
+        // An isolated test/profile must never erase the real user's locator
+        // or framework settings. Its next --data-folder launch still runs setup.
+        guard !ProcessInfo.processInfo.arguments.contains("--data-folder"),
+              ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil,
+              let domain = Bundle.main.bundleIdentifier,
+              [bootstrapDomain, bootstrapDomain + ".debug"].contains(domain) else { return }
+        clearApplicationDefaults(in: .standard, domains: [bootstrapDomain, domain])
+    }
+
+    static func clearApplicationDefaults(in defaults: UserDefaults, domains: [String]) {
+        for domain in Set(domains) { defaults.removePersistentDomain(forName: domain) }
+        defaults.synchronize()
+    }
+
     private static func chooseFolder(expectedID: UUID?, defaults: UserDefaults) {
         while true {
-            let panel = NSOpenPanel()
-            panel.title = NSLocalizedString("Choose OpenEmu Data Folder", comment: "First launch folder picker")
-            panel.message = expectedID == nil
-                ? NSLocalizedString("Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.", comment: "First launch folder picker explanation")
-                : NSLocalizedString("Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.", comment: "Recovery folder picker explanation")
-            panel.prompt = NSLocalizedString("Use This Folder", comment: "Confirm data folder")
-            panel.canChooseFiles = false
-            panel.canChooseDirectories = true
-            panel.canCreateDirectories = expectedID == nil
-            panel.allowsMultipleSelection = false
+            let panel = makeFolderPanel(isRecovery: expectedID != nil)
             if let path = defaults.string(forKey: pathKey) {
                 panel.directoryURL = URL(fileURLWithPath: path).deletingLastPathComponent()
             }
             NSApp.activate(ignoringOtherApps: true)
-            guard panel.runModal() == .OK, let root = panel.url else { exit(EXIT_SUCCESS) }
+            guard runFolderPanel(panel) == .OK, let root = panel.url else { exit(EXIT_SUCCESS) }
             do {
-                let identity = try OEDataFolderIdentity.prepare(at: root, expectedID: expectedID)
+                let preparation = try OEDataFolderIdentity.prepareForUse(at: root, expectedID: expectedID)
                 // Make the bookmark before fixing the root for this process.
                 let bookmark = try root.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil)
-                try activate(root)
+                try activate(root, migrateLegacySettings: preparation.createdMarker)
                 defaults.set(bookmark, forKey: bookmarkKey)
-                defaults.set(identity.identifier.uuidString, forKey: identifierKey)
+                defaults.set(preparation.identity.identifier.uuidString, forKey: identifierKey)
                 defaults.set(root.path, forKey: pathKey)
                 return
             } catch {
@@ -217,21 +243,151 @@ enum OEDataFolderSetup {
                 alert.messageText = NSLocalizedString("This folder cannot be used", comment: "Data folder validation failure")
                 alert.runModal()
                 // Once initialized, path caches must never be redirected.
-                if OEStoragePaths.isConfigured { exit(EXIT_FAILURE) }
+                if OEStoragePaths.isConfigured || OEPreferences.isConfigured { exit(EXIT_FAILURE) }
             }
         }
     }
 
-    private static func activate(_ root: URL, migrateLegacySettings: Bool = true) throws {
+    static func makeFolderPanel(isRecovery: Bool) -> NSOpenPanel {
+        let panel = NSOpenPanel()
+        panel.title = NSLocalizedString("Choose OpenEmu Data Folder", comment: "First launch folder picker")
+        panel.message = panel.title
+        panel.prompt = NSLocalizedString("Use This Folder", comment: "Confirm data folder")
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.canCreateDirectories = !isRecovery
+        panel.allowsMultipleSelection = false
+
+        // A long native message can make the file panel wider than the screen.
+        // Keep the complete explanation in a width-bounded, wrapping accessory.
+        let explanation = isRecovery
+            ? NSLocalizedString("Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.", comment: "Recovery folder picker explanation")
+            : NSLocalizedString("Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.", comment: "First launch folder picker explanation")
+        let visibleFrame = (panel.screen ?? NSScreen.main)?.visibleFrame
+            ?? NSRect(x: 0, y: 0, width: 1024, height: 768)
+        // Size the accessory BEFORE attaching it. A bare text field exposes
+        // its intrinsic width to the native panel's initial minimum-size pass,
+        // even when preferredMaxLayoutWidth is set later.
+        panel.accessoryView = FolderExplanationView(
+            text: explanation, width: explanationWidth(for: folderPanelFrame(in: visibleFrame)))
+        panel.isAccessoryViewDisclosed = true
+        return panel
+    }
+
+    static func folderPanelFrame(in visibleFrame: NSRect) -> NSRect {
+        let available = visibleFrame.insetBy(dx: 12, dy: 12)
+        let size = NSSize(width: min(720, available.width), height: min(520, available.height))
+        return NSRect(x: available.midX - size.width / 2,
+                      y: available.midY - size.height / 2, width: size.width, height: size.height)
+    }
+
+    static func fitFolderPanel(_ panel: NSOpenPanel, in visibleFrame: NSRect, initially: Bool = true) {
+        let available = visibleFrame.insetBy(dx: 12, dy: 12)
+        var frame = initially ? folderPanelFrame(in: visibleFrame) : panel.frame
+        frame.size.width = min(frame.width, available.width)
+        frame.size.height = min(frame.height, available.height)
+        (panel.accessoryView as? FolderExplanationView)?.fit(width: explanationWidth(for: frame))
+        panel.contentView?.layoutSubtreeIfNeeded()
+        if panel.frame.size != frame.size { panel.setFrame(frame, display: false) }
+        // Respect native control sizes and the user's resizing/moving. After
+        // the initial placement, only correct an out-of-bounds window.
+        frame = panel.frame
+        let origin = NSPoint(
+            x: initially ? available.midX - frame.width / 2 : min(max(frame.minX, available.minX), available.maxX - frame.width),
+            y: initially ? available.midY - frame.height / 2 : min(max(frame.minY, available.minY), available.maxY - frame.height))
+        if frame.origin != origin { panel.setFrameOrigin(origin) }
+    }
+
+    static func runFolderPanel(_ panel: NSOpenPanel) -> NSApplication.ModalResponse {
+        let sizing = FolderPanelSizing(panel: panel)
+        // Native layout/restored geometry may run after runModal starts. Refit
+        // on the NEXT modal-loop turn, including late same-screen resizes.
+        let center = NotificationCenter.default
+        let observers = [NSWindow.didBecomeKeyNotification, NSWindow.didChangeScreenNotification,
+                         NSWindow.didResizeNotification,
+                         NSApplication.didChangeScreenParametersNotification].map { name in
+            center.addObserver(forName: name, object: name == NSApplication.didChangeScreenParametersNotification ? nil : panel,
+                               queue: .main) { _ in
+                MainActor.assumeIsolated { sizing.scheduleFit() }
+            }
+        }
+        defer {
+            sizing.isActive = false
+            observers.forEach(center.removeObserver)
+        }
+        if let screen = panel.screen ?? NSScreen.main {
+            fitFolderPanel(panel, in: screen.visibleFrame)
+        }
+        sizing.scheduleFit()
+        return panel.runModal()
+    }
+
+    private static func explanationWidth(for frame: NSRect) -> CGFloat {
+        // Leave room for the file browser's sidebar and native margins.
+        max(1, min(480, frame.width - 240))
+    }
+
+    private final class FolderExplanationView: NSView {
+        private let label: NSTextField
+
+        init(text: String, width: CGFloat) {
+            label = NSTextField(wrappingLabelWithString: text)
+            super.init(frame: .zero)
+            label.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+            label.textColor = .secondaryLabelColor
+            label.autoresizingMask = [.width, .height]
+            addSubview(label)
+            fit(width: width)
+        }
+
+        required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+        func fit(width: CGFloat) {
+            label.preferredMaxLayoutWidth = width
+            let height = label.cell?.cellSize(forBounds: NSRect(
+                x: 0, y: 0, width: width, height: .greatestFiniteMagnitude)).height ?? 0
+            let size = NSSize(width: width, height: ceil(height))
+            if frame.size != size { setFrameSize(size) }
+            label.frame = NSRect(origin: .zero, size: size)
+        }
+    }
+
+    @MainActor
+    private final class FolderPanelSizing {
+        let panel: NSOpenPanel
+        var isActive = true
+        private var isPending = false
+
+        init(panel: NSOpenPanel) { self.panel = panel }
+
+        func scheduleFit() {
+            guard isActive, !isPending else { return }
+            isPending = true
+            // DispatchQueue.main alone does not reliably run during startup's
+            // nested modal loop. Coalescing also avoids synchronous relayout.
+            RunLoop.main.perform(inModes: [.default, .modalPanel, .eventTracking]) { [weak self] in
+                MainActor.assumeIsolated {
+                    guard let self else { return }
+                    defer { self.isPending = false }
+                    guard self.isActive, let screen = self.panel.screen ?? NSScreen.main else { return }
+                    fitFolderPanel(self.panel, in: screen.visibleFrame, initially: false)
+                }
+            }
+        }
+    }
+
+    private static func activate(_ root: URL, migrateLegacySettings: Bool = false) throws {
         // Create only inside an existing, identified root. Missing disks are
         // rejected by configure(), never recreated by this startup path.
+        // Acquire the writer lease before even the storage write-check: a new
+        // launch must not recreate files while the removal worker is finishing.
+        let settingsURL = root.appendingPathComponent("Settings.plist")
+        try OEPreferences.configure(url: settingsURL, readOnly: false)
+        let hadSettings = FileManager.default.fileExists(atPath: settingsURL.path)
         try OEStoragePaths.configure(dataRootURL: root)
         for url in [OEStoragePaths.cachesURL, OEStoragePaths.temporaryDirectoryURL, OEStoragePaths.logsURL] {
             try OEStoragePaths.createDirectory(at: url)
         }
-        let settingsURL = OEStoragePaths.dataRootURL.appendingPathComponent("Settings.plist")
-        let hadSettings = FileManager.default.fileExists(atPath: settingsURL.path)
-        try OEPreferences.configure(url: settingsURL, readOnly: false)
         let settings = OEPreferences.shared
         if !hadSettings, migrateLegacySettings,
            FileManager.default.fileExists(atPath: root.appendingPathComponent("Game Library/Library.storedata").path) {
@@ -325,6 +481,90 @@ enum OEDataFolderSetup {
         defaults.set(bookmark, forKey: bookmarkKey)
         defaults.set(identifier.uuidString, forKey: identifierKey)
         defaults.set(root.path, forKey: pathKey)
+    }
+}
+
+/// Reset only known settings files. Do not remove the folder, its marker/lock,
+/// user assets, game library, BIOS or saves. Empty files prevent legacy import.
+enum OEDataFolderSettingsReset {
+    static func perform(at root: URL, emptyCredentials: Data, validateRoot: () throws -> Void,
+                        resetPreferences: () throws -> Void) throws {
+        let fm = FileManager.default
+        func attributes(at url: URL) throws -> [FileAttributeKey: Any]? {
+            do { return try fm.attributesOfItem(atPath: url.path) }
+            catch CocoaError.fileReadNoSuchFile { return nil }
+        }
+        try validateRoot()
+        guard try attributes(at: root)?[.type] as? FileAttributeType == .typeDirectory else {
+            throw CocoaError(.fileReadInvalidFileName)
+        }
+        _ = try OEDataFolderIdentity.read(at: root)
+        let emptyBindings = try PropertyListSerialization.data(fromPropertyList: [String: String](), format: .binary, options: 0)
+        var replacements = [(root.appendingPathComponent(".oe_credentials"), emptyCredentials)]
+        let bindings = root.appendingPathComponent("Bindings", isDirectory: true)
+        if let info = try attributes(at: bindings) {
+            guard info[.type] as? FileAttributeType == .typeDirectory else {
+                throw CocoaError(.fileReadInvalidFileName)
+            }
+            for url in try fm.contentsOfDirectory(at: bindings, includingPropertiesForKeys: nil)
+                where url.pathExtension.lowercased() == "oebindings" {
+                replacements.append((url, emptyBindings))
+            }
+        }
+        // Capture all originals before changing any file. In particular, reject
+        // symbolic links instead of resetting something outside the data folder.
+        let originals = try replacements.map { url, _ -> (URL, Data?, [FileAttributeKey: Any]?) in
+            let info = try attributes(at: url)
+            guard info == nil || info?[.type] as? FileAttributeType == .typeRegular else {
+                throw CocoaError(.fileReadInvalidFileName)
+            }
+            return (url, try info == nil ? nil : Data(contentsOf: url), info)
+        }
+        var attempted = 0
+        func validateTarget(_ url: URL) throws {
+            try validateRoot()
+            guard try attributes(at: url.deletingLastPathComponent())?[.type] as? FileAttributeType == .typeDirectory else {
+                throw CocoaError(.fileReadInvalidFileName)
+            }
+            let info = try attributes(at: url)
+            guard info == nil || info?[.type] as? FileAttributeType == .typeRegular else {
+                throw CocoaError(.fileReadInvalidFileName)
+            }
+        }
+        do {
+            for (url, data) in replacements {
+                try validateTarget(url)
+                attempted += 1
+                try data.write(to: url, options: .atomic)
+                try fm.setAttributes([.posixPermissions: 0o600], ofItemAtPath: url.path)
+            }
+            // The preferences store commits last and disables all late writers.
+            // Nothing fallible is done after that irreversible commit.
+            try validateRoot()
+            try resetPreferences()
+        } catch {
+            var rollbackFailed = false
+            for (url, data, info) in originals.prefix(attempted).reversed() {
+                do {
+                    try validateTarget(url)
+                    if let data {
+                        try data.write(to: url, options: .atomic)
+                        if let mode = info?[.posixPermissions] {
+                            try fm.setAttributes([.posixPermissions: mode], ofItemAtPath: url.path)
+                        }
+                    } else if fm.fileExists(atPath: url.path) {
+                        try fm.removeItem(at: url)
+                    }
+                } catch { rollbackFailed = true }
+            }
+            if rollbackFailed {
+                throw NSError(domain: "org.openemu.SettingsReset", code: 1, userInfo: [
+                    NSLocalizedDescriptionKey: NSLocalizedString("The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.", comment: "Settings reset rollback failure"),
+                    NSUnderlyingErrorKey: error
+                ])
+            }
+            throw error
+        }
     }
 }
 

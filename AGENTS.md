@@ -1,4 +1,4 @@
-# AGENTS.md — OpenEmu-Intel
+# AGENTS.md — OpenEmu Reborn
 
 Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working in this repository.
 
@@ -12,13 +12,15 @@ Before doing any work, read this file fully. It is the authoritative source for 
 
 ## About This Project
 
-OpenEmu-Intel is a community-maintained fork of OpenEmu-Silicon that targets both Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. It descends from:
+OpenEmu Reborn is an independent, fan-maintained revival based on OpenEmu-Silicon, targeting Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. It is not an official release from the original OpenEmu team. It descends from:
 
 - [OpenEmu/OpenEmu](https://github.com/OpenEmu/OpenEmu) — the original project
 - [bazley82/OpenEmuARM64](https://github.com/bazley82/OpenEmuARM64) — the foundational ARM64 port
 - [OpenEmu-Silicon/OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon) — the actively maintained Apple Silicon fork
 
 The goal is to honor the original OpenEmu spirit — a beautifully designed, first-class native macOS game emulation frontend — while making the same source tree work reliably on both current Mac processor architectures.
+
+**Version and verification scope:** `1.0.0` starts the OpenEmu Reborn application version line; it does not reset or update emulator-core versions. This is not a claim of support for every Mac. The latest local fixes have not been runtime-tested on Apple Silicon. See [docs/project-identity.md](docs/project-identity.md). Preserve existing bundle identifiers, storage paths, `OpenEmu-Intel-test`, and the local signing identity; rebranding alone is not permission to migrate them or rebuild cores.
 
 **The maintainer is not a professional developer.** If you are writing explanations, commit messages, or comments, please use plain language. Avoid jargon where a plain word works just as well.
 
@@ -69,6 +71,23 @@ xcodebuild \
 ```
 
 **A clean `verify.sh` run is the definition of "passing."** Run it before every push touching source files. The pre-push git hook in `.githooks/pre-push` enforces this mechanically — install it once per clone with `./Scripts/install-hooks.sh`.
+
+### One local user-facing build
+
+The maintainer wants exactly one local runnable distribution, in
+`OpenEmu-Intel-test/` at this repository's root. Do not accumulate dated
+`Releases/Intel-*` packages or leave test/DerivedData copies registered as the
+normal OpenEmu app: macOS may restart an older copy with the same bundle ID.
+
+Use `Scripts/replace-local-intel-build.sh --signing-identity <exact SHA-1>`
+after verifying the Release host in `tmp/agent/data-folder-derived`. It stages
+and verifies the new package before replacing the old one, reuses its existing
+cores, updates only the relevant app registrations, and consumes the known
+Release host `.app` after successful publication. Intermediate build caches,
+game data and signing keys must be preserved. Never rebuild cores unless the
+user explicitly requests it. See [docs/local-signing.md](docs/local-signing.md)
+for initial setup and recovery guards. The generic package script is for CI or
+distribution archives, not additional local installations.
 
 ### Setup and Credentials Pre-Requisites
 
@@ -177,7 +196,7 @@ These rules exist because AI-assisted sessions have previously created orphaned 
 
 **PRs:**
 
-- **Target branch:** `main` on `communism420/OpenEmu-Intel`
+- **Target branch:** `main` on `communism420/OpenEmu-Reborn`
 - **Push and open a PR in the same step — never push without immediately opening a PR**
 - **PR title format:** `fix: description` / `feat: description` / `chore: description`
 - **Use the PR template** — `.github/PULL_REQUEST_TEMPLATE.md` auto-populates. Fill every section.
@@ -193,7 +212,7 @@ These rules exist because AI-assisted sessions have previously created orphaned 
 ## How to test locally
 
 # 1. Check out this PR
-gh pr checkout <N> --repo communism420/OpenEmu-Intel
+gh pr checkout <N> --repo communism420/OpenEmu-Reborn
 
 # 2. Build
 ARCH="$(uname -m)"
@@ -214,7 +233,7 @@ open ~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-*/Build/Products/Debug/
 ## How to test locally
 
 # 1. Check out this PR
-gh pr checkout <N> --repo communism420/OpenEmu-Intel
+gh pr checkout <N> --repo communism420/OpenEmu-Reborn
 
 # 2. Build the core scheme (the main OpenEmu scheme does not build core plugins)
 ARCH="$(uname -m)"
@@ -240,7 +259,9 @@ Replace `<N>` with the actual PR number and `<CoreName>` with the scheme name (e
 
 ## Issue Tracker
 
-The issue tracker at `communism420/OpenEmu-Intel` is the primary place for bug reports, feature requests, core integration work, and release checklists.
+The issue tracker at `communism420/OpenEmu-Reborn` is the primary place for bug reports, feature requests, core integration work, and release checklists.
+
+**Current repository state:** Issues are disabled, and no Reborn release has been published yet. Do not enable repository features, promise an available release/Discussion, or send Reborn reports to an upstream tracker. While Issues are disabled, describe the concern and test plan in a PR; the issue commands and issue-link rules below apply only when Issues are available.
 
 **Issue templates** — always use the appropriate template:
 
@@ -253,12 +274,12 @@ The issue tracker at `communism420/OpenEmu-Intel` is the primary place for bug r
 
 **Issue hygiene rules (non-negotiable):**
 
-1. **Search before opening.** Run `gh issue list --repo communism420/OpenEmu-Intel --state open` first. If the problem is already tracked, comment — don't open a duplicate.
+1. **Search before opening.** Run `gh issue list --repo communism420/OpenEmu-Reborn --state open` first. If the problem is already tracked, comment — don't open a duplicate.
 2. **No type prefixes in titles.** Never write `note:`, `fix:`, `feat:`, `bug:` in the issue title. Labels carry the type. The title describes the problem.
    - Good: `PokeMini — OpenEmuBase header missing in standalone build`
    - Bad: `note: PokeMini — needs workspace integration`
 3. **One issue per concern.** Same root cause + same fix = one issue covering both.
-4. **Close resolved issues immediately.** The moment a fix is committed, run: `gh issue close #N --repo communism420/OpenEmu-Intel --comment "Resolved in <sha>."` Do not leave issues open for a later cleanup pass.
+4. **Close resolved issues immediately.** The moment a fix is committed, run: `gh issue close #N --repo communism420/OpenEmu-Reborn --comment "Resolved in <sha>."` Do not leave issues open for a later cleanup pass.
 5. **Close superseded issues immediately.** If you open a more comprehensive issue that replaces an older one, close the old one in the same session.
 6. **Only one checklist per milestone.** If one is already open, update it.
 
@@ -319,7 +340,7 @@ The app selects its downloadable core catalog at runtime. Apple Silicon uses the
 
 ## License Rules
 
-The main app is **BSD 2-Clause**. Emulator cores are mostly **GPL v2**. Key rules:
+Licensing follows each file's copyright header and [LICENSE](LICENSE), not a blanket repository-wide label. Most inherited app files use **BSD 3-Clause**; other files and emulator cores retain their own terms, including **GPL v2**. Key rules:
 
 1. **Preserve all copyright headers** — never strip or modify the license block at the top of any file
 2. **Add a header to new files** you create in `OpenEmu/`, `OpenEmu-SDK/`, or `OpenEmuKit/`:
@@ -362,10 +383,10 @@ Before merging any PR, check it out locally, build, and verify the behaviors des
 
 ```bash
 # gh looks up the branch name automatically
-gh pr checkout <PR_NUMBER> --repo communism420/OpenEmu-Intel
+gh pr checkout <PR_NUMBER> --repo communism420/OpenEmu-Reborn
 
 # Example
-gh pr checkout 54 --repo communism420/OpenEmu-Intel
+gh pr checkout 54 --repo communism420/OpenEmu-Reborn
 ```
 
 ### Build
@@ -465,5 +486,5 @@ git commit -m "fix: description"
 
 # Push and open a PR — always in the same step, never one without the other
 git push -u origin fix/your-description
-gh pr create --repo communism420/OpenEmu-Intel --base main --title "fix: your-description" --body "..."
+gh pr create --repo communism420/OpenEmu-Reborn --base main --title "fix: your-description" --body "..."
 ```

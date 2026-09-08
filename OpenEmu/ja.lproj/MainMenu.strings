@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>About OpenEmu</key>
-	<string>OpenEmuについて</string>
+	<string>OpenEmu Rebornについて</string>
 	<key>Always Hide HUD</key>
 	<string>HUDを常に隠す</string>
 	<key>Back Up…</key>
@@ -53,7 +53,7 @@
 	<key>Help</key>
 	<string>ヘルプ</string>
 	<key>Hide OpenEmu</key>
-	<string>OpenEmuを隠す</string>
+	<string>OpenEmu Rebornを隠す</string>
 	<key>Hide Others</key>
 	<string>そのほかの項目を隠す</string>
 	<key>Import Collection</key>
@@ -79,7 +79,7 @@
 	<key>Next Display Mode</key>
 	<string>次のディスプレイモード</string>
 	<key>OpenEmu Web Site</key>
-	<string>OpenEmuウェブサイト</string>
+	<string>OpenEmu Rebornウェブサイト</string>
 	<key>Organize Library…</key>
 	<string>ライブラリを整理する…</string>
 	<key>Page Setup…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>印刷…</string>
 	<key>Quit OpenEmu</key>
-	<string>OpenEmuを終了する</string>
+	<string>OpenEmu Rebornを終了する</string>
 	<key>Redo</key>
 	<string>繰り返す</string>
 	<key>Release Notes</key>

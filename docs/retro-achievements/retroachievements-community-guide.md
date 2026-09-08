@@ -1,8 +1,8 @@
 # RetroAchievements — User and Contributor Guide
 
-[RetroAchievements](https://retroachievements.org) is a community platform that adds an achievement system to classic games played through emulators. OpenEmu-Silicon integrates RA support through [rcheevos](https://github.com/RetroAchievements/rcheevos), the same client library used by RetroArch and other supported emulators.
+[RetroAchievements](https://retroachievements.org) is a community platform that adds an achievement system to classic games played through emulators. OpenEmu Reborn integrates RA support through [rcheevos](https://github.com/RetroAchievements/rcheevos), the same client library used by RetroArch and other supported emulators.
 
-This guide is for **users and contributors** — people who want to earn achievements, test RA behavior, or report issues. If you're a developer looking to integrate rcheevos into a new core, see [retroachievements-implementation-guide.md](retroachievements-implementation-guide.md) instead. For native compliance evidence and #438 verification results, see [retroachievements-compliance-evidence.md](retroachievements-compliance-evidence.md).
+This guide is for **users and contributors** testing inherited RA behavior. Developers should read [the implementation guide](retroachievements-implementation-guide.md). The [#438 compliance evidence](retroachievements-compliance-evidence.md) describes upstream OpenEmu-Silicon work, not new Reborn approval or runtime verification. Reborn `1.0.0` is an app version, not a core update; the latest local fixes have not been runtime-tested on Apple Silicon. See [Project identity](../project-identity.md).
 
 ---
 
@@ -20,7 +20,7 @@ This guide is for **users and contributors** — people who want to earn achieve
 
 ## Core Support Status
 
-RA integration is rolling out in phases. See [issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) for the full rollout tracker.
+The table below summarizes inherited native-core integrations, not a Reborn per-game test or approval record. [Upstream issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) is historical rollout context, not this project's tracker.
 
 | Core | System(s) | RA Status |
 |------|-----------|-----------|
@@ -49,7 +49,7 @@ RA integration is rolling out in phases. See [issue #258](https://github.com/Ope
 - 🔄 In Progress — actively being worked on
 - 🔲 Planned — tracked in the rollout issue; contributors welcome
 
-> **Note:** The native-core hardcore compliance rollout is tracked in #438. The main P0 enforcement work is complete for supported native RA cores; remaining work is focused on manual verification evidence, submission-readiness documentation, and follow-up polish before the official RetroAchievements listing.
+> **Note:** The #438 rollout and submission records concern upstream OpenEmu-Silicon. They do not establish an official listing or approval for OpenEmu Reborn.
 
 ---
 
@@ -59,13 +59,13 @@ RA integration is rolling out in phases. See [issue #258](https://github.com/Ope
 
 - A RetroAchievements account — free at [retroachievements.org](https://retroachievements.org)
 - A ROM of a game with an achievement set (browse the [game list](https://retroachievements.org/gameList.php))
-- A version of OpenEmu-Silicon with RA enabled (all recent releases include it)
+- An OpenEmu Reborn build containing the RA integration; no Reborn release has been published yet
 
-### Enabling RA in OpenEmu-Silicon
+### Enabling RA in OpenEmu Reborn
 
-1. Open **OpenEmu-Silicon → Preferences → Achievements**
+1. Open **OpenEmu Reborn → Preferences → Achievements**
 2. Log in with your RetroAchievements credentials
-3. Your token is stored securely in the macOS keychain
+3. Your token is stored in the encrypted `.oe_credentials` file in your selected data folder; see the [privacy policy](../privacy-policy.md)
 
 Once logged in, achievement notifications appear as an overlay during gameplay and as system notifications. Earned achievements sync to your retroachievements.org profile.
 
@@ -84,7 +84,7 @@ Good RA testing is methodical. For each core you're testing:
 
 ### After a core update
 
-When a core submodule is bumped, repeat the smoke test for the affected core before the update is considered clean. If you discover a regression, note:
+When a core's source or binary is updated, repeat the smoke test for that core before calling the update verified. An app version change alone does not update core versions. If you discover a regression, note:
 - Core version before and after the bump
 - Which achievement(s) were affected
 - Whether the regression is in achievement triggering, memory reading, or server communication
@@ -102,7 +102,7 @@ For each test session, post findings as a comment on the relevant GitHub issue (
 
 ## Reporting RA Issues
 
-Before opening an issue, check [existing RA issues](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues?q=is%3Aopen+label%3Aretro-achievements) — your issue may already be tracked.
+Check existing [OpenEmu Reborn PRs](https://github.com/communism420/OpenEmu-Reborn/pulls) first. Issues are currently disabled: use a draft PR for a reproducible report, or the bug report template if Issues are enabled later. Do not send Reborn-specific failures to the upstream tracker.
 
 When you do open an issue, use the **Bug Report** template and include:
 - Whether this is in a supported core (see the table above)
@@ -116,22 +116,22 @@ Apply the `retro-achievements` label plus the relevant core label.
 
 ## Filing RA-Side Tickets
 
-Not every RA bug belongs in OpenEmu-Silicon's issue tracker. If the problem is in the achievement set itself — wrong memory address, wrong trigger condition, wrong point value — file it on the RetroAchievements side.
+Not every RA bug belongs in OpenEmu Reborn's issue tracker. If the problem is in the achievement set itself — wrong memory address, wrong trigger condition, wrong point value — file it on the RetroAchievements side.
 
 To file an RA-side ticket:
 1. Go to the game's page on retroachievements.org
 2. Click the achievement in question
 3. Use the **Open Ticket** button (requires an RA account)
 4. Select the correct type (Achievement did not trigger / Achievement triggered at the wrong time / etc.)
-5. Include the emulator name (**OpenEmu-Silicon**) and version in the ticket body
+5. Include the emulator name (**OpenEmu Reborn**) and version in the ticket body
 
-When you file an RA-side ticket related to OpenEmu-Silicon, link to it from the corresponding GitHub issue here so the resolution can be tracked in both places.
+When you file an RA-side ticket related to OpenEmu Reborn, link to it from the corresponding Reborn draft PR (or issue if enabled) so the resolution can be tracked in both places.
 
 ---
 
 ## Working with the RA Community
 
-RetroAchievements has a large, active community of achievement set developers who have strong motivation to make sure emulators work correctly. This is a valuable contributor pipeline for OpenEmu-Silicon.
+RetroAchievements has a large, active community of achievement set developers who have strong motivation to make sure emulators work correctly. This is a valuable contributor pipeline for OpenEmu Reborn.
 
 ### Where RA developers hang out
 
@@ -139,11 +139,11 @@ RetroAchievements has a large, active community of achievement set developers wh
 - **RetroAchievements Discord** — the `#coders` channel is where achievement set developers and emulator integration developers interact
 - **Individual achievement set threads** — each game has its own thread where set authors discuss known issues
 
-### When OpenEmu-Silicon gains official RA listing
+### If OpenEmu Reborn gains an official RA listing
 
 Post in the RA **Emulator Support** forum to announce it. The RA team actively spotlights newly listed emulators — coordinate with RA staff via their Discord to time the announcement. Frame it as: here's what's supported, here's what's in progress, here's how to file issues.
 
-RA achievement set developers will file bugs against OpenEmu-Silicon when they find them. When they do:
+RA achievement set developers will file bugs against OpenEmu Reborn when they find them. When they do:
 - Treat them as high-quality reporters — they understand the memory conditions deeply
 - Ask for the achievement name, game title, and expected trigger condition
 - Tag the issue `retro-achievements` + the relevant core label
@@ -152,18 +152,18 @@ RA achievement set developers will file bugs against OpenEmu-Silicon when they f
 
 ## Contributing as an RA Liaison
 
-An RA Liaison is a community role for people who want to help maintain the bridge between OpenEmu-Silicon and the RetroAchievements community. It doesn't require writing code.
+An RA Liaison is a community role for people who want to help maintain the bridge between OpenEmu Reborn and the RetroAchievements community. It doesn't require writing code.
 
 **What it involves:**
 - Testing newly integrated cores against known achievement sets and documenting results
-- Monitoring the RA forums and Discord for OpenEmu-Silicon mentions and bug reports
+- Monitoring the RA forums and Discord for OpenEmu Reborn mentions and bug reports
 - Filing or triaging GitHub issues when RA bugs are reported in the RA community
 - Helping distinguish emulator bugs (file here) from achievement set bugs (file upstream with RA)
-- Maintaining the RA compatibility table in the wiki
+- Maintaining documented Reborn compatibility results, with the exact app/core versions and architecture
 
 **How to get started:**
-Open a Discussion and introduce yourself. If you've already tested a core and documented results, that's the fastest way to demonstrate fit.
+Use a draft PR, or a Discussion if enabled, to introduce yourself. Documented tests of an exact app/core build are useful contributions.
 
 ---
 
-*Questions? Open a [Discussion](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/discussions) or comment on [issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258).*
+*Questions? Use a draft PR in OpenEmu Reborn, or Discussions if enabled later. [Upstream issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) remains historical background, not this project's support channel.*

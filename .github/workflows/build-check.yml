@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       package_intel:
-        description: Build a downloadable Intel test app with all 28 native cores
+        description: Build a downloadable OpenEmu Reborn Intel test app with all 28 native cores
         type: boolean
         default: false
       reuse_intel_run:

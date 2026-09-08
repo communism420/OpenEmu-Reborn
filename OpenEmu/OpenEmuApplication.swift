@@ -25,6 +25,7 @@
  */
 
 import Cocoa
+import OpenEmuBase
 
 @objc(OEApplicationDelegate)
 protocol OpenEmuApplicationDelegateProtocol: NSApplicationDelegate {
@@ -49,6 +50,26 @@ protocol OpenEmuApplicationDelegateProtocol: NSApplicationDelegate {
 class OpenEmuApplication: NSApplication {
     
     var isSpotlightFrontmost = false
+
+    override func reply(toApplicationShouldTerminate shouldTerminate: Bool) {
+        // A deferred quit can genuinely be cancelled. Disarm its cleanup so a
+        // later, unrelated Quit cannot execute an old removal request.
+        if !shouldTerminate {
+            (delegate as? AppDelegate)?.cancelDataRemovalForCancelledTermination()
+        }
+        super.reply(toApplicationShouldTerminate: shouldTerminate)
+    }
+
+    override func restoreWindow(withIdentifier identifier: NSUserInterfaceItemIdentifier, state: NSCoder,
+                                completionHandler: @escaping (NSWindow?, Error?) -> Void) -> Bool {
+        // Old macOS window snapshots must not replace first-run setup after a
+        // settings reset (or when a different, fresh data folder is selected).
+        guard OEPreferences.isConfigured, OEPreferences.shared.bool(forKey: SetupAssistant.hasFinishedKey) else {
+            completionHandler(nil, nil)
+            return true
+        }
+        return super.restoreWindow(withIdentifier: identifier, state: state, completionHandler: completionHandler)
+    }
     
     override func beginModalSession(for window: NSWindow) -> NSApplication.ModalSession {
         

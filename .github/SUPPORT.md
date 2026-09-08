@@ -1,11 +1,11 @@
 # Support
 
-⚠️🕹 In order to reduce duplicate and low information issues opened, please read the [Reporting problems guide](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki/Troubleshooting:-Reporting-Problems) before opening a new one.
+For OpenEmu Reborn, start with the [README](../README.md), [build scope](../docs/project-identity.md), and [data-folder guide](../docs/data-folder.md). Include the app version/commit, processor architecture, macOS version, core version, and steps to reproduce. Do not send Reborn-specific reports to the upstream OpenEmu-Silicon tracker.
+
+Issues are currently disabled and no Reborn release is published. A [draft PR](https://github.com/communism420/OpenEmu-Reborn/pulls) can describe a non-confidential problem or proposed fix. Use Issues or Discussions only if they are enabled. For vulnerabilities, follow the [Security Policy](SECURITY.md) instead of posting details publicly.
 
 ## Response policy
 
-- **Critical bugs** (app won't launch, cores can't load) are patched as fast as possible and released as a patch version.
-- **Non-critical bugs** are batched into periodic patch releases — roughly every 2–4 weeks when fixes are accumulating.
-- **Enhancements and new cores** ship in minor versions (v1.1.0+) and are tracked on the roadmap.
-- Issues are triaged on a best-effort basis; I aim to respond within a few days.
-- This project is maintained solo in my spare time. Your patience is genuinely appreciated.
+- This independent fan-maintained project handles reports on a best-effort basis, without a response-time or release-schedule guarantee.
+- Version `1.0.0` identifies the Reborn app line, not a core update. Report the affected core version separately.
+- Intel `x86_64` and Apple Silicon `arm64` are build targets; the latest local fixes have not been runtime-verified on Apple Silicon.

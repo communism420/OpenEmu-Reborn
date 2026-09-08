@@ -146,6 +146,15 @@ static int OELockPreferences(NSURL *url, NSError **error)
     if(fstat(descriptor, &status) != 0) failure = errno;
     else if(!S_ISREG(status.st_mode) || status.st_nlink != 1) failure = EINVAL;
     if(failure == 0 && flock(descriptor, LOCK_EX | LOCK_NB) != 0) failure = errno;
+    if(failure == 0)
+    {
+        // A finishing reset may unlink the lock after this process opened it,
+        // but before flock succeeds. Never initialize using that obsolete inode.
+        struct stat current;
+        if(lstat(lockURL.fileSystemRepresentation, &current) != 0) failure = errno;
+        else if(!S_ISREG(current.st_mode) || current.st_nlink != 1 ||
+                current.st_dev != status.st_dev || current.st_ino != status.st_ino) failure = EINVAL;
+    }
     if(failure == 0 && fchmod(descriptor, 0600) != 0) failure = errno;
     if(failure != 0)
     {
@@ -167,6 +176,7 @@ static int OELockPreferences(NSURL *url, NSError **error)
     NSURL *_url;
     BOOL _readOnly;
     BOOL _lastWriteSucceeded;
+    BOOL _resettingForTermination;
     NSError *_lastError;
     int _writerLock;
 }
@@ -219,6 +229,14 @@ static int OELockPreferences(NSURL *url, NSError **error)
     return error;
 }
 
+- (BOOL)isResettingForTermination
+{
+    [_lock lock];
+    BOOL result = _resettingForTermination;
+    [_lock unlock];
+    return result;
+}
+
 + (BOOL)isConfigured
 {
     OEPreferences *store = self.shared;
@@ -247,6 +265,8 @@ static int OELockPreferences(NSURL *url, NSError **error)
             if(error) *error = OEPreferencesError(@"OpenEmu's settings file cannot change while the application is running.", fileURL, 0);
             return NO;
         }
+        // Do not reload the emptied file or reactivate writing during shutdown.
+        if(store->_resettingForTermination) return YES;
         // Acquire before reading: another process may have just saved a newer
         // value. Read-only helpers never create or acquire this lock.
         int writerLock = store->_writerLock;
@@ -363,9 +383,41 @@ static int OELockPreferences(NSURL *url, NSError **error)
     return [self applyValues:values removingKeys:@[] error:error];
 }
 
+- (BOOL)resetForTerminationWithError:(NSError **)outError
+{
+    [_lock lock];
+    @try
+    {
+        if(_resettingForTermination) return YES;
+        NSError *error = nil;
+        if(_url == nil || _readOnly)
+            error = OEPreferencesError(_readOnly ? @"Only the main OpenEmu application can reset settings." : @"Choose OpenEmu's data folder before resetting settings.", _url, 0);
+        else if(![self hasCurrentWriterLock])
+            error = OEPreferencesError(@"The OpenEmu data folder or settings lock has changed. Restart OpenEmu before resetting settings.", _url, 0);
+        else
+        {
+            NSData *data = [NSPropertyListSerialization dataWithPropertyList:@{} format:NSPropertyListBinaryFormat_v1_0 options:0 error:&error];
+            if(data != nil && OEWritePreferences(data, _url, &error))
+                _resettingForTermination = YES;
+        }
+        _lastWriteSucceeded = error == nil;
+        _lastError = error;
+        if(outError != NULL && error != nil) *outError = error;
+        return _resettingForTermination;
+    }
+    @finally { [_lock unlock]; }
+}
+
 - (BOOL)applyValues:(NSDictionary<NSString *, id> *)values removingKeys:(NSArray<NSString *> *)removingKeys error:(NSError **)outError
 {
     [_lock lock];
+    if(_resettingForTermination)
+    {
+        // Termination observers may save window state or other settings. Keep
+        // their live values available, without undoing the requested reset.
+        [_lock unlock];
+        return YES;
+    }
     NSError *error;
     NSArray<NSString *> *changedKeys = @[];
     if(_url == nil || _readOnly)

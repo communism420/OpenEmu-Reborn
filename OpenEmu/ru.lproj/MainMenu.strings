@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>About OpenEmu</key>
-	<string>О программе OpenEmu</string>
+	<string>О программе OpenEmu Reborn</string>
 	<key>Always Hide HUD</key>
 	<string>Прятать управление</string>
 	<key>Back Up…</key>
@@ -53,7 +53,7 @@
 	<key>Help</key>
 	<string>Справка</string>
 	<key>Hide OpenEmu</key>
-	<string>Скрыть OpenEmu</string>
+	<string>Скрыть OpenEmu Reborn</string>
 	<key>Hide Others</key>
 	<string>Скрыть остальные</string>
 	<key>Import Collection</key>
@@ -79,7 +79,7 @@
 	<key>Next Display Mode</key>
 	<string>Следующий режим отображения</string>
 	<key>OpenEmu Web Site</key>
-	<string>Сайт OpenEmu</string>
+	<string>Сайт OpenEmu Reborn</string>
 	<key>Organize Library…</key>
 	<string>Организовать библиотеку…</string>
 	<key>Page Setup…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>Печать…</string>
 	<key>Quit OpenEmu</key>
-	<string>Завершить OpenEmu</string>
+	<string>Завершить OpenEmu Reborn</string>
 	<key>Redo</key>
 	<string>Вернуть</string>
 	<key>Release Notes</key>

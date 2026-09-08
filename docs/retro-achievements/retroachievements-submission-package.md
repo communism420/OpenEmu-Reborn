@@ -1,5 +1,7 @@
 # RetroAchievements Submission Package — OpenEmu-Silicon
 
+> Historical upstream submission record, preserved with its original names, versions, accounts and dates. This is not an OpenEmu Reborn `1.0.0` approval record. See [Project identity](../project-identity.md).
+
 Reviewer-ready artifact for RA client registration/approval. Populated from
 `retroachievements-compliance-evidence.md`; update that file for day-to-day
 tracking and pull final values here when submitting.
@@ -127,7 +129,7 @@ Full matrix (all shipped cores including non-RA ones): see compliance evidence d
 
 ## 6. Privacy policy
 
-Full text: [`privacy-policy.md`](privacy-policy.md)
+Current Reborn privacy policy: [`privacy-policy.md`](../privacy-policy.md). This upstream submission record remains historical.
 
 Summary:
 

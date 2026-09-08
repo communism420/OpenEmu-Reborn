@@ -27,7 +27,7 @@ Fixes #
 The PR number below is filled in automatically — just paste the whole block. For Flycast use `-scheme "OpenEmu + Flycast"` with `clean build`; for Mednafen use `-scheme "OpenEmu + Mednafen" -configuration Release`.
 
 ```bash
-gh pr checkout NUMBER --repo communism420/OpenEmu-Intel
+gh pr checkout NUMBER --repo communism420/OpenEmu-Reborn
 ./Scripts/verify.sh --arch "$(uname -m)"
 ./Scripts/launch-debug.sh
 ```

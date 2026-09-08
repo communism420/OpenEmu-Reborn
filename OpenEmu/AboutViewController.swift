@@ -52,7 +52,8 @@ final class AboutViewController: NSViewController {
     }
     
     @objc dynamic var appVersion: String {
-        return Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+        // The public release version is separate from the monotonic updater build number.
+        return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
     @objc dynamic var buildVersion: String {

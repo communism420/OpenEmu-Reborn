@@ -31,6 +31,7 @@ build_log*.txt
 *.tar.gz
 Releases/
 !Releases/*.md
+/OpenEmu-Intel-test/
 OpenEmu/OEGoogleDriveSecrets.swift
 OpenEmu/ScreenScraperDevCredentials.swift
 
@@ -69,4 +70,3 @@ build.log
 # Libretro bridge — dylib binaries live in GitHub Releases, not the repo
 *-Bridge/**/*.dylib
 *-Bridge/**/MacOS/*-Bridge
-

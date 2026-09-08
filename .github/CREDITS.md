@@ -1,6 +1,6 @@
 # Credits
 
-OpenEmu-Silicon stands on the shoulders of a lot of excellent work. This file honors everyone who has contributed to the project — from the original OpenEmu team to the illustrators who made the controller artwork.
+OpenEmu Reborn inherits the work of OpenEmu, the ARM64 port, and OpenEmu-Silicon. This file honors everyone who contributed to that lineage — from the original OpenEmu team to the illustrators who made the controller artwork. Historical project names and links below identify that work; they are not claims that Reborn created it.
 
 ---
 
@@ -61,6 +61,9 @@ Continued development, macOS compatibility updates, and community infrastructure
 ---
 
 ## Contributors to This Repository
+
+- **communism420** — https://github.com/communism420
+  Independent OpenEmu Reborn revival and dual-architecture continuation, previously named OpenEmu-Intel.
 
 - **pystIC** — https://github.com/pystIC
   Review of [pystIC/OpenEmuARM64-metal4-shaders-core-updates](https://github.com/pystIC/OpenEmuARM64-metal4-shaders-core-updates) identified the Metal 4 shader version crash fix and fast math optimization landed in [PR #44](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/pull/44), and flagged the mGBA and SNES9x upstream version gaps tracked in [#42](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/42) and [#43](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/43).

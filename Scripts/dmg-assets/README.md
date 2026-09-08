@@ -1,6 +1,6 @@
 # DMG Installer Pipeline
 
-Builds the styled `.dmg` users see when they download OpenEmu-Intel — retro-synthwave background with the real OpenEmu app icon on the left, the system Applications folder on the right, and a glowing arrow between them.
+Builds the styled `.dmg` users see when they download OpenEmu Reborn — retro-synthwave background with the real OpenEmu app icon on the left, the system Applications folder on the right, and a glowing arrow between them. The `.app` filename remains `OpenEmu.app` for compatibility.
 
 This document captures the load-bearing knowledge we learned the hard way. **Read it before changing anything.**
 
@@ -40,7 +40,7 @@ background.png                                  (1920 × 1360 px @ 144 DPI — F
        │
        │  dmgbuild -s dmgbuild_settings.py
        ▼
-OpenEmu-Intel.dmg                               (UDZO, with .DS_Store written directly via mac_alias)
+OpenEmu-Reborn.dmg                              (UDZO, with .DS_Store written directly via mac_alias)
 ```
 
 | File | Role |
@@ -134,7 +134,7 @@ sips -g pixelWidth -g pixelHeight -g dpiWidth -g dpiHeight \
 
 ```bash
 python3 -c "
-with open('/Volumes/OpenEmu-Intel/.DS_Store', 'rb') as f:
+with open('/Volumes/OpenEmu Reborn/.DS_Store', 'rb') as f:
     d = f.read()
 print('size:', len(d), 'bytes')
 print('backgroundImageAlias:', b'backgroundImageAlias' in d)

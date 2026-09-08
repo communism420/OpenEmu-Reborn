@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>OpenEmu</string>
+	<string>OpenEmu Reborn</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -118,11 +118,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>OpenEmu</string>
+	<string>OpenEmu Reborn</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.5</string>
+	<string>1.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -143,7 +143,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>21</string>
+	<string>22</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.games</string>
 	<key>LSMinimumSystemVersion</key>
@@ -158,7 +158,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009–2026 OpenEmu Team. All rights reserved.</string>
 	<key>NSInputMonitoringUsageDescription</key>
-	<string>OpenEmu requires input monitoring to capture keyboard and controller events while games are running.</string>
+	<string>OpenEmu Reborn requires input monitoring to capture keyboard and controller events while games are running.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPrefersDisplaySafeAreaCompatibilityMode</key>
@@ -182,7 +182,7 @@
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/communism420/OpenEmu-Intel/main/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>wVICc/NGoDFzkEbDb63QMFpKlRs14e/WhIiwIngQGsg=</string>
 	<key>UTExportedTypeDeclarations</key>

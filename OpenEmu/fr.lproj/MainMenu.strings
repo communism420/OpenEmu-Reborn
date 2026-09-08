@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>About OpenEmu</key>
-	<string>À propos d’OpenEmu</string>
+	<string>À propos d’OpenEmu Reborn</string>
 	<key>Always Hide HUD</key>
 	<string>Toujours masquer les contrôles</string>
 	<key>Back Up…</key>
@@ -53,7 +53,7 @@
 	<key>Help</key>
 	<string>Aide</string>
 	<key>Hide OpenEmu</key>
-	<string>Masquer OpenEmu</string>
+	<string>Masquer OpenEmu Reborn</string>
 	<key>Hide Others</key>
 	<string>Masquer les autres</string>
 	<key>Import Collection</key>
@@ -79,7 +79,7 @@
 	<key>Next Display Mode</key>
 	<string>Mode d’affichage suivant</string>
 	<key>OpenEmu Web Site</key>
-	<string>Site web OpenEmu</string>
+	<string>Site web OpenEmu Reborn</string>
 	<key>Organize Library…</key>
 	<string>Organiser la bibliothèque…</string>
 	<key>Page Setup…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>Imprimer…</string>
 	<key>Quit OpenEmu</key>
-	<string>Quitter OpenEmu</string>
+	<string>Quitter OpenEmu Reborn</string>
 	<key>Redo</key>
 	<string>Rétablir</string>
 	<key>Release Notes</key>

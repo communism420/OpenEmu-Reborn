@@ -41,11 +41,11 @@ extension OEDBRom: CachedLastPlayedInfoItem {}
 @objcMembers
 class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
-    static let websiteAddress = "https://github.com/communism420/OpenEmu-Intel"
+    static let websiteAddress = "https://github.com/communism420/OpenEmu-Reborn"
     static let userGuideAddress = "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/wiki"
-    static let releaseNotesAddress = "https://github.com/communism420/OpenEmu-Intel/releases"
-    static let feedbackAddress = "https://github.com/communism420/OpenEmu-Intel/issues/new/choose"
-    static let bugReportAddress = "https://github.com/communism420/OpenEmu-Intel/issues/new"
+    static let releaseNotesAddress = "https://github.com/communism420/OpenEmu-Reborn/releases"
+    static let feedbackAddress = "https://github.com/communism420/OpenEmu-Reborn/issues/new/choose"
+    static let bugReportAddress = "https://github.com/communism420/OpenEmu-Reborn/issues/new"
 
     @IBOutlet weak var fileMenu: NSMenu!
     @IBOutlet weak var helpMenu: NSMenu!
@@ -54,7 +54,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
     lazy var preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
     
-    lazy var documentController = GameDocumentController.shared
+    lazy var documentController = GameDocumentController()
     
     var restoreWindow = false
     var libraryDidLoadObserverForRestoreWindow: NSObjectProtocol?
@@ -69,6 +69,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     var hidEventsMonitor: Any?
     var keyboardEventsMonitor: Any?
     var unhandledEventsMonitor: Any?
+    private var hidSupportIsSetUp = false
+    private var inputMonitoringPermissionsAlert: OEAlert?
     
     var cachedLastPlayedInfo = [CachedLastPlayedInfoItem]()
     
@@ -120,6 +122,162 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     
     var libraryLoaded = false
     var reviewingUnsavedDocuments = false
+    private var resettingSettings = false
+    @nonobjc private var removalCategories: Set<OEDataRemovalCategory> = []
+    @nonobjc private var removalJob: OEDataRemovalJob?
+    private var removalTerminationCommitted = false
+
+    @MainActor
+    @IBAction func resetAllSettingsAndQuit(_ sender: Any?) {
+        guard !resettingSettings else { return }
+        resettingSettings = true
+        let root = OEStoragePaths.dataRootURL
+        guard let categories = OEDataRemovalDialog.chooseCategories(in: root),
+              OEDataRemovalDialog.confirm(categories: categories, in: root) else {
+            resettingSettings = false
+            return
+        }
+        removalCategories = categories
+        // Closing a game can be cancelled and may asynchronously save its
+        // progress. Do not touch settings until every document has closed.
+        // Closing documents only needs the base API. The installed game
+        // controller still receives this call dynamically, including its
+        // cancellable game-close behavior.
+        NSDocumentController.shared.closeAllDocuments(withDelegate: self,
+            didCloseAllSelector: #selector(resetSettingsDidCloseDocuments(_:didCloseAll:contextInfo:)),
+            contextInfo: nil)
+    }
+
+    @MainActor
+    @objc private func resetSettingsDidCloseDocuments(_ controller: NSDocumentController, didCloseAll: Bool,
+                                                contextInfo: UnsafeMutableRawPointer?) {
+        guard didCloseAll else {
+            resettingSettings = false
+            removalCategories = []
+            return
+        }
+        Task { @MainActor in
+            do {
+                guard !CoreUpdater.shared.coreList.contains(where: \.hasActiveInstallation) else {
+                    throw OEDataRemovalEngine.failure("A core is still downloading or being installed. Wait for it to finish, then try again. Nothing was deleted.")
+                }
+                CoreDownload.isDataRemovalPending = true
+                let categories = removalCategories
+                let root = OEStoragePaths.dataRootURL
+                let domain = Bundle.main.bundleIdentifier ?? ""
+                let ordinaryLaunch = !ProcessInfo.processInfo.arguments.contains("--data-folder") &&
+                    ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil &&
+                    [OEDataFolderSetup.bootstrapDomain, OEDataFolderSetup.bootstrapDomain + ".debug"].contains(domain)
+                let request = try OEDataRemovalRequest(root: root, categories: categories,
+                    routes: dataRemovalRoutes(in: root),
+                    emptyCredentials: categories.contains(.accounts) ? OECredentialStore.shared.makeEmptyStoreData() : nil,
+                    resetNativeDefaults: ordinaryLaunch && categories.contains(.preferences),
+                    defaultsDomains: ordinaryLaunch ? [OEDataFolderSetup.bootstrapDomain, domain] : [])
+                // Validate the category boundary before asking the app to quit.
+                _ = try OEDataRemovalEngine.targets(for: request, applicationURL: Bundle.main.bundleURL)
+                let job = try await OEDataRemovalJob.launch(request: request)
+                removalJob = job
+                guard NSDocumentController.shared.documents.isEmpty else {
+                    throw OEDataRemovalEngine.failure("A game opened while preparing removal. Close it and try again. Nothing was deleted.")
+                }
+                NSApp.terminate(self)
+                // AppKit can return while shutdown is still pending. Retain
+                // the job until willTerminate; return does not mean cancel.
+            } catch {
+                cancelDataRemoval()
+                let alert = NSAlert(error: error)
+                alert.messageText = NSLocalizedString("OpenEmu could not prepare data removal", comment: "Data removal failure")
+                alert.window.isRestorable = false
+                alert.runModal()
+            }
+        }
+    }
+
+    @MainActor
+    func applicationWillTerminate(_ notification: Notification) {
+        if removalJob != nil && removalCategories.contains(.preferences) {
+            // Only disable restoration once termination can no longer be
+            // cancelled. The worker resets settings after the final writes.
+            for window in NSApp.windows {
+                window.setFrameAutosaveName("")
+                window.isRestorable = false
+                window.disableSnapshotRestoration()
+                window.toolbar?.autosavesConfiguration = false
+                if let content = window.contentView { disableSettingsAutosave(in: content) }
+            }
+        }
+        removalTerminationCommitted = true
+        removalJob?.commitForTermination()
+    }
+
+    @MainActor
+    func cancelDataRemovalForCancelledTermination() {
+        guard removalJob != nil, !removalTerminationCommitted else { return }
+        cancelDataRemoval()
+    }
+
+    @MainActor
+    private func cancelDataRemoval() {
+        removalJob?.cancel()
+        removalJob = nil
+        removalCategories = []
+        resettingSettings = false
+        CoreDownload.isDataRemovalPending = false
+    }
+
+    @MainActor
+    @nonobjc private func dataRemovalRoutes(in root: URL) throws -> [String: OEDataRemovalCategory] {
+        var routes = OEDataRemovalRequest.standardRoutes
+        func add(_ url: URL, category: OEDataRemovalCategory) throws {
+            guard let path = OEDataRemovalRequest.relativePath(of: url, in: root) else { return }
+            if let existing = routes[path], existing != category {
+                throw OEDataRemovalEngine.failure("Two data categories share the folder \(path). Choose separate locations before deleting categories.")
+            }
+            routes[path] = category
+        }
+        // Core controllers derive their support path from the executable/name.
+        // Read metadata without loading a core or starting a game.
+        for plugin in OECorePlugin.allPlugins {
+            if let name = (plugin.bundle.object(forInfoDictionaryKey: "CFBundleExecutable") ??
+                           plugin.bundle.object(forInfoDictionaryKey: "CFBundleName")) as? String,
+               !name.isEmpty, !name.contains("/"), name != ".", name != ".." {
+                try add(root.appendingPathComponent(name, isDirectory: true), category: .emulationData)
+            }
+        }
+        if let database = OELibraryDatabase.default {
+            let folder = database.databaseFolderURL
+            if folder.standardizedFileURL.path == root.path {
+                // A custom library at the data root does not own every category.
+                for name in ["Library.storedata", "Library.storedata-wal", "Library.storedata-shm", "roms", "Artwork", "Cheats", "ImportQueue.plist"] {
+                    try add(root.appendingPathComponent(name), category: .library)
+                }
+            } else {
+                try add(folder, category: .library)
+            }
+            if let coordinator = database.persistentStoreCoordinator, let store = coordinator.persistentStores.last,
+               let path = coordinator.metadata(for: store)[OELibraryDatabase.libraryRomsFolderURLKey] as? String,
+               let roms = URL(string: path, relativeTo: folder) {
+                try add(roms.absoluteURL, category: .library)
+            }
+        }
+        for (key, category) in [(OELibraryDatabase.saveStateFolderURLKey, OEDataRemovalCategory.emulationData),
+                                (OELibraryDatabase.screenshotFolderURLKey, OEDataRemovalCategory.screenshots)] {
+            if let value = OEPreferences.shared.string(forKey: key), let url = URL(string: value) {
+                try add(url, category: category)
+            }
+        }
+        return routes
+    }
+
+    @MainActor
+    private func disableSettingsAutosave(in view: NSView) {
+        if let table = view as? NSTableView {
+            table.autosaveTableColumns = false
+            table.autosaveName = nil
+        }
+        if let split = view as? NSSplitView { split.autosaveName = nil }
+        for child in view.subviews { disableSettingsAutosave(in: child) }
+    }
     
     typealias StartupQueueClosure = () -> Void
     var startupQueue = [StartupQueueClosure]()
@@ -128,11 +286,17 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         
         super.init()
 
-        // This must precede every plugin/controller singleton: cores cache
-        // their BIOS and save paths when their controllers are created.
+        // The data folder must precede every plugin/core-controller singleton:
+        // cores cache their BIOS and save paths when controllers are created.
         // Cocoa constructs its application delegate on the main thread, but
         // NSObject's inherited initializer is not actor-isolated in Swift.
         MainActor.assumeIsolated {
+            OEDataRemovalWorker.runIfRequested()
+            // AppKit makes the first initialized document controller shared.
+            // Install ours before even the folder picker's modal loop can
+            // request the default controller. This empty document controller
+            // does not load settings, a library, or any emulator core.
+            _ = documentController
             OEDataFolderSetup.configureOrQuit()
         }
 
@@ -791,61 +955,47 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     }
     
     fileprivate func setUpHIDSupport() {
-        #if DEBUG
-        // Suppress the Input Monitoring alert in debug builds so it doesn't
-        // re-trigger after every rebuild or TCC reset during development.
-        // Grant the permission once via System Settings → Privacy & Security →
-        // Input Monitoring; this key prevents the nag alert from firing again.
-        OEPreferences.shared.set(true, forKey: "pleaseDoNotAnnoyMeWithThePermissionsAlertEveryTimeIRunThisAppFromXcode")
-        #endif
-
         // Set up OEBindingsController.
         _ = OEBindingsController.self
+        hidSupportIsSetUp = true
         let dm = OEDeviceManager.shared
         if #available(macOS 10.15, *) {
-            #if DEBUG
-            // In debug builds, always call requestAccess() regardless of what
-            // IOHIDCheckAccess reports. IOHIDCheckAccess may return .granted based
-            // on the production app's TCC bundle-ID entry, causing the switch below
-            // to hit default:break — but macOS HID event delivery is gated on the
-            // specific binary being registered, so the debug binary never receives
-            // events. IOHIDRequestAccess is idempotent when permission is already
-            // granted (returns true, no dialog), so this is safe to call every launch.
-            dm.requestAccess()
-            #else
+            // Permission belongs to this running process, not Settings.plist.
+            // A reset, an empty keyboard list, or no key presses cannot revoke
+            // an OS grant. Request only when macOS has not made a decision.
             switch dm.accessType {
             case .unknown:
-                // TCC may return "unknown" on subsequent launches when the app lacks a
-                // stable Developer ID signature, even though the user already granted
-                // access. Avoid re-prompting if we recorded a prior grant — the
-                // permission is still in effect even if IOHIDCheckAccess can't confirm it.
-                let previouslyGrantedKey = "OEInputMonitoringPreviouslyGranted"
-                if !OEPreferences.shared.bool(forKey: previouslyGrantedKey) {
-                    if dm.requestAccess() {
-                        OEPreferences.shared.set(true, forKey: previouslyGrantedKey)
-                    }
-                }
-
+                _ = dm.requestAccess()
             case .denied:
-                // User explicitly revoked — clear our cached grant so we prompt again
-                // if they ever re-grant and TCC falls back to unknown.
-                OEPreferences.shared.removeObject(forKey: "OEInputMonitoringPreviouslyGranted")
                 DispatchQueue.main.async {
                     self.showInputMonitoringPermissionsAlert()
                 }
-
             default:
-                // Permission already granted. Call requestAccess() anyway — it is idempotent
-                // (returns true, no dialog) but ensures HID event delivery is active for this
-                // binary. IOHIDCheckAccess returning .granted does not activate delivery; that
-                // requires IOHIDRequestAccess to be called. Same reason the DEBUG path always
-                // calls it unconditionally.
-                _ = dm.requestAccess()
+                break
             }
-            #endif
-            // Re-enumerate keyboards in case permission was granted after init.
-            dm.rescanKeyboardDevices()
+            refreshInputMonitoringPermissionStatus()
         }
+    }
+
+    fileprivate func refreshInputMonitoringPermissionStatus() {
+        // Activation can occur before initial setup has finished. Do not
+        // initialize HID support or ask for access from the startup picker.
+        guard hidSupportIsSetUp else { return }
+        if #available(macOS 10.15, *) {
+            let dm = OEDeviceManager.shared
+            let access = dm.accessType
+            if access == .granted { dm.rescanKeyboardDevices() }
+            if access != .denied, let alert = inputMonitoringPermissionsAlert {
+                inputMonitoringPermissionsAlert = nil
+                alert.close(withResult: .alertSecondButtonReturn)
+            }
+        }
+    }
+
+    @objc fileprivate func recheckInputMonitoringPermission(_ sender: Any?) {
+        // Keep this sheet in place while access is denied. The normal refresh
+        // closes it only when the live status no longer requires the warning.
+        refreshInputMonitoringPermissionStatus()
     }
 
     fileprivate func showInputMonitoringPermissionsAlert() {
@@ -855,11 +1005,22 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         }
         #endif
 
-        // Suppress the alert if the user has already dismissed it this session.
-        let suppressionKey = OEAlert.OEInputMonitoringAlertSuppressionKey
-        if OEPreferences.shared.bool(forKey: suppressionKey) {
-            return
+        // The check that queued this sheet may be stale by the time it runs,
+        // particularly after switching back from System Settings. Unknown is
+        // not a denial, and input delivery is not a permission test.
+        if #available(macOS 10.15, *) {
+            guard OEDeviceManager.shared.accessType == .denied else {
+                refreshInputMonitoringPermissionStatus()
+                return
+            }
         }
+        guard inputMonitoringPermissionsAlert == nil else { return }
+
+        // Preserve the user's existing choice to dismiss this warning. This
+        // preference never substitutes for the live authorization check above.
+        let suppressionKey = OEAlert.OEInputMonitoringAlertSuppressionKey
+        guard !OEPreferences.shared.bool(forKey: suppressionKey),
+              let window = mainWindowController.window else { return }
 
         let alert = OEAlert()
         alert.messageText = NSLocalizedString("ALERT_INPUT_MONITORING_HEADLINE", comment:"Headline for Input Monitoring permissions")
@@ -872,6 +1033,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         } else {
             informativeText += NSLocalizedString("ALERT_INPUT_MONITORING_PART2", comment:"Message for Input Monitoring permissions")
         }
+        informativeText += "\n\n"
+        informativeText += NSLocalizedString("If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.", comment: "Explain a current-process Input Monitoring denial without assuming the system toggle is off")
         alert.informativeText = informativeText
 
         if #available(macOS 13.0, *) {
@@ -880,12 +1043,13 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             alert.defaultButtonTitle = NSLocalizedString("Open System Preferences", comment:"Button to open System Preferences for Input Monitoring permission")
         }
         alert.alternateButtonTitle = NSLocalizedString("Ignore", comment: "")
-        alert.otherButtonTitle = NSLocalizedString("Reset Permission", comment: "Button to reset the Input Monitoring permission when toggling it in System Settings hasn't fixed keyboard input")
+        alert.otherButtonTitle = NSLocalizedString("Check Again", comment: "Recheck Input Monitoring without changing macOS permissions")
+        alert.setOtherButtonAction(#selector(recheckInputMonitoringPermission(_:)), andTarget: self)
 
         OEPreferences.shared.set(true, forKey: suppressionKey)
-
-        guard let window = mainWindowController.window else { return }
+        inputMonitoringPermissionsAlert = alert
         alert.beginSheetModal(for: window) { res in
+            self.inputMonitoringPermissionsAlert = nil
             switch res {
             case .alertFirstButtonReturn:
                 if #available(macOS 13.0, *) {
@@ -893,8 +1057,6 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
                 } else {
                     NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent")!)
                 }
-            case .alertThirdButtonReturn:
-                self.resetInputMonitoringPermission(nil)
             default:
                 break
             }
@@ -1475,9 +1637,7 @@ extension AppDelegate: NSMenuDelegate {
     
     func applicationDidBecomeActive(_ notification: Notification) {
         updateEventHandlers()
-        if #available(macOS 10.15, *) {
-            OEDeviceManager.shared.rescanKeyboardDevices()
-        }
+        refreshInputMonitoringPermissionStatus()
     }
     
     @objc func windowDidBecomeKey(notification: Notification) {

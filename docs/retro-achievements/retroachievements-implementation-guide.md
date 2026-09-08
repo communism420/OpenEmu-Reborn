@@ -1,6 +1,8 @@
 # RetroAchievements (rc_client) Implementation Guide
 
-This guide captures the correct pattern for integrating rcheevos `rc_client` into an OpenEmu-Silicon core, along with the specific bugs we've hit in production. Read this before starting a new integration or reviewing an existing one.
+This guide captures the correct pattern for integrating rcheevos `rc_client` into an OpenEmu Reborn core, along with the specific bugs we've hit in production. Read this before starting a new integration or reviewing an existing one.
+
+This material originates in OpenEmu-Silicon's integration work. Its issue numbers and verification history are upstream evidence, not new Reborn approval. App version `1.0.0` does not renumber or update emulator cores. See [Project identity](../project-identity.md).
 
 The canonical reference implementations are:
 - **Mednafen** — `Mednafen/MednafenGameCore.mm` (multi-system: PSX, PCE, Lynx, NGP)
@@ -11,8 +13,8 @@ Primary upstream references:
 - [RetroAchievements API docs](https://api-docs.retroachievements.org/) — public read API for profile/game/community data. Do not use the public API in place of `rc_client` for runtime login, game sessions, unlocks, leaderboards, or rich presence.
 
 Related repo-local docs:
-- `docs/retroachievements-compliance-evidence.md` — canonical native #438 compliance evidence, verification results, submission notes, and follow-up tracking.
-- `docs/retroachievements-community-guide.md` — user/contributor testing and reporting guide.
+- [Upstream compliance evidence](retroachievements-compliance-evidence.md) — historical native #438 verification results, submission notes, and follow-up tracking.
+- [Community guide](retroachievements-community-guide.md) — user/contributor testing and reporting guide.
 
 ---
 
@@ -59,7 +61,7 @@ If `rc_client_set_hardcore_enabled(_rcClient, 1)` is called while a game is load
 
 ## Transport requirements
 
-All native RA cores must use the shared `oeRetroAchievementsServerCall` transport so traffic identifies as OpenEmu-Silicon instead of another emulator.
+All native RA cores must use the shared `oeRetroAchievementsServerCall` transport. Existing technical User-Agent strings are separate from the app's display name; verify actual runtime identification before documenting a new client identity. Do not spoof another emulator or infer service approval from a name.
 
 Transport requirements from the upstream `rc_client` guide:
 
@@ -161,7 +163,7 @@ The fix is `memcpy` with no address manipulation, as shown above.
 
 ## Hardcore mode requirements
 
-OpenEmu-Silicon supports a user-facing hardcore preference, but RA's upstream recommendation is that hardcore be enabled by default for opted-in RA users. If the user starts in softcore and switches to hardcore mid-session, reset the game before allowing hardcore unlocks.
+OpenEmu Reborn supports a user-facing hardcore preference, but RA's upstream recommendation is that hardcore be enabled by default for opted-in RA users. If the user starts in softcore and switches to hardcore mid-session, reset the game before allowing hardcore unlocks.
 
 Hardcore-restricted features include:
 
@@ -172,17 +174,17 @@ Hardcore-restricted features include:
 - debugger/memory inspection windows
 - input playback
 
-The upstream `rc_client` integration guide says fast-forward is allowed in hardcore. OpenEmu-Silicon may choose to be stricter, but if fast-forward remains blocked, keep that as an explicit product/compliance decision rather than an accidental interpretation of RA's baseline rules.
+The upstream `rc_client` integration guide says fast-forward is allowed in hardcore. OpenEmu Reborn may choose to be stricter, but if fast-forward remains blocked, keep that as an explicit product/compliance decision rather than an accidental interpretation of RA's baseline rules.
 
 ### Pause and idle behavior
 
-When emulation is paused, stop calling `rc_client_do_frame()` and call `rc_client_idle()` at least once per second instead. This keeps routine server communication alive while gameplay is stopped. OpenEmu-Silicon implements this through a helper-side idle timer that calls each native RA core's `retroAchievementsIdle` hook while paused.
+When emulation is paused, stop calling `rc_client_do_frame()` and call `rc_client_idle()` at least once per second instead. This keeps routine server communication alive while gameplay is stopped. OpenEmu Reborn implements this through a helper-side idle timer that calls each native RA core's `retroAchievementsIdle` hook while paused.
 
-In hardcore mode, call `rc_client_can_pause()` immediately before honoring a user pause request. If it returns false, do not pause and show a short user-facing message. This prevents pause-spam from becoming a slow-motion workaround. OpenEmu-Silicon implements this for user-initiated pause toggles through `canPauseRetroAchievementsHardcoreWithFramesRemaining:`.
+In hardcore mode, call `rc_client_can_pause()` immediately before honoring a user pause request. If it returns false, do not pause and show a short user-facing message. This prevents pause-spam from becoming a slow-motion workaround. OpenEmu Reborn implements this for user-initiated pause toggles through `canPauseRetroAchievementsHardcoreWithFramesRemaining:`.
 
 ### Automatically disabling hardcore when no RA processing is required
 
-The upstream `rc_client` guide recommends optionally disabling hardcore for games that have no RA functionality by checking `rc_client_is_processing_required()`. OpenEmu-Silicon does **not** currently do this per game. Instead, enforcement is scoped to signed-in sessions whose selected core/system advertises RA support, and #438 tracks clear unrecognized/no-set feedback for games without a valid RA set/hash.
+The upstream `rc_client` guide recommends optionally disabling hardcore for games that have no RA functionality by checking `rc_client_is_processing_required()`. OpenEmu Reborn does **not** currently do this per game. Instead, enforcement is scoped to signed-in sessions whose selected core/system advertises RA support, and #438 tracks clear unrecognized/no-set feedback for games without a valid RA set/hash.
 
 If we later auto-disable hardcore per game, re-enable it when unloading the game or before loading the next game.
 

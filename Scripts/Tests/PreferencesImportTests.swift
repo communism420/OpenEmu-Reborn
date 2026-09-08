@@ -27,6 +27,8 @@ func checkPreferencesAPI(root: URL) throws {
     let store: any OEPreferencesStore = OEPreferences.shared
     try OEPreferences.shared.setValues(["importedA": true, "importedB": 2])
     let _: Error? = OEPreferences.shared.lastError
+    let _: Bool = OEPreferences.shared.isResettingForTermination
+    try OEPreferences.shared.resetForTermination()
     let _: any OEPreferencesStore = UserDefaults.standard
     store.set("value", forKey: "a")
     store.set(true, forKey: "a")

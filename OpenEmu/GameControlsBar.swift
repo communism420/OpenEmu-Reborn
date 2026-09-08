@@ -586,40 +586,17 @@ final class GameControlsBar: NSWindow {
     }
     
     var shadersMenu: NSMenu {
-        let menu = NSMenu()
+        let menu = OEShaderMenu.makeMenu(store: .shared,
+            selectedShaderName: gameViewController.shaderControl.preset.shader.name,
+            action: #selector(GameViewController.selectShader(_:)))
         
         let item = NSMenuItem(title: NSLocalizedString("Configure Shader…", comment: ""), action: #selector(GameViewController.configureShader(_:)), keyEquivalent: "")
-        menu.addItem(item)
-        menu.addItem(.separator())
-        
-        let selectedShader = gameViewController.shaderControl.preset.shader.name
-        
-        // add system shaders first
-        let sortedSystemShaders = OEShaderStore.shared.sortedSystemShaderNames
-        for shaderName in sortedSystemShaders {
-            let item = NSMenuItem(title: shaderName, action: #selector(GameViewController.selectShader(_:)), keyEquivalent: "")
-            
-            if shaderName == selectedShader {
-                item.state = .on
-            }
-            
-            menu.addItem(item)
-        }
-        
-        // add custom shaders
-        let sortedCustomShaders = OEShaderStore.shared.sortedCustomShaderNames
-        if !sortedCustomShaders.isEmpty {
-            menu.addItem(.separator())
-            
-            for shaderName in sortedCustomShaders {
-                let item = NSMenuItem(title: shaderName, action: #selector(GameViewController.selectShader(_:)), keyEquivalent: "")
-                
-                if shaderName == selectedShader {
-                    item.state = .on
-                }
-                
-                menu.addItem(item)
-            }
+        // Keep the off choice first, ahead of the configuration command.
+        let configurationIndex = menu.items.first?.representedObject as? String == OEShaderMenu.noShaderName ? 1 : 0
+        menu.insertItem(item, at: configurationIndex)
+        if menu.items.count > configurationIndex + 1,
+           !menu.items[configurationIndex + 1].isSeparatorItem {
+            menu.insertItem(.separator(), at: configurationIndex + 1)
         }
         
         return menu

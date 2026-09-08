@@ -26,6 +26,12 @@ import Foundation
 import OpenEmuKit
 
 final class CoreDownload: NSObject {
+    // Download starts and installation callbacks run on the main thread.
+    // A signing subprocess must finish before post-exit data removal can start.
+    nonisolated(unsafe) static var isDataRemovalPending = false
+    var hasActiveInstallation: Bool {
+        isDownloading || downloadSession != nil || activeInstallPipeline != nil
+    }
     
     weak var delegate: CoreDownloadDelegate?
     
@@ -57,7 +63,7 @@ final class CoreDownload: NSObject {
     }
     
     func start() {
-        guard let appcastItem = appcastItem,
+        guard !Self.isDataRemovalPending, let appcastItem = appcastItem,
               !isDownloading,
               downloadSession == nil,
               activeInstallPipeline == nil else { return }

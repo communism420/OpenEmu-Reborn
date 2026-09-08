@@ -32,7 +32,8 @@ final class CoreUpdater: NSObject {
 
     private static let armOnlyCoreFeedPrefixes = [
         "https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/",
-        "https://raw.githubusercontent.com/communism420/OpenEmu-Intel/"
+        "https://raw.githubusercontent.com/communism420/OpenEmu-Intel/",
+        "https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/"
     ]
     private static let intelCoreListURL = URL(string: "https://raw.githubusercontent.com/OpenEmu/OpenEmu-Update/master/oecores.xml")!
 
