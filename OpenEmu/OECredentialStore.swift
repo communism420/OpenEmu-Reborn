@@ -67,7 +67,7 @@ enum OECredentialKey: String, CaseIterable {
 /// ## Thread safety
 /// All access is serialised through a private dispatch queue. Call `get`, `set`, and
 /// `remove` from any thread.
-final class OECredentialStore {
+final class OECredentialStore: @unchecked Sendable {
 
     // MARK: - Singleton
 
@@ -86,6 +86,7 @@ final class OECredentialStore {
     private let queue = DispatchQueue(label: "org.openemu.credentialstore", qos: .userInitiated)
     private var cache: [String: String] = [:]
     private var isLoaded = false
+    private var isResettingForTermination = false
 
     // MARK: - Init
 
@@ -109,6 +110,7 @@ final class OECredentialStore {
     /// Saves `value` for `key` and writes the updated store to disk.
     func set(_ value: String, forKey key: OECredentialKey) {
         queue.sync {
+            guard !isResettingForTermination else { return }
             ensureLoaded()
             cache[key.rawValue] = value
             persist()
@@ -118,9 +120,41 @@ final class OECredentialStore {
     /// Removes the value for `key` and writes the updated store to disk.
     func remove(_ key: OECredentialKey) {
         queue.sync {
+            guard !isResettingForTermination else { return }
             ensureLoaded()
             cache.removeValue(forKey: key.rawValue)
             persist()
+        }
+    }
+
+    /// Prepares a reset without reading, changing or migrating any saved login.
+    /// The cleanup worker writes this only after the application has exited.
+    func makeEmptyStoreData() throws -> Data {
+        try queue.sync {
+            let plaintext = try JSONEncoder().encode([String: String]())
+            let sealed = try AES.GCM.seal(plaintext, using: deriveKey())
+            guard let combined = sealed.combined else { throw CocoaError(.fileWriteUnknown) }
+            return combined
+        }
+    }
+
+    /// Supplies an encrypted empty store to the settings reset transaction, then
+    /// discards cached credentials and ignores late writes during shutdown.
+    /// Never loads the old store or attempts a Keychain migration. If the commit
+    /// fails, the cache and normal write behavior remain unchanged. The commit
+    /// runs synchronously on the private queue and must not reenter this store.
+    func resetForTermination(commit: (Data) throws -> Void) throws {
+        try queue.sync {
+            guard !isResettingForTermination else { return }
+            let plaintext = try JSONEncoder().encode([String: String]())
+            let sealed = try AES.GCM.seal(plaintext, using: deriveKey())
+            guard let combined = sealed.combined else {
+                throw CocoaError(.fileWriteUnknown)
+            }
+            try commit(combined)
+            cache = [:]
+            isLoaded = true
+            isResettingForTermination = true
         }
     }
 
@@ -211,6 +245,7 @@ final class OECredentialStore {
     /// Encrypts the current cache and writes it to disk atomically.
     /// Must only be called from within `queue`.
     private func persist() {
+        guard !isResettingForTermination else { return }
         let url = OECredentialStore.storeURL
         let key = deriveKey()
         do {

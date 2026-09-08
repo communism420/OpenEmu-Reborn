@@ -42,10 +42,11 @@ xcrun clang "${storage_clang_flags[@]}" \
 
 mkdir "$storage_test_workspace/paths"
 "$storage_test_workspace/storage-paths-tests" "$storage_test_workspace/paths"
-for storage_preferences_mode in writer readonly invalid batch; do
+for storage_preferences_mode in writer readonly invalid batch reset-unconfigured reset-readonly reset; do
     mkdir "$storage_test_workspace/$storage_preferences_mode"
     "$storage_test_workspace/preferences-tests" "$storage_preferences_mode" "$storage_test_workspace/$storage_preferences_mode"
 done
+"$storage_test_workspace/preferences-tests" reset-reopen "$storage_test_workspace/reset"
 "$storage_test_workspace/preferences-tests" reopen "$storage_test_workspace/writer.disconnected"
 mkdir "$storage_test_workspace/arguments"
 "$storage_test_workspace/preferences-tests" arguments "$storage_test_workspace/arguments" \

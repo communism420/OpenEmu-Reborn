@@ -1,5 +1,7 @@
 # RetroAchievements Compliance Evidence Tracker
 
+> Historical OpenEmu-Silicon evidence, preserved with its original issue numbers, versions, accounts and dates. This is not new OpenEmu Reborn runtime verification or service approval. See [Project identity](../project-identity.md).
+
 This is the canonical verification and evidence tracker for the native RetroAchievements compliance rollout closed in issue #438.
 
 Keep only three RA docs current:
@@ -226,7 +228,7 @@ Non-commercial constraints:
 
 ### Privacy / data handling
 
-Privacy policy: [`privacy-policy.md`](privacy-policy.md).
+Current Reborn privacy policy: [`privacy-policy.md`](../privacy-policy.md). This document's upstream evidence remains historical.
 
 Summary:
 

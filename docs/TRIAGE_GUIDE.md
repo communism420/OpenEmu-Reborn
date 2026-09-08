@@ -1,4 +1,6 @@
-# Triage Guide — OpenEmu-Silicon
+# Triage Guide — OpenEmu Reborn
+
+This guide applies to the independent Reborn project. Issues are currently disabled: use a draft PR for now, and apply the issue/Discussion workflow below only when those features are enabled. Upstream issue numbers are background, not Reborn assignments or test results. See [Project identity](project-identity.md).
 
 Maintainer-facing reference for issue and PR triage, contributor identification, and escalation patterns. Not public-facing, but can be.
 
@@ -92,7 +94,7 @@ Apply at minimum one type label and one scope label. If it's clearly `needs-info
 ### Step 2: Reproduce or escalate (target: within 1 week for `critical`, 2 weeks otherwise)
 
 - **Can reproduce:** Add `confirmed`, remove `needs-info`, add scope label, add `help wanted` if you want a contributor to take it.
-- **Cannot reproduce:** Add `needs-info`, ask for: macOS version, M-chip generation, game title and region, app version or commit, whether RA is enabled.
+- **Cannot reproduce:** Add `needs-info`, ask for: macOS version, processor model and architecture, game title and region, app version or commit, whether RA is enabled.
 - **Clearly upstream:** Add `upstream`, link to the relevant core repo issue, close with an explanation. Closing upstream issues promptly keeps the backlog accurate.
 
 ### Step 3: Tag for contributors
@@ -120,7 +122,7 @@ For any `confirmed` bug or `enhancement` you're not addressing immediately:
 
 - **First-time contributors:** Be explicit about what's good and what needs changing. First-time experience determines whether they come back.
 - **AI-assisted PRs:** Review with extra attention to correctness, not just style. Ask "does this actually fix the issue, or does it look like it does?"
-- **Core updates (submodule bumps):** Check the pinned commit and verify at least one known-working game on the affected core before merging.
+- **Core source/binary updates:** Record the upstream revision and verify at least one known-working game on the affected core before merging. An app-only version bump is not a core update.
 
 ### After merging
 
@@ -130,7 +132,7 @@ For any `confirmed` bug or `enhancement` you're not addressing immediately:
 
 ### Closing AI-slop PRs gracefully
 
-> "Thanks for the contribution. This PR appears to be AI-generated without an associated issue or evidence of testing on Apple Silicon. Our [CONTRIBUTING.md](CONTRIBUTING.md) outlines the AI policy — we welcome AI-assisted contributions, but the contributor needs to be able to explain and stand behind the code. If you'd like to revisit this with an issue link and testing notes, I'd be happy to take another look."
+> "Thanks for the contribution. This PR needs a clear problem description and evidence of testing on the affected architecture. Our [CONTRIBUTING.md](../.github/CONTRIBUTING.md) outlines the AI policy — we welcome AI-assisted contributions, but the contributor needs to be able to explain and stand behind the code. Please describe the scope in the PR, link an issue if Issues are enabled, and include the tested build, architecture and results."
 
 ---
 
@@ -169,9 +171,9 @@ This is how RPCS3 grew its team.
 
 RA issues require different handling. See [retroachievements-community-guide.md](retro-achievements/retroachievements-community-guide.md) for full context. Short version:
 
-- **Achievement not triggering / triggering incorrectly:** Apply `retro-achievements` + the relevant core label. Ask: is this core in the supported list? If not, link to the [RA rollout issue (#258)](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258). If yes, ask for game title, achievement name, and whether it reproduces with RA disabled.
+- **Achievement not triggering / triggering incorrectly:** Record the exact Reborn build, core version, game and achievement, and whether it reproduces with RA disabled. Apply relevant labels when available. The [upstream RA rollout (#258)](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) is background, not a Reborn support tracker.
 - **RA vs. emulator bug:** Many RA bugs belong upstream in the RetroAchievements issue tracker or in rcheevos, not here. When the achievement set itself is wrong (wrong memory address, wrong trigger condition), file an RA-side ticket and link it from the issue here.
-- **New core RA support requests:** Label `enhancement` + `retro-achievements` + the relevant core label. Check [issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) first — it may already be tracked there. These are `help wanted` candidates since RA integration per-core is largely self-contained once you've read the implementation guide.
+- **New core RA support requests:** Search this project's PRs and, if enabled, Issues; use relevant labels when available. [Upstream issue #258](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/258) provides historical context but does not track Reborn work. Read the implementation guide before planning integration.
 
 ---
 

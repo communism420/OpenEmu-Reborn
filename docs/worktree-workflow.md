@@ -1,18 +1,29 @@
 # Worktree workflow
 
+These instructions apply to OpenEmu Reborn. Existing OpenEmu scheme names,
+signing identity and the canonical `OpenEmu-Intel-test` path remain unchanged
+for compatibility; see [Project identity](project-identity.md).
+
 Working on multiple PRs in parallel via `git worktree` is supported, but macOS makes it more friction-prone than the typical "one checkout" workflow. This doc explains the gotchas and the workflow that makes them tractable.
+
+For this maintainer's normal local use, deliver only the single
+`OpenEmu-Intel-test/` package at the main checkout's root using
+`Scripts/replace-local-intel-build.sh`; see [Local signing](local-signing.md).
+The per-worktree paths below are development intermediates, not additional
+user-facing installations. After an isolated test, unregister/remove its exact
+temporary app copy, keeping source trees and reusable compilation caches.
 
 ## The fundamental problem
 
-macOS binds privacy permissions (Input Monitoring, Accessibility, Screen Recording, Camera, etc.) to a *specific app path + code signature*. Xcode's default DerivedData uses a random hash per checkout — so:
+macOS checks privacy permissions for the running app's signing identity and launch context; a filesystem path alone does not establish permission. Xcode's default DerivedData uses a different directory per checkout, making it easy to launch a different copy than the one shown in System Settings:
 
 - Main repo build → `~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-aaaaa/.../OpenEmu.app`
 - Worktree A build → `~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-bbbbb/.../OpenEmu.app`
 - Worktree B build → `~/Library/Developer/Xcode/DerivedData/OpenEmu-metal-ccccc/.../OpenEmu.app`
 
-Each is a different path, so macOS treats each as a different app. Permissions you grant to one don't apply to another. Every fresh worktree = re-grant all permissions = 5 minutes of clicking through System Settings before you can actually test.
+These copies may also have different signatures. Do not assume that an enabled System Settings entry grants access to every copy, or that launching the executable directly tests the same authorization context as launching the app through Finder.
 
-## The fix: stable per-branch build paths
+## Keep per-branch build paths predictable
 
 Use `Scripts/build-for-worktree.sh` instead of plain `xcodebuild`. It builds to a stable path keyed by the current branch:
 
@@ -20,7 +31,7 @@ Use `Scripts/build-for-worktree.sh` instead of plain `xcodebuild`. It builds to 
 ~/Builds/openemu/<branch-name>/Build/Products/Debug/OpenEmu.app
 ```
 
-Same branch → same path → permissions persist across rebuilds.
+The same branch returns to the same path. This makes the intended copy easier to find, but does not by itself preserve permission across rebuilds.
 
 ```bash
 # Inside any worktree (or in main):
@@ -30,7 +41,7 @@ Same branch → same path → permissions persist across rebuilds.
 # Auto-resolves a stable Apple Development signing identity if available.
 ```
 
-The script also auto-resolves a stable Apple Development signing identity if you have one in your keychain. Without that, builds fall back to ad-hoc signing (`-`), which still works but means TCC permissions are tied to the path alone — they'll persist for that path but not transfer to a release build of the same code.
+The script also auto-resolves an Apple Development signing identity if you have one in your keychain. Without that, builds fall back to ad-hoc signing (`-`), which identifies a particular code build rather than a stable publisher. Keeping its path unchanged does not guarantee that permissions survive a rebuild. For an explicitly selected permanent local identity, see [Local signing](local-signing.md).
 
 ## First-time setup per branch
 
@@ -39,7 +50,7 @@ The first time you build a branch with `build-for-worktree.sh`:
 1. Run the script. Note the printed app path.
 2. Launch the app. macOS will prompt for any permissions the app needs.
 3. Grant Input Monitoring (and anything else you need) for that path in **System Settings → Privacy & Security**.
-4. Subsequent builds of the same branch land at the same path and inherit the granted permissions.
+4. Subsequent builds of the same branch land at the same path. Verify the running copy's permission again; a changed signing identity may require a new grant.
 
 ## Cores are shared across all worktrees + the installed app
 
@@ -130,17 +141,17 @@ When you're done with a worktree:
 # Remove the worktree (from the main repo, not the worktree itself)
 git worktree remove ../openemu-pr287
 
-# Optionally remove the build artifacts (forfeits granted permissions)
+# Optionally remove the build artifacts (this does not reset macOS permissions)
 rm -rf ~/Builds/openemu/<branch-name>/
 ```
 
-If you keep the build dir but delete the worktree, the next `git worktree add` for the same branch will reuse the build dir and the permissions you already granted.
+If you keep the build dir but delete the worktree, the next `git worktree add` for the same branch will reuse the build dir. Reusing the directory does not prove that macOS will grant access to the next build.
 
 ## What this workflow does not solve
 
 - **Cores are still shared.** Solving this would require modifying OpenEmu's core-loading logic to accept a per-build cores path. Out of scope.
-- **`OpenEmuHelperApp` permissions are separate from `OpenEmu.app` permissions.** The helper lives inside the .app bundle, so building to a stable path automatically gives the helper a stable path too — should "just work" with this workflow.
-- **If your signing identity changes between builds** (sometimes ad-hoc, sometimes Developer ID), permissions may still need re-granting. `build-for-worktree.sh` resolves a consistent Developer ID identity if you have one, which prevents this.
+- **Helpers must be tested in the normal app launch context.** A stable helper path is not proof of permission for the app or its child processes.
+- **If your signing identity changes between builds** (sometimes ad-hoc, sometimes certificate-signed), permissions may need re-granting. A consistent certificate reduces identity changes, but does not itself grant access or replace a check of the running app.
 
 ## When NOT to use worktrees
 

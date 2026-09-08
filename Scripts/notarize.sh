@@ -7,7 +7,7 @@
 
 IDENTITY="${OPENEMU_SIGNING_IDENTITY:-Developer ID Application}"
 PROFILE_NAME="${OPENEMU_NOTARY_PROFILE:-OpenEmu-Intel}"
-DMG_NAME="${OPENEMU_DMG_NAME:-OpenEmu-Intel.dmg}"
+DMG_NAME="${OPENEMU_DMG_NAME:-OpenEmu-Reborn.dmg}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 ENTITLEMENTS="$REPO_ROOT/OpenEmu/OpenEmu.entitlements"

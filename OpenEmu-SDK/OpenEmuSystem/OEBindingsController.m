@@ -33,6 +33,7 @@
 #import "OEDeviceHandler.h"
 #import <OpenEmuBase/OEPropertyList.h>
 #import <OpenEmuBase/OEStoragePaths.h>
+#import <OpenEmuBase/OEPreferences.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -223,6 +224,9 @@ static NSMutableSet<OESystemController *> *systemControllers;
 
 - (BOOL)synchronize;
 {
+    // A settings reset already cleared the saved mappings. Termination and
+    // focus-change notifications must not write the live mappings back.
+    if(OEPreferences.shared.isResettingForTermination) return YES;
     if(!requiresSynchronization)
         return YES;
     

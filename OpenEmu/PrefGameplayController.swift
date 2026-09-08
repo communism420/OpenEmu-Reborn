@@ -160,30 +160,10 @@ final class PrefGameplayController: NSViewController {
     }
     
     private func loadShaderMenu() {
-        
-        let globalShaderMenu = NSMenu()
-        
-        let systemShaders = OEShaderStore.shared.sortedSystemShaderNames
-        systemShaders.forEach { shaderName in
-            globalShaderMenu.addItem(withTitle: shaderName, action: nil, keyEquivalent: "")
-        }
-        
-        let customShaders = OEShaderStore.shared.sortedCustomShaderNames
-        if !customShaders.isEmpty {
-            globalShaderMenu.addItem(.separator())
-            
-            customShaders.forEach { shaderName in
-                globalShaderMenu.addItem(withTitle: shaderName, action: nil, keyEquivalent: "")
-            }
-        }
-        
-        globalDefaultShaderSelection.menu = globalShaderMenu
-        
         let selectedShaderName = OEShaderStore.shared.defaultShaderName
-        
-        if globalDefaultShaderSelection.item(withTitle: selectedShaderName) != nil {
-            globalDefaultShaderSelection.selectItem(withTitle: selectedShaderName)
-        } else {
+        globalDefaultShaderSelection.menu = OEShaderMenu.makeMenu(store: .shared,
+            selectedShaderName: selectedShaderName, action: nil)
+        if !OEShaderMenu.selectShader(named: selectedShaderName, in: globalDefaultShaderSelection) {
             globalDefaultShaderSelection.selectItem(at: 0)
         }
     }
@@ -191,10 +171,13 @@ final class PrefGameplayController: NSViewController {
     @IBAction func changeGlobalDefaultShader(_ sender: Any?) {
         guard let context = OELibraryDatabase.default?.mainThreadContext else { return }
         
-        guard let shaderName = globalDefaultShaderSelection.selectedItem?.title else { return }
+        guard let shaderName = globalDefaultShaderSelection.selectedItem?.representedObject as? String else { return }
         
         let allSystemIdentifiers = OEDBSystem.allSystemIdentifiers(in: context)
         allSystemIdentifiers.forEach(OESystemShaderStore.shared.resetShader(forSystem:))
+        // Named preset assignments take precedence over the global shader too.
+        // Clear only the assignments; keep the user's saved presets available.
+        allSystemIdentifiers.forEach(SystemShaderPresetStore.shared.resetPresetForSystem(_:))
         OEShaderStore.shared.defaultShaderName = shaderName
     }
 }

@@ -1,4 +1,6 @@
-# Libretro architecture in OpenEmu-Silicon
+# Libretro architecture in OpenEmu Reborn
+
+This describes the host inherited from OpenEmu-Silicon. App version `1.0.0` does not update external RetroArch cores or establish new runtime verification. See [Project identity](project-identity.md).
 
 How a user-installed RetroArch core ends up running inside `OpenEmu.app`, and where in the tree to make changes that affect every libretro core at once.
 
@@ -19,7 +21,7 @@ The picker pipeline in `OpenEmu/PrefCoresController.swift`:
 1. **Scan.** `scanRetroArchCores()` enumerates `~/Library/Application Support/RetroArch/cores/`.
 2. **Parse metadata.** For each `.dylib`, the matching `<name>.info` file (next to it on disk) is parsed for display name, supported systems, and capability flags.
 3. **Wrap.** When the user picks a core for a system, `installRetroArchPlugin(_:)` generates a synthetic `.oecoreplugin` bundle whose `Info.plist` points to the chosen `.dylib` via the `OELibretroCorePath` key. The bundle is named `<CoreName>-RetroArch.oecoreplugin` (see `RetroArchCore.pluginName`).
-4. **Register.** The wrapper lands in the standard cores directory (`~/Library/Application Support/OpenEmu/Cores/`) and from then on is treated like any other core plugin.
+4. **Register.** The wrapper lands in `<selected data folder>/Cores/` and from then on is treated like any other core plugin. The old Application Support path is a legacy location; see [data-folder behavior](data-folder.md).
 
 The user-facing label is **"RetroArch core"** — that's what they see in Preferences. Internally the abstract concept (any `.dylib` implementing the libretro ABI) is a **libretro core**.
 
@@ -68,7 +70,7 @@ Two version constants drive the comparison:
 Lifecycle, in order:
 
 1. App launches. `applicationWillFinishLaunching` (in `OpenEmu/AppDelegate.swift`) calls `refreshStaleRetroArchStubs()`.
-2. The function walks `~/Library/Application Support/OpenEmu/Cores/` for every `*-RetroArch.oecoreplugin`.
+2. The function walks `<selected data folder>/Cores/` for every `*-RetroArch.oecoreplugin`.
 3. For each stub whose `OEBridgeVersion` is missing or `!= OELibretroBridgeVersion`, it copies `OpenEmu.app/Contents/PlugIns/OpenEmuLibretroBridge.oecoreplugin/Contents/MacOS/OpenEmuLibretroBridge` over the stub's executable, writes the new version into the stub's plist, and ad-hoc codesigns the result.
 4. Outcomes (which stubs were refreshed, which failed and why) are summarized in `~/Library/Logs/OpenEmu/core-inventory.txt` per launch.
 
@@ -81,7 +83,7 @@ OpenEmu.app/
       OpenEmuLibretroBridge.oecoreplugin/      ← shipped with the app
         Contents/MacOS/OpenEmuLibretroBridge   ← source binary
 
-~/Library/Application Support/OpenEmu/Cores/
+<selected data folder>/Cores/
   Flycast-RetroArch.oecoreplugin/              ← user-installed stub
     Contents/
       Info.plist                               ← OEBridgeVersion lives here
@@ -101,7 +103,7 @@ Developer-facing rule (when to bump `OELibretroBridgeVersion`) lives in the "Lib
 - save state passthrough via `retro_serialize` / `retro_unserialize`
 
 **Does not handle yet:**
-- **RetroAchievements.** No `rc_client` initialization, no per-frame `rc_client_do_frame`, no memory exposure to rcheevos. Tracked in [#360](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/360). Native cores integrate rcheevos directly; libretro cores get nothing.
+- **RetroAchievements.** No `rc_client` initialization, no per-frame `rc_client_do_frame`, no memory exposure to rcheevos. [Upstream #360](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon/issues/360) is historical context, not a Reborn tracker. Native integrations do not establish RA support for the libretro host.
 - **`RETRO_ENVIRONMENT_SET_MEMORY_MAPS` (env callback 36).** Cores that expose RAM via descriptor tables rather than `retro_get_memory_data` are not currently mapped — verify before doing memory-dependent work (cheats, RA).
 - **Runahead.** No frontend-side state-rollback loop.
 

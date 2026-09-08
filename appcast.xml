@@ -3,9 +3,9 @@
      x86_64 releases must omit/change sparkle:hardwareRequirements. -->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>OpenEmu-Intel Changelog</title>
-    <link>https://github.com/communism420/OpenEmu-Intel/releases</link>
-    <description>Most recent changes with links to updates.</description>
+    <title>OpenEmu Reborn Changelog</title>
+    <link>https://github.com/communism420/OpenEmu-Reborn/releases</link>
+    <description>OpenEmu Reborn updates. Entries below retain their original upstream release identity until a Reborn release is published.</description>
     <language>en</language>
                                                             <item>
       <title>OpenEmu-Silicon 1.2.5</title>

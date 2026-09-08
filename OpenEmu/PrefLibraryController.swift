@@ -72,6 +72,13 @@ final class PrefLibraryController: NSViewController {
             gridView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -30)
         ])
 
+        let resetButton = NSButton(title: NSLocalizedString("Delete Settings and Data…", comment: "Select settings and data to remove"),
+                                   target: self, action: #selector(resetAllSettings(_:)))
+        resetButton.bezelStyle = .rounded
+        resetButton.identifier = NSUserInterfaceItemIdentifier("resetAllSettings")
+        let resetRow = gridView.addRow(with: [NSGridCell.emptyContentView, resetButton])
+        resetRow.topPadding = 14
+
         availableLibrariesViewController.loadData()
     }
     
@@ -80,6 +87,10 @@ final class PrefLibraryController: NSViewController {
     }
     
     // MARK: - Actions
+
+    @IBAction func resetAllSettings(_ sender: Any?) {
+        (NSApp.delegate as? AppDelegate)?.resetAllSettingsAndQuit(sender)
+    }
     
     @IBAction func resetLibraryFolder(_ sender: Any?) {
         

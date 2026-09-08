@@ -65,6 +65,96 @@ int main(int argc, const char *argv[]) {
         }];
         [store registerDefaults:@{@"language": @"original", @"registeredOnly": @YES, @"counter": @1}];
         Check(!OEPreferences.isConfigured && [store boolForKey:@"registeredOnly"], @"registration before configuration is memory-only");
+        if([mode isEqual:@"reset-unconfigured"] || [mode isEqual:@"reset-readonly"]) {
+            if([mode isEqual:@"reset-readonly"]) {
+                Check([@{@"language": @"saved"} writeToURL:url error:&error], @"seed read-only reset test");
+                Check([OEPreferences configureWithURL:url readOnly:YES error:&error], @"configure read-only reset test");
+            }
+            NSData *before = [NSData dataWithContentsOfURL:url];
+            NSDictionary *values = store.dictionaryRepresentation;
+            error = nil;
+            Check(![store resetForTerminationWithError:&error] && error != nil && !store.isResettingForTermination,
+                  @"reset requires a configured writable store");
+            Check([store.dictionaryRepresentation isEqual:values] && failures == 0, @"rejected reset preserves values and returns error without a duplicate notification");
+            Check(before == nil ? ![fm fileExistsAtPath:url.path] : [[NSData dataWithContentsOfURL:url] isEqual:before], @"rejected reset leaves disk untouched");
+            Check(![fm fileExistsAtPath:[url URLByAppendingPathExtension:@"lock"].path], @"rejected reset does not acquire a writer lock");
+            NSLog(@"PASS: %@ preserves settings", mode);
+            return 0;
+        }
+        if([mode isEqual:@"reset-reopen"]) {
+            Check([OEPreferences configureWithURL:url readOnly:NO error:&error], @"reopen reset profile");
+            Check(!store.isResettingForTermination && [[store stringForKey:@"language"] isEqual:@"original"] &&
+                  [store boolForKey:@"registeredOnly"] && [store objectForKey:@"savedOnly"] == nil,
+                  @"next process reads registered defaults, not the reset process's saved values");
+            Check([NSDictionary dictionaryWithContentsOfURL:url error:&error].count == 0, @"next launch still has no saved settings");
+            [store setObject:@"new session" forKey:@"language"];
+            Check([store synchronize] && [[NSDictionary dictionaryWithContentsOfURL:url error:&error][@"language"] isEqual:@"new session"],
+                  @"next process may persist new settings normally");
+            NSLog(@"PASS: reset profile reopens with defaults and a new writer");
+            return 0;
+        }
+        if([mode isEqual:@"reset"]) {
+            Check([OEPreferences configureWithURL:url readOnly:NO error:&error], @"configure reset writer");
+            Check([store setValues:@{@"language": @"saved", @"savedOnly": @42} error:&error], @"save settings before reset");
+            NSData *before = [NSData dataWithContentsOfURL:url];
+            NSDictionary *values = store.dictionaryRepresentation;
+            NSUInteger changesBefore = changes;
+            Check(chmod(root.fileSystemRepresentation, 0500) == 0, @"deny reset write for test");
+            error = nil;
+            Check(![store resetForTerminationWithError:&error] && error != nil && !store.isResettingForTermination, @"reset reports write failure");
+            Check(chmod(root.fileSystemRepresentation, 0700) == 0, @"restore reset write access");
+            Check([[NSData dataWithContentsOfURL:url] isEqual:before] && [store.dictionaryRepresentation isEqual:values] && changes == changesBefore,
+                  @"failed reset preserves disk, live values and notifications");
+
+            NSURL *lockURL = [url URLByAppendingPathExtension:@"lock"];
+            NSURL *savedLockURL = [lockURL URLByAppendingPathExtension:@"original"];
+            Check([fm moveItemAtURL:lockURL toURL:savedLockURL error:&error] && [NSData.data writeToURL:lockURL options:NSDataWritingWithoutOverwriting error:&error],
+                  @"replace reset test writer lock");
+            error = nil;
+            Check(![store resetForTerminationWithError:&error] && error != nil && !store.isResettingForTermination, @"reset rejects a stale writer lease");
+            Check([[NSData dataWithContentsOfURL:url] isEqual:before] && [store.dictionaryRepresentation isEqual:values], @"stale reset keeps disk and live settings");
+            Check([fm removeItemAtURL:lockURL error:&error] && [fm moveItemAtURL:savedLockURL toURL:lockURL error:&error], @"restore reset test writer lock");
+
+            struct rlimit originalLimit;
+            Check(getrlimit(RLIMIT_FSIZE, &originalLimit) == 0, @"read reset test file-size limit");
+            struct rlimit shortWriteLimit = originalLimit;
+            shortWriteLimit.rlim_cur = 16;
+            void (*originalHandler)(int) = signal(SIGXFSZ, SIG_IGN);
+            Check(setrlimit(RLIMIT_FSIZE, &shortWriteLimit) == 0, @"force a partial empty-plist write");
+            BOOL reset = [store resetForTerminationWithError:&error];
+            Check(setrlimit(RLIMIT_FSIZE, &originalLimit) == 0, @"restore reset test file-size limit");
+            signal(SIGXFSZ, originalHandler);
+            Check(!reset && !store.isResettingForTermination && [[NSData dataWithContentsOfURL:url] isEqual:before] &&
+                  [store.dictionaryRepresentation isEqual:values], @"partial reset write preserves the complete previous file and live values");
+            Check([fm contentsOfDirectoryAtPath:root.path error:&error].count == 2, @"failed reset leaves no temporary file");
+
+            TestObserver *resetObserver = [TestObserver new];
+            [store addObserver:resetObserver forKeyPath:@"language" options:NSKeyValueObservingOptionPrior context:NULL];
+            Check([store resetForTerminationWithError:&error] && store.isResettingForTermination && store.lastError == nil, @"reset can succeed after failed attempts");
+            NSDictionary *saved = [NSDictionary dictionaryWithContentsOfURL:url error:&error];
+            Check(saved != nil && saved.count == 0, @"successful reset atomically persists an empty dictionary, not registered defaults");
+            NSData *emptyFile = [NSData dataWithContentsOfURL:url];
+            Check([store.dictionaryRepresentation isEqual:values], @"old values remain available until orderly termination");
+            Check([OEPreferences configureWithURL:url readOnly:NO error:&error], @"same-path reconfiguration remains harmless after reset");
+            [store setObject:@"late save" forKey:@"language"];
+            [store removeObjectForKey:@"savedOnly"];
+            Check([store setValues:@{@"late": @YES} error:&error] && [store synchronize], @"late shutdown writes are successful no-ops");
+            Check([store.dictionaryRepresentation isEqual:values] && [[NSData dataWithContentsOfURL:url] isEqual:emptyFile] &&
+                  resetObserver.changes == 0 && resetObserver.priors == 0 && changes == changesBefore && failures == 0,
+                  @"reset and late writes neither repopulate disk nor change live values or send notifications");
+            [store removeObserver:resetObserver forKeyPath:@"language"];
+            Check(chmod(root.fileSystemRepresentation, 0500) == 0, @"make successful reset file unwritable");
+            Check([store resetForTerminationWithError:&error], @"repeated reset is idempotent and performs no write");
+            Check(chmod(root.fileSystemRepresentation, 0700) == 0, @"restore reset test permissions");
+            NSTask *secondWriter = [[NSTask alloc] init];
+            secondWriter.executableURL = [NSURL fileURLWithPath:NSProcessInfo.processInfo.arguments.firstObject];
+            secondWriter.arguments = @[@"contended", root.path];
+            Check([secondWriter launchAndReturnError:&error], @"launch competing writer after reset");
+            [secondWriter waitUntilExit];
+            Check(secondWriter.terminationStatus == 0, @"reset retains its writer lock until process exit");
+            NSLog(@"PASS: reset failures, empty atomic write, live values, late writes, idempotence and writer lease");
+            return 0;
+        }
         if([mode isEqual:@"batch"]) {
             Check([OEPreferences configureWithURL:url readOnly:NO error:&error], @"configure atomic migration test");
             Check(chmod(root.fileSystemRepresentation, 0500) == 0, @"block first migration write");

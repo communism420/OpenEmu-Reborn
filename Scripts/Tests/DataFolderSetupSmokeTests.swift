@@ -50,6 +50,14 @@ private final class BindingObserver: NSObject {
     }
 }
 
+// Record the requested domains without accessing any real app preferences.
+private final class ResetDefaults: UserDefaults, @unchecked Sendable {
+    var removedDomains = Set<String>()
+    var didSynchronize = false
+    override func removePersistentDomain(forName domainName: String) { removedDomains.insert(domainName) }
+    override func synchronize() -> Bool { didSynchronize = true; return true }
+}
+
 @main
 private struct DataFolderSetupSmokeTests {
     @MainActor
@@ -57,10 +65,23 @@ private struct DataFolderSetupSmokeTests {
         check(CommandLine.arguments.count == 2, "explicit isolated temporary directory required")
         let workspace = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)
         let fm = FileManager.default
+        for screen in [NSRect(x: 0, y: 40, width: 1280, height: 720),
+                       NSRect(x: 0, y: 24, width: 1024, height: 640),
+                       NSRect(x: -1280, y: -200, width: 1280, height: 720)] {
+            let frame = OEDataFolderSetup.folderPanelFrame(in: screen)
+            check(screen.insetBy(dx: 12, dy: 12).contains(frame), "folder panel fits the usable screen area")
+            check(frame.width <= 720 && frame.height <= 520, "folder panel has a compact initial size")
+            check(frame.midX == screen.midX && frame.midY == screen.midY, "folder panel centers on the correct display")
+        }
         check(OEDataFolderSetup.locatorDefaults(for: OEDataFolderSetup.bootstrapDomain) === UserDefaults.standard,
               "Release uses its standard domain instead of an invalid same-name suite")
         check(OEDataFolderSetup.locatorDefaults(for: "org.openemu.OpenEmu.debug") != nil,
               "Debug can open the shared Release locator domain")
+        let resetDefaults = ResetDefaults()
+        OEDataFolderSetup.clearApplicationDefaults(in: resetDefaults,
+            domains: [OEDataFolderSetup.bootstrapDomain, OEDataFolderSetup.bootstrapDomain + ".debug"])
+        check(resetDefaults.removedDomains == ["org.openemu.OpenEmu", "org.openemu.OpenEmu.debug"]
+              && resetDefaults.didSynchronize, "reset clears only the supplied app domains, including their locators")
         func directory(_ name: String) throws -> URL {
             let url = workspace.appendingPathComponent(name, isDirectory: true)
             try fm.createDirectory(at: url, withIntermediateDirectories: false)
@@ -69,13 +90,18 @@ private struct DataFolderSetupSmokeTests {
 
         let empty = try directory("Данные OpenEmu с пробелами")
         try Data().write(to: empty.appendingPathComponent(".DS_Store"))
-        let identity = try OEDataFolderIdentity.prepare(at: empty)
+        let firstPreparation = try OEDataFolderIdentity.prepareForUse(at: empty)
+        let identity = firstPreparation.identity
+        check(firstPreparation.createdMarker, "first preparation reports exclusive creation of the marker")
         check(identity.version == 1, "empty directory receives current identity version")
         check(try OEDataFolderIdentity.read(at: empty) == identity, "identity marker roundtrip")
         let marker = empty.appendingPathComponent(OEDataFolderIdentity.fileName)
         let markerBefore = try Data(contentsOf: marker)
         check(try OEDataFolderIdentity.prepare(at: empty, expectedID: identity.identifier) == identity,
               "known directory retains identity")
+        let knownPreparation = try OEDataFolderIdentity.prepareForUse(at: empty, expectedID: identity.identifier)
+        check(!knownPreparation.createdMarker && knownPreparation.identity == identity,
+              "remembered or recovery folder cannot enable a fresh legacy settings import")
         expectFailure("foreign identity must not be adopted") {
             _ = try OEDataFolderIdentity.prepare(at: empty, expectedID: UUID())
         }
@@ -97,8 +123,19 @@ private struct DataFolderSetupSmokeTests {
         let legacyLibrary = legacy.appendingPathComponent("Game Library", isDirectory: true)
         try fm.createDirectory(at: legacyLibrary, withIntermediateDirectories: false)
         try Data("legacy library sentinel".utf8).write(to: legacyLibrary.appendingPathComponent("Library.storedata"))
-        let legacyIdentity = try OEDataFolderIdentity.prepare(at: legacy)
+        let legacyPreparation = try OEDataFolderIdentity.prepareForUse(at: legacy)
+        let legacyIdentity = legacyPreparation.identity
+        check(legacyPreparation.createdMarker, "first explicit adoption of an unmarked legacy library permits migration")
         check(legacyIdentity.identifier != identity.identifier, "existing library gets its own identity")
+        let legacyMarker = try Data(contentsOf: legacy.appendingPathComponent(OEDataFolderIdentity.fileName))
+        let legacySettings = legacy.appendingPathComponent("Settings.plist")
+        try Data("settings removed by fixture reset".utf8).write(to: legacySettings)
+        try fm.removeItem(at: legacySettings)
+        let resetPreparation = try OEDataFolderIdentity.prepareForUse(at: legacy)
+        check(!resetPreparation.createdMarker && resetPreparation.identity == legacyIdentity,
+              "kept legacy library without Settings.plist never authorizes another legacy import")
+        check(try Data(contentsOf: legacy.appendingPathComponent(OEDataFolderIdentity.fileName)) == legacyMarker,
+              "reset-folder preparation preserves the existing identity marker byte-for-byte")
 
         let linked = try directory("linked-marker")
         try fm.createSymbolicLink(at: linked.appendingPathComponent(OEDataFolderIdentity.fileName), withDestinationURL: marker)
@@ -172,6 +209,7 @@ private struct DataFolderSetupSmokeTests {
               "first Debug launch does not lose old Release settings")
 
         let preferencesRoot = try directory("bindings-profile")
+        let preferencesIdentity = try OEDataFolderIdentity.prepare(at: preferencesRoot)
         try OEPreferences.configure(url: preferencesRoot.appendingPathComponent("Settings.plist"), readOnly: false)
         let preferences = OEPreferences.shared
         preferences.register(defaults: ["controlFlag": false])
@@ -207,6 +245,84 @@ private struct DataFolderSetupSmokeTests {
               "clicked checkbox value is persisted in Settings.plist")
         button.unbind(.value)
         check(preferences.synchronize(), "settings changes are persisted")
+
+        // Reset fixtures never use the actual data folder or macOS app domain.
+        let settingsURL = preferencesRoot.appendingPathComponent("Settings.plist")
+        let settingsBeforeReset = try Data(contentsOf: settingsURL)
+        let bindingsFolder = preferencesRoot.appendingPathComponent("Bindings", isDirectory: true)
+        try fm.createDirectory(at: bindingsFolder, withIntermediateDirectories: false)
+        let bindingsFile = bindingsFolder.appendingPathComponent("Default.oebindings")
+        let credentialsFile = preferencesRoot.appendingPathComponent(".oe_credentials")
+        let oldBindings = Data("old controller mappings".utf8)
+        let oldCredentials = Data("fixture credentials, not a real account".utf8)
+        let emptyCredentials = Data("fixture encrypted empty store".utf8)
+        try oldBindings.write(to: bindingsFile)
+        try oldCredentials.write(to: credentialsFile)
+        let retained = ["Game Library/Library.storedata", "BIOS/test.bin", "Save States/test.oesavestate",
+                        "Cores/test.oecoreplugin", "Shaders/custom.slangp", "Bindings/notes.txt"]
+        for path in retained {
+            let url = preferencesRoot.appendingPathComponent(path)
+            try fm.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try Data("must be retained".utf8).write(to: url)
+        }
+
+        expectFailure("failure of the final preferences commit must abort reset") {
+            try OEDataFolderSettingsReset.perform(at: preferencesRoot, emptyCredentials: emptyCredentials, validateRoot: {}) {
+                throw CocoaError(.fileWriteNoPermission)
+            }
+        }
+        check(try Data(contentsOf: bindingsFile) == oldBindings, "failed reset restores bindings")
+        check(try Data(contentsOf: credentialsFile) == oldCredentials, "failed reset restores credentials")
+        check(try Data(contentsOf: settingsURL) == settingsBeforeReset && !preferences.isResettingForTermination,
+              "failed reset leaves settings and normal writes unchanged")
+        expectFailure("changed data root must be rejected before the first write") {
+            try OEDataFolderSettingsReset.perform(at: preferencesRoot, emptyCredentials: emptyCredentials,
+                                                 validateRoot: { throw CocoaError(.fileReadInvalidFileName) }) {
+                check(false, "changed root must not reach the preferences commit")
+            }
+        }
+        check(try Data(contentsOf: credentialsFile) == oldCredentials && Data(contentsOf: bindingsFile) == oldBindings,
+              "root validation failure changes no files")
+        try fm.removeItem(at: credentialsFile)
+        expectFailure("failed reset must restore an originally absent credential store") {
+            try OEDataFolderSettingsReset.perform(at: preferencesRoot, emptyCredentials: emptyCredentials, validateRoot: {}) {
+                throw CocoaError(.fileWriteNoPermission)
+            }
+        }
+        check(!fm.fileExists(atPath: credentialsFile.path), "rollback removes only the new empty credential fixture")
+        try oldCredentials.write(to: credentialsFile)
+
+        let external = workspace.appendingPathComponent("external-bindings")
+        try Data("do not follow this link".utf8).write(to: external)
+        let linkedBindings = bindingsFolder.appendingPathComponent("Linked.oebindings")
+        try fm.createSymbolicLink(at: linkedBindings, withDestinationURL: external)
+        expectFailure("linked settings files must be rejected before writing") {
+            try OEDataFolderSettingsReset.perform(at: preferencesRoot, emptyCredentials: emptyCredentials, validateRoot: {}) {
+                check(false, "invalid target must not reach the preferences commit")
+            }
+        }
+        check(try Data(contentsOf: external) == Data("do not follow this link".utf8), "external link target is untouched")
+        check(try Data(contentsOf: credentialsFile) == oldCredentials, "preflight failure does not change credentials")
+        try fm.removeItem(at: linkedBindings)
+
+        preferences.set(true, forKey: "setupAssistantFinished")
+        try OEDataFolderSettingsReset.perform(at: preferencesRoot, emptyCredentials: emptyCredentials, validateRoot: {}) {
+            try preferences.resetForTermination()
+        }
+        let resetSettings = try PropertyListSerialization.propertyList(from: Data(contentsOf: settingsURL), format: nil) as? [String: Any]
+        let resetBindings = try PropertyListSerialization.propertyList(from: Data(contentsOf: bindingsFile), format: nil) as? [String: Any]
+        check(resetSettings?.isEmpty == true && resetBindings?.isEmpty == true, "all persisted preferences and mappings are empty")
+        check(try Data(contentsOf: credentialsFile) == emptyCredentials, "credential transaction writes only supplied empty store")
+        preferences.set(true, forKey: "setupAssistantFinished")
+        check(try Data(contentsOf: settingsURL) == PropertyListSerialization.data(fromPropertyList: [String: String](), format: .binary, options: 0),
+              "late termination writes cannot finish setup again")
+        check(try OEDataFolderIdentity.read(at: preferencesRoot) == preferencesIdentity, "reset preserves data-folder identity")
+        check(fm.fileExists(atPath: settingsURL.appendingPathExtension("lock").path), "reset preserves settings-writer lock file")
+        for path in retained {
+            check(try Data(contentsOf: preferencesRoot.appendingPathComponent(path)) == Data("must be retained".utf8),
+                  "reset does not alter user asset: \(path)")
+        }
         print("PASS: data-folder identity, path rebasing, concurrent Cocoa adapter access, KVO and checkbox binding")
+        print("PASS: settings reset, rollback, link rejection, late-write suppression and game-data preservation")
     }
 }

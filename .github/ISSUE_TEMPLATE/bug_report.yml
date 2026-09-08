@@ -94,9 +94,9 @@ body:
   - type: input
     id: version
     attributes:
-      label: OpenEmu-Intel Version or Commit
-      description: Found in OpenEmu → About, or paste the git commit hash
-      placeholder: e.g., v1.4.2 or a1b2c3d
+      label: OpenEmu Reborn Version or Commit
+      description: Found in OpenEmu Reborn → About, or paste the git commit hash; core versions are separate
+      placeholder: e.g., 1.0.0 or a1b2c3d
     validations:
       required: true
 

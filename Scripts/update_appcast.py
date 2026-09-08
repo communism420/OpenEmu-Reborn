@@ -66,8 +66,8 @@ def main():
     ed_sig = sys.argv[5]
     length = sys.argv[6]
     notes_file = sys.argv[7] if len(sys.argv) >= 8 else None
-    release_repo = os.environ.get('OPENEMU_RELEASE_REPO', 'communism420/OpenEmu-Intel')
-    dmg_name = os.environ.get('OPENEMU_DMG_NAME', 'OpenEmu-Intel.dmg')
+    release_repo = os.environ.get('OPENEMU_RELEASE_REPO', 'communism420/OpenEmu-Reborn')
+    dmg_name = os.environ.get('OPENEMU_DMG_NAME', 'OpenEmu-Reborn.dmg')
 
     if notes_file:
         notes_html = markdown_to_html(notes_file)
@@ -75,10 +75,10 @@ def main():
         notes_html = '<p>TODO: add release notes before publishing.</p>'
 
     new_item = f"""    <item>
-      <title>OpenEmu-Intel {version}</title>
+      <title>OpenEmu Reborn {version}</title>
       <description>
         <![CDATA[
-        <h2>OpenEmu-Intel {version}</h2>
+        <h2>OpenEmu Reborn {version}</h2>
         {notes_html}
         ]]>
       </description>

@@ -30,12 +30,12 @@ REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 APPCAST="$REPO_ROOT/appcast.xml"
 PLIST="$REPO_ROOT/OpenEmu/OpenEmu-Info.plist"
 HELPER_PLIST="$REPO_ROOT/OpenEmu/OpenEmuHelperApp/OpenEmuHelperApp-Info.plist"
-DMG_NAME="${OPENEMU_DMG_NAME:-OpenEmu-Intel.dmg}"
+DMG_NAME="${OPENEMU_DMG_NAME:-OpenEmu-Reborn.dmg}"
 DMG="$REPO_ROOT/Releases/$DMG_NAME"
 IDENTITY="${OPENEMU_SIGNING_IDENTITY:-Developer ID Application}"
 DEVELOPMENT_TEAM="${OPENEMU_DEVELOPMENT_TEAM:-}"
 NOTARY_PROFILE="${OPENEMU_NOTARY_PROFILE:-OpenEmu-Intel}"
-RELEASE_REPO="${OPENEMU_RELEASE_REPO:-communism420/OpenEmu-Intel}"
+RELEASE_REPO="${OPENEMU_RELEASE_REPO:-communism420/OpenEmu-Reborn}"
 RELEASE_WEB_URL="https://github.com/$RELEASE_REPO"
 SENTRY_ORG="${OPENEMU_SENTRY_ORG:-}"
 SENTRY_PROJECT="${OPENEMU_SENTRY_PROJECT:-}"
@@ -397,7 +397,7 @@ else
   echo "Creating draft release $TAG..."
   gh release create "$TAG" "$DMG" \
     --repo "$RELEASE_REPO" \
-    --title "OpenEmu-Intel $VERSION" \
+    --title "OpenEmu Reborn $VERSION" \
     --draft \
     "${GH_NOTES_ARGS[@]}"
 fi

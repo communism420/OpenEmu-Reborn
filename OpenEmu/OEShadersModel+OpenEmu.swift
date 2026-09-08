@@ -22,9 +22,56 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import Foundation
+import AppKit
 import OpenEmuKit
 import OpenEmuBase
+
+/// Menu labels may be translated, but shader lookup and preferences always use
+/// the original name carried by each item's representedObject.
+enum OEShaderMenu {
+    static let noShaderName = "No Shader"
+
+    static func displayName(for name: String) -> String {
+        name == noShaderName ? NSLocalizedString("No Shader", comment: "Shader option: display the game without a shader") : name
+    }
+
+    @MainActor
+    static func makeMenu(store: OEShaderStore, selectedShaderName: String, action: Selector?) -> NSMenu {
+        let menu = NSMenu()
+        func add(_ name: String) {
+            let item = NSMenuItem(title: displayName(for: name), action: action, keyEquivalent: "")
+            item.representedObject = name
+            item.state = name == selectedShaderName ? .on : .off
+            menu.addItem(item)
+        }
+
+        if store.shader(withName: noShaderName) != nil {
+            add(noShaderName)
+            menu.addItem(.separator())
+        }
+        store.sortedSystemShaderNames.filter { $0 != noShaderName }.forEach(add)
+        let customNames = store.sortedCustomShaderNames.filter { $0 != noShaderName }
+        if !customNames.isEmpty {
+            if !menu.items.isEmpty, menu.items.last?.isSeparatorItem == false {
+                menu.addItem(.separator())
+            }
+            customNames.forEach(add)
+        }
+        if menu.items.last?.isSeparatorItem == true { menu.removeItem(at: menu.items.count - 1) }
+        return menu
+    }
+
+    @MainActor
+    @discardableResult
+    static func selectShader(named name: String, in picker: NSPopUpButton) -> Bool {
+        guard let item = picker.itemArray.first(where: { $0.representedObject as? String == name }) else { return false }
+        picker.select(item)
+        for candidate in picker.itemArray where !candidate.isSeparatorItem {
+            candidate.state = candidate === item ? .on : .off
+        }
+        return true
+    }
+}
 
 extension OEShaderStore {
     @objc

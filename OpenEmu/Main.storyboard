@@ -54,7 +54,7 @@
                                 <connections>
                                     <binding destination="Slx-nK-pNK" name="displayPatternValue1" keyPath="appVersion" id="NHd-G1-uJw">
                                         <dictionary key="options">
-                                            <string key="NSDisplayPattern">OpenEmu v%{value1}@</string>
+                                            <string key="NSDisplayPattern">OpenEmu Reborn v%{value1}@</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -118,9 +118,9 @@
                                 </scroller>
                             </scrollView>
                             <button focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cm1-gR-GtS" customClass="TextButton" customModule="OpenEmu" customModuleProvider="target">
-                                <rect key="frame" x="127" y="138" width="147" height="21"/>
+                                <rect key="frame" x="20" y="138" width="360" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="github.com/communism420/OpenEmu-Intel" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="50H-ys-sAp">
+                                <buttonCell key="cell" type="bevel" title="github.com/communism420/OpenEmu-Reborn" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="50H-ys-sAp">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -129,9 +129,9 @@
                                 </connections>
                             </button>
                             <button focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-1E-ygn" customClass="TextButton" customModule="OpenEmu" customModuleProvider="target">
-                                <rect key="frame" x="113" y="17" width="176" height="32"/>
+                                <rect key="frame" x="20" y="17" width="360" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="github.com/communism420/OpenEmu-Intel/releases" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="y9C-BZ-tbY">
+                                <buttonCell key="cell" type="bevel" title="github.com/communism420/OpenEmu-Reborn/releases" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="y9C-BZ-tbY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -157,8 +157,8 @@
                 <application id="INy-Cz-wMr" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="jZB-nW-7Ql">
                         <items>
-                            <menuItem title="OpenEmu" id="975">
-                                <menu key="submenu" title="OpenEmu" systemMenu="apple" id="1013">
+                            <menuItem title="OpenEmu Reborn" id="975">
+                                <menu key="submenu" title="OpenEmu Reborn" systemMenu="apple" id="1013">
                                     <items>
                                         <menuItem title="About OpenEmu" id="1017">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -831,7 +831,7 @@ DQ
                                         <menuItem isSeparatorItem="YES" id="1030">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="OpenEmu" tag="501" keyEquivalent="1" id="1029">
+                                        <menuItem title="OpenEmu Reborn" tag="501" keyEquivalent="1" id="1029">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="showOpenEmuWindow:" target="-1" id="1158"/>

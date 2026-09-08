@@ -411,6 +411,9 @@
 		8FA87C5A2725F25500B65986 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BC9561853815A00B6AF26 /* SQLiteDatabase.swift */; };
 		8FAD320225B31FB100323020 /* URL+OEAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD320125B31FB000323020 /* URL+OEAdditions.swift */; };
 		DADAF01D2026090500000001 /* OEDataFolderSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADAF01D2026090500000002 /* OEDataFolderSetup.swift */; };
+		DADAF01D2026090600000011 /* OEDataRemoval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADAF01D2026090600000012 /* OEDataRemoval.swift */; };
+		DADAF01D2026090600000021 /* OEDataRemovalDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADAF01D2026090600000022 /* OEDataRemovalDialog.swift */; };
+		DADAF01D2026090600000031 /* OEDataRemovalWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADAF01D2026090600000032 /* OEDataRemovalWorker.swift */; };
 		8FAF08D8251FB65D00EDB247 /* HoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAF069A251FB02700EDB247 /* HoverButton.swift */; };
 		8FB8A29526E296BD00F2B626 /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306CD1F1BD3AC3D0025BC6C /* SidebarItem.swift */; };
 		8FBAE60C254BA0D300446C3B /* OEControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FBAE60E254BA0D300446C3B /* OEControls.strings */; };
@@ -1579,6 +1582,9 @@
 		8F99F815256BF358007B83E1 /* SidebarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarController.xib; sourceTree = "<group>"; };
 		8FAD320125B31FB000323020 /* URL+OEAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+OEAdditions.swift"; sourceTree = "<group>"; };
 		DADAF01D2026090500000002 /* OEDataFolderSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OEDataFolderSetup.swift; sourceTree = "<group>"; };
+		DADAF01D2026090600000012 /* OEDataRemoval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OEDataRemoval.swift; sourceTree = "<group>"; };
+		DADAF01D2026090600000022 /* OEDataRemovalDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OEDataRemovalDialog.swift; sourceTree = "<group>"; };
+		DADAF01D2026090600000032 /* OEDataRemovalWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OEDataRemovalWorker.swift; sourceTree = "<group>"; };
 		8FAF069A251FB02700EDB247 /* HoverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverButton.swift; sourceTree = "<group>"; };
 		8FBAE647254BA0DF00446C3B /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/OEControls.strings; sourceTree = "<group>"; };
 		8FBAE9EA254BD7FA00446C3B /* NSControl+i18n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSControl+i18n.swift"; sourceTree = "<group>"; };
@@ -2757,6 +2763,9 @@
 				5A9606D51C0A7C9D0089B494 /* NSWindow+FullScreen.swift */,
 				8FAD320125B31FB000323020 /* URL+OEAdditions.swift */,
 				DADAF01D2026090500000002 /* OEDataFolderSetup.swift */,
+				DADAF01D2026090600000012 /* OEDataRemoval.swift */,
+				DADAF01D2026090600000022 /* OEDataRemovalDialog.swift */,
+				DADAF01D2026090600000032 /* OEDataRemovalWorker.swift */,
 				05A002D323DE1006007F0DB7 /* UserDefaults+OEAdditions.swift */,
 				0544B6AB23D16E7A00F63D61 /* OEResponder.h */,
 				836BC9581853817500B6AF26 /* XADArchive+OE.h */,
@@ -6421,6 +6430,9 @@
 				059ECCC22524030D00DCA0F6 /* ShaderParametersWindowController.swift in Sources */,
 				8FAD320225B31FB100323020 /* URL+OEAdditions.swift in Sources */,
 				DADAF01D2026090500000001 /* OEDataFolderSetup.swift in Sources */,
+				DADAF01D2026090600000011 /* OEDataRemoval.swift in Sources */,
+				DADAF01D2026090600000021 /* OEDataRemovalDialog.swift in Sources */,
+				DADAF01D2026090600000031 /* OEDataRemovalWorker.swift in Sources */,
 				05E789A723D01B16000E14EE /* GameDocumentController.swift in Sources */,
 				05E789AB23D0256D000E14EE /* NSBindingName+Additions.swift in Sources */,
 				0544B6A923D16DDC00F63D61 /* ScreenshotViewController.swift in Sources */,
@@ -8422,7 +8434,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.OpenEmu.debug;
 				PRODUCT_NAME = OpenEmu;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
@@ -8462,7 +8474,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.$(PRODUCT_NAME:identifier)";
 				PRODUCT_NAME = OpenEmu;
 				SWIFT_OBJC_BRIDGING_HEADER = "OpenEmu-Bridging-Header.h";

@@ -2,18 +2,17 @@
 
 ## Supported Versions
 
-Only the latest release receives security fixes. Older versions are not patched.
-
-| Version | Supported |
-|---------|-----------|
-| 1.2.5 (latest) | ✅ |
-| < 1.2.5 | ❌ |
+OpenEmu Reborn `1.0.0` is the new application's development version line. No
+Reborn release has been published yet. This independent fan-maintained project
+does not promise a security-support period or response deadline. Upstream
+OpenEmu-Silicon version numbers and security claims do not automatically apply
+to Reborn; emulator cores retain their own versions and upstream policies.
 
 ## Reporting a Vulnerability
 
 **Please do not open a public GitHub issue for security vulnerabilities.**
 
-Report vulnerabilities privately using [GitHub's private vulnerability reporting](https://github.com/communism420/OpenEmu-Intel/security/advisories/new). This keeps the details confidential until a fix is available.
+If enabled for this repository, use [GitHub's private vulnerability reporting](https://github.com/communism420/OpenEmu-Reborn/security/advisories/new). If it is unavailable, ask the maintainer for a private reporting channel without disclosing the vulnerability in a public issue or PR. Do not report Reborn-specific vulnerabilities to another fork merely because its reporting form is available.
 
 Include as much of the following as you can:
 
@@ -24,8 +23,8 @@ Include as much of the following as you can:
 
 ## Response Process
 
-- You will receive acknowledgement within **7 days**
-- If the report is confirmed, a fix will be prioritised based on severity
+- Reports are handled on a best-effort basis; there is no acknowledgement deadline
+- Confirmed reports are assessed by severity and the maintainer's available capacity
 - You will be credited in the release notes unless you prefer to remain anonymous
 
 ## Scope
@@ -40,4 +39,4 @@ Out of scope: vulnerabilities in upstream emulation cores (report those to the r
 
 ## Privacy Policy
 
-For information on how the app handles user data, see the [Privacy Policy](docs/privacy-policy.md).
+For information on how the app handles user data, see the [Privacy Policy](../docs/privacy-policy.md).

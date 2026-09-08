@@ -27,7 +27,17 @@
 	<key>ALERT_INPUT_MONITORING_PART2_MONTEREY</key>
 	<string>Удаление и повторное предоставление разрешения может также исправить проблемы с вводом с клавиатуры.</string>
 	<key>ALERT_INPUT_MONITORING_PART2_TAHOE</key>
-	<string>Click &quot;Open System Settings&quot; below, find OpenEmu in the list, and enable the toggle. Then relaunch the app for the change to take effect.</string>
+	<string>Нажмите «Открыть системные настройки», найдите OpenEmu в списке и включите доступ. Затем перезапустите приложение, чтобы изменение вступило в силу.</string>
+	<key>Open System Settings</key>
+	<string>Открыть системные настройки</string>
+	<key>Check Again</key>
+	<string>Проверить снова</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>Если OpenEmu уже включён в списке, macOS может проверять другую или заново собранную копию. Закройте и снова откройте именно эту копию, затем повторите проверку. Сброс настроек OpenEmu не сбрасывает разрешения macOS.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu закроется и удалит выбранные данные, включая Settings.plist и файл блокировки. При следующем запуске начальная настройка повторится. Удалённые файлы можно восстановить из Корзины. Скрытые маркеры папки и пустое хранилище учётных записей могут остаться.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu закроется и удалит выбранные данные. Настройки приложения и выбор папки данных сохранятся. Удалённые файлы можно восстановить из Корзины. Скрытые маркеры папки и пустое хранилище учётных записей могут остаться.</string>
 	<key>ALERT_MOVE_LIBRARY_HTML</key>
 	<string>Библиотека игр OpenEmu содержит файл базы данных, который может быть повреждён при перемещении библиотеки в следующие места:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Папки, управляемые ПО для синхронизации с облаком (например, &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Сетевые диски&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;В дополнение к этому, &lt;b&gt;совместное использование библиотеки между несколькими компьютерами или пользователями&lt;/b&gt; может также повредить её. Это также касается перемещения библиотеки на внешние USB-накопители.</string>
 	<key>Add</key>
@@ -753,6 +763,8 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>Показаны первые %1$@ из %2$@ совпадений, уточните поиск</string>
 
+	<key>No Shader</key>
+	<string>Без шейдера</string>
 	<key>Choose OpenEmu Data Folder</key>
 	<string>Выберите папку данных OpenEmu</string>
 	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>

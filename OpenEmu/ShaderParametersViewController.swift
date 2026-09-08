@@ -67,6 +67,8 @@ final class ShaderParametersViewController: NSViewController {
     
     func loadPreset() {
         let preset = shaderControl.preset
+        // Selection must update even for shaders with no adjustable parameters.
+        OEShaderMenu.selectShader(named: preset.shader.name, in: shaderListPopUpButton)
         
         if #available(macOS 10.15, *) {
             selectPresetInList(preset)
@@ -90,13 +92,6 @@ final class ShaderParametersViewController: NSViewController {
             noParametersLabel.isHidden = true
             // update with existing user preferences
             params.apply(parameters: preset.parameters)
-            
-            for item in shaderListPopUpButton.menu?.items ?? [] {
-                if item.title == preset.shader.name {
-                    shaderListPopUpButton.select(item)
-                    break
-                }
-            }
         } else {
             avc?.isHidden = true
             noParametersLabel.isHidden = false
@@ -119,31 +114,11 @@ final class ShaderParametersViewController: NSViewController {
     }
     
     private func loadShaderMenu() {
-        
-        let shaderMenu = NSMenu()
-        
-        let systemShaders = OEShaderStore.shared.sortedSystemShaderNames
-        systemShaders.forEach { shaderName in
-            shaderMenu.addItem(withTitle: shaderName, action: #selector(GameViewController.selectShader(_:)), keyEquivalent: "")
-        }
-        
-        let customShaders = OEShaderStore.shared.sortedCustomShaderNames
-        if !customShaders.isEmpty {
-            shaderMenu.addItem(.separator())
-            
-            customShaders.forEach { shaderName in
-                shaderMenu.addItem(withTitle: shaderName, action: #selector(GameViewController.selectShader(_:)), keyEquivalent: "")
-            }
-        }
-        
-        shaderListPopUpButton.menu = shaderMenu
-        
         let selectedShader = shaderControl.preset.shader.name
-        
-        if shaderListPopUpButton.item(withTitle: selectedShader) != nil {
-            shaderListPopUpButton.selectItem(withTitle: selectedShader)
-        } else {
-            shaderListPopUpButton.selectItem(withTitle: OEShaderStore.shared.defaultShaderName)
+        shaderListPopUpButton.menu = OEShaderMenu.makeMenu(store: .shared,
+            selectedShaderName: selectedShader, action: #selector(GameViewController.selectShader(_:)))
+        if !OEShaderMenu.selectShader(named: selectedShader, in: shaderListPopUpButton) {
+            OEShaderMenu.selectShader(named: OEShaderStore.shared.defaultShaderName, in: shaderListPopUpButton)
         }
     }
     
@@ -184,9 +159,7 @@ final class ShaderParametersViewController: NSViewController {
         set {
             willChangeValue(for: \.groups)
             
-            if let groups = newValue {
-                _groups = groups.filter { !$0.hidden }
-            }
+            _groups = newValue?.filter { !$0.hidden }
             
             didChangeValue(for: \.groups)
             

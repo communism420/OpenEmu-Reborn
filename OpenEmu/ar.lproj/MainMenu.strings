@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>About OpenEmu</key>
-	<string>عن OpenEmu</string>
+	<string>عن OpenEmu Reborn</string>
 	<key>Always Hide HUD</key>
 	<string>دائمًا اخفي شريط التحكم داخل نافذة اللعبة</string>
 	<key>Back Up…</key>
@@ -53,7 +53,7 @@
 	<key>Help</key>
 	<string>مساعدة</string>
 	<key>Hide OpenEmu</key>
-	<string>إخفاء OpenEmu</string>
+	<string>إخفاء OpenEmu Reborn</string>
 	<key>Hide Others</key>
 	<string>إخفاء نوافذ البرامج الأخرى</string>
 	<key>Import Collection</key>
@@ -79,7 +79,7 @@
 	<key>Next Display Mode</key>
 	<string>وضع العرض التالي</string>
 	<key>OpenEmu Web Site</key>
-	<string>موقع OpenEmu</string>
+	<string>موقع OpenEmu Reborn</string>
 	<key>Organize Library…</key>
 	<string>ترتيب المكتبة…</string>
 	<key>Page Setup…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>طباعة…</string>
 	<key>Quit OpenEmu</key>
-	<string>الخروج من OpenEmu</string>
+	<string>الخروج من OpenEmu Reborn</string>
 	<key>Redo</key>
 	<string>عدم التراجع</string>
 	<key>Release Notes</key>

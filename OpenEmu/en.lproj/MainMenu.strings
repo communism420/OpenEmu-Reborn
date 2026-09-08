@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>About OpenEmu</key>
-	<string>About OpenEmu</string>
+	<string>About OpenEmu Reborn</string>
 	<key>Always Hide HUD</key>
 	<string>Always Hide HUD</string>
 	<key>Back Up…</key>
@@ -53,7 +53,7 @@
 	<key>Help</key>
 	<string>Help</string>
 	<key>Hide OpenEmu</key>
-	<string>Hide OpenEmu</string>
+	<string>Hide OpenEmu Reborn</string>
 	<key>Hide Others</key>
 	<string>Hide Others</string>
 	<key>Import Collection</key>
@@ -79,7 +79,7 @@
 	<key>Next Display Mode</key>
 	<string>Next Display Mode</string>
 	<key>OpenEmu Web Site</key>
-	<string>OpenEmu Web Site</string>
+	<string>OpenEmu Reborn Web Site</string>
 	<key>Organize Library…</key>
 	<string>Organize Library…</string>
 	<key>Page Setup…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>Print…</string>
 	<key>Quit OpenEmu</key>
-	<string>Quit OpenEmu</string>
+	<string>Quit OpenEmu Reborn</string>
 	<key>Redo</key>
 	<string>Redo</string>
 	<key>Release Notes</key>

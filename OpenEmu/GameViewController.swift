@@ -303,7 +303,7 @@ final class GameViewController: NSViewController {
     // MARK: - HUD Bar Actions
     
     func selectShader(_ sender: NSMenuItem) {
-        let shaderName = sender.title
+        guard let shaderName = sender.representedObject as? String else { return }
         if let shader = OEShaderStore.shared.shader(withName: shaderName) {
             shaderControl.changeShader(shader)
         }
