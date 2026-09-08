@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 REPOSITORY = Path(__file__).resolve().parents[2]
 BRAND = 'OpenEmu Reborn'
 BUNDLE_ID = 'org.openemu.OpenEmu'
-SPARKLE_KEY = 'wVICc/NGoDFzkEbDb63QMFpKlRs14e/WhIiwIngQGsg='
+SPARKLE_KEY = 'C1aUBkg5G0afqAq9XhxxFKaDO0PsMRAxmLkMUdKSIC4='
 CORE_CATALOG = 'https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/oecores.xml'
 MENU_KEYS = ('About OpenEmu', 'Hide OpenEmu', 'Quit OpenEmu', 'OpenEmu Web Site')
 
@@ -84,17 +84,19 @@ class RebornAppBrandingTests(unittest.TestCase):
             self.assertIn('OpenEmu', modules)
             self.assertFalse(any('Reborn' in module for module in modules))
 
-    def test_core_update_and_signing_identity_are_preserved(self):
+    def test_update_trust_does_not_rename_local_signing_identity(self):
         self.assertEqual(self.info['SUPublicEDKey'], SPARKLE_KEY)
         self.assertEqual(self.info['OECoreListURL'], CORE_CATALOG)
         self.assertEqual(self.info['SUFeedURL'],
                          'https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/appcast.xml')
         updater = read('OpenEmu/CoreUpdater.swift')
-        prefixes = re.search(r'armOnlyCoreFeedPrefixes\s*=\s*\[(.*?)\]', updater, re.DOTALL)
-        self.assertIsNotNone(prefixes)
-        for repository in ('OpenEmu-Silicon/OpenEmu-Silicon', 'communism420/OpenEmu-Intel', 'communism420/OpenEmu-Reborn'):
-            self.assertIn(f'https://raw.githubusercontent.com/{repository}/', prefixes.group(1))
-        self.assertIn('https://raw.githubusercontent.com/OpenEmu/OpenEmu-Update/master/oecores.xml', updater)
+        self.assertIn('OECoreUpdateSecurity.catalogURL()', updater)
+        self.assertNotIn('OpenEmu-Update/master/oecores.xml', updater)
+        for arch in ('arm64', 'x86_64'):
+            self.assertEqual(self.info['OECoreUpdateCatalogs'][arch],
+                             f'https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/{arch}/oecores.xml')
+        self.assertTrue(self.info['SUVerifyUpdateBeforeExtraction'])
+        self.assertNotIn('refreshStaleCoreFeedURLs', read('OpenEmu/AppDelegate.swift'))
         identity = read('Scripts/Signing/CreateSigningIdentity.swift')
         self.assertIn('"OpenEmu-Intel Local Signing"', identity)
         self.assertIn('"org.openemu.OpenEmu-Intel.local-code-signing.v1"', identity)
@@ -149,7 +151,7 @@ class RebornAppBrandingTests(unittest.TestCase):
         self.assertEqual(app.name, 'OpenEmu.app')
         actual = plist(app / 'Contents/Info.plist')
         for key in ('CFBundleName', 'CFBundleDisplayName', 'CFBundleShortVersionString',
-                    'SUPublicEDKey', 'OECoreListURL', 'SUFeedURL'):
+                    'SUPublicEDKey', 'OECoreListURL', 'OECoreUpdateCatalogs', 'SUFeedURL', 'SUVerifyUpdateBeforeExtraction'):
             self.assertEqual(actual[key], self.info[key], key)
         self.assertEqual(build_components(actual['CFBundleVersion']), build_components(self.info['CFBundleVersion']))
         self.assertEqual(actual['CFBundleIdentifier'], BUNDLE_ID)
@@ -167,7 +169,7 @@ class RebornAppBrandingTests(unittest.TestCase):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--expected-version', default='1.0.0')
-    parser.add_argument('--expected-build', default='22')
+    parser.add_argument('--expected-build', default='23')
     parser.add_argument('--app', type=Path)
     OPTIONS = parser.parse_args()
     unittest.main(argv=['test-reborn-app-branding.py'], verbosity=2)

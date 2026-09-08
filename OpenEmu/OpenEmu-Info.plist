@@ -143,7 +143,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>22</string>
+	<string>23</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.games</string>
 	<key>LSMinimumSystemVersion</key>
@@ -173,6 +173,13 @@
 	<string>~/Library/Application Support/OpenEmu/Cores/</string>
 	<key>OECoreListURL</key>
 	<string>https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/oecores.xml</string>
+	<key>OECoreUpdateCatalogs</key>
+	<dict>
+		<key>arm64</key>
+		<string>https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/oecores.xml</string>
+		<key>x86_64</key>
+		<string>https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/x86_64/oecores.xml</string>
+	</dict>
 	<key>OELongBuildVersion</key>
 	<string></string>
 	<key>OESentryDSN</key>
@@ -184,7 +191,9 @@
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>wVICc/NGoDFzkEbDb63QMFpKlRs14e/WhIiwIngQGsg=</string>
+	<string>C1aUBkg5G0afqAq9XhxxFKaDO0PsMRAxmLkMUdKSIC4=</string>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

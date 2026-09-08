@@ -316,25 +316,36 @@ Bump rules:
 
 ## Core update channel
 
-Every shipped core plugin embeds a `SUFeedURL` in its `Info.plist`. The custom updater reads it from the **installed** plugin bundle, so it controls updates for users who already have the core.
+The host owns update trust and selects **separate** Reborn catalogs for `arm64`
+and `x86_64` from `OECoreUpdateCatalogs` in its signed Info.plist. Core feeds live
+under `Updates/cores/<architecture>/`; every downloadable archive requires an
+Ed25519 signature verified using the application's pinned `SUPublicEDKey` BEFORE
+extraction. Neither a downloaded catalog nor a mutable plugin plist supplies a
+trusted key. Never add an unsigned/ad-hoc fallback to archive authentication.
 
-The canonical pattern, used by all cores nickybmon ships, is:
+**Publication gate:** do not deploy the new catalog URLs until all 28 native
+cores for EACH architecture have verified, publicly available archives and the
+catalogs are published. CI success alone is not a release. The preparation script
+checks source revision, bundle identity/version, digest, safe ZIP contents and
+all binary architectures before signing. Private keys stay only in the maintainer's
+Keychain (`org.openemu.Reborn.updates`), never in git/CI/Releases.
+
+Existing core `SUFeedURL` values remain the inherited Silicon URLs:
 
 ```
 https://raw.githubusercontent.com/OpenEmu-Silicon/OpenEmu-Silicon/main/Appcasts/<core>.xml
 ```
 
-`<core>` is the lowercased core name (e.g. `dolphin`, `mednafen`, `bluemsx`). These URLs remain owned by OpenEmu-Silicon. Files under `Appcasts/` in this fork are mirrors and are not a fork-owned publication channel.
+Do not rewrite or re-sign installed core bundles merely to change these URLs.
+This host routes through its own trusted catalogs, so plugin-embedded legacy feeds
+cannot override it. `Appcasts/` remains a historical mirror, not the new service.
+`Scripts/check-core-feed-urls.sh` continues guarding legacy bundle metadata.
 
-Rules:
-
-- Keep existing Apple Silicon core feed URLs intact until this fork owns a complete architecture-aware core catalog and feed.
-- Do not point a core at this fork's `Appcasts/` directory yet. Intel deliberately blocks the ARM-only fork/Silicon feeds, and publishing a thin build there would be unsafe for the other architecture.
-- `Scripts/check-core-feed-urls.sh` enforces both rules and is wired into `Scripts/verify.sh --core` as a precondition.
-- `Scripts/package-core.sh` produces universal, manual test artifacts only and requires an explicit DerivedData path. It does not publish them.
-- `Scripts/update_core_appcast.py --sign-zip <path-to-zip>` refuses non-universal archives and writes Sparkle signature metadata. The current custom core updater does not verify that EdDSA field, so do not describe core downloads as cryptographically authenticated until verification is implemented.
-
-The app selects its downloadable core catalog at runtime. Apple Silicon uses the OpenEmu-Silicon catalog; Intel uses the legacy official OpenEmu catalog as a compatibility bootstrap so it receives `x86_64` releases. That catalog is still served from a mutable `master` URL; downloaded bundles must therefore pass runtime architecture validation before replacing an installed core. Do not replace the CPU-specific selection with one shared catalog. Fork-only cores without published `x86_64` artifacts must be built locally on Intel for now.
+Updates and user-requested core rollbacks activate after restart; do not swap
+live cached controllers or unload a running core. Metadata reflects the installed
+pending version, and the UI reports that a restart is required. Never claim a new
+upstream version merely because a core was repackaged; publish the source actually
+built. See [docs/updates.md](docs/updates.md) for migration, tests and publication.
 
 ---
 
