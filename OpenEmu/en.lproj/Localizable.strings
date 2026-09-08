@@ -765,5 +765,23 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>Showing first %1$@ of %2$@ matches, narrow your search</string>
 
+	<key>Restart Required</key>
+	<string>Restart Required</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>This core update feed is not trusted by this copy of OpenEmu Reborn.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>The core update is missing valid signature, size, or processor information.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>The core update signature is invalid. Nothing has been installed.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>The downloaded core archive has an unexpected size. Nothing has been installed.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>The core update server did not return a successful HTTPS response.</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>No compatible, verified download is available for this core. Check for updates again.</string>
+	<key>A core update check is already in progress.</key>
+	<string>A core update check is already in progress.</string>
 </dict>
 </plist>
