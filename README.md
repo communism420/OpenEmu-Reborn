@@ -44,7 +44,7 @@ The project integrates cores for NES, SNES, Game Boy / GBC, Game Boy Advance, Ni
 
 The Intel test package contains 28 native core bundles. App-only updates can reuse them without recompilation. **A new app version does not mean the cores were updated to the latest upstream emulator versions.** See [test-build notes](docs/intel-test-build.md) for provenance and limitations.
 
-Core availability still differs between architectures. Apple Silicon uses the OpenEmu-Silicon catalog; Intel uses the legacy official OpenEmu catalog as a compatibility fallback. Some fork-only Intel cores must be built from source or supplied in a package. The mirrored `Appcasts/` directory is not a new architecture-aware core update service.
+The new updater uses separate Reborn catalogs for Apple Silicon and Intel, with archives authenticated before extraction. A complete release must publish all 28 verified cores for each architecture before advertising these catalogs. The older `Appcasts/` mirrors and plugin-embedded Silicon URLs are not this new channel. See [update safety and publication](docs/updates.md) for the release gate and the one-time migration from earlier test builds.
 
 The Nintendo 64 integration currently uses interpreter fallbacks, with a performance cost. Save states can depend on core, version and architecture; back them up before changing these. RetroAchievements support also depends on the system and core: inherited integrations are not a claim of separate Reborn certification.
 

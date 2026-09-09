@@ -1,32 +1,40 @@
 #!/usr/bin/env bash
-# release.sh — Full local release: archive → sign → notarize → DMG → appcast → GitHub draft
+# release.sh — Prepare a signed archive, then advertise it only after publication.
 #
 # Usage:
-#   ./Scripts/release.sh <version>              # e.g. 1.0.4
-#   ./Scripts/release.sh <version> [notes.md]  # optional release notes file
+#   ./Scripts/release.sh <version> <notes.md>  # paid, notarized mode
+#   ./Scripts/release.sh --self-signed <version> <notes.md> --app <app> \
+#       --arch universal --signing-identity <exact SHA-1> --output <new directory>
+#   ./Scripts/release.sh --advertise <prepared-update.json>
 #
 # What it does:
 #   1. Archives the app with xcodebuild
 #   2. Calls notarize.sh (re-sign, notarize, DMG, staple)
 #   3. Runs sign_update to get the EdDSA signature
-#   4. Prepends a new entry to appcast.xml
-#   5. Commits/pushes metadata and immediately opens a draft PR
-#   6. Tags that exact release commit
-#   7. Creates a draft GitHub Release and uploads the DMG
+#   4. Saves verified update metadata beside the archive
+#   5. Prints the explicit draft/publication steps (no Git or GitHub writes)
 #
 # What it does NOT do:
-#   - Publish the GitHub Release (stays as draft — you review and publish manually)
+#   - Publish a GitHub Release, tag, push, commit or open a PR
+#   - Advertise a draft, missing or mismatched archive in the live appcast
+#   - Rebuild cores (the self-signed path does not build the host either)
 #   - Bump version numbers in the Xcode project (do that before running this script)
 #
-# Requirements:
+# Requirements for the default notarized mode only:
 #   - xcrun notarytool credentials stored under OPENEMU_NOTARY_PROFILE
-#   - gh CLI authenticated: gh auth status
 #   - Developer ID cert in your keychain
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+if [ "${1:-}" = "--self-signed" ]; then
+  shift
+  exec bash "$SCRIPT_DIR/prepare-self-signed-update.sh" "$@"
+elif [ "${1:-}" = "--advertise" ]; then
+  [ "$#" -eq 2 ] || { echo "Usage: $0 --advertise <prepared-update.json>" >&2; exit 2; }
+  exec python3 "$SCRIPT_DIR/update_appcast.py" --manifest "$2"
+fi
 APPCAST="$REPO_ROOT/appcast.xml"
 PLIST="$REPO_ROOT/OpenEmu/OpenEmu-Info.plist"
 HELPER_PLIST="$REPO_ROOT/OpenEmu/OpenEmuHelperApp/OpenEmuHelperApp-Info.plist"
@@ -36,32 +44,36 @@ IDENTITY="${OPENEMU_SIGNING_IDENTITY:-Developer ID Application}"
 DEVELOPMENT_TEAM="${OPENEMU_DEVELOPMENT_TEAM:-}"
 NOTARY_PROFILE="${OPENEMU_NOTARY_PROFILE:-OpenEmu-Intel}"
 RELEASE_REPO="${OPENEMU_RELEASE_REPO:-communism420/OpenEmu-Reborn}"
-RELEASE_WEB_URL="https://github.com/$RELEASE_REPO"
 SENTRY_ORG="${OPENEMU_SENTRY_ORG:-}"
 SENTRY_PROJECT="${OPENEMU_SENTRY_PROJECT:-}"
 SENTRY_RELEASE_PREFIX="${OPENEMU_SENTRY_RELEASE_PREFIX:-openemu-intel}"
+SPARKLE_ACCOUNT="${OPENEMU_SPARKLE_ACCOUNT:-org.openemu.Reborn.updates}"
 
 die() { echo ""; echo "ERROR: $*" >&2; exit 1; }
 step() { echo ""; echo "══════════════════════════════════════"; echo "  $*"; echo "══════════════════════════════════════"; }
 
 # ── Args ──────────────────────────────────────────────────────────────────────
-[ $# -ge 1 ] || die "Usage: $0 <version> [release-notes.md]"
+[ $# -eq 2 ] || die "Usage: $0 <version> <release-notes.md>"
 VERSION="$1"
 NOTES_FILE="${2:-}"
+[ -f "$NOTES_FILE" ] || die "Provide a release-notes file; placeholder notes are not publishable."
+[ ! -e "$DMG" ] && [ ! -L "$DMG" ] || die "Release archive already exists: $DMG. Preserve the old signed artifact and choose OPENEMU_DMG_NAME explicitly."
+[ ! -e "$REPO_ROOT/Releases/prepared-update-v$VERSION-universal.json" ] \
+  || die "Prepared metadata already exists for this version; do not rebuild an already signed release."
 
 # Validate version format
 [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "Version must be in format X.Y.Z (e.g. 1.0.4)"
 
 # ── Find sign_update ──────────────────────────────────────────────────────────
-SIGN_UPDATE=$(find ~/Library/Developer/Xcode/DerivedData \
+SIGN_UPDATE=${OPENEMU_SIGN_UPDATE:-$(find ~/Library/Developer/Xcode/DerivedData \
   -path "*/artifacts/sparkle/Sparkle/bin/sign_update" \
   -not -path "*/old_dsa_scripts/*" \
-  2>/dev/null | head -1)
+  2>/dev/null | head -1 || true)}
 
 # Fallback: search the repo's SPM cache
 if [ -z "$SIGN_UPDATE" ]; then
   SIGN_UPDATE=$(find "$REPO_ROOT" -path "*/Sparkle/bin/sign_update" \
-    -not -path "*/old_dsa_scripts/*" 2>/dev/null | head -1)
+    -not -path "*/old_dsa_scripts/*" 2>/dev/null | head -1 || true)
 fi
 
 [ -n "$SIGN_UPDATE" ] || die "sign_update not found. Build the project in Xcode first to resolve the Sparkle package."
@@ -85,14 +97,10 @@ xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" &>/dev/null \
   || die "No notarytool credentials found. Run: xcrun notarytool store-credentials $NOTARY_PROFILE --apple-id <id> --team-id $DEVELOPMENT_TEAM --password <app-specific-password>"
 echo "OK: notarytool credentials"
 
-# Check gh CLI
-gh auth status &>/dev/null || die "gh CLI not authenticated. Run: gh auth login"
-echo "OK: gh CLI authenticated"
-
 CURRENT_BRANCH=$(git -C "$REPO_ROOT" rev-parse --abbrev-ref HEAD)
-RELEASE_BRANCH="chore/release-v$VERSION"
+RELEASE_BRANCH="codex/release-v$VERSION"
 if [ "$CURRENT_BRANCH" = "main" ]; then
-  echo "OK: on main — will create release branch $RELEASE_BRANCH"
+  echo "OK: on main (preparation will not modify Git)"
 elif [ "$CURRENT_BRANCH" = "$RELEASE_BRANCH" ]; then
   echo "OK: already on release branch $RELEASE_BRANCH"
 else
@@ -130,20 +138,14 @@ security find-identity -v | grep -q "Developer ID Application" \
   || die "Developer ID Application certificate not found in keychain."
 echo "OK: Developer ID certificate"
 
-# Warn if working tree is dirty (non-appcast files)
-DIRTY=$(git -C "$REPO_ROOT" status --porcelain | grep -v "appcast.xml" | grep -v "Releases/" | grep -v "Dolphin/" | grep -v "OpenEmu-Info.plist" | grep -v "project.pbxproj" | grep -v "SECURITY.md" || true)
+# Release sources must already have been reviewed and committed.
+DIRTY=$(git -C "$REPO_ROOT" status --porcelain)
 if [ -n "$DIRTY" ]; then
-  echo ""
-  echo "WARNING: Working tree has uncommitted changes:"
-  echo "$DIRTY"
-  echo ""
-  read -r -p "Continue anyway? [y/N] " CONFIRM
-  [[ "$CONFIRM" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 0; }
+  die "Commit reviewed release sources through a PR before preparing a release. Working tree is not clean."
 fi
 
-# Verify CFBundleVersion in the plist matches the sparkle:version this script
-# will write into the appcast. Catches the case where the plist was not bumped
-# before running the release script, which causes Sparkle to loop forever.
+# Use the actual app build number and require monotonic publication. Private
+# test builds may have consumed numbers that were never in the public feed.
 PLIST_BUILD_VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$PLIST" 2>/dev/null || true)
 PLIST_MARKETING_VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$PLIST" 2>/dev/null || true)
 SPARKLE_PUBLIC_KEY=$(/usr/libexec/PlistBuddy -c "Print SUPublicEDKey" "$PLIST" 2>/dev/null || true)
@@ -161,17 +163,13 @@ fi
 CURRENT_MAX=$(grep -o 'sparkle:version="[0-9]*"' "$APPCAST" | grep -o '[0-9]*' | sort -n | tail -1)
 NEXT_VERSION=$((CURRENT_MAX + 1))
 
-if [ "$PLIST_BUILD_VERSION" != "$NEXT_VERSION" ]; then
-  die "CFBundleVersion mismatch.
-  OpenEmu-Info.plist has CFBundleVersion = \"$PLIST_BUILD_VERSION\"
-  appcast.xml will write sparkle:version = \"$NEXT_VERSION\"
-  These must match or Sparkle will offer the update in a loop.
-  Fix: set CFBundleVersion to $NEXT_VERSION in OpenEmu-Info.plist before running this script."
-fi
-echo "OK: CFBundleVersion ($PLIST_BUILD_VERSION) matches next sparkle:version ($NEXT_VERSION)"
+[[ "$PLIST_BUILD_VERSION" =~ ^[1-9][0-9]*$ ]] && [ "$PLIST_BUILD_VERSION" -ge "$NEXT_VERSION" ] \
+  || die "CFBundleVersion must be an integer greater than every published build ($CURRENT_MAX)."
+NEXT_VERSION="$PLIST_BUILD_VERSION"
+echo "OK: appcast will use the app's actual CFBundleVersion ($NEXT_VERSION)"
 
 # ── 1. Archive ────────────────────────────────────────────────────────────────
-step "1/5  Archiving OpenEmu (Release)"
+step "1/4  Archiving OpenEmu (Release)"
 
 ARCHIVE_PATH="$HOME/Library/Developer/Xcode/Archives/$(date +%Y-%m-%d)/OpenEmu-Intel-$VERSION.xcarchive"
 mkdir -p "$(dirname "$ARCHIVE_PATH")"
@@ -253,16 +251,16 @@ if [ "$SENTRY_ENABLED" -eq 1 ]; then
 fi
 
 # ── 2. Notarize (re-sign + notarize + DMG + staple) ──────────────────────────
-step "2/5  Re-signing, notarizing, and creating DMG"
+step "2/4  Re-signing, notarizing, and creating DMG"
 
 "$SCRIPT_DIR/notarize.sh" "$ARCHIVE_PATH"
 
 [ -f "$DMG" ] || die "DMG not found at $DMG after notarize.sh. Check notarize.sh output above."
 
 # ── 3. Sign for Sparkle ───────────────────────────────────────────────────────
-step "3/5  Generating Sparkle EdDSA signature"
+step "3/4  Generating Sparkle EdDSA signature"
 
-SIGN_OUTPUT=$("$SIGN_UPDATE" "$DMG" 2>&1)
+SIGN_OUTPUT=$("$SIGN_UPDATE" --account "$SPARKLE_ACCOUNT" "$DMG" 2>&1)
 echo "$SIGN_OUTPUT"
 
 ED_SIG=$(echo "$SIGN_OUTPUT" | grep -o 'sparkle:edSignature="[^"]*"' | cut -d'"' -f2)
@@ -274,151 +272,20 @@ DMG_LENGTH=$(echo "$SIGN_OUTPUT" | grep -o 'length="[0-9]*"' | cut -d'"' -f2)
 echo "edSignature: $ED_SIG"
 echo "length:      $DMG_LENGTH"
 
-# ── 4. Update appcast.xml ─────────────────────────────────────────────────────
-step "4/5  Updating appcast.xml"
+# Signing with a different Keychain account must fail here, not on users' Macs.
+swift "$SCRIPT_DIR/verify-update-signature.swift" "$DMG" "$SPARKLE_PUBLIC_KEY" "$ED_SIG"
 
-# NEXT_VERSION was already computed and validated in the preflight check above.
-PUB_DATE=$(date -u "+%a, %d %b %Y %H:%M:%S +0000")
+# ── 4. Prepare metadata without advertising an unavailable archive ────────────
+step "4/4  Saving verified release metadata"
+MANIFEST="$REPO_ROOT/Releases/prepared-update-v$VERSION-universal.json"
+python3 "$SCRIPT_DIR/update_appcast.py" --prepare-manifest "$MANIFEST" \
+  --app "$ARCHIVED_APP" --archive "$DMG" --signature "$ED_SIG" \
+  --arch universal --notes "$NOTES_FILE" --appcast "$APPCAST"
 
-if [ -z "$NOTES_FILE" ] || [ ! -f "$NOTES_FILE" ]; then
-  echo "NOTE: No release notes file provided. Appcast entry will contain a placeholder."
-  echo "      Edit appcast.xml before publishing, or re-run with: $0 $VERSION path/to/notes.md"
-fi
-
-# Prepend new <item> to appcast.xml
-OPENEMU_RELEASE_REPO="$RELEASE_REPO" OPENEMU_DMG_NAME="$DMG_NAME" \
-python3 "$SCRIPT_DIR/update_appcast.py" \
-  "$APPCAST" "$VERSION" "$NEXT_VERSION" "$PUB_DATE" "$ED_SIG" "$DMG_LENGTH" \
-  ${NOTES_FILE:+"$NOTES_FILE"}
-
-# ── 5. Commit to release branch, open PR, tag, and create GitHub draft release ─
-step "5/5  Committing release metadata, opening PR, and creating GitHub draft release"
-
-TAG="v$VERSION"
-
-# Switch to (or create) the release branch so the commit goes through PR review
-# rather than landing directly on main. CI lint and version checks run on the PR.
-if [ "$CURRENT_BRANCH" = "main" ]; then
-  git -C "$REPO_ROOT" checkout -b "$RELEASE_BRANCH"
-fi
-
-# Stage all release metadata files. The inherited openemu-silicon cask remains
-# arm64-only and is intentionally not published as an Intel installation path.
-git -C "$REPO_ROOT" add "$APPCAST" \
-  "OpenEmu/OpenEmu-Info.plist" \
-  "OpenEmu/OpenEmu.xcodeproj/project.pbxproj" \
-  ".github/SECURITY.md"
-if [ ! -f "$REPO_ROOT/Releases/notes-${VERSION}.md" ]; then
-  die "Release notes not found: Releases/notes-${VERSION}.md — run prep-release first."
-fi
-git -C "$REPO_ROOT" add -f "Releases/notes-${VERSION}.md"
-if git -C "$REPO_ROOT" diff --cached --quiet; then
-  echo "No release metadata changes to commit; using current HEAD."
-else
-  git -C "$REPO_ROOT" commit -m "chore: release v$VERSION — update appcast and version bump"
-fi
-
-# Push the release branch
-git -C "$REPO_ROOT" push -u origin "$RELEASE_BRANCH"
-
-# Open the PR immediately after pushing the branch. If a previous run already
-# created it, reuse that PR instead of failing partway through the release.
-PR_NOTES=""
-if [ -n "$NOTES_FILE" ] && [ -f "$NOTES_FILE" ]; then
-  PR_NOTES=$(cat "$NOTES_FILE")
-fi
-
-PR_URL=$(gh pr view "$RELEASE_BRANCH" \
-  --repo "$RELEASE_REPO" \
-  --json url \
-  --jq .url 2>/dev/null || true)
-if [ -z "$PR_URL" ]; then
-  PR_URL=$(gh pr create \
-    --repo "$RELEASE_REPO" \
-    --base main \
-    --head "$RELEASE_BRANCH" \
-    --draft \
-    --title "chore: release v$VERSION" \
-    --body "## Release v$VERSION
-
-This PR lands the appcast update and version files for v$VERSION. Merging makes the Sparkle update live for existing users.
-
-**Before merging:**
-- [ ] CI build check passes
-- [ ] Draft GitHub Release reviewed — notes look good
-- [ ] DMG tested (launch, quick smoke, check version in About)
-- [ ] Draft GitHub Release published — appcast download URL is live
-
-Publish before merging:
-\`\`\`
-gh release edit $TAG --draft=false --repo $RELEASE_REPO
-\`\`\`
-
----
-${PR_NOTES}")
-fi
-
-# Tag the release commit so the GitHub Release download URL is valid immediately.
-# The tag points at this branch commit; after PR merges it remains reachable from main.
-if git -C "$REPO_ROOT" tag -l | grep -qx "$TAG"; then
-  TAG_TARGET=$(git -C "$REPO_ROOT" rev-list -n 1 "$TAG")
-  HEAD_TARGET=$(git -C "$REPO_ROOT" rev-parse HEAD)
-  [ "$TAG_TARGET" = "$HEAD_TARGET" ] || die "Tag $TAG already exists but does not point at HEAD. Delete or move it manually before continuing."
-else
-  echo "Creating git tag $TAG..."
-  git -C "$REPO_ROOT" tag "$TAG"
-fi
-echo "Pushing tag $TAG..."
-git -C "$REPO_ROOT" push origin "$TAG"
-
-# Build release notes body for GitHub (use notes file if provided, else placeholder)
-if [ -n "$NOTES_FILE" ] && [ -f "$NOTES_FILE" ]; then
-  GH_NOTES_ARGS=(--notes-file "$NOTES_FILE")
-else
-  GH_NOTES_ARGS=(--notes "Release notes — edit before publishing.")
-fi
-
-# Create or update GitHub draft release
-if gh release view "$TAG" --repo "$RELEASE_REPO" &>/dev/null; then
-  RELEASE_IS_DRAFT=$(gh release view "$TAG" \
-    --repo "$RELEASE_REPO" \
-    --json isDraft \
-    --jq .isDraft)
-  [ "$RELEASE_IS_DRAFT" = "true" ] \
-    || die "Release $TAG is already published. Refusing to replace an immutable update asset."
-  echo "Release $TAG already exists — uploading DMG and updating notes..."
-  gh release upload "$TAG" "$DMG" \
-    --repo "$RELEASE_REPO" \
-    --clobber
-  gh release edit "$TAG" \
-    --repo "$RELEASE_REPO" \
-    "${GH_NOTES_ARGS[@]}"
-else
-  echo "Creating draft release $TAG..."
-  gh release create "$TAG" "$DMG" \
-    --repo "$RELEASE_REPO" \
-    --title "OpenEmu Reborn $VERSION" \
-    --draft \
-    "${GH_NOTES_ARGS[@]}"
-fi
-
-echo "DMG uploaded to draft release $TAG."
-
-echo ""
-echo "╔══════════════════════════════════════════════════════╗"
-echo "║  Release $VERSION prepared — review PR then publish  ║"
-echo "╚══════════════════════════════════════════════════════╝"
-echo ""
-echo "  DMG:    $DMG"
-echo "  Tag:    $TAG (pushed; download URL becomes live after publishing the draft release)"
-echo "  PR:     $PR_URL"
-echo "  Draft:  $RELEASE_WEB_URL/releases/tag/$TAG"
-echo ""
-echo "  Next steps:"
-echo "  1. Let CI run on the PR — check for version lint failures"
-echo "  2. Review draft release notes on GitHub"
-echo "  3. Test the DMG"
-echo "  4. Publish the GitHub Release so its download URL is live:"
-echo "     gh release edit $TAG --draft=false --repo $RELEASE_REPO"
-echo "  5. Merge the PR (makes appcast live for Sparkle)"
-echo ""
+echo "Prepared archive: $DMG"
+echo "Update metadata: $MANIFEST"
+echo "No Git or GitHub state was changed."
+echo "Review and test the archive before creating/publishing the release."
+echo "Once published, run: $0 --advertise \"$MANIFEST\""
+echo "That command checks the public archive before updating appcast.xml."
+echo "Commit the appcast change on a new codex/ branch and open a PR against main."

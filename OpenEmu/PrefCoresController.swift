@@ -182,7 +182,6 @@ final class PrefCoresController: NSViewController {
         }
 
         CoreUpdater.shared.checkForNewCores()
-        CoreUpdater.shared.checkForUpdates()
         rebuildEntries()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
@@ -301,8 +300,11 @@ final class PrefCoresController: NSViewController {
             CoreUpdater.shared.installCoreInBackgroundUserInitiated(core)
 
         case .check:
-            CoreUpdater.shared.checkForNewCores()
-            CoreUpdater.shared.checkForUpdates()
+            CoreUpdater.shared.checkForNewCores { error in
+                if let error, (error as? URLError)?.code != .cancelled {
+                    NSApp.presentError(error)
+                }
+            }
 
         case .revert:
             guard let core = entries[row].activeCore else { return }
@@ -412,10 +414,15 @@ extension PrefCoresController: NSTableViewDelegate {
                 let cur = core.version.isEmpty ? "—" : core.version
                 let lat = core.appcastItem?.version ?? cur
                 cell.textField?.stringValue = "Ver: \(cur)\nLat: \(lat)"
+                cell.toolTip = core.requiresRestart
+                    ? NSLocalizedString("The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.", comment: "Core update awaiting restart")
+                    : nil
             } else if entry.activeRetroArchCore != nil {
                 cell.textField?.stringValue = "RetroArch"
+                cell.toolTip = nil
             } else {
                 cell.textField?.stringValue = "—"
+                cell.toolTip = nil
             }
             cell.textField?.textColor = .secondaryLabelColor
             cell.textField?.font = NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .regular)
@@ -467,6 +474,8 @@ extension PrefCoresController: NSTableViewDelegate {
             let mgmt: NSMenuItem
             if core.isDownloading {
                 mgmt = disabledItem("Downloading…")
+            } else if core.requiresRestart {
+                mgmt = disabledItem(NSLocalizedString("Restart Required", comment: "Core update awaiting restart"))
             } else if core.canBeInstalled && core.appcastItem == nil {
                 mgmt = disabledItem(NSLocalizedString("Unavailable", comment: ""))
             } else if core.canBeInstalled {
@@ -530,6 +539,8 @@ extension PrefCoresController: NSTableViewDelegate {
         } else if let core = active {
             if core.isDownloading {
                 titleLabel = "Downloading…"
+            } else if core.requiresRestart {
+                titleLabel = NSLocalizedString("Restart Required", comment: "Core update awaiting restart")
             } else if core.canBeInstalled {
                 titleLabel = "Install \(core.name)"
             } else if core.hasUpdate {

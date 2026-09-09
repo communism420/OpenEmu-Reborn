@@ -41,6 +41,17 @@ jobs:
       - name: Check vendored core externals are populated
         run: ./Scripts/check-core-sources.sh
 
+      - name: Test CI artifact provenance guards
+        run: |
+          python3 Scripts/Tests/test-package-ci-artifact.py
+          python3 Scripts/Tests/test-package-mame-source.py
+          python3 Scripts/Tests/test-prepare-core-update-release.py
+          python3 Scripts/Tests/test-app-update-publication.py
+          python3 Scripts/Tests/test-self-signed-update-packaging.py
+          python3 Scripts/Tests/test-stage-universal-app.py
+          python3 Scripts/Tests/test-release-branding.py
+          python3 Scripts/Tests/test-core-artifact-reuse.py
+
   detect-core-changes:
     if: inputs.package_intel != true
     # The `OpenEmu` scheme only builds the main app plus its own dependencies
@@ -50,13 +61,47 @@ jobs:
     # PR, so the core matrix below only runs what changed.
     name: Detect changed cores
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     outputs:
       cores: ${{ steps.detect.outputs.cores }}
+      reused: ${{ steps.reuse.outputs.verified }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Check evidence for unchanged core artifacts
+        id: reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          # Old PR merge commits may no longer be in the current pull ref.
+          # Fetch only a full source commit, never a config-supplied ref/option.
+          reuse_source=$(python3 - <<'PY'
+          import json, pathlib, re
+          try:
+              value = json.loads(pathlib.Path('.github/core-artifact-reuse.json').read_text()).get('source_sha', '')
+              print(value if isinstance(value, str) and re.fullmatch(r'[0-9a-f]{40}', value) else '')
+          except (OSError, ValueError, AttributeError):
+              print('')
+          PY
+          )
+          if [ -n "$reuse_source" ] && ! git cat-file -e "$reuse_source^{commit}" 2>/dev/null; then
+            git fetch --no-tags origin "$reuse_source" || echo 'Previous source unavailable; reuse will be rejected.'
+          fi
+          python3 Scripts/check-core-artifact-reuse.py --current-source-sha "$SOURCE_SHA" > "$RUNNER_TEMP/core-artifact-reuse.json"
+          python3 - <<'PY'
+          import json, os, pathlib
+          report = json.loads((pathlib.Path(os.environ['RUNNER_TEMP']) / 'core-artifact-reuse.json').read_text())
+          verified = report.get('reuse') is True
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('verified=' + str(verified).lower() + '\n')
+          print(report['reason'])
+          PY
 
       - name: Determine which core schemes to build
         id: detect
@@ -74,7 +119,12 @@ jobs:
           # array — macOS's default /bin/bash is 3.2 and doesn't have them.)
           core_dirs_json='{"Potator":"Potator-Core","Picodrive":"picodrive"}'
 
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
+          if [ "${{ steps.reuse.outputs.verified }}" = "true" ]; then
+            # The evidence step checked all 56 prior core results and identical
+            # core inputs. These are reused builds, not new successful tests.
+            echo "Reusing the explicitly verified core source run"
+            cores='[]'
+          elif [ "${{ github.event_name }}" != "pull_request" ]; then
             # Push and workflow_dispatch runs have no PR base to diff against —
             # build every core and validate the vendored framework sources.
             echo "Not a pull_request event — building all core schemes"
@@ -120,6 +170,15 @@ jobs:
 
           echo "Core schemes to build: $cores"
           echo "cores=$cores" >> "$GITHUB_OUTPUT"
+
+      - name: Preserve core reuse evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenEmu-core-reuse-evidence-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/core-artifact-reuse.json
+          if-no-files-found: warn
+          retention-days: 30
 
   build-cores:
     name: Build core (${{ matrix.core }}, ${{ matrix.arch }})
@@ -193,8 +252,28 @@ jobs:
             codesign --verify --deep --strict "$plugin"
           done <<< "$plugins"
 
+      - name: Package verified core with source metadata
+        env:
+          CORE: ${{ matrix.core }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 Scripts/package-ci-artifact.py \
+            --kind core --name "$CORE" --arch '${{ matrix.arch }}' \
+            --bundle "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/$CORE.oecoreplugin" \
+            --source-sha "$SOURCE_SHA" --output "$RUNNER_TEMP/CoreArtifact"
+
+      - name: Preserve verified core (${{ matrix.core }}, ${{ matrix.arch }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: reborn-core-${{ matrix.core }}-${{ matrix.arch }}
+          path: ${{ runner.temp }}/CoreArtifact/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
   build-mame:
-    if: inputs.package_intel != true
+    needs: detect-core-changes
+    if: inputs.package_intel != true && needs.detect-core-changes.outputs.reused != 'true'
     # MAME's pinned source checkout is about 1 GB even when shallow, and the
     # arcade build takes substantially longer than an ordinary core. Keep it
     # out of the xcodebuild matrix so both native architectures are explicit
@@ -243,6 +322,18 @@ jobs:
           path: MAME/deps/mame
           key: ${{ steps.mame-source-cache.outputs.cache-primary-key }}
 
+      # The upstream MAME checkout is not in GitHub's automatic Reborn source
+      # archive. Preserve it once, before any architecture-specific build.
+      - name: Package pinned MAME source and applied patch
+        if: matrix.arch == 'arm64'
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 Scripts/package-mame-source.py \
+            --source-sha "$SOURCE_SHA" \
+            --mame-source "$GITHUB_WORKSPACE/MAME/deps/mame" \
+            --output "$RUNNER_TEMP/MAMESourceArtifact"
+
       - name: Build MAME (${{ matrix.arch }})
         # A one-commit checkout has no reachable tag for `git describe`.
         # MAME supports IGNORE_GIT for this case; the core's version remains
@@ -256,6 +347,34 @@ jobs:
           plugin=MAME/build/XcodeDerived/Build/Products/Release/MAME.oecoreplugin
           ./Scripts/verify-bundle-architectures.sh --arch '${{ matrix.arch }}' "$plugin"
           codesign --verify --deep --strict "$plugin"
+
+      - name: Package verified MAME with source metadata
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 Scripts/package-ci-artifact.py \
+            --kind core --name MAME --arch '${{ matrix.arch }}' \
+            --bundle "$GITHUB_WORKSPACE/MAME/build/XcodeDerived/Build/Products/Release/MAME.oecoreplugin" \
+            --source-sha "$SOURCE_SHA" --output "$RUNNER_TEMP/CoreArtifact"
+
+      - name: Preserve verified MAME (${{ matrix.arch }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: reborn-core-MAME-${{ matrix.arch }}
+          path: ${{ runner.temp }}/CoreArtifact/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
+      - name: Preserve pinned source for the verified MAME build
+        if: matrix.arch == 'arm64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: reborn-mame-source
+          path: ${{ runner.temp }}/MAMESourceArtifact/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
 
   build-vendor-frameworks:
     if: inputs.package_intel != true
@@ -548,6 +667,17 @@ jobs:
       - name: Verify app architecture (Release, ${{ matrix.arch }})
         run: ./Scripts/verify-bundle-architectures.sh --arch '${{ matrix.arch }}' "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app"
 
+      - name: Test authenticated core updates (${{ matrix.arch }})
+        run: |
+          frameworks="$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release"
+          bash Scripts/Tests/test-core-update-security.sh "$frameworks"
+          bash Scripts/Tests/test-core-update-installation.sh "$frameworks"
+          bash Scripts/Tests/test-core-update-checks.sh "$frameworks"
+          python3 Scripts/Tests/test-update-signature.py
+          python3 Scripts/Tests/test-merge-ci-bundle.py
+          python3 Scripts/Tests/test-reborn-app-branding.py \
+            --app "$frameworks/OpenEmu.app"
+
       - name: Build auxiliary tools (Release, ${{ matrix.arch }})
         run: |
           xcodebuild build \
@@ -603,8 +733,11 @@ jobs:
           retention-days: 14
 
       - name: Run component tests (${{ matrix.arch }})
+        id: component_tests
         run: |
           failures=0
+          results_dir="$RUNNER_TEMP/ComponentTestResults-${{ matrix.arch }}-${{ github.run_attempt }}"
+          mkdir -p "$results_dir"
 
           run_tests() {
             container_kind="$1"
@@ -618,6 +751,7 @@ jobs:
               -configuration Debug \
               -destination 'platform=macOS,arch=${{ matrix.arch }}' \
               -derivedDataPath "$RUNNER_TEMP/OpenEmuDerivedData" \
+              -resultBundlePath "$results_dir/$scheme.xcresult" \
               ARCHS='${{ matrix.arch }}' \
               ONLY_ACTIVE_ARCH=YES \
               CODE_SIGN_STYLE=Manual \
@@ -639,3 +773,78 @@ jobs:
             echo "::error::$failures component test scheme(s) failed"
             exit 1
           fi
+
+      # Preserve XCTest diagnostics even when the test step fails or times out.
+      # Only the five result bundles are uploaded, never DerivedData/products.
+      - name: Preserve failed component test results (${{ matrix.arch }})
+        if: ${{ always() && (steps.component_tests.outcome == 'failure' || steps.component_tests.outcome == 'cancelled') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenEmu-component-test-results-${{ matrix.arch }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ComponentTestResults-${{ matrix.arch }}-${{ github.run_attempt }}/*.xcresult
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Package verified Release host with source metadata
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 Scripts/package-ci-artifact.py \
+            --kind host --name OpenEmu --arch '${{ matrix.arch }}' \
+            --bundle "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app" \
+            --source-sha "$SOURCE_SHA" --output "$RUNNER_TEMP/HostArtifact"
+
+      - name: Preserve verified Release host (${{ matrix.arch }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: reborn-host-${{ matrix.arch }}
+          path: ${{ runner.temp }}/HostArtifact/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
+      - name: Build universal Release host (no emulator cores)
+        if: matrix.arch == 'arm64'
+        run: |
+          # Preserve the tested thin host above before reusing its build cache.
+          # Xcode builds the host and its dependencies for both CPUs together,
+          # including architecture-sensitive Metal and asset-catalog resources.
+          # The OpenEmu scheme does not build native emulator core plugins.
+          xcodebuild build \
+            -workspace OpenEmu-metal.xcworkspace \
+            -scheme OpenEmu \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$RUNNER_TEMP/OpenEmuDerivedData" \
+            ARCHS='arm64 x86_64' \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=YES \
+            DEVELOPMENT_TEAM=""
+
+      - name: Verify and package universal Release host
+        if: matrix.arch == 'arm64'
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          app="$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app"
+          for architecture in arm64 x86_64; do
+            ./Scripts/verify-bundle-architectures.sh --arch "$architecture" "$app"
+          done
+          codesign --verify --deep --strict "$app"
+          python3 Scripts/package-ci-artifact.py \
+            --kind host --name OpenEmu --arch universal \
+            --bundle "$app" --source-sha "$SOURCE_SHA" \
+            --output "$RUNNER_TEMP/UniversalHostArtifact"
+
+      - name: Preserve verified universal Release host
+        if: matrix.arch == 'arm64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: reborn-host-universal
+          path: ${{ runner.temp }}/UniversalHostArtifact/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0

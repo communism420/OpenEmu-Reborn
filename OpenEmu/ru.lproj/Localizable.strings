@@ -799,5 +799,23 @@ You can go to the Controls preferences to check which associations were affected
 	<string>Не удалось сохранить настройки OpenEmu. Убедитесь, что диск с данными подключён и доступен для записи.</string>
 	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
 	<string>Убедитесь, что диск с данными подключён и доступен для записи. Прежние настройки сохранены.</string>
+	<key>Restart Required</key>
+	<string>Нужен перезапуск</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>Обновлённое ядро установлено. Перезапустите OpenEmu, чтобы использовать его; запущенные игры продолжают работать с прежней версией.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>Эта копия OpenEmu Reborn не доверяет данному источнику обновлений ядер.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>В обновлении ядра отсутствуют корректная подпись, размер файла или сведения о поддерживаемых процессорах.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>Подпись обновления ядра недействительна. Ничего не установлено.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>Размер загруженного архива ядра не совпадает с ожидаемым. Ничего не установлено.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>Сервер обновлений ядер не вернул успешный ответ по HTTPS.</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>Для этого ядра нет доступной совместимой загрузки с проверенной подписью. Проверьте обновления снова.</string>
+	<key>A core update check is already in progress.</key>
+	<string>Проверка обновлений ядер уже выполняется.</string>
 </dict>
 </plist>

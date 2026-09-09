@@ -2,6 +2,7 @@
 """Private release-metadata fixtures; never build, sign, publish or access keys."""
 
 import os
+import base64
 from pathlib import Path
 import re
 import runpy
@@ -40,17 +41,17 @@ class ReleaseBrandingTests(unittest.TestCase):
         self.appcast.write_text(FIXTURE_FEED, encoding='utf-8')
 
     def update(self, version='1.0.0', build='22', **overrides):
-        environment = os.environ.copy()
-        environment.pop('OPENEMU_RELEASE_REPO', None)
-        environment.pop('OPENEMU_DMG_NAME', None)
-        environment.update(overrides)
-        result = subprocess.run(
-            [sys.executable, str(REPOSITORY / 'Scripts/update_appcast.py'),
-             str(self.appcast), version, build, 'Sun, 06 Sep 2026 12:00:00 +0000',
-             'synthetic-test-signature-not-a-release', '1234'],
-            env=environment, capture_output=True, text=True, check=False,
-        )
-        self.assertEqual(result.returncode, 0, result.stderr)
+        # Exercise only the pure metadata renderer. The real CLI now refuses
+        # to advertise an archive until its signature and public asset match.
+        module = runpy.run_path(str(REPOSITORY / 'Scripts/update_appcast.py'))
+        repository = overrides.get('OPENEMU_RELEASE_REPO', 'communism420/OpenEmu-Reborn')
+        archive = overrides.get('OPENEMU_DMG_NAME', 'OpenEmu-Reborn.dmg')
+        result = module['render_feed'](
+            self.appcast.read_text(encoding='utf-8'), version, build,
+            'Sun, 06 Sep 2026 12:00:00 +0000', base64.b64encode(bytes(64)).decode(),
+            '1234', '<p>Fixture notes</p>',
+            f'https://github.com/{repository}/releases/download/v{version}/{archive}', 'universal')
+        self.appcast.write_text(result, encoding='utf-8')
         return ET.parse(self.appcast).findall('./channel/item')
 
     def next_build_from_release_script(self):
