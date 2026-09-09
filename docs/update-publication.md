@@ -146,8 +146,11 @@ normal local app are never replaced by the merge helper.
 Use the CI artifact `reborn-host-universal` for the host. Its
 `OpenEmu-universal.app.zip` and `BUILD-INFO.json` come from a real universal
 host build, not from choosing one processor's generated resources. Verify its
-source revision, archive hash and CI result before extraction. Merge each of
-the 28 core pairs from **that same revision** with the helper above. Keep the
+source revision, archive hash and CI result before extraction. Normally, merge
+each of the 28 core pairs from **that same revision** with the helper above.
+For a verified host-only repair, the narrow reuse procedure below permits an
+older, explicitly recorded core revision; never relabel old core metadata with
+the new host revision. Keep the
 merge reports, and collect only the 28 resulting `.oecoreplugin` directories
 in one new, private input folder.
 
@@ -186,6 +189,42 @@ It preserves universal binaries but checks Intel only: repeat the architecture
 check with both `--arch arm64` and `--arch x86_64` on the finished canonical app.
 See [local-signing.md](local-signing.md) before changing the local installation.
 
+## Reusing unchanged cores after a host-only repair
+
+A failed host test does not invalidate successful builds of unchanged cores.
+The optional `.github/core-artifact-reuse.json` identifies one reviewed source
+run. `check-core-artifact-reuse.py` accepts it only when all 56 expected core
+jobs passed, their artifacts and MAME source remain available, the original
+commit/tree match, and the new source differs only in the helper's narrow list
+of host/test/diagnostic files. Changes to shared frameworks, core sources or
+unrecognized build inputs require real core builds. A change to the host's
+scheme is allowed only inside its TestAction, not its build or launch actions.
+Unavailable or inconsistent evidence also falls back to real builds.
+
+CI records this reuse decision separately; skipped compilation jobs are not
+new successful builds. Both native host jobs still run their builds, analysis,
+tests and smoke checks, and the universal host is rebuilt. The decision is
+**not archive validation**: before publication, download the original core
+artifacts and repeat all SHA-256, ZIP, identity, version, CPU and signature
+checks with `prepare-core-update-release.py`, using the **original core SHA**.
+Keep the original workflow run/attempt values in every `BUILD-INFO.json`.
+
+For this split-source case, retain and publish a component-source record with:
+
+- the new host SHA, CI run, host artifact hash and verification results;
+- the original core SHA and CI run, all 56 original artifact hashes, and the
+  28 universal merge reports;
+- the corresponding complete Reborn sources for both revisions and the
+  original pinned MAME source, patch and checksums.
+
+Both slices of each core must still come from the same original core revision.
+The new host must retain the matching pinned update key, system identifiers
+and architecture-specific catalog contract. The core release tag identifies
+the core revision; the app release tag and staging `--source-sha` identify the
+new host revision. Do not describe every bundled component as rebuilt at the
+new host revision. Finally, test the actual assembled app and public update
+channel: the reuse report cannot replace those release gates.
+
 ## Offline regression checks
 
 ```bash
@@ -195,6 +234,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-self-signed-update-packagin
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-update-signature.py
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-merge-ci-bundle.py
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-stage-universal-app.py
+PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-core-artifact-reuse.py
 bash -n Scripts/release.sh Scripts/prepare-self-signed-update.sh
 ```
 

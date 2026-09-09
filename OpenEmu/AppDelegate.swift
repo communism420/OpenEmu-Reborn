@@ -336,7 +336,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         
         // Don't let an old setting override automatically checking for app updates.
         // Sparkle owns this framework preference; it does not use Settings.plist.
-        if let automaticChecksEnabled = UserDefaults.standard.object(forKey: "SUEnableAutomaticChecks") as? Bool, automaticChecksEnabled == false {
+        if !OEDataFolderSetup.isRunningUnitTests,
+           let automaticChecksEnabled = UserDefaults.standard.object(forKey: "SUEnableAutomaticChecks") as? Bool, automaticChecksEnabled == false {
             UserDefaults.standard.removeObject(forKey: "SUEnableAutomaticChecks")
         }
 
@@ -374,7 +375,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         
         let create = !FileManager.default.fileExists(atPath: databasePath) && databasePath == defaultDatabasePath
         
-        let userDBSelectionRequest = NSEvent.modifierFlags.contains(.option)
+        let userDBSelectionRequest = !OEDataFolderSetup.isRunningUnitTests && NSEvent.modifierFlags.contains(.option)
         let databaseURL = URL(fileURLWithPath: databasePath)
         // If user holds down alt key.
         if userDBSelectionRequest {
@@ -397,12 +398,22 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             
             assert(OELibraryDatabase.default != nil, "No database available!")
             
-            DispatchQueue.main.async {
+            if OEDataFolderSetup.isRunningUnitTests {
+                // The hosted tests start after applicationDidFinishLaunching.
+                // Make their isolated database and system plugins ready first.
                 NotificationCenter.default.post(name: .libraryDidLoad, object: OELibraryDatabase.default!)
+            } else {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .libraryDidLoad, object: OELibraryDatabase.default!)
+                }
             }
             
         } catch {
-            
+            if OEDataFolderSetup.isRunningUnitTests {
+                FileHandle.standardError.write(Data("OpenEmu test database failed to load: \(error)\n".utf8))
+                exit(EXIT_FAILURE)
+            }
+
             if (error as? CocoaError)?.code == .persistentStoreIncompatibleVersionHash {
                 
                 let migrator = LibraryMigrator(storeURL: url)
@@ -1321,6 +1332,12 @@ extension AppDelegate: NSMenuDelegate {
 @objc extension AppDelegate: OpenEmuApplicationDelegateProtocol {
     
     func applicationWillFinishLaunching(_ notification: Notification) {
+        if OEDataFolderSetup.isRunningUnitTests {
+            // Keep the observer balanced with deinit, but don't relocate the
+            // test host, change quarantine, or touch the user's launch broker.
+            OEPreferencesController.shared.addObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", options: [.initial], context: &appearancePrefChangedKVOContext)
+            return
+        }
         // Refresh stale RetroArch stub bridges before any plugin enumeration so
         // newly-refreshed stubs load with the current translator code in this
         // same launch — not the next one.
@@ -1359,6 +1376,14 @@ extension AppDelegate: NSMenuDelegate {
         notificationCenter.removeObserver(self, name: NSApplication.didFinishRestoringWindowsNotification, object: nil)
     }
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if OEDataFolderSetup.isRunningUnitTests {
+            // Unit tests need a real library/importer, not first-run windows,
+            // OS permission prompts, network services or hardware checks.
+            NotificationCenter.default.addObserver(self, selector: #selector(libraryDatabaseDidLoad), name: .libraryDidLoad, object: nil)
+            OEDBGame.startObservingDisplayPreference()
+            loadDatabase()
+            return
+        }
         // Get the “Customize Touch Bar…” menu to display in the View menu.
         NSApp.isAutomaticCustomizeTouchBarMenuItemEnabled = true
         
@@ -1401,6 +1426,11 @@ extension AppDelegate: NSMenuDelegate {
         libraryLoaded = true
 
         guard let database = notification.object as? OELibraryDatabase else {
+            return
+        }
+
+        if OEDataFolderSetup.isRunningUnitTests {
+            loadPlugins(with: database)
             return
         }
 
@@ -1484,6 +1514,7 @@ extension AppDelegate: NSMenuDelegate {
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
+        guard !OEDataFolderSetup.isRunningUnitTests else { return false }
         if libraryLoaded {
             mainWindowController.showWindow(self)
         } else {

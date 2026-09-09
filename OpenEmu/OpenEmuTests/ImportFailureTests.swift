@@ -23,6 +23,8 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import XCTest
+import UserNotifications
+import OpenEmuBase
 @testable import OpenEmu
 @testable import OpenEmuSystem
 
@@ -36,9 +38,42 @@ class ImportFailureTests: XCTestCase, ROMImporterDelegate {
     var missingFilesError: Int?
     var cueSheetError: Bool?
     var notPlainTextFileError: Int?
+
+    @MainActor
+    private func assertHostedStartupIsIsolated() throws {
+        let delegate = try XCTUnwrap(NSApp.delegate as? AppDelegate)
+        XCTAssertTrue(OEDataFolderSetup.isRunningUnitTests)
+        XCTAssertTrue(delegate.libraryLoaded)
+        XCTAssertNotNil(OELibraryDatabase.default?.importer)
+        // A fresh test library must not be marked as already set up just to
+        // avoid the assistant. It must never open that assistant at all.
+        XCTAssertFalse(OEPreferences.shared.bool(forKey: SetupAssistant.hasFinishedKey))
+        XCTAssertFalse(delegate.mainWindowController.isWindowLoaded)
+        XCTAssertFalse(delegate.preferencesWindowController.isWindowLoaded)
+        XCTAssertTrue(delegate.startupQueue.isEmpty)
+        XCTAssertNil(NSApp.modalWindow)
+        XCTAssertTrue(NSApp.windows.allSatisfy { !$0.isVisible && $0.attachedSheet == nil })
+        XCTAssertNil(delegate.hidEventsMonitor)
+        XCTAssertNil(delegate.keyboardEventsMonitor)
+        XCTAssertNil(delegate.unhandledEventsMonitor)
+        XCTAssertNil(UNUserNotificationCenter.current().delegate)
+        // Sparkle documents this command-line override for hosted tests. It
+        // must not change the persistent preferences of ordinary launches.
+        XCTAssertNotNil(UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)["SUEnableAutomaticChecks"])
+        XCTAssertFalse(UserDefaults.standard.bool(forKey: "SUEnableAutomaticChecks"))
+        XCTAssertFalse(delegate.applicationShouldOpenUntitledFile(NSApp))
+        XCTAssertFalse(delegate.mainWindowController.isWindowLoaded)
+    }
+
+    @MainActor
+    func testHostedStartupIsIsolated() throws {
+        try assertHostedStartupIsIsolated()
+    }
     
+    @MainActor
     @available(macOS 13.0, *)
     func testBundleResources() throws {
+        try assertHostedStartupIsIsolated()
         let url = URL(filePath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -65,6 +100,7 @@ class ImportFailureTests: XCTestCase, ROMImporterDelegate {
         importer.start()
         
         waitForExpectations(timeout: 10)
+        try assertHostedStartupIsIsolated()
         
         XCTAssertEqual(disallowArchivedFileError, OEImportErrorCode.disallowArchivedFile.rawValue)
         XCTAssertEqual(emptyFileError, OEImportErrorCode.emptyFile.rawValue)
