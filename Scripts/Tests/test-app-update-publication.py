@@ -158,6 +158,69 @@ class ArchiveHandlingTests(unittest.TestCase):
             inspected = app
         self.assertFalse(inspected.exists())
 
+    def aliased_temporary(self, **kwargs):
+        # Reproduce /var -> /private/var without depending on the host layout.
+        actual = self.root / 'real-temp-parent'
+        actual.mkdir(exist_ok=True)
+        alias = self.root / 'aliased-temp-parent'
+        if not alias.is_symlink():
+            alias.symlink_to(actual.name, target_is_directory=True)
+        temporary = alias / 'private-inspection'
+        temporary.mkdir()
+        return str(temporary)
+
+    def test_internal_framework_links_under_aliased_temporary_parent(self):
+        framework = 'OpenEmu.app/Contents/Frameworks/Fixture.framework/'
+        self.make_zip([
+            (framework + 'Versions/A/Fixture', b'fixture binary', stat.S_IFREG | 0o755),
+            (framework + 'Versions/A/Resources/Info.plist', plistlib.dumps({'fixture': True}), stat.S_IFREG | 0o644),
+            (framework + 'Versions/Current', b'A', stat.S_IFLNK | 0o777),
+            (framework + 'Fixture', b'Versions/Current/Fixture', stat.S_IFLNK | 0o777),
+            (framework + 'Resources', b'Versions/Current/Resources', stat.S_IFLNK | 0o777),
+        ])
+        with mock.patch.object(ARCHIVE_READER.tempfile, 'mkdtemp', side_effect=self.aliased_temporary):
+            with ARCHIVE_READER.extracted_update_app(self.archive) as app:
+                self.assertEqual(app, app.resolve(strict=True))
+                copied = app / 'Contents/Frameworks/Fixture.framework'
+                self.assertTrue((copied / 'Versions/Current').is_symlink())
+                self.assertTrue((copied / 'Resources').is_symlink())
+                self.assertEqual((copied / 'Fixture').read_bytes(), b'fixture binary')
+                inspected = app
+        self.assertFalse(inspected.exists())
+
+    def test_aliased_temporary_parent_does_not_allow_external_links(self):
+        for target in ('/etc/passwd', '../../outside.txt'):
+            with self.subTest(target=target):
+                self.make_zip([('OpenEmu.app/Contents/escape', target.encode(), stat.S_IFLNK | 0o777)])
+
+                def temporary_with_outside_file(**kwargs):
+                    temporary = Path(self.aliased_temporary(**kwargs))
+                    (temporary / 'outside.txt').write_bytes(b'must not be read as app content')
+                    return str(temporary)
+
+                with mock.patch.object(ARCHIVE_READER.tempfile, 'mkdtemp', side_effect=temporary_with_outside_file):
+                    with self.assertRaises(ValueError):
+                        with ARCHIVE_READER.extracted_update_app(self.archive):
+                            self.fail('External link was accepted under an aliased parent')
+
+    def test_aliased_temporary_parent_does_not_allow_app_root_symlink(self):
+        with zipfile.ZipFile(self.archive, 'w') as archive:
+            entry = zipfile.ZipInfo('OpenEmu.app')
+            entry.external_attr = (stat.S_IFLNK | 0o777) << 16
+            archive.writestr(entry, b'outside-app')
+
+        def temporary_with_outside_app(**kwargs):
+            temporary = Path(self.aliased_temporary(**kwargs))
+            outside = temporary / 'outside-app/Contents'
+            outside.mkdir(parents=True)
+            (outside / 'Info.plist').write_bytes(plistlib.dumps({'fixture': True}))
+            return str(temporary)
+
+        with mock.patch.object(ARCHIVE_READER.tempfile, 'mkdtemp', side_effect=temporary_with_outside_app):
+            with self.assertRaises(ValueError):
+                with ARCHIVE_READER.extracted_update_app(self.archive):
+                    self.fail('App root symlink was accepted')
+
     def test_traversal_second_app_aliases_and_external_symlinks_are_rejected(self):
         for name, payload, mode in [
             ('../outside', b'bad', stat.S_IFREG | 0o644),

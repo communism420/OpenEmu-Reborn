@@ -51,6 +51,7 @@ jobs:
           python3 Scripts/Tests/test-stage-universal-app.py
           python3 Scripts/Tests/test-release-branding.py
           python3 Scripts/Tests/test-core-artifact-reuse.py
+          python3 Scripts/Tests/test-signed-release-app-guards.py
 
   detect-core-changes:
     if: inputs.package_intel != true
@@ -848,3 +849,49 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
+
+  signed-release-app:
+    name: Signed release app (${{ matrix.arch }})
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-26
+          - arch: x86_64
+            runner: macos-26-intel
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.5'
+      - name: Check exact signed release ZIP without building
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 Scripts/Tests/test-signed-release-app.py
+          --pins .github/signed-app-smoke.json
+          --arch '${{ matrix.arch }}'
+          --output "$RUNNER_TEMP/signed-app-smoke"
+      - name: Preserve validation and storage smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-release-app-${{ matrix.arch }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/signed-app-smoke/REPORT.json
+            ${{ runner.temp }}/signed-app-smoke/*.log
+            ${{ runner.temp }}/signed-app-smoke/smoke-logs/*.log
+          if-no-files-found: error
+          retention-days: 30

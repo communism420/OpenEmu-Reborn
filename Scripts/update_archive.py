@@ -83,7 +83,10 @@ def validate_app_files(app):
 @contextmanager
 def extracted_update_app(archive):
     archive = Path(archive).resolve(strict=True)
-    temporary = Path(tempfile.mkdtemp(prefix='reborn-update-inspect-'))
+    # macOS may spell TMPDIR through /var -> /private/var. Compare resolved
+    # link targets against the same canonical parent, not an aliased spelling.
+    # Do not resolve the app root itself: a linked OpenEmu.app is still invalid.
+    temporary = Path(tempfile.mkdtemp(prefix='reborn-update-inspect-')).resolve(strict=True)
     cleanup_allowed = True
     try:
         if archive.suffix.lower() == '.zip':

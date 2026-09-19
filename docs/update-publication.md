@@ -58,6 +58,9 @@ processor slices. The advertisement step repeats these checks. A separate
 newer `--app` or an edited JSON cannot disguise an old/incompatible ZIP as a
 new update. Nothing from the archive is executed or registered as an installed
 app. DMGs are mounted read-only and detached afterward.
+The inspection folder is canonicalized before checking internal framework
+links, including on Macs where `/var` refers to `/private/var`; links outside
+the app and a symlink in place of the app root are still rejected.
 
 The build counter must increase, but need not increase by exactly one. For
 example, build `23` can follow public build `21` when `22` was a private test.
@@ -94,6 +97,25 @@ The JSON contains public metadata and local paths, **not private keys**, but
 neither it nor the binary should be committed to the source repository.
 
 ## Architecture safety
+
+### Test the exact signed ZIP in CI
+
+The `Signed release app` jobs use `.github/signed-app-smoke.json` to identify
+one reviewed archive by release/asset IDs, source revision, SHA-256, size and
+Ed25519 signature. Pins also record the app certificate, all 28 core versions
+and the exact verification helper hashes. Update these pins deliberately for
+each candidate; they are public metadata, never signing credentials.
+
+On same-repository PRs, read-only GitHub access permits checking a draft before
+publication. Each native Mac runner verifies the downloaded bytes and signature
+before extraction, both CPU slices and code signatures, then runs the original
+startup/storage/relaunch smoke test in an isolated folder. These jobs do not
+compile the host or cores, import certificates, or change system trust. The
+GitHub token is not passed to the app. Reports and logs are retained as CI
+artifacts. This is not a gameplay test or a complete Sparkle replacement test;
+public downloads, tag provenance and live catalogs remain separate gates.
+
+### Feed selection
 
 Sparkle's `hardwareRequirements` recognizes `arm64`; an `x86_64` value does
 **not** exclude Apple Silicon. For that reason the preparer refuses an
@@ -199,6 +221,15 @@ commit/tree match, and the new source differs only in the helper's narrow list
 of host/test/diagnostic files. Changes to shared frameworks, core sources or
 unrecognized build inputs require real core builds. A change to the host's
 scheme is allowed only inside its TestAction, not its build or launch actions.
+The exact 58 architecture catalog/feed XML files and `appcast.xml` are also
+permitted because they are publication metadata, not core build inputs. This
+does not approve their contents or replace signature/public-download checks;
+other files under `Updates/` are not accepted by the reuse policy.
+The specific archive-inspection helper, its regression tests and the pinned
+signed-app smoke test are also allowed: these inspect existing release bytes
+without changing native build inputs. Other release/test helpers are not
+implicitly allowed. The existing core job commands and toolchain remain
+independently checked against the original source run.
 Unavailable or inconsistent evidence also falls back to real builds.
 
 CI records this reuse decision separately; skipped compilation jobs are not
@@ -235,6 +266,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-update-signature.py
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-merge-ci-bundle.py
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-stage-universal-app.py
 PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-core-artifact-reuse.py
+PYTHONDONTWRITEBYTECODE=1 python3 Scripts/Tests/test-signed-release-app-guards.py
 bash -n Scripts/release.sh Scripts/prepare-self-signed-update.sh
 ```
 

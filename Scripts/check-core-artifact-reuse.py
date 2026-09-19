@@ -34,14 +34,24 @@ CORES = ("4DO Atari800 Bliss BSNES CrabEmu DeSmuME Dolphin FCEU Flycast Gambatte
 ARCHITECTURES = ("arm64", "x86_64")
 SCHEME = "OpenEmu/OpenEmu.xcodeproj/xcshareddata/xcschemes/OpenEmu.xcscheme"
 # Exact files only. Neither JSON configuration nor caller input can add paths.
-# In particular: no SDK, core, project.pbxproj, general Scripts/** or Updates/**.
+# In particular: no SDK, core, project.pbxproj or general Scripts/** / Updates/**.
+# These exact publication files advertise already verified artifacts; they are
+# not inputs to a core build. This permits publishing the channel without
+# recompiling identical cores. Archive/feed authentication is a separate gate.
+RELEASE_METADATA_PATHS = frozenset({"appcast.xml"} | {
+    f"Updates/cores/{architecture}/{name.lower()}.xml"
+    for architecture in ARCHITECTURES for name in (*CORES, "oecores")
+})
 ALLOWED_CHANGES = frozenset({
     "OpenEmu/AppDelegate.swift", "OpenEmu/OEDataFolderSetup.swift",
     "OpenEmu/OpenEmuTests/ImportFailureTests.swift", SCHEME,
     ".github/workflows/build-check.yml", ".github/core-artifact-reuse.json",
     "Scripts/check-core-artifact-reuse.py", "Scripts/Tests/test-core-artifact-reuse.py",
+    "Scripts/update_archive.py", "Scripts/Tests/test-app-update-publication.py",
+    "Scripts/Tests/test-signed-release-app.py", "Scripts/Tests/test-signed-release-app-guards.py",
+    ".github/signed-app-smoke.json",
     "docs/update-publication.md",
-})
+}) | RELEASE_METADATA_PATHS
 
 
 def require(condition, message):

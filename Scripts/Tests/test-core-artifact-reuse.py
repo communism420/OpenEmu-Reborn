@@ -104,11 +104,48 @@ class LocalPolicyTests(unittest.TestCase):
                      "OpenEmuKit/foo.swift", "OpenEmu-Shaders/test.metal", "Vendor/rcheevos/rc.c",
                      "OpenEmu/OpenEmu.xcodeproj/project.pbxproj", "Scripts/build-mame-core.sh",
                      "Scripts/Tests/unreviewed-test.py", "OpenEmu/Unreviewed.swift",
-                     "Updates/cores/arm64/oecores.xml", "new-file", "tmp/agent/committed-file"):
+                     "Updates/cores/arm64/Unknown.xml", "Updates/cores/arm64/Nestopia.xml",
+                     "Updates/cores/arm64/Nestopia.swift",
+                     "Updates/cores/x86_64/build.sh", "Updates/cores/universal/oecores.xml",
+                     "Appcasts/Nestopia.xml", "appcast-x86_64.xml", "new-file", "tmp/agent/committed-file"):
             with self.subTest(path=path):
                 self.snapshot["changed_files"] = [path]
                 with self.assertRaisesRegex(ValueError, "unsupported source changes"):
                     self.validate()
+
+    def test_only_exact_release_metadata_paths_allowed(self):
+        expected = {"appcast.xml"} | {
+            f"Updates/cores/{arch}/{name.lower()}.xml"
+            for arch in ("arm64", "x86_64") for name in (*MODULE.CORES, "oecores")}
+        self.assertEqual(MODULE.RELEASE_METADATA_PATHS, expected)
+        self.assertEqual(len(expected), 59)
+        self.snapshot["changed_files"] = sorted(expected)
+        self.validate()
+
+    def test_exact_archive_inspection_and_signed_app_smoke_paths_allowed(self):
+        self.snapshot["changed_files"] = [
+            "Scripts/update_archive.py", "Scripts/Tests/test-app-update-publication.py",
+            "Scripts/Tests/test-signed-release-app.py", "Scripts/Tests/test-signed-release-app-guards.py",
+            ".github/signed-app-smoke.json",
+        ]
+        self.validate()
+
+    def test_unreviewed_release_or_smoke_helpers_require_full_build(self):
+        for path in ("Scripts/unreviewed-release.py", "Scripts/Tests/other-smoke.py",
+                     ".github/other-smoke.json", "Scripts/verify-bundle-architectures.sh"):
+            with self.subTest(path=path):
+                self.snapshot["changed_files"] = [path]
+                with self.assertRaisesRegex(ValueError, "unsupported source changes"):
+                    self.validate()
+
+    def test_release_metadata_cannot_be_deleted_executable_or_symlinked(self):
+        for path in MODULE.RELEASE_METADATA_PATHS:
+            for mode in ("", "100755", "120000"):
+                candidate = copy.deepcopy(self.snapshot)
+                candidate["changed_files"] = [path]
+                candidate["current_modes"][path] = mode
+                with self.subTest(path=path, mode=mode), self.assertRaisesRegex(ValueError, "regular source files"):
+                    MODULE.check_local(MODULE.REFERENCE, candidate)
 
     def test_configuration_cannot_expand_allowlist_or_change_run(self):
         for key, value in (("allowed_paths", ["OpenEmu-SDK/foo.m"]), ("run_id", 1),
