@@ -52,6 +52,46 @@ def parse_json(data):
     return json.loads(data, object_pairs_hook=pairs)
 
 
+class GitHubAPIError(ValueError):
+    def __init__(self, endpoint, reason, http_status=None):
+        self.http_status = http_status
+        # Never include gh stdout/stderr, headers or environment in diagnostics.
+        status = "HTTP " + str(http_status) if http_status is not None else "HTTP status unavailable"
+        super().__init__(f"GitHub GET {endpoint} failed: {reason}; {status}")
+
+
+def github_get(endpoint, environment, *, accept="application/vnd.github+json", output=None, timeout=60):
+    require(isinstance(endpoint, str) and re.fullmatch(
+        re.escape("repos/" + REPOSITORY + "/releases/") + r"(?:assets/)?[1-9][0-9]*", endpoint),
+        "Only exact own-repository release/asset GET endpoints are allowed")
+    require(accept in ("application/vnd.github+json", "application/octet-stream"), "Unexpected GitHub response type")
+    clean_env = environment.copy()
+    clean_env.pop("GH_DEBUG", None)
+    clean_env["GH_PROMPT_DISABLED"] = "1"
+    command = ["gh", "api", "--hostname", "github.com", "--method", "GET", endpoint, "--header", "Accept: " + accept]
+    try:
+        result = subprocess.run(command, check=False, stdout=output if output is not None else subprocess.PIPE,
+                                stderr=subprocess.PIPE, stdin=subprocess.DEVNULL, timeout=timeout, env=clean_env)
+    except subprocess.TimeoutExpired:
+        raise GitHubAPIError(endpoint, "request timed out") from None
+    except OSError:
+        raise GitHubAPIError(endpoint, "could not start the GitHub client") from None
+    if result.returncode != 0:
+        # gh's concise error suffix contains the status. Extract only those
+        # three digits; arbitrary error bodies or debug text remain private.
+        statuses = set(re.findall(rb"\(HTTP ([1-5][0-9]{2})\)", (result.stderr or b"")[-16384:]))
+        status = int(next(iter(statuses))) if len(statuses) == 1 else None
+        raise GitHubAPIError(endpoint, "request rejected or transport failed", status)
+    return result.stdout
+
+
+def validation_environment(environment):
+    clean = environment.copy()
+    for variable in ("GH_TOKEN", "GITHUB_TOKEN", "GH_DEBUG"):
+        clean.pop(variable, None)
+    return clean
+
+
 def validate_pins(pins):
     require(set(pins) == FIELDS and pins["schema"] == 1 and pins["ready"] is True, "Unready/unknown smoke pins")
     require(pins["repository"] == REPOSITORY and pins["architecture"] == "universal", "Unexpected repository/CPU")
@@ -79,7 +119,7 @@ def validate_ci(arch):
             and os.environ.get("GITHUB_REPOSITORY") == REPOSITORY and os.environ.get("RUNNER_OS") == "macOS",
             "This app launch check is restricted to this repository's GitHub-hosted Macs")
     require(arch in ("arm64", "x86_64") and platform.machine() == arch, "Native runner CPU mismatch")
-    require(os.environ.get("GH_TOKEN"), "Read-only GH_TOKEN required for draft assets")
+    require(os.environ.get("GH_TOKEN"), "Job-scoped GH_TOKEN with draft access required")
 
 
 def validate_asset(asset, pins, download_prefix):
@@ -153,9 +193,7 @@ def run_check(pins_path, output, arch, root):
               "signing": False, "trust_changes": False, "published": False, "ci_run_id": os.environ.get("GITHUB_RUN_ID")}
     clean_env = os.environ.copy()
     clean_env.pop("GH_DEBUG", None)
-    helper_env = clean_env.copy()
-    for credential in ("GH_TOKEN", "GITHUB_TOKEN"):
-        helper_env.pop(credential, None)
+    helper_env = validation_environment(clean_env)
 
     def run(command, label, timeout):
         with (output / (label + ".log")).open("xb") as log:
@@ -163,9 +201,7 @@ def run_check(pins_path, output, arch, root):
                            timeout=timeout, env=helper_env)
 
     def api(endpoint):
-        result = subprocess.run(["gh", "api", endpoint, "--header", "Accept: application/vnd.github+json"], check=True,
-                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL, timeout=60, env=clean_env)
-        return parse_json(result.stdout)
+        return parse_json(github_get(endpoint, clean_env))
 
     try:
         for relative, expected in pins["helper_sha256"].items():
@@ -178,9 +214,9 @@ def run_check(pins_path, output, arch, root):
         validate_asset(asset, pins, download_prefix)
         report["release_draft_at_test"] = release["draft"]
         archive = output / pins["archive"]
-        with archive.open("xb") as stream, (output / "download.log").open("xb") as log:
-            subprocess.run(["gh", "api", f"repos/{REPOSITORY}/releases/assets/{pins['asset_id']}", "--header", "Accept: application/octet-stream"],
-                           check=True, stdout=stream, stderr=log, stdin=subprocess.DEVNULL, timeout=900, env=clean_env)
+        with archive.open("xb") as stream:
+            github_get(f"repos/{REPOSITORY}/releases/assets/{pins['asset_id']}", clean_env,
+                       accept="application/octet-stream", output=stream, timeout=900)
         # No archive inspection/extraction before both byte and Ed25519 checks.
         authenticate_archive(archive, pins, root, run)
         report["archive_authenticated_before_extraction"] = True
@@ -217,6 +253,8 @@ def run_check(pins_path, output, arch, root):
         report.update(status="passed", archive_unchanged=True, startup_storage_relaunch_passed=True)
     except Exception as error:
         report.update(error_type=type(error).__name__, error=str(error))
+        if isinstance(error, GitHubAPIError):
+            report["api_http_status"] = error.http_status
         raise
     finally:
         smoke_log = output / "storage-smoke.log"

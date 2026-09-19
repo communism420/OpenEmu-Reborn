@@ -106,12 +106,21 @@ Ed25519 signature. Pins also record the app certificate, all 28 core versions
 and the exact verification helper hashes. Update these pins deliberately for
 each candidate; they are public metadata, never signing credentials.
 
-On same-repository PRs, read-only GitHub access permits checking a draft before
-publication. Each native Mac runner verifies the downloaded bytes and signature
+On same-repository PRs, this job alone requests `contents: write` for the
+short-lived `GITHUB_TOKEN`: GitHub hides draft releases from callers without
+push access (see [GitHub's release API documentation](https://docs.github.com/en/rest/releases/releases#list-releases)).
+The checker only sends explicit GET requests to GitHub; it never edits or
+publishes a release. Fork PRs cannot run this job, checkout does not persist
+credentials, and no personal token or signing key is stored in CI. This
+permission does not extend to the other build/test jobs.
+
+Each native Mac runner verifies the downloaded bytes and signature
 before extraction, both CPU slices and code signatures, then runs the original
 startup/storage/relaunch smoke test in an isolated folder. These jobs do not
 compile the host or cores, import certificates, or change system trust. The
-GitHub token is not passed to the app. Reports and logs are retained as CI
+GitHub token is not passed to verification helpers or the app. API failures
+record a safe HTTP status when available, not raw authenticated responses.
+Reports and logs are retained as CI
 artifacts. This is not a gameplay test or a complete Sparkle replacement test;
 public downloads, tag provenance and live catalogs remain separate gates.
 
