@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — SNES9x (arm64)</title>
+    <item>
+      <title>SNES9x 1.63.5</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/SNES9x-arm64.oecoreplugin.zip" length="860078" type="application/octet-stream" sparkle:version="1.63.5" sparkle:shortVersionString="1.63.5" sparkle:edSignature="hGsjuNCellxC5workqkspsEtSLAaUlFjGtF9xzLi2yH07DqlrdETFobJmsWlMj5D49Xw1FaFlUVHT7GB7cDWAw==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — blueMSX (x86_64)</title>
+    <item>
+      <title>blueMSX 2.9.1294</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/blueMSX-x86_64.oecoreplugin.zip" length="1019556" type="application/octet-stream" sparkle:version="2.9.1294" sparkle:shortVersionString="2.9.1294" sparkle:edSignature="L/jOUy+OPP5vNvRBvnBU8YbguOSMQpzi3g9ITJcrIf9gkBlhAdKw9phiAbfNyhEj1CRDqGuC/gcfEVNIWf/eBQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

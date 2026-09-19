@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — DeSmuME (arm64)</title>
+    <item>
+      <title>DeSmuME 0.9.14.1</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/DeSmuME-arm64.oecoreplugin.zip" length="1653666" type="application/octet-stream" sparkle:version="0.9.14.1" sparkle:shortVersionString="v0.9.14 (OpenEmu Plug-in)" sparkle:edSignature="WwbPWifvnGopwA9g/gMO4iTRs0srkFF1oQD65BuRk6ozDA/BcE8mQBcA9DusPQyM96aYM4QXcMTeLxPta0RhAQ==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>

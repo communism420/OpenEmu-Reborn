@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — FCEU (x86_64)</title>
+    <item>
+      <title>FCEU 2.6.11</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/FCEU-x86_64.oecoreplugin.zip" length="603597" type="application/octet-stream" sparkle:version="2.6.11" sparkle:shortVersionString="2.6.10" sparkle:edSignature="IEDarE8cSGRrdUdgprhbOW4FBI63HFSqued4CvAfSYx6KgNjlHtuLK7Zsx2lISk9B6FqSo7uUKAuvLApDkjjCQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

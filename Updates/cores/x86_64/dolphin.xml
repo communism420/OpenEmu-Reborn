@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — Dolphin (x86_64)</title>
+    <item>
+      <title>Dolphin 5.0.16211.2</title>
+      <sparkle:minimumSystemVersion>11.5</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Dolphin-x86_64.oecoreplugin.zip" length="9836851" type="application/octet-stream" sparkle:version="5.0.16211.2" sparkle:shortVersionString="5.0.16211.2" sparkle:edSignature="WPTFMnbskFfVYUXQuIg1d65r9KT+mRzaPnFL5NPKfvsVyeqXi/TTUv4IcbshMff2jsNpRv3avMuVA/GlmjHbCg==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

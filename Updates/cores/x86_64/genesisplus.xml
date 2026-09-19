@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — GenesisPlus (x86_64)</title>
+    <item>
+      <title>GenesisPlus 1.7.5.7</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/GenesisPlus-x86_64.oecoreplugin.zip" length="803966" type="application/octet-stream" sparkle:version="1.7.5.7" sparkle:shortVersionString="1.7.5.7" sparkle:edSignature="POdnUV6nDf0GZP3SDcKr2kyC6PmhbeBkY+MEj86nibEMZMevMwMosnrX24jP06aSxC9g/06FbPfbKnzo1ZLQAg==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

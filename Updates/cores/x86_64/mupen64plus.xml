@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — Mupen64Plus (x86_64)</title>
+    <item>
+      <title>Mupen64Plus 2.5.17</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Mupen64Plus-x86_64.oecoreplugin.zip" length="1255470" type="application/octet-stream" sparkle:version="2.5.17" sparkle:shortVersionString="2.5.16" sparkle:edSignature="SaYX1myYiDyr1mTj5P9kxVHUW8l8BoTs8MHD+ISj93hbHd+7OO/fBNRx+WWoV+UVZS34Dv11mNlCwEXDoESfAQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

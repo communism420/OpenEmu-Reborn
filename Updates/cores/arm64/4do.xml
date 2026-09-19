@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — 4DO (arm64)</title>
+    <item>
+      <title>4DO 2.3.7</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/4DO-arm64.oecoreplugin.zip" length="68780" type="application/octet-stream" sparkle:version="2.3.7" sparkle:shortVersionString="2.3.7" sparkle:edSignature="m1lZkiJ/gthI0Y02UPcTn1k2xpDiu5MEcd15H6EpuAVVA+ZN7aMRMvSJfxuJ0YLSGtu2kEjR/Jz+BLA4814bAQ==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>
