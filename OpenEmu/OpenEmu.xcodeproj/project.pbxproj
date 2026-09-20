@@ -292,6 +292,7 @@
 		837964F41A614ACD00A8DE5C /* OESVSystemResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 837964EE1A614ACD00A8DE5C /* OESVSystemResponder.m */; };
 		837964F91A614C0A00A8DE5C /* OpenEmuSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D120C417112E1300E868A8 /* OpenEmuSystem.framework */; };
 		839310BC147802380020058E /* CoreDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839310BB147802380020058E /* CoreDownload.swift */; };
+		F13209260000000100000002 /* OECoreUpdateSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13209260000000100000001 /* OECoreUpdateSecurity.swift */; };
 		83955CB5165D939100572B34 /* BlankSlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83955CB4165D939100572B34 /* BlankSlateView.swift */; };
 		8397082F163C405000E04871 /* 0.2 to 0.3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8397082E163C405000E04871 /* 0.2 to 0.3.xcmappingmodel */; };
 		83AAC32914581699005ADD16 /* SetupAssistantBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AAC32814581699005ADD16 /* SetupAssistantBackgroundView.swift */; };
@@ -1443,6 +1444,7 @@
 		837964EF1A614ACD00A8DE5C /* OESVSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OESVSystemResponderClient.h; sourceTree = "<group>"; };
 		837964F01A614ACD00A8DE5C /* Supervision-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Supervision-Info.plist"; sourceTree = "<group>"; };
 		839310BB147802380020058E /* CoreDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDownload.swift; sourceTree = "<group>"; };
+		F13209260000000100000001 /* OECoreUpdateSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OECoreUpdateSecurity.swift; sourceTree = "<group>"; };
 		8393FD33195D71B50021D3D9 /* OEDatabase 1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OEDatabase 1.3.xcdatamodel"; sourceTree = "<group>"; };
 		83955CB4165D939100572B34 /* BlankSlateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankSlateView.swift; sourceTree = "<group>"; };
 		8396CC5514068DA90096F791 /* ControlsKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsKeyButton.swift; sourceTree = "<group>"; };
@@ -3139,6 +3141,7 @@
 			children = (
 				83CACEC7196D6D1300999E70 /* Download.swift */,
 				8375E14E1477FC0D0018DA1F /* CoreUpdater.swift */,
+				F13209260000000100000001 /* OECoreUpdateSecurity.swift */,
 				62C735BCE1E9487EA5A79659 /* OELibretroMetadata.swift */,
 				8F22765129D30551001FB9FA /* Core-Curation.md */,
 				6FAD47F297164AD6B87C99DF /* OECoreMigration.swift */,
@@ -6372,6 +6375,7 @@
 				8FC080272825914E00F18E15 /* OELibraryDatabase.swift in Sources */,
 				8FDCCADA27063FDE00CBF2E3 /* GameCollectionViewItemIndicationLayer.swift in Sources */,
 				839310BC147802380020058E /* CoreDownload.swift in Sources */,
+				F13209260000000100000002 /* OECoreUpdateSecurity.swift in Sources */,
 				5A3DB1B11D8E6806009445EC /* AppDelegate.swift in Sources */,
 				83CA87B41961CDD400D86D55 /* 1.2 to 1.3.xcmappingmodel in Sources */,
 				8F812C4426D5454B00E89C42 /* OEDBScreenshot.swift in Sources */,

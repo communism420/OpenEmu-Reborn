@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — ProSystem (arm64)</title>
+    <item>
+      <title>ProSystem 1.5.3</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/ProSystem-arm64.oecoreplugin.zip" length="47675" type="application/octet-stream" sparkle:version="1.5.3" sparkle:shortVersionString="1.5.3" sparkle:edSignature="sLuKHZ+5OguifEMADUpbOwi5MlgX9eEe/BPz3Q8FukYCwtakT4kJF6CY1sYVqeamOvWrXBvVZmh44OiwW0B9AA==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>

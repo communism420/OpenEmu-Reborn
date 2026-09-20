@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — Mednafen (x86_64)</title>
+    <item>
+      <title>Mednafen 1.26.8.1</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Mednafen-x86_64.oecoreplugin.zip" length="4656113" type="application/octet-stream" sparkle:version="1.26.8.1" sparkle:shortVersionString="1.26.6" sparkle:edSignature="3LYMZHdp5XdiUVtlqa0FScDiFt2aYL/nEeTi6ToOdqRj93+K0Bsxw0mfv3BFJy1m2jfFOyDce5S68lZ3+pYHCQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

@@ -43,11 +43,14 @@ final class CoreDownload: NSObject {
     
     var hasUpdate = false
     var canBeInstalled = false
+    private(set) var requiresRestart = false
     
     private(set) var isDownloading = false
     @objc private(set) dynamic var progress: Double = 0
     
     var appcastItem: CoreAppcastItem?
+    private var downloadingItem: CoreAppcastItem?
+    private var installationItem: CoreAppcastItem? { downloadingItem ?? appcastItem }
     
     private var downloadSession: URLSession?
     private var pendingFinish = false
@@ -64,6 +67,7 @@ final class CoreDownload: NSObject {
     
     func start() {
         guard !Self.isDataRemovalPending, let appcastItem = appcastItem,
+              !requiresRestart,
               !isDownloading,
               downloadSession == nil,
               activeInstallPipeline == nil else { return }
@@ -76,6 +80,7 @@ final class CoreDownload: NSObject {
         pendingFinish = false
         didReportCompletion = false
         cancellationRequested = false
+        downloadingItem = appcastItem
         
         let downloadTask = downloadSession.downloadTask(with: appcastItem.fileURL)
         
@@ -91,6 +96,16 @@ final class CoreDownload: NSObject {
         DLog("Cancelling core download (\(downloadSession?.sessionDescription ?? ""))")
         cancellationRequested = true
         downloadSession?.invalidateAndCancel()
+    }
+
+    /// A user-requested rollback also takes effect only after a safe restart.
+    func markInstallationPendingRestart(version: String, at url: URL) {
+        self.version = version
+        installedPluginURL = url
+        requiresRestart = true
+        hasUpdate = false
+        canBeInstalled = false
+        appcastItem = nil
     }
     
     private func updateProperties(with plugin: OECorePlugin) {
@@ -135,8 +150,12 @@ extension CoreDownload: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        
-        progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
+        guard let item = downloadingItem else { return }
+        guard totalBytesWritten <= item.contentLength else {
+            downloadTask.cancel()
+            return
+        }
+        progress = Double(totalBytesWritten) / Double(item.contentLength)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
@@ -152,6 +171,13 @@ extension CoreDownload: URLSessionDownloadDelegate {
         let stagingDirectory = coresFolder.appendingPathComponent(".CoreDownload-\(UUID().uuidString)", isDirectory: true)
 
         do {
+            guard let response = downloadTask.response as? HTTPURLResponse,
+                  (200...299).contains(response.statusCode), let finalURL = response.url,
+                  OECoreUpdateSecurity.isHTTPS(finalURL), let item = downloadingItem else {
+                throw OECoreUpdateSecurity.ValidationError.badResponse
+            }
+            try item.verifyArchive(at: location)
+
             try fileManager.oeCreateDirectory(at: coresFolder, withIntermediateDirectories: true)
             try fileManager.oeCreateDirectory(at: stagingDirectory, withIntermediateDirectories: false)
 
@@ -189,22 +215,21 @@ extension CoreDownload: URLSessionDownloadDelegate {
                     do {
                         let completedTransaction = try self.install(pluginURL, from: stagingDirectory, into: coresFolder)
                         transaction = completedTransaction
-                        let plugin = try self.loadInstalledPlugin(at: completedTransaction.destinationURL)
-
-                        if self.hasUpdate {
-                            guard plugin.version == self.appcastItem?.version else {
-                                throw CoreDownloadError.installedVersionMismatch(
-                                    expected: self.appcastItem?.version ?? "",
-                                    actual: plugin.version
-                                )
-                            }
-                            self.version = plugin.version
-                            self.hasUpdate = false
-                            self.canBeInstalled = false
-                            self.installedPluginURL = completedTransaction.destinationURL
-                        } else if self.canBeInstalled {
-                            self.updateProperties(with: plugin)
+                        let installed = try self.loadInstalledPlugin(at: completedTransaction.destinationURL)
+                        guard installed.version == self.installationItem?.version else {
+                            throw CoreDownloadError.installedVersionMismatch(
+                                expected: self.installationItem?.version ?? "",
+                                actual: installed.version
+                            )
                         }
+                        if self.canBeInstalled {
+                            self.updateProperties(with: installed.plugin)
+                        }
+                        self.version = installed.version
+                        self.requiresRestart = installed.requiresRestart
+                        self.hasUpdate = false
+                        self.canBeInstalled = false
+                        self.installedPluginURL = completedTransaction.destinationURL
 
                         try? fileManager.removeItem(at: stagingDirectory)
                         self.finishInstallPipeline(pipelineID)
@@ -245,6 +270,12 @@ private extension CoreDownload {
         let destinationURL: URL
         let backupURL: URL?
         let replacedExistingCore: Bool
+    }
+
+    struct InstalledPlugin {
+        let plugin: OECorePlugin
+        let version: String
+        let requiresRestart: Bool
     }
 
     static var runningArchitecture: String {
@@ -328,10 +359,10 @@ private extension CoreDownload {
             )
         }
 
-        guard let expectedVersion = appcastItem?.version, !expectedVersion.isEmpty,
+        guard let expectedVersion = installationItem?.version, !expectedVersion.isEmpty,
               actualVersion == expectedVersion else {
             throw CoreDownloadError.bundleVersionMismatch(
-                expected: appcastItem?.version ?? "",
+                expected: installationItem?.version ?? "",
                 actual: actualVersion
             )
         }
@@ -557,24 +588,32 @@ private extension CoreDownload {
         return matches.first
     }
 
-    func loadInstalledPlugin(at destinationURL: URL) throws -> OECorePlugin {
-        if let installedPlugin,
-           installedPlugin.url.standardizedFileURL == destinationURL.standardizedFileURL {
-            installedPlugin.flushBundleCache()
-            return installedPlugin
+    func loadInstalledPlugin(at destinationURL: URL) throws -> InstalledPlugin {
+        // Read the newly installed metadata from disk, not NSBundle's cache of
+        // an older core at this name/path. Existing controllers and running
+        // games keep their original plugin until OpenEmu is relaunched.
+        let plistURL = destinationURL.appendingPathComponent("Contents/Info.plist")
+        guard let info = try PropertyListSerialization.propertyList(
+            from: Data(contentsOf: plistURL), options: [], format: nil
+        ) as? [String: Any],
+              let identifier = info["CFBundleIdentifier"] as? String,
+              identifier.caseInsensitiveCompare(bundleIdentifier) == .orderedSame,
+              let installedVersion = info["CFBundleVersion"] as? String,
+              !installedVersion.isEmpty else {
+            throw CoreDownloadError.invalidPluginBundle
         }
 
-        if let plugin = OECorePlugin.corePlugin(bundleIdentifier: bundleIdentifier),
-           plugin.url.standardizedFileURL == destinationURL.standardizedFileURL {
-            plugin.flushBundleCache()
-            installedPlugin = plugin
-            return plugin
+        if let plugin = installedPlugin ?? OECorePlugin.corePlugin(bundleIdentifier: bundleIdentifier) {
+            // In particular, a bundled plugin and its first downloaded update
+            // have the same name at different URLs. forceReload would reject
+            // that live cache entry and roll back a perfectly valid download.
+            return InstalledPlugin(plugin: plugin, version: installedVersion, requiresRestart: true)
         }
 
         guard let plugin = try OECorePlugin.plugin(bundleAtURL: destinationURL, forceReload: true) else {
             throw CoreDownloadError.cannotLoadInstalledPlugin
         }
-        return plugin
+        return InstalledPlugin(plugin: plugin, version: installedVersion, requiresRestart: false)
     }
 
     func rollback(_ transaction: InstallationTransaction, stagingDirectory: URL) {
@@ -655,10 +694,9 @@ private extension CoreDownload {
 
 extension CoreDownload {
 
-    /// Ensure the downloaded plugin has at least an ad-hoc signature so macOS 26+
-    /// will dlopen it. If the plugin already arrives signed (the standard case for
-    /// cores published from our release pipeline, which Developer-ID-signs every
-    /// build), the existing signature is preserved unchanged.
+    /// Compatibility signing happens only AFTER authenticating the original
+    /// archive with the application's pinned Ed25519 key. This is not a check of
+    /// the publisher and cannot rescue an unsigned or tampered download.
     private func adHocSign(_ bundleURL: URL, completion: @escaping (Result<Void, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             // Check for an existing valid signature before potentially overwriting it.

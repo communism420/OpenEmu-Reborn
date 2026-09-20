@@ -2,7 +2,13 @@
 
 ## Status
 
-Accepted
+Historical Silicon decision; superseded for the Reborn host by
+[the authenticated, per-architecture update channel](../updates.md).
+
+The description below records inherited intent, not the current implementation.
+In particular, the old custom core loader did not verify EdDSA archive signatures,
+and Intel used a legacy official catalog. Do not use the historical security or
+single-publisher claims below as evidence about a shipped Reborn build.
 
 ## Context
 

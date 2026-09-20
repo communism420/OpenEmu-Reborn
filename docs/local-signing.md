@@ -111,8 +111,12 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
   --signing-identity "CERTIFICATE_SHA1_FINGERPRINT"
 ```
 
-The local replacement script reuses the 28 cores from the current canonical
-app. Only for initial setup, supply `--cores "/absolute/path/to/prebuilt/cores"`.
+By default the local replacement script reuses the 28 cores from the current
+canonical app. Supply `--cores "/absolute/path/to/prebuilt/cores"` for initial
+setup **or whenever a newly verified set must replace those old bundled cores**.
+The override is supported for existing installations too; omitting it during a
+core refresh would intentionally retain the old set. The input directory must
+contain exactly the 28 expected, already-signed `.oecoreplugin` bundles.
 It first signs and verifies a private staging copy, then replaces the canonical
 package. On success it deletes the previous package and the consumed
 `tmp/agent/data-folder-derived/Build/Products/Release/OpenEmu.app`; intermediate
@@ -147,6 +151,20 @@ separate distribution archives. It writes a new output directory without
 changing its inputs; it is not the normal local installation workflow. For
 deliberately ad-hoc CI packages, explicitly pass `--ad-hoc-sign`. Those packages
 do not use the maintainer's identity and must not be presented as preserving it.
+
+The current publisher accepts an unbundled host only at its documented Release
+path. It cannot consume a finished release `.app` that already contains cores:
+the package assembler rejects a nonempty embedded core directory. A universal
+host and universal core inputs are preserved as universal binaries (they are
+not thinned), but the legacy publisher checks only `x86_64`. Check both processor
+slices separately before publication and check `arm64` again afterward when
+publishing such a build. The package directory name and ownership marker remain
+`OpenEmu-Intel-test`; they do not mean the copied app has only an Intel slice.
+
+An explicit `--cores` refresh replaces the entire canonical package atomically,
+so files from its old bundled core directories are not merged into the new app.
+It does **not** remove installed overrides in the selected data folder's `Cores`
+directory; those are separate user data managed by the application's updater.
 
 ## What to verify
 

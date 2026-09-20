@@ -1,0 +1,139 @@
+{
+  "architecture": "universal",
+  "archive": "OpenEmu-Reborn-universal.zip",
+  "asset_id": 575053490,
+  "build": "23",
+  "certificate_sha1": "6AAC8032B0ABA0D7B731516C0384FA9CC0BFA44F",
+  "cores": {
+    "4DO": {
+      "identifier": "org.openemu.4DO",
+      "version": "2.3.7"
+    },
+    "Atari800": {
+      "identifier": "org.openemu.Atari800",
+      "version": "3.1.4"
+    },
+    "BSNES": {
+      "identifier": "org.openemu.BSNES",
+      "version": "115.3"
+    },
+    "Bliss": {
+      "identifier": "org.openemu.Bliss",
+      "version": "2.1.3"
+    },
+    "CrabEmu": {
+      "identifier": "org.openemu.CrabEmu",
+      "version": "0.2.1.270"
+    },
+    "DeSmuME": {
+      "identifier": "org.openemu.DeSmuME",
+      "version": "0.9.14.1"
+    },
+    "Dolphin": {
+      "identifier": "org.openemu.Dolphin",
+      "version": "5.0.16211.2"
+    },
+    "FCEU": {
+      "identifier": "org.openemu.FCEU",
+      "version": "2.6.11"
+    },
+    "Flycast": {
+      "identifier": "org.openemu.Flycast",
+      "version": "2.4.3"
+    },
+    "Gambatte": {
+      "identifier": "org.openemu.Gambatte",
+      "version": "0.5.5"
+    },
+    "GenesisPlus": {
+      "identifier": "org.openemu.GenesisPlus",
+      "version": "1.7.5.7"
+    },
+    "JollyCV": {
+      "identifier": "org.openemu.JollyCV",
+      "version": "1.0.2"
+    },
+    "MAME": {
+      "identifier": "org.openemu.MAME",
+      "version": "0.250.0.1"
+    },
+    "Mednafen": {
+      "identifier": "org.openemu.Mednafen",
+      "version": "1.26.8.1"
+    },
+    "Mupen64Plus": {
+      "identifier": "org.openemu.Mupen64Plus",
+      "version": "2.5.17"
+    },
+    "Nestopia": {
+      "identifier": "org.openemu.Nestopia",
+      "version": "1.52.5.1"
+    },
+    "O2EM": {
+      "identifier": "org.openemu.O2EM",
+      "version": "1.18.2"
+    },
+    "PPSSPP": {
+      "identifier": "org.openemu.PPSSPP",
+      "version": "1.14.8"
+    },
+    "Picodrive": {
+      "identifier": "org.openemu.Picodrive",
+      "version": "1.93.1"
+    },
+    "PokeMini": {
+      "identifier": "org.openemu.PokeMini",
+      "version": "0.6.1"
+    },
+    "Potator": {
+      "identifier": "org.openemu.Potator",
+      "version": "0.1.1"
+    },
+    "ProSystem": {
+      "identifier": "org.openemu.ProSystem",
+      "version": "1.5.3"
+    },
+    "SNES9x": {
+      "identifier": "org.openemu.SNES9x",
+      "version": "1.63.5"
+    },
+    "Stella": {
+      "identifier": "org.openemu.Stella",
+      "version": "3.9.3.4"
+    },
+    "VecXGL": {
+      "identifier": "org.openemu.VecXGL",
+      "version": "1.2.3"
+    },
+    "VirtualJaguar": {
+      "identifier": "org.openemu.VirtualJaguar",
+      "version": "2.1.1"
+    },
+    "blueMSX": {
+      "identifier": "org.openemu.blueMSX",
+      "version": "2.9.1294"
+    },
+    "mGBA": {
+      "identifier": "org.openemu.mGBA",
+      "version": "0.10.10.1"
+    }
+  },
+  "cores_source_sha": "425e668f329cf2fe723da84985626cbf24903724",
+  "helper_sha256": {
+    "Scripts/Tests/test-data-folder-app.sh": "b3185d197ebd7ff27e07b260958703999f79f53cd77cfaf49f2380abb73f7b45",
+    "Scripts/update_archive.py": "f632c88c99fcaf07e2de7fb1573526400ed6b753b0e47488e1600faf3a8897c7",
+    "Scripts/verify-bundle-architectures.sh": "6ccde96d4dcfc9deca58bc5778395004f5453972179e91dcc05e7078f9b6f1b3",
+    "Scripts/verify-update-signature.swift": "0ebceaec699259fac0d8a1fbd4b3b87c2d8947e1537cd1e6595ddf58aa0cab97"
+  },
+  "host_source_sha": "f5986815b63750d823621b45c78085797a34cfd6",
+  "length": 243024847,
+  "public_key": "C1aUBkg5G0afqAq9XhxxFKaDO0PsMRAxmLkMUdKSIC4=",
+  "ready": true,
+  "release_id": 392129167,
+  "repository": "communism420/OpenEmu-Reborn",
+  "schema": 1,
+  "sha256": "470e3677bcdf245bd189915c7e45f7b6b5a8be1fae0c7331f85d1d79c1860a57",
+  "signature": "6qGEAyTcrL8roGeLK1IFCFfvtOl61/2xErkpquM+k0jpUDUsGEf9sm9/kFHpe9KPQ4Iigxl8UxQuQjjEHBWZDw==",
+  "tag": "v1.0.0",
+  "version": "1.0.0"
+}

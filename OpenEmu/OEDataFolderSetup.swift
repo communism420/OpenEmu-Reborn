@@ -90,6 +90,9 @@ struct OEDataFolderIdentity: Codable, Equatable {
 
 @MainActor
 enum OEDataFolderSetup {
+    // Use the same injected-XCTest boundary for storage and app startup.
+    // A normal launch (including Release smoke tests) keeps the full UI.
+    nonisolated static let isRunningUnitTests = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     static let bootstrapDomain = "org.openemu.OpenEmu"
     static let bookmarkKey = "OEDataFolderBookmark"
     static let identifierKey = "OEDataFolderIdentifier"
@@ -114,7 +117,7 @@ enum OEDataFolderSetup {
         // App-hosted XCTest must never block on a picker or reuse the real
         // user's library, including Release tests. This directory belongs only
         // to the injected XCTest process.
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+        if isRunningUnitTests {
             do {
                 let root = FileManager.default.temporaryDirectory.appendingPathComponent("OpenEmuTests-\(UUID().uuidString)", isDirectory: true)
                 try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)

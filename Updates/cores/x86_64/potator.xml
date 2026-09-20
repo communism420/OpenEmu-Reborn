@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — Potator (x86_64)</title>
+    <item>
+      <title>Potator 0.1.1</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Potator-x86_64.oecoreplugin.zip" length="22553" type="application/octet-stream" sparkle:version="0.1.1" sparkle:shortVersionString="0.1.1" sparkle:edSignature="OEeaaRSjWet3suyxG7dPRSkKiWrM6Btg6bHoRw+S6/mpYRmGbNaiAO8jFJMETKHE49yxEO3fVkirVQpZCtv2Cw==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

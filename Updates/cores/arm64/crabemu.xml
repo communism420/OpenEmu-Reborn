@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — CrabEmu (arm64)</title>
+    <item>
+      <title>CrabEmu 0.2.1.270</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/CrabEmu-arm64.oecoreplugin.zip" length="120690" type="application/octet-stream" sparkle:version="0.2.1.270" sparkle:shortVersionString="0.2.1.270" sparkle:edSignature="eK6iyLXQqLcwv2ITMKo0yz1BBtKUnKBLfh9LFWJmFDceLb4ZDVr3VshTeExkNg9EOm7lNaayV/szJUcSNko+Bg==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<cores architecture="arm64" schema="1">
+  <core id="org.openemu.nestopia" name="Nestopia" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/nestopia.xml" hardwareRequirements="arm64">
+    <description>Nintendo/Famicom emulator</description>
+    <systems>
+      <system id="openemu.system.fds">Famicom Disk System</system>
+      <system id="openemu.system.nes">Nintendo (NES)</system>
+    </systems>
+  </core>
+  <core id="org.openemu.mgba" name="mGBA" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/mgba.xml" hardwareRequirements="arm64">
+    <description>Game Boy Advance emulator</description>
+    <systems>
+      <system id="openemu.system.gba">Game Boy Advance</system>
+    </systems>
+  </core>
+  <core id="org.openemu.gambatte" name="Gambatte" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/gambatte.xml" hardwareRequirements="arm64">
+    <description>Game Boy / Game Boy Color emulator</description>
+    <systems>
+      <system id="openemu.system.gb">Game Boy</system>
+    </systems>
+  </core>
+  <core id="org.openemu.genesisplus" name="Genesis Plus GX" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/genesisplus.xml" hardwareRequirements="arm64">
+    <description>Genesis Plus GX emulator</description>
+    <systems>
+      <system id="openemu.system.sg">Sega Genesis/Mega Drive</system>
+      <system id="openemu.system.scd">Sega CD/Mega CD</system>
+      <system id="openemu.system.sg1000">SG-1000</system>
+      <system id="openemu.system.sms">Sega Master System</system>
+      <system id="openemu.system.gg">Game Gear</system>
+    </systems>
+  </core>
+  <core id="org.openemu.snes9x" name="Snes9X" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/snes9x.xml" hardwareRequirements="arm64">
+    <description>Super Nintendo emulator</description>
+    <systems>
+      <system id="openemu.system.snes">Super Nintendo (SNES)</system>
+    </systems>
+  </core>
+  <core id="org.openemu.BSNES" name="BSNES" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/bsnes.xml" hardwareRequirements="arm64">
+    <description>Super Nintendo emulator (accuracy)</description>
+    <systems>
+      <system id="openemu.system.snes">Super Nintendo (SNES)</system>
+    </systems>
+  </core>
+  <core id="org.openemu.fceu" name="FCEU" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/fceu.xml" hardwareRequirements="arm64">
+    <description>Nintendo/Famicom emulator (alternate)</description>
+    <systems>
+      <system id="openemu.system.nes">Nintendo (NES)</system>
+    </systems>
+  </core>
+  <core id="org.openemu.prosystem" name="ProSystem" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/prosystem.xml" hardwareRequirements="arm64">
+    <description>Atari 7800 emulator</description>
+    <systems>
+      <system id="openemu.system.7800">Atari 7800</system>
+    </systems>
+  </core>
+  <core id="org.openemu.MAME" name="MAME" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/mame.xml" hardwareRequirements="arm64">
+    <description>Arcade emulator</description>
+    <systems>
+      <system id="openemu.system.arcade">Arcade</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Dolphin" name="Dolphin" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/dolphin.xml" hardwareRequirements="arm64">
+    <description>GameCube and Wii emulator</description>
+    <systems>
+      <system id="openemu.system.gc">GameCube</system>
+      <system id="openemu.system.wii">Wii</system>
+    </systems>
+  </core>
+  <core id="org.openemu.ppsspp" name="PPSSPP" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/ppsspp.xml" hardwareRequirements="arm64">
+    <description>Sony PSP emulator</description>
+    <systems>
+      <system id="openemu.system.psp">Sony PSP</system>
+    </systems>
+  </core>
+  <core id="org.openemu.4DO" name="4DO" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/4do.xml" hardwareRequirements="arm64">
+    <description>3DO emulator</description>
+    <systems>
+      <system id="openemu.system.3do">3DO</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Atari800" name="Atari800" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/atari800.xml" hardwareRequirements="arm64">
+    <description>Atari 5200 emulator</description>
+    <systems>
+      <system id="openemu.system.5200">Atari 5200</system>
+      <system id="openemu.system.atari8bit">Atari 8-bit</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Bliss" name="Bliss" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/bliss.xml" hardwareRequirements="arm64">
+    <description>Intellivision emulator</description>
+    <systems>
+      <system id="openemu.system.intellivision">Intellivision</system>
+    </systems>
+  </core>
+  <core id="org.openemu.CrabEmu" name="CrabEmu" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/crabemu.xml" hardwareRequirements="arm64">
+    <description>ColecoVision emulator</description>
+    <systems>
+      <system id="openemu.system.colecovision">ColecoVision</system>
+    </systems>
+  </core>
+  <core id="org.openemu.DeSmuME" name="DeSmuME" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/desmume.xml" hardwareRequirements="arm64">
+    <description>Nintendo DS emulator</description>
+    <systems>
+      <system id="openemu.system.nds">Nintendo DS</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Flycast" name="Flycast" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/flycast.xml" hardwareRequirements="arm64">
+    <description>Dreamcast emulator</description>
+    <systems>
+      <system id="openemu.system.dc">Dreamcast</system>
+    </systems>
+  </core>
+  <core id="org.openemu.JollyCV" name="JollyCV" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/jollycv.xml" hardwareRequirements="arm64">
+    <description>ColecoVision emulator</description>
+    <systems>
+      <system id="openemu.system.colecovision">ColecoVision</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Mednafen" name="Mednafen" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/mednafen.xml" hardwareRequirements="arm64">
+    <description>Multi-system emulator (PSX, Saturn, PC Engine, Lynx, WonderSwan, Virtual Boy, Neo Geo Pocket, PC-FX)</description>
+    <systems>
+      <system id="openemu.system.psx">PlayStation</system>
+      <system id="openemu.system.saturn">Saturn</system>
+      <system id="openemu.system.pce">PC Engine</system>
+      <system id="openemu.system.pcecd">PC Engine CD</system>
+      <system id="openemu.system.pcfx">PC-FX</system>
+      <system id="openemu.system.lynx">Atari Lynx</system>
+      <system id="openemu.system.ws">WonderSwan</system>
+      <system id="openemu.system.vb">Virtual Boy</system>
+      <system id="openemu.system.ngp">Neo Geo Pocket</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Mupen64Plus" name="Mupen64Plus" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/mupen64plus.xml" hardwareRequirements="arm64">
+    <description>Nintendo 64 emulator</description>
+    <systems>
+      <system id="openemu.system.n64">Nintendo 64</system>
+    </systems>
+  </core>
+  <core id="org.openemu.O2EM" name="O2EM" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/o2em.xml" hardwareRequirements="arm64">
+    <description>Odyssey² / Videopac emulator</description>
+    <systems>
+      <system id="openemu.system.odyssey2">Odyssey²</system>
+    </systems>
+  </core>
+  <core id="org.openemu.PokeMini" name="PokeMini" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/pokemini.xml" hardwareRequirements="arm64">
+    <description>Pokémon Mini emulator</description>
+    <systems>
+      <system id="openemu.system.pokemonmini">Pokémon Mini</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Potator" name="Potator" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/potator.xml" hardwareRequirements="arm64">
+    <description>Watara Supervision emulator</description>
+    <systems>
+      <system id="openemu.system.sv">Supervision</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Stella" name="Stella" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/stella.xml" hardwareRequirements="arm64">
+    <description>Atari 2600 emulator</description>
+    <systems>
+      <system id="openemu.system.2600">Atari 2600</system>
+    </systems>
+  </core>
+  <core id="org.openemu.VecXGL" name="VecXGL" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/vecxgl.xml" hardwareRequirements="arm64">
+    <description>Vectrex emulator</description>
+    <systems>
+      <system id="openemu.system.vectrex">Vectrex</system>
+    </systems>
+  </core>
+  <core id="org.openemu.VirtualJaguar" name="VirtualJaguar" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/virtualjaguar.xml" hardwareRequirements="arm64">
+    <description>Atari Jaguar emulator</description>
+    <systems>
+      <system id="openemu.system.jaguar">Atari Jaguar</system>
+    </systems>
+  </core>
+  <core id="org.openemu.blueMSX" name="blueMSX" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/bluemsx.xml" hardwareRequirements="arm64">
+    <description>MSX / MSX2 and ColecoVision emulator</description>
+    <systems>
+      <system id="openemu.system.msx">MSX</system>
+      <system id="openemu.system.colecovision">ColecoVision</system>
+    </systems>
+  </core>
+  <core id="org.openemu.Picodrive" name="Picodrive" appcastURL="https://raw.githubusercontent.com/communism420/OpenEmu-Reborn/main/Updates/cores/arm64/picodrive.xml" hardwareRequirements="arm64">
+    <description>Sega 32X emulator</description>
+    <systems>
+      <system id="openemu.system.32x">Sega 32X</system>
+    </systems>
+  </core>
+</cores>

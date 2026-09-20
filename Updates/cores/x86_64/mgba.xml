@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — mGBA (x86_64)</title>
+    <item>
+      <title>mGBA 0.10.10.1</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/mGBA-x86_64.oecoreplugin.zip" length="416628" type="application/octet-stream" sparkle:version="0.10.10.1" sparkle:shortVersionString="0.10.10.1" sparkle:edSignature="HsClm8ZZOkRaAKVy2NvKaiCKj37/svt1mKi1C/geCZjcu2OFoqvWKO+dcjATefx6h1Ei3zC4AGqgwX+jNHzYAQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

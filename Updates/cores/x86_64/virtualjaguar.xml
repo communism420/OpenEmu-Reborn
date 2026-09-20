@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — VirtualJaguar (x86_64)</title>
+    <item>
+      <title>VirtualJaguar 2.1.1</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/VirtualJaguar-x86_64.oecoreplugin.zip" length="749957" type="application/octet-stream" sparkle:version="2.1.1" sparkle:shortVersionString="2.1.1" sparkle:edSignature="QlNgXvSf/5aoCUp3lNBALyf7xKNAiX7bMfNRNRU9MZXLcsRrPw7pHYnb9/qqBSCHU9JTqUcuHdpLHxHXSq3+CQ==" sparkle:hardwareRequirements="x86_64" />
+    </item>
+  </channel>
+</rss>

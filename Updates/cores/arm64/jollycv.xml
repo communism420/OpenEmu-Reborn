@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>OpenEmu Reborn — JollyCV (arm64)</title>
+    <item>
+      <title>JollyCV 1.0.2</title>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/JollyCV-arm64.oecoreplugin.zip" length="36892" type="application/octet-stream" sparkle:version="1.0.2" sparkle:shortVersionString="1.0.2" sparkle:edSignature="Kvh/FnAYS1r86EwqNg0z2vXexlvF0p8WX4p+Is18pbR+vOGtVn3rB/YtkGm14MBRB6Wi79XmaAaizOg88K/KAg==" sparkle:hardwareRequirements="arm64" />
+    </item>
+  </channel>
+</rss>
