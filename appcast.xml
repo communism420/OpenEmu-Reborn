@@ -5,9 +5,72 @@
   <channel>
     <title>OpenEmu Reborn Changelog</title>
     <link>https://github.com/communism420/OpenEmu-Reborn/releases</link>
-    <description>OpenEmu Reborn updates. Entries below retain their original upstream release identity until a Reborn release is published.</description>
+    <description>OpenEmu Reborn updates. Historical upstream entries retain their original release identity.</description>
     <language>en</language>
-                                                            <item>
+    <item>
+      <title>OpenEmu Reborn 1.0.0</title>
+      <description>
+        <![CDATA[
+        <h2>OpenEmu Reborn 1.0.0</h2>
+        <p># OpenEmu Reborn 1.0.0 — build 23</p>
+        <p>OpenEmu Reborn is an independent, fan-maintained revival based on OpenEmu-Silicon</p>
+        <p>for Apple Silicon and 64-bit Intel Macs. It is not an official release from the</p>
+        <p>original OpenEmu team.</p>
+        <h3>Authenticated application and core updates</h3>
+        <ul>
+        <li>Reborn uses its own pinned Ed25519 update key. Archive signatures and byte</li>
+        </ul>
+        <p>lengths are verified before extraction.</p>
+        <ul>
+        <li>Separate Intel and Apple Silicon catalogs cover all 28 native cores.</li>
+        <li>Core installation and rollback preserve the running controller; the installed</li>
+        </ul>
+        <p>version becomes active after restarting OpenEmu.</p>
+        <ul>
+        <li>Failed installations restore the previous files. A bundled core can be</li>
+        </ul>
+        <p>updated without changing the signed application bundle.</p>
+        <h3>One manual installation for earlier test builds</h3>
+        <p>Test builds through internal build 22 contain a different publisher&#x27;s update</p>
+        <p>key and cannot authenticate this release. Install build 23 manually once;</p>
+        <p>subsequent releases retain Reborn&#x27;s own update key. Signature checks are not</p>
+        <p>bypassed for migration. The public version is 1.0.0; core versions are separate</p>
+        <p>and were not reset to 1.0.0.</p>
+        <h3>Source and verification scope</h3>
+        <p>The application host comes from `f5986815b63750d823621b45c78085797a34cfd6`.</p>
+        <p>Both native CI hosts passed 103 component tests with zero failures, and a</p>
+        <p>universal host was built separately. The cores come from the unchanged,</p>
+        <p>independently verified `425e668f329cf2fe723da84985626cbf24903724` snapshot;</p>
+        <p>all 56 per-processor core jobs passed. They were not rebuilt at the host revision.</p>
+        <p>The component-source ledger and complete corresponding-source archives retain</p>
+        <p>this distinction, including MAME&#x27;s pinned upstream revision and Reborn patch.</p>
+        <p>The distributed cores reflect that source snapshot, not a claim to match every</p>
+        <p>latest upstream release. Build, signature and updater checks do not establish</p>
+        <p>that every game, emulator feature or Mac model has been tested. External</p>
+        <p>RetroArch cores are not part of the native-core update channel.</p>
+        <h3>macOS security and licenses</h3>
+        <p>The application is signed with the maintainer&#x27;s persistent self-signed</p>
+        <p>certificate and is not Apple-notarized. Initial installation on another Mac</p>
+        <p>may require the normal macOS approval to open the download. Recipients do not</p>
+        <p>need a private key or a new trusted root certificate. Do not disable Gatekeeper.</p>
+        <p>Input Monitoring permission remains a separate macOS/user decision.</p>
+        <p>Licenses remain component-specific; consult the included source and notices.</p>
+        <p>Do not charge for packages containing the non-commercial Picodrive component.</p>
+        <p>The source archive README documents one inherited absolute symlink safely</p>
+        <p>represented as inert text with its original target bytes, Git mode and blob ID.</p>
+        ]]>
+      </description>
+      <pubDate>Sun, 20 Sep 2026 00:25:28 +0000</pubDate>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <enclosure
+        url="https://github.com/communism420/OpenEmu-Reborn/releases/download/v1.0.0/OpenEmu-Reborn-universal.zip"
+        sparkle:version="23"
+        sparkle:shortVersionString="1.0.0"
+        sparkle:edSignature="6qGEAyTcrL8roGeLK1IFCFfvtOl61/2xErkpquM+k0jpUDUsGEf9sm9/kFHpe9KPQ4Iigxl8UxQuQjjEHBWZDw=="
+        length="243024847"
+        type="application/octet-stream"/>
+    </item>
+<item>
       <title>OpenEmu-Silicon 1.2.5</title>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
       <description>
