@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>%@ Game</key>
-	<string>%@ Game</string>
+	<string>%@ 遊戲</string>
 	<key>Archived Game</key>
 	<string>已封存遊戲</string>
 	<key>OpenEmu Core Plugin</key>

@@ -89,7 +89,7 @@
 	<key>Setup Assistant has finished</key>
 	<string>L'assistent de configuració ha acabat</string>
 	<key>Shaders</key>
-	<string>Shaders</string>
+	<string>Ombrejadors</string>
 	<key>Show all special keys</key>
 	<string>Mostra totes les tecles especials</string>
 	<key>Show audio output device in menu</key>
@@ -127,5 +127,27 @@ analògics amb els botons:</string>
 	<string>L'OpenEmu no respondrà durant aquesta operació.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Canvia la unitat del menú d'escala de punts a píxels</string>
+	<key>Dark</key>
+	<string>Fosc</string>
+	<key>Download additional shaders</key>
+	<string>Baixa més ombrejadors</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Activa la sincronització adaptativa en pantalles compatibles (pantalla completa)</string>
+	<key>Preview achievement banner</key>
+	<string>Previsualitza el bàner d'assoliment</string>
+	<key>Save States</key>
+	<string>Estats desats</string>
+	<key>Use new save states view</key>
+	<string>Utilitza la nova vista d'estats desats</string>
+	<key>Use new screenshots view</key>
+	<string>Utilitza la nova vista de captures de pantalla</string>
+	<key>Vibrant</key>
+	<string>Vibrant</string>
+	<key>Vibrant Wood</key>
+	<string>Fusta vibrant</string>
+	<key>Wood</key>
+	<string>Fusta</string>
 </dict>
 </plist>

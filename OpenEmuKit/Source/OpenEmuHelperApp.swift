@@ -312,7 +312,7 @@ extension OSLog {
             
             throw OEGameCoreErrorCodes(.couldNotLoadROMError,
                                        userInfo: [
-                                        NSLocalizedDescriptionKey: NSLocalizedString("The emulator does not have read permissions to the ROM.",
+                                        NSLocalizedDescriptionKey: NSLocalizedString("The emulator does not have read permissions to the ROM.", bundle: OEHostLocalizationBundle(),
                                                                                      comment: "Error when loading a ROM."),
                                        ])
         }
@@ -330,7 +330,7 @@ extension OSLog {
             
 			throw OEGameCoreErrorCodes(.couldNotLoadROMError,
                                        userInfo: [
-                                        NSLocalizedDescriptionKey: NSLocalizedString("The emulator could not load ROM.",
+                                        NSLocalizedDescriptionKey: NSLocalizedString("The emulator could not load ROM.", bundle: OEHostLocalizationBundle(),
                                                                                      comment: "Error when loading a ROM."),
                                         NSUnderlyingErrorKey: error
                                        ])
@@ -633,7 +633,7 @@ extension OSLog {
         guard HardcoreModePolicy.allows(.loadState, hardcoreEnabled: _hardcoreEnabled) else {
             block(false, NSError(domain: OEGameCoreErrorDomain,
                                  code: 0,
-                                 userInfo: [NSLocalizedDescriptionKey: "Loading save states is disabled in hardcore mode."]))
+                                 userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Save state loading is disabled in hardcore mode.", bundle: OEHostLocalizationBundle(), comment: "Hardcore save-state error")]))
             return
         }
         gameCore.perform {

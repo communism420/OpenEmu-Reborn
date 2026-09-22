@@ -81,7 +81,7 @@ func toGameFileName(systemName name: String, appBundle app: Bundle, localization
 }
 
 
-func readLocalizedInfoPlistStrings(appBundle: Bundle) -> [String: [String: String]]
+func readLocalizedInfoPlistStrings(appBundle: Bundle, resourcesURL: URL? = nil) -> [String: [String: String]]
 {
     let localizations = appBundle.localizations
     var res: [String: [String: String]] = [:]
@@ -89,7 +89,7 @@ func readLocalizedInfoPlistStrings(appBundle: Bundle) -> [String: [String: Strin
         if localization == "Base" {
             continue
         }
-        let plist = appBundle.resourceURL!.appendingPathComponent(localization + ".lproj/InfoPlist.strings")
+        let plist = (resourcesURL ?? appBundle.resourceURL!).appendingPathComponent(localization + ".lproj/InfoPlist.strings")
         do {
             let data = try Data(contentsOf: plist)
             let strings = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as! [String: String]
@@ -206,10 +206,15 @@ func systemDocuments(typeName: String, extensions: [String]) -> [[String : Any]]
 }
 
 
-func updateInfoPlist(appBundle: Bundle, systemPlugins: [Bundle])
+func updateInfoPlist(appBundle: Bundle, systemPlugins: [Bundle], sourceLocalizationsURL: URL?)
 {
     var newTypes: [[String : Any]] = []
     var localizations = readLocalizedInfoPlistStrings(appBundle: appBundle)
+    // Read explicit translations from source, not from previously generated
+    // output: incremental builds must still refresh regional system names.
+    let explicitTranslations = sourceLocalizationsURL.map {
+        readLocalizedInfoPlistStrings(appBundle: appBundle, resourcesURL: $0)
+    } ?? [:]
     
     let multiSystemExts = computeCommonExtensions(appBundle: appBundle, systemPlugins: systemPlugins)
     
@@ -228,7 +233,8 @@ func updateInfoPlist(appBundle: Bundle, systemPlugins: [Bundle])
         newTypes += systemDocuments(typeName: typeName, extensions: sanifiedExts)
         for (localization, var strings) in localizations {
             let localizedName = regionalizedSystemName(plugin: plugin, languageCode: localization) ?? baseSystemName
-            strings[typeName] = toGameFileName(systemName: localizedName, appBundle: appBundle, localization: localization)
+            strings[typeName] = explicitTranslations[localization]?[typeName]
+                ?? toGameFileName(systemName: localizedName, appBundle: appBundle, localization: localization)
             localizations[localization] = strings
         }
     }
@@ -237,7 +243,8 @@ func updateInfoPlist(appBundle: Bundle, systemPlugins: [Bundle])
     let multiSysTypeName = toGameFileName(systemName: "OpenEmu", appBundle: appBundle, localization: "en")
     newTypes += systemDocuments(typeName: multiSysTypeName, extensions: Array<String>(multiSystemExts))
     for (localization, var strings) in localizations {
-        strings[multiSysTypeName] = toGameFileName(systemName: "OpenEmu", appBundle: appBundle, localization: localization)
+        strings[multiSysTypeName] = explicitTranslations[localization]?[multiSysTypeName]
+            ?? toGameFileName(systemName: "OpenEmu", appBundle: appBundle, localization: localization)
         localizations[localization] = strings
     }
     
@@ -264,8 +271,8 @@ func updateInfoPlist(appBundle: Bundle, systemPlugins: [Bundle])
 }
 
 
-if CommandLine.arguments.count != 2 {
-    print("usage: \(CommandLine.arguments[0]) OpenEmu.app")
+if !(2...3).contains(CommandLine.arguments.count) {
+    print("usage: \(CommandLine.arguments[0]) OpenEmu.app [source-localizations-directory]")
     exit(1)
 }
 let appPath = CommandLine.arguments[1]
@@ -273,5 +280,6 @@ let appBundle = Bundle(path: appPath)!
 let pluginsDir = appBundle.builtInPlugInsURL!.appendingPathComponent("Systems", isDirectory: true)
 let pluginURLs = try! FileManager.default.contentsOfDirectory(at: pluginsDir, includingPropertiesForKeys: nil, options: [.skipsPackageDescendants, .skipsHiddenFiles, .skipsSubdirectoryDescendants])
 let plugins = pluginURLs.compactMap(Bundle.init(url:))
-updateInfoPlist(appBundle: appBundle, systemPlugins: plugins)
-
+let sourceLocalizationsURL = CommandLine.arguments.count == 3
+    ? URL(fileURLWithPath: CommandLine.arguments[2], isDirectory: true) : nil
+updateInfoPlist(appBundle: appBundle, systemPlugins: plugins, sourceLocalizationsURL: sourceLocalizationsURL)

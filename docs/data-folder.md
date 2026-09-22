@@ -4,7 +4,7 @@ OpenEmu Reborn retains existing OpenEmu filenames, markers and preference identi
 
 On its first ordinary launch, OpenEmu asks you to choose a dedicated folder for its data. Choose an empty folder, create one in the picker, or select an existing OpenEmu data folder. Do not select your whole Documents or Downloads folder. Canceling the picker quits OpenEmu.
 
-The picker sizes its wrapping explanation before giving it to the native file panel. It also checks the usable screen area after native layout, late window resizing and screen changes, including the first launch after a settings reset. Normal resizing inside the screen remains available; the full explanation and folder-selection controls are retained.
+The picker sizes its wrapping explanation before giving it to the native file panel. It also checks the usable screen area after native layout, late window resizing and screen changes, including the first launch after a settings reset. The confirmation button uses macOS's own compact, translated label; the window never deliberately shrinks below the minimum size AppKit needs for its controls. Normal resizing inside the screen remains available; the full explanation and folder-selection controls are retained. The backup-folder picker uses the same bounded explanation and native sizing. A display smaller than the native controls' minimum size cannot be made to fit by squeezing those controls together.
 
 OpenEmu does not move or delete an old library automatically. To keep an old installation's data, select the folder containing `Game Library/Library.storedata`, usually `~/Library/Application Support/OpenEmu`. Select its parent data folder, not `Game Library` itself. An unrelated nonempty folder is rejected.
 
@@ -194,9 +194,17 @@ With a previously built app containing the layout fix:
 picker_app="/absolute/path/to/OpenEmu.app"
 bash Scripts/Tests/test-data-folder-panel.sh "$picker_app"
 bash Scripts/Tests/test-data-folder-panel-app.sh "$picker_app"
+# Alternative: compile the real small storage SDK and picker source directly,
+# without an existing app or a framework/header combination from another build.
+bash Scripts/Tests/test-data-folder-panel.sh --standalone
+# Require actual native button rectangles, not just window containment:
+OE_PANEL_TEST_REQUIRE_BUTTON_GEOMETRY=YES \
+  bash Scripts/Tests/test-data-folder-panel.sh --standalone
 ```
 
-The first test compiles only the folder-setup source and a small harness against the existing SDK framework. It exercises real English/Russian native panels, first-launch/recovery modes, late restored sizes, and a simulated smaller usable screen area without changing display settings. The second test checks the packaged executable's ordinary startup picker in a private app copy with a unique bundle identifier and test-only in-memory preferences. The unique identity also isolates native file-panel preferences, which macOS can save outside the application's preferences API. Both cancel without selecting a data folder; neither resets real settings, starts games, or builds emulator cores. They require a logged-in macOS desktop. The app test refuses to close an existing OpenEmu session. Remote-hosted native buttons may not expose individual frames to these tests; those checks are reported as unavailable, not counted as visual verification.
+The first test compiles only the folder-setup source and a small harness against the existing SDK framework (or the two real storage source files with `--standalone`). It exercises native panels, first-launch/recovery modes, the shared backup-folder sheet layout, late restored sizes, and a simulated smaller usable screen area without changing display settings. English and Russian run by default; `OE_PANEL_TEST_LANGUAGES="en ru de ar"` selects more languages. The second test checks the packaged executable's ordinary startup picker in a private app copy with a unique bundle identifier and test-only in-memory preferences. The unique identity also isolates native file-panel preferences, which macOS can save outside the application's preferences API. Both cancel without selecting a data folder; neither resets real settings, starts games, or builds emulator cores. They require a logged-in macOS desktop. The app test refuses to close an existing OpenEmu session.
+
+The harness checks native minimum sizes and pairwise intersections of available action-button rectangles, not only whether each button is inside the window. Recent macOS versions host buttons in a separate service. The standalone test can read its own process's accessibility tree when permission is already available; it never requests or changes that permission. Otherwise it reports the button-layout coverage as **UNVERIFIED**. Strict geometry mode fails in that situation rather than treating missing rectangles as a passing overlap test. `OE_PANEL_TEST_SCREENSHOTS=YES` optionally captures only the fixture's own window when screen-recording permission is already available. Neither a window-bounds check nor a successful compile is proof of visual button separation; use an authorized geometry run or a manual visual check for that remaining coverage.
 
 ### Manual first-launch and recovery checks
 

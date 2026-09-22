@@ -296,7 +296,7 @@ final class OESaveSyncManager: NSObject {
 
                 if toUpload.isEmpty {
                     os_log(.info, log: log, "Full sync check: all saves are up to date.")
-                    setStatus(.success, message: "All saves are up to date.")
+                    setStatus(.success, message: NSLocalizedString("All saves are up to date.", comment: ""))
                     return
                 }
 
@@ -306,7 +306,7 @@ final class OESaveSyncManager: NSObject {
                 }
             } catch {
                 os_log(.error, log: log, "Full sync check failed: %@", error.localizedDescription)
-                setStatus(.failed, message: "Sync failed: \(error.localizedDescription)")
+                setStatus(.failed, message: String(format: NSLocalizedString("Sync failed: %@", comment: ""), error.localizedDescription))
             }
         }
     }
@@ -402,7 +402,7 @@ final class OESaveSyncManager: NSObject {
             return
         }
         
-        setStatus(.syncing, message: "Downloading '\(gameName)' from cloud…")
+        setStatus(.syncing, message: String(format: NSLocalizedString("Downloading '%@' from cloud…", comment: ""), gameName))
         
         let cloudPath = standardizedCloudPath(system: systemIdentifier, gameName: gameName)
         
@@ -421,10 +421,10 @@ final class OESaveSyncManager: NSObject {
                 }
                 
                 lastSyncDate = Date()
-                setStatus(.success, message: "'\(gameName)' save synced from cloud.")
+                setStatus(.success, message: String(format: NSLocalizedString("'%@' save synced from cloud.", comment: ""), gameName))
                 await MainActor.run { completion(true, nil) }
             } catch {
-                setStatus(.failed, message: "Download failed: \(error.localizedDescription)")
+                setStatus(.failed, message: String(format: NSLocalizedString("Download failed: %@", comment: ""), error.localizedDescription))
                 await MainActor.run { completion(false, error) }
             }
         }
@@ -441,7 +441,7 @@ final class OESaveSyncManager: NSObject {
             let data = try Data(contentsOf: localURL)
             let cloudName = cloudFileName(for: localURL)
 
-            setStatus(.syncing, message: "Uploading \(localURL.lastPathComponent)…")
+            setStatus(.syncing, message: String(format: NSLocalizedString("Uploading %@…", comment: ""), localURL.lastPathComponent))
 
             // Check if a file with this name already exists in Drive (for update vs. create).
             let existing = try await listFiles(inFolder: OEGoogleDriveConfig.appDataFolderName, namePrefix: cloudName)
@@ -455,10 +455,10 @@ final class OESaveSyncManager: NSObject {
             }
             
             lastSyncDate = Date()
-            setStatus(.success, message: "Uploaded \(localURL.lastPathComponent).")
+            setStatus(.success, message: String(format: NSLocalizedString("Uploaded %@.", comment: ""), localURL.lastPathComponent))
         } catch {
             os_log(.error, log: log, "Upload failed for %@: %@", localURL.lastPathComponent, error.localizedDescription)
-            setStatus(.failed, message: "Upload failed: \(error.localizedDescription)")
+            setStatus(.failed, message: String(format: NSLocalizedString("Upload failed: %@", comment: ""), error.localizedDescription))
         }
     }
     
@@ -589,10 +589,10 @@ final class OESaveSyncManager: NSObject {
             Task {
                 do {
                     try await self.exchangeCodeForTokens(code: code, redirectURI: redirectURI)
-                    self.setStatus(.idle, message: "Signed in to Google Drive.")
+                    self.setStatus(.idle, message: NSLocalizedString("Signed in to Google Drive.", comment: ""))
                     os_log(.info, log: log, "OAuth sign-in successful.")
                 } catch {
-                    self.setStatus(.failed, message: "Sign-in failed: \(error.localizedDescription)")
+                    self.setStatus(.failed, message: String(format: NSLocalizedString("Sign-in failed: %@", comment: ""), error.localizedDescription))
                 }
             }
         }
@@ -665,7 +665,7 @@ final class OESaveSyncManager: NSObject {
         ]
         guard let url = components.url else { return }
         
-        setStatus(.connecting, message: "Opening sign-in page…")
+        setStatus(.connecting, message: NSLocalizedString("Opening sign-in page…", comment: ""))
         DispatchQueue.main.async {
             NSWorkspace.shared.open(url)
         }
@@ -685,17 +685,17 @@ final class OESaveSyncManager: NSObject {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let code = components.queryItems?.first(where: { $0.name == "code" })?.value
         else {
-            setStatus(.failed, message: "OAuth redirect missing authorization code.")
+            setStatus(.failed, message: NSLocalizedString("OAuth redirect missing authorization code.", comment: ""))
             return
         }
         
         Task {
             do {
                 try await exchangeCodeForTokens(code: code, redirectURI: OEGoogleDriveConfig.redirectURI)
-                setStatus(.idle, message: "Signed in to Google Drive.")
+                setStatus(.idle, message: NSLocalizedString("Signed in to Google Drive.", comment: ""))
                 os_log(.info, log: log, "OAuth sign-in successful.")
             } catch {
-                setStatus(.failed, message: "Sign-in failed: \(error.localizedDescription)")
+                setStatus(.failed, message: String(format: NSLocalizedString("Sign-in failed: %@", comment: ""), error.localizedDescription))
             }
         }
     }
@@ -908,13 +908,13 @@ enum OESaveSyncError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notSignedIn:
-            return "Not signed in to Google Drive. Please sign in via Preferences."
+            return NSLocalizedString("Not signed in to Google Drive. Please sign in via Preferences.", comment: "")
         case .tokenExchangeFailed:
-            return "Failed to exchange authorization code for tokens."
+            return NSLocalizedString("Failed to exchange authorization code for tokens.", comment: "")
         case .tokenRefreshFailed:
-            return "Access token expired and could not be refreshed. Please sign in again."
+            return NSLocalizedString("Access token expired and could not be refreshed. Please sign in again.", comment: "")
         case .apiError(let code, let body):
-            return "Google Drive API error (HTTP \(code)): \(body)"
+            return String(format: NSLocalizedString("Google Drive API error (HTTP %ld): %@", comment: ""), code, body)
         }
     }
 }

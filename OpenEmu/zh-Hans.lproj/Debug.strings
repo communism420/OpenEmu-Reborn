@@ -126,5 +126,27 @@
 	<string>执行此操作时 OpenEmu 将无响应。</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>将缩放菜单单位从点改为像素</string>
+	<key>Dark</key>
+	<string>深色</string>
+	<key>Download additional shaders</key>
+	<string>下载更多着色器</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>在支持的显示器上启用自适应同步（全屏）</string>
+	<key>Preview achievement banner</key>
+	<string>预览成就横幅</string>
+	<key>Save States</key>
+	<string>即时存档</string>
+	<key>Use new save states view</key>
+	<string>使用新的即时存档视图</string>
+	<key>Use new screenshots view</key>
+	<string>使用新的截图视图</string>
+	<key>Vibrant</key>
+	<string>半透明</string>
+	<key>Vibrant Wood</key>
+	<string>半透明木纹</string>
+	<key>Wood</key>
+	<string>木纹</string>
 </dict>
 </plist>

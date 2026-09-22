@@ -5,13 +5,13 @@
 	<key>%@ Game</key>
 	<string>Juego %@</string>
 	<key>Archived Game</key>
-	<string>Archived Game</string>
+	<string>Juego comprimido</string>
 	<key>OpenEmu Core Plugin</key>
 	<string>Complemento de núcleo de OpenEmu</string>
 	<key>OpenEmu Save State</key>
 	<string>Estado guardado de OpenEmu</string>
 	<key>OpenEmu Shader</key>
-	<string>OpenEmu Shader</string>
+	<string>Sombreador de OpenEmu</string>
 	<key>OpenEmu System Plugin</key>
 	<string>Complemento de sistema de OpenEmu</string>
 </dict>

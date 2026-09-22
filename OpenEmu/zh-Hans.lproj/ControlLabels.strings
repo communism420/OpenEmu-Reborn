@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>动作</string>
 	<key>Analog</key>
 	<string>摇杆</string>
 	<key>Analog Mode</key>
@@ -83,7 +83,7 @@
 	<key>Down</key>
 	<string>下</string>
 	<key>Enter</key>
-	<string>Enter</string>
+	<string>确认</string>
 	<key>Fast Forward</key>
 	<string>快进</string>
 	<key>Fire</key>
@@ -105,11 +105,11 @@
 	<key>L</key>
 	<string>L</string>
 	<key>L Diff</key>
-	<string>L Diff</string>
+	<string>左难度</string>
 	<key>L Diff A</key>
-	<string>L Diff A</string>
+	<string>左难度 A</string>
 	<key>L Diff B</key>
-	<string>L Diff B</string>
+	<string>左难度 B</string>
 	<key>L1</key>
 	<string>L1</string>
 	<key>L2</key>
@@ -165,11 +165,11 @@
 	<key>R</key>
 	<string>R</string>
 	<key>R Diff</key>
-	<string>R Diff</string>
+	<string>右难度</string>
 	<key>R Diff A</key>
-	<string>R Diff A</string>
+	<string>右难度 A</string>
 	<key>R Diff B</key>
-	<string>R Diff B</string>
+	<string>右难度 B</string>
 	<key>R1</key>
 	<string>R1</string>
 	<key>R2</key>
@@ -197,23 +197,23 @@
 	<key>Right Trigger</key>
 	<string>右扳机键</string>
 	<key>Run</key>
-	<string>Run</string>
+	<string>运行</string>
 	<key>Save</key>
 	<string>保存</string>
 	<key>Screenshot</key>
 	<string>截图</string>
 	<key>Select</key>
-	<string>Select</string>
+	<string>选择</string>
 	<key>Service</key>
 	<string>服务</string>
 	<key>Shake</key>
-	<string>Shake</string>
+	<string>摇晃</string>
 	<key>Sound</key>
-	<string>Sound</string>
+	<string>声音</string>
 	<key>Special Keys</key>
 	<string>功能按键</string>
 	<key>Start</key>
-	<string>Start</string>
+	<string>开始</string>
 	<key>Step Backward</key>
 	<string>后退一步</string>
 	<key>Step Forward</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>成就已解锁</string>
+	<key>Hardcore Mode</key>
+	<string>硬核模式</string>
+	<key>Wiimote</key>
+	<string>Wii 遥控器</string>
+	<key>Buttons</key>
+	<string>按钮</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>HOME 按钮</string>
+	<key>Tilt</key>
+	<string>倾斜</string>
+	<key>Forward</key>
+	<string>向前</string>
+	<key>Backward</key>
+	<string>向后</string>
+	<key>Swing</key>
+	<string>挥动</string>
+	<key>Nunchuk</key>
+	<string>双截棍</string>
+	<key>Classic Controller</key>
+	<string>经典控制器</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>特殊按钮</string>
+	<key>Change Extension</key>
+	<string>切换扩展控制器</string>
+	<key>Hold Sideways</key>
+	<string>横向握持</string>
+	<key>Hold Upright</key>
+	<string>竖向握持</string>
+	<key>Sleep</key>
+	<string>休眠</string>
+	<key>Stop</key>
+	<string>停止</string>
+	<key>Slow Motion</key>
+	<string>慢动作</string>
 </dict>
 </plist>

@@ -32,9 +32,9 @@ final class PrefScreenScraperController: NSViewController {
 
     private let headerLabel     = NSTextField(labelWithString: "")
     private let descLabel       = NSTextField(wrappingLabelWithString: "")
-    private let usernameLabel   = NSTextField(labelWithString: "Username")
+    private let usernameLabel   = NSTextField(labelWithString: NSLocalizedString("Username", comment: ""))
     private let usernameField   = NSTextField()
-    private let passwordLabel   = NSTextField(labelWithString: "Password")
+    private let passwordLabel   = NSTextField(labelWithString: NSLocalizedString("Password", comment: ""))
     private let passwordField   = NSSecureTextField()
     private let saveButton      = NSButton()
     private let clearButton     = NSButton()
@@ -63,13 +63,13 @@ final class PrefScreenScraperController: NSViewController {
 
     private func buildUI() {
         // Header
-        headerLabel.stringValue = "Cover Art"
+        headerLabel.stringValue = NSLocalizedString("Cover Art", comment: "")
         headerLabel.font = .boldSystemFont(ofSize: 15)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
 
         // Description
-        descLabel.stringValue = "OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free."
+        descLabel.stringValue = NSLocalizedString("OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.", comment: "")
         descLabel.font = .systemFont(ofSize: 12)
         descLabel.textColor = .secondaryLabelColor
         descLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ final class PrefScreenScraperController: NSViewController {
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usernameLabel)
 
-        usernameField.placeholderString = "screenscraper.fr username"
+        usernameField.placeholderString = NSLocalizedString("screenscraper.fr username", comment: "")
         usernameField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usernameField)
 
@@ -91,12 +91,12 @@ final class PrefScreenScraperController: NSViewController {
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordLabel)
 
-        passwordField.placeholderString = "screenscraper.fr password"
+        passwordField.placeholderString = NSLocalizedString("screenscraper.fr password", comment: "")
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordField)
 
         // Save button
-        saveButton.title = "Save"
+        saveButton.title = NSLocalizedString("Save", comment: "")
         saveButton.bezelStyle = .rounded
         saveButton.controlSize = .regular
         saveButton.keyEquivalent = "\r"
@@ -106,7 +106,7 @@ final class PrefScreenScraperController: NSViewController {
         view.addSubview(saveButton)
 
         // Clear button
-        clearButton.title = "Clear"
+        clearButton.title = NSLocalizedString("Clear", comment: "")
         clearButton.bezelStyle = .rounded
         clearButton.controlSize = .regular
         clearButton.target = self
@@ -120,7 +120,7 @@ final class PrefScreenScraperController: NSViewController {
         view.addSubview(statusLabel)
 
         // Register link
-        registerLabel.stringValue = "Register at screenscraper.fr — it's free."
+        registerLabel.stringValue = NSLocalizedString("Register at screenscraper.fr — it's free.", comment: "")
         registerLabel.font = .systemFont(ofSize: 11)
         registerLabel.textColor = .tertiaryLabelColor
         registerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -183,7 +183,7 @@ final class PrefScreenScraperController: NSViewController {
         usernameField.stringValue = OEPreferences.shared.string(forKey: "ScreenScraperUsername") ?? ""
         // Password is stored encrypted — show placeholder only, don't pre-fill for security
         if OECredentialStore.shared.has(.screenScraperPassword) {
-            passwordField.placeholderString = "••••••••  (saved)"
+            passwordField.placeholderString = NSLocalizedString("••••••••  (saved)", comment: "")
         }
     }
 
@@ -199,19 +199,19 @@ final class PrefScreenScraperController: NSViewController {
                     self.statusLabel.stringValue = description
                     self.statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
                 } else if ScreenScraperClient.shared.hasVerifiedCredentials {
-                    self.statusLabel.stringValue = "✓  Signed in as \(username)"
+                    self.statusLabel.stringValue = String(format: NSLocalizedString("✓  Signed in as %@", comment: ""), username)
                     self.statusLabel.textColor = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)
                 } else {
                     // Credentials are stored but haven't been verified this session yet.
                     // Silently verify in the background so the pane shows the correct state
                     // without the user needing to hit Save.
-                    self.statusLabel.stringValue = "Verifying…"
+                    self.statusLabel.stringValue = NSLocalizedString("Verifying…", comment: "")
                     self.statusLabel.textColor = .secondaryLabelColor
                     self.silentlyVerify(username: username)
                 }
             }
         } else {
-            statusLabel.stringValue = "Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active."
+            statusLabel.stringValue = NSLocalizedString("Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.", comment: "")
             statusLabel.textColor = .secondaryLabelColor
         }
     }
@@ -227,15 +227,15 @@ final class PrefScreenScraperController: NSViewController {
                 let ok = try await ScreenScraperClient.shared.verifyCredentials(username: username, password: password)
                 if ok {
                     ScreenScraperClient.shared.clearLastFetchError()
-                    self.statusLabel.stringValue = "✓  Signed in as \(username)"
+                    self.statusLabel.stringValue = String(format: NSLocalizedString("✓  Signed in as %@", comment: ""), username)
                     self.statusLabel.textColor = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)
                 } else {
-                    self.statusLabel.stringValue = "ScreenScraper rejected these credentials. Re-enter your password and save."
+                    self.statusLabel.stringValue = NSLocalizedString("ScreenScraper rejected these credentials. Re-enter your password and save.", comment: "")
                     self.statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
                 }
             } catch {
                 // Network unavailable — don't show an error for a background check, just go neutral.
-                self.statusLabel.stringValue = "Could not reach ScreenScraper — check your connection."
+                self.statusLabel.stringValue = NSLocalizedString("Could not reach ScreenScraper — check your connection.", comment: "")
                 self.statusLabel.textColor = .secondaryLabelColor
             }
         }
@@ -246,12 +246,12 @@ final class PrefScreenScraperController: NSViewController {
         let password = passwordField.stringValue.trimmingCharacters(in: .whitespaces)
 
         guard !username.isEmpty else {
-            statusLabel.stringValue = "Username cannot be empty."
+            statusLabel.stringValue = NSLocalizedString("Username cannot be empty.", comment: "")
             statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
             return
         }
         guard !password.isEmpty else {
-            statusLabel.stringValue = "Password cannot be empty."
+            statusLabel.stringValue = NSLocalizedString("Password cannot be empty.", comment: "")
             statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
             return
         }
@@ -259,11 +259,11 @@ final class PrefScreenScraperController: NSViewController {
         OEPreferences.shared.set(username, forKey: "ScreenScraperUsername")
         OECredentialStore.shared.set(password, forKey: .screenScraperPassword)
         passwordField.stringValue = ""
-        passwordField.placeholderString = "••••••••  (saved)"
+        passwordField.placeholderString = NSLocalizedString("••••••••  (saved)", comment: "")
 
         saveButton.isEnabled = false
         clearButton.isEnabled = false
-        statusLabel.stringValue = "Verifying credentials…"
+        statusLabel.stringValue = NSLocalizedString("Verifying credentials…", comment: "")
         statusLabel.textColor = .secondaryLabelColor
 
         Task { @MainActor in
@@ -272,14 +272,14 @@ final class PrefScreenScraperController: NSViewController {
                 if ok {
                     // Clear any prior fetch error so the pane reflects the fresh verification.
                     ScreenScraperClient.shared.clearLastFetchError()
-                    statusLabel.stringValue = "✓  Signed in as \(username)"
+                    statusLabel.stringValue = String(format: NSLocalizedString("✓  Signed in as %@", comment: ""), username)
                     statusLabel.textColor = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)
                 } else {
-                    statusLabel.stringValue = "ScreenScraper rejected these credentials. Check your username and password."
+                    statusLabel.stringValue = NSLocalizedString("ScreenScraper rejected these credentials. Check your username and password.", comment: "")
                     statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
                 }
             } catch {
-                statusLabel.stringValue = "Could not reach ScreenScraper — check your connection."
+                statusLabel.stringValue = NSLocalizedString("Could not reach ScreenScraper — check your connection.", comment: "")
                 statusLabel.textColor = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
             }
             saveButton.isEnabled = true
@@ -292,7 +292,7 @@ final class PrefScreenScraperController: NSViewController {
         OECredentialStore.shared.remove(.screenScraperPassword)
         usernameField.stringValue = ""
         passwordField.stringValue = ""
-        passwordField.placeholderString = "screenscraper.fr password"
+        passwordField.placeholderString = NSLocalizedString("screenscraper.fr password", comment: "")
         updateStatus()
     }
 }
@@ -303,7 +303,7 @@ extension PrefScreenScraperController: PreferencePane {
 
     var icon: NSImage? {
         if #available(macOS 11.0, *) {
-            return NSImage(systemSymbolName: "photo.on.rectangle", accessibilityDescription: "Cover Art")
+            return NSImage(systemSymbolName: "photo.on.rectangle", accessibilityDescription: NSLocalizedString("Cover Art", comment: ""))
         }
         return NSImage(named: NSImage.slideshowTemplateName)
     }
@@ -312,4 +312,3 @@ extension PrefScreenScraperController: PreferencePane {
 
     var viewSize: NSSize { NSSize(width: 468, height: 360) }
 }
-

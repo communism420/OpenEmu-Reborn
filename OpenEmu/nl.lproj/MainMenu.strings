@@ -61,7 +61,7 @@
 	<key>Jump to Selection</key>
 	<string>Spring naar selectie</string>
 	<key>Last Display Mode</key>
-	<string>Last Display Mode</string>
+	<string>Vorige weergavemodus</string>
 	<key>Last Played</key>
 	<string>Laatst gespeeld</string>
 	<key>Launch Game…</key>
@@ -69,7 +69,7 @@
 	<key>Load State</key>
 	<string>Laad momentopname</string>
 	<key>Log Responder Chain</key>
-	<string>Log Responder Chain</string>
+	<string>Leg responderketen vast</string>
 	<key>Minimize</key>
 	<string>Minimaliseer</string>
 	<key>New Collection Folder</key>
@@ -77,7 +77,7 @@
 	<key>New Smart Collection…</key>
 	<string>Nieuwe slimme verzameling…</string>
 	<key>Next Display Mode</key>
-	<string>Next Display Mode</string>
+	<string>Volgende weergavemodus</string>
 	<key>OpenEmu Web Site</key>
 	<string>OpenEmu Reborn-website</string>
 	<key>Organize Library…</key>
@@ -138,5 +138,9 @@
 	<string>Als raster</string>
 	<key>as List</key>
 	<string>Als lijst</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Zet machtiging voor invoercontrole terug…</string>
+	<key>Take Native Screenshot</key>
+	<string>Maak schermafbeelding op oorspronkelijke resolutie</string>
 </dict>
 </plist>

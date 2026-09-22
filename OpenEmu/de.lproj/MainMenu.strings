@@ -138,5 +138,9 @@
 	<string>Als Symbole</string>
 	<key>as List</key>
 	<string>Als Liste</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Berechtigung zur Eingabeüberwachung zurücksetzen…</string>
+	<key>Take Native Screenshot</key>
+	<string>Bildschirmfoto in nativer Auflösung aufnehmen</string>
 </dict>
 </plist>

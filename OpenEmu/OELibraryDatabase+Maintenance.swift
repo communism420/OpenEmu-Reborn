@@ -474,7 +474,7 @@ extension OELibraryDatabase {
             if image.relativePath == nil || image.relativePath == "" {
                 counts.0 += 1
             }
-            else if image.image == nil {
+            else if image.loadImageSynchronously() == nil {
                 counts.1 += 1
             }
         }

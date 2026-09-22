@@ -127,5 +127,27 @@ vinculados a botones:</string>
 	<string>Mientras realiza esta operación OpenEmu no responderá.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Cambiar la unidad de escala de puntos a píxeles</string>
+	<key>Dark</key>
+	<string>Oscuro</string>
+	<key>Download additional shaders</key>
+	<string>Descargar sombreadores adicionales</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Activar sincronización adaptativa en pantallas compatibles (pantalla completa)</string>
+	<key>Preview achievement banner</key>
+	<string>Vista previa del aviso de logro</string>
+	<key>Save States</key>
+	<string>Estados guardados</string>
+	<key>Use new save states view</key>
+	<string>Usar la nueva vista de estados guardados</string>
+	<key>Use new screenshots view</key>
+	<string>Usar la nueva vista de capturas</string>
+	<key>Vibrant</key>
+	<string>Translúcido</string>
+	<key>Vibrant Wood</key>
+	<string>Madera translúcida</string>
+	<key>Wood</key>
+	<string>Madera</string>
 </dict>
 </plist>

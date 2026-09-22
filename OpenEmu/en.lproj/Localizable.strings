@@ -36,8 +36,6 @@
 	<string>The OpenEmu Game Library contains a database file which could get corrupted if the library is moved to the following locations:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Folders managed by cloud synchronization software (like &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Network drives&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;Additionally, &lt;b&gt;sharing the same library between multiple computers or users&lt;/b&gt; may also corrupt it. This also applies to moving the library to external USB drives.</string>
 	<key>Add</key>
 	<string>Add</string>
-	<key>Add Cheat</key>
-	<string>Add Cheat</string>
 	<key>Add Cheat…</key>
 	<string>Add Cheat…</string>
 	<key>Add Cover Art from File…</key>
@@ -106,8 +104,6 @@
 	<string>Change Volume</string>
 	<key>Changed button for %1$@ to %2$@.</key>
 	<string>Changed button for %1$@ to %2$@.</string>
-	<key>Cheat Description</key>
-	<string>Cheat Description</string>
 	<key>Check out some excellent homebrew games.</key>
 	<string>Check out some excellent homebrew games.</string>
 	<key>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</key>
@@ -783,5 +779,813 @@ You can go to the Controls preferences to check which associations were affected
 	<string>No compatible, verified download is available for this core. Check for updates again.</string>
 	<key>A core update check is already in progress.</key>
 	<string>A core update check is already in progress.</string>
+	<key> — not yet supported</key>
+	<string> — not yet supported</string>
+	<key>%.1f%% unlocked</key>
+	<string>%.1f%% unlocked</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d of %3$d)</string>
+	<key>%@ result found</key>
+	<string>%@ result found</string>
+	<key>%@ result found 🎯</key>
+	<string>%@ result found 🎯</string>
+	<key>%@ results found</key>
+	<string>%@ results found</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · %d of %d achievements · %d of %d points</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · Rank #%d</string>
+	<key>%d points</key>
+	<string>%d points</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld file(s) did not match any game and will be skipped.</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>'%@' save synced from cloud.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;space&gt;</string>
+	<key>A New Quest</key>
+	<string>A New Quest</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>A check for new cores is already in progress.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>Access token expired and could not be refreshed. Please sign in again.</string>
+	<key>Account Sign-ins</key>
+	<string>Account Sign-ins</string>
+	<key>Achievement Set</key>
+	<string>Achievement Set</string>
+	<key>Achievement Set:</key>
+	<string>Achievement Set:</string>
+	<key>Achievement set complete</key>
+	<string>Achievement set complete</string>
+	<key>Achievements</key>
+	<string>Achievements</string>
+	<key>Achievements unavailable</key>
+	<string>Achievements unavailable</string>
+	<key>Achievements…</key>
+	<string>Achievements…</string>
+	<key>Action</key>
+	<string>Action</string>
+	<key>Active</key>
+	<string>Active</string>
+	<key>Active Now</key>
+	<string>Active Now</string>
+	<key>Active: %@</key>
+	<string>Active: %@</string>
+	<key>Add %@</key>
+	<string>Add %@</string>
+	<key>All</key>
+	<string>All</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</string>
+	<key>All achievements earned</key>
+	<string>All achievements earned</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</string>
+	<key>All saves are up to date.</key>
+	<string>All saves are up to date.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>App preferences, window settings and first-time setup.</string>
+	<key>Apply</key>
+	<string>Apply</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>Are you sure you want to revert '%@' to the previous version?</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS and Firmware</string>
+	<key>Backup Folder</key>
+	<string>Backup Folder</string>
+	<key>Broker endpoint is nil</key>
+	<string>Broker endpoint is nil</string>
+	<key>Browse Online Cheats</key>
+	<string>Browse Online Cheats</string>
+	<key>Browse Online Cheats…</key>
+	<string>Browse Online Cheats…</string>
+	<key>Button %ld</key>
+	<string>Button %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>CUE sheet contains an invalid quotation mark.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>CUE sheet does not contain any file name</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>CUE sheet format requires " quotation marks around file names but none were found.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>CUE sheet format requires " quotation marks, but instead uses %@.</string>
+	<key>Caches and Temporary Files</key>
+	<string>Caches and Temporary Files</string>
+	<key>Challenge Active</key>
+	<string>Challenge Active</string>
+	<key>Challenge: %@</key>
+	<string>Challenge: %@</string>
+	<key>Cheat Code</key>
+	<string>Cheat Code</string>
+	<key>Cheat Name</key>
+	<string>Cheat Name</string>
+	<key>Cheat Removed</key>
+	<string>Cheat Removed</string>
+	<key>Check Again</key>
+	<string>Check Again</string>
+	<key>Check for Update</key>
+	<string>Check for Update</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Check that the data disk is connected and writable. The previous settings were kept.</string>
+	<key>Choose</key>
+	<string>Choose</string>
+	<key>Choose Folder…</key>
+	<string>Choose Folder…</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>Choose OpenEmu Data Folder</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>Choose a folder of artwork images. Files are matched to games by exact name.</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Choose an empty folder or an existing OpenEmu data folder.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</string>
+	<key>Choose what to remove</key>
+	<string>Choose what to remove</string>
+	<key>Clear</key>
+	<string>Clear</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>Click to add or edit notes for this cheat</string>
+	<key>Click to see the code</key>
+	<string>Click to see the code</string>
+	<key>Close</key>
+	<string>Close</string>
+	<key>Cloud Sync</key>
+	<string>Cloud Sync</string>
+	<key>Code</key>
+	<string>Code</string>
+	<key>Code already used</key>
+	<string>Code already used</string>
+	<key>Completed</key>
+	<string>Completed</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</string>
+	<key>Connected</key>
+	<string>Connected</string>
+	<key>Continue…</key>
+	<string>Continue…</string>
+	<key>Controller Mappings</key>
+	<string>Controller Mappings</string>
+	<key>Copy</key>
+	<string>Copy</string>
+	<key>Core supports RetroAchievements</key>
+	<string>Core supports RetroAchievements</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>Could not reach ScreenScraper — check your connection.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>Could not reach ScreenScraper — check your connection. (%@)</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>Could not read file due to permission problem at path %@.</string>
+	<key>Cover Art</key>
+	<string>Cover Art</string>
+	<key>Custom Shader Files</key>
+	<string>Custom Shader Files</string>
+	<key>D-pad Down</key>
+	<string>D-pad Down</string>
+	<key>D-pad Left</key>
+	<string>D-pad Left</string>
+	<key>D-pad Right</key>
+	<string>D-pad Right</string>
+	<key>D-pad Up</key>
+	<string>D-pad Up</string>
+	<key>Data folder</key>
+	<string>Data folder</string>
+	<key>Delete Settings and Data…</key>
+	<string>Delete Settings and Data…</string>
+	<key>Did it work?</key>
+	<string>Did it work?</string>
+	<key>Did this cheat code work for you?</key>
+	<string>Did this cheat code work for you?</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</string>
+	<key>Don't Send</key>
+	<string>Don't Send</string>
+	<key>Download &amp; Play</key>
+	<string>Download &amp; Play</string>
+	<key>Download failed: %@</key>
+	<string>Download failed: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>Downloading '%@' from cloud…</string>
+	<key>Downloading…</key>
+	<string>Downloading…</string>
+	<key>East</key>
+	<string>East</string>
+	<key>Edit</key>
+	<string>Edit</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>Emulator Awaiting Approval</string>
+	<key>Europe</key>
+	<string>Europe</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>Failed to exchange authorization code for tokens.</string>
+	<key>Failed to launch helper app</key>
+	<string>Failed to launch helper app</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>File %@ does not seem to be a plain text file.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>File %@ is not a plain text file.</string>
+	<key>File cannot be read</key>
+	<string>File cannot be read</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>File cannot be read (permission problem)</string>
+	<key>Filename</key>
+	<string>Filename</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>Found artwork for %ld of %ld selected games.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>GDI does not contain any tracks</string>
+	<key>Game</key>
+	<string>Game</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie or Action Replay. Join multi-line cheats with '+'.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Game Genie or PAR codes. Join multi-line cheats with '+'.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</string>
+	<key>Game Library and Games</key>
+	<string>Game Library and Games</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</string>
+	<key>Gamma:</key>
+	<string>Gamma:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Google Drive API error (HTTP %ld): %@</string>
+	<key>Hardcore Mode</key>
+	<string>Hardcore Mode</string>
+	<key>Hardcore Reset</key>
+	<string>Hardcore Reset</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>Hardcore mode (recommended)</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</string>
+	<key>Hash: %@</key>
+	<string>Hash: %@</string>
+	<key>Help Improve OpenEmu</key>
+	<string>Help Improve OpenEmu</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>Helper unexpectedly terminated</string>
+	<key>I don't know</key>
+	<string>I don't know</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</string>
+	<key>Image Adjustments…</key>
+	<string>Image Adjustments…</string>
+	<key>Import</key>
+	<string>Import</string>
+	<key>Import Artwork from Folder…</key>
+	<string>Import Artwork from Folder…</string>
+	<key>Incompatible Cores Moved</key>
+	<string>Incompatible Cores Moved</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>Incompatible save states found: %ld</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>Installed Cores and System Plugins</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>Installed: %@
+Latest: %@</string>
+	<key>Interface Language:</key>
+	<string>Interface Language:</string>
+	<key>Invalid Backup Folder</key>
+	<string>Invalid Backup Folder</string>
+	<key>Invalid CUE sheet format</key>
+	<string>Invalid CUE sheet format</string>
+	<key>It does not work for me</key>
+	<string>It does not work for me</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</string>
+	<key>It works for me</key>
+	<string>It works for me</string>
+	<key>Japan</key>
+	<string>Japan</string>
+	<key>Keep for Now</key>
+	<string>Keep for Now</string>
+	<key>Last backed up: %@</key>
+	<string>Last backed up: %@</string>
+	<key>Last backup failed</key>
+	<string>Last backup failed</string>
+	<key>Last synced: %@</key>
+	<string>Last synced: %@</string>
+	<key>Leaderboard Failed</key>
+	<string>Leaderboard Failed</string>
+	<key>Leaderboard Result</key>
+	<string>Leaderboard Result</string>
+	<key>Leaderboard Started</key>
+	<string>Leaderboard Started</string>
+	<key>Leaderboard Submitted</key>
+	<string>Leaderboard Submitted</string>
+	<key>Leaderboard: %@</key>
+	<string>Leaderboard: %@</string>
+	<key>Load Anyway</key>
+	<string>Load Anyway</string>
+	<key>Locate Folder…</key>
+	<string>Locate Folder…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</string>
+	<key>Logged in</key>
+	<string>Logged in</string>
+	<key>M3U missing referenced file</key>
+	<string>M3U missing referenced file</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>M3U referencing unreachable file at path %@.</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>Mark if the cheat worked for you or not</string>
+	<key>Mastered</key>
+	<string>Mastered</string>
+	<key>Missable</key>
+	<string>Missable</string>
+	<key>Missing referenced file</key>
+	<string>Missing referenced file</string>
+	<key>Modified</key>
+	<string>Modified</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>Move the selected data to Trash?</string>
+	<key>Move to Trash and Quit</key>
+	<string>Move to Trash and Quit</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</string>
+	<key>Newer Save Available</key>
+	<string>Newer Save Available</string>
+	<key>No Core</key>
+	<string>No Core</string>
+	<key>No Shader</key>
+	<string>No Shader</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>No achievement set was found for this game/hash.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>No achievements were reported for this game.</string>
+	<key>No backup yet</key>
+	<string>No backup yet</string>
+	<key>No cheats found</key>
+	<string>No cheats found</string>
+	<key>No folder selected</key>
+	<string>No folder selected</string>
+	<key>No matching artwork found.</key>
+	<string>No matching artwork found.</string>
+	<key>North</key>
+	<string>North</string>
+	<key>North America</key>
+	<string>North America</string>
+	<key>North-East</key>
+	<string>North-East</string>
+	<key>North-West</key>
+	<string>North-West</string>
+	<key>Not Connected</key>
+	<string>Not Connected</string>
+	<key>Not Working</key>
+	<string>Not Working</string>
+	<key>Not logged in</key>
+	<string>Not logged in</string>
+	<key>Not set</key>
+	<string>Not set</string>
+	<key>Not signed in</key>
+	<string>Not signed in</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>Not signed in to Google Drive. Please sign in via Preferences.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>Not signed in — achievements will not be tracked.</string>
+	<key>Not supported by this emulator.</key>
+	<string>Not supported by this emulator.</string>
+	<key>Not synced yet</key>
+	<string>Not synced yet</string>
+	<key>Notes</key>
+	<string>Notes</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>OAuth redirect missing authorization code.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>OEXPCMatchMaking proxy was nil</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>Obtain the Broken Picori Blade</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</string>
+	<key>OpenEmu Settings</key>
+	<string>OpenEmu Settings</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>OpenEmu caches and temporary files stored in this folder.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu cannot open its data folder</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>OpenEmu could not find a system plugin to launch the game</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>OpenEmu could not finish deleting the selected data</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>OpenEmu could not prepare data removal</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>OpenEmu could not save its settings</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>OpenEmu could not save its settings. Check that the data disk is connected and writable.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>OpenEmu needs to relaunch to request Input Monitoring access again.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</string>
+	<key>Opening sign-in page…</key>
+	<string>Opening sign-in page…</string>
+	<key>Other Files in This Folder</key>
+	<string>Other Files in This Folder</string>
+	<key>Other Region</key>
+	<string>Other Region</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</string>
+	<key>Password</key>
+	<string>Password</string>
+	<key>Password cannot be empty.</key>
+	<string>Password cannot be empty.</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>Pause Blocked in Hardcore</string>
+	<key>Pending submissions completed.</key>
+	<string>Pending submissions completed.</string>
+	<key>Permission reset</key>
+	<string>Permission reset</string>
+	<key>Play Without Restoring</key>
+	<string>Play Without Restoring</string>
+	<key>Play Without Syncing</key>
+	<string>Play Without Syncing</string>
+	<key>Play With…</key>
+	<string>Play With…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>Play locked on to Sonic &amp; Knuckles</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>Please sign in again from Preferences → Achievements.</string>
+	<key>Progression</key>
+	<string>Progression</string>
+	<key>Provider</key>
+	<string>Provider</string>
+	<key>RA: Offline</key>
+	<string>RA: Offline</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>ROMs are not included in the backup.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>Register at retroachievements.org — it's free.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>Register at screenscraper.fr — it's free.</string>
+	<key>Relaunch Now</key>
+	<string>Relaunch Now</string>
+	<key>Remove OpenEmu Data</key>
+	<string>Remove OpenEmu Data</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>Reset all settings and quit OpenEmu?</string>
+	<key>Reset and Quit</key>
+	<string>Reset and Quit</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>Restarting to apply hardcore mode.</string>
+	<key>Restore &amp; Play</key>
+	<string>Restore &amp; Play</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>RetroAchievements Error</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements Offline</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>RetroAchievements Reconnected</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>RetroAchievements Sign-In Failed</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements Unavailable</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>RetroAchievements could not load for this session.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements is enabled, but no achievement set was found for this game/hash.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: Game Not Recognized</string>
+	<key>Revert</key>
+	<string>Revert</string>
+	<key>Revert to previous version?</key>
+	<string>Revert to previous version?</string>
+	<key>Saturation:</key>
+	<string>Saturation:</string>
+	<key>Save</key>
+	<string>Save</string>
+	<key>Save Anyway</key>
+	<string>Save Anyway</string>
+	<key>Save State Version Mismatch</key>
+	<string>Save State Version Mismatch</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>Save state loading is disabled in hardcore mode.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>Save states, rewind, frame advance, and cheats will be disabled.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>Saved account credentials and sign-in information in this folder.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>Saved keyboard and game controller mappings.</string>
+	<key>Saves and Console Data</key>
+	<string>Saves and Console Data</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>ScreenScraper rate limit reached. Try again later.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>ScreenScraper rejected these credentials. Check your username and password.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>ScreenScraper rejected these credentials. Re-enter your password and save.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>ScreenScraper returned an unexpected response.</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>Screenshots of Deleted Games</string>
+	<key>Select</key>
+	<string>Select</string>
+	<key>Select Backup Folder</key>
+	<string>Select Backup Folder</string>
+	<key>Send Crash Reports</key>
+	<string>Send Crash Reports</string>
+	<key>Set Status</key>
+	<string>Set Status</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>Showing first %1$@ of %2$@ cheats. Narrow your search.</string>
+	<key>Sign In</key>
+	<string>Sign In</string>
+	<key>Sign Out</key>
+	<string>Sign Out</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>Sign Out of Google Drive?</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</string>
+	<key>Sign-in failed: %@</key>
+	<string>Sign-in failed: %@</string>
+	<key>Signed in</key>
+	<string>Signed in</string>
+	<key>Signed in to Google Drive.</key>
+	<string>Signed in to Google Drive.</string>
+	<key>Signing in…</key>
+	<string>Signing in…</string>
+	<key>Softcore Mode</key>
+	<string>Softcore Mode</string>
+	<key>Softcore enforced</key>
+	<string>Softcore enforced</string>
+	<key>Some submissions are pending retry.</key>
+	<string>Some submissions are pending retry.</string>
+	<key>South</key>
+	<string>South</string>
+	<key>South-East</key>
+	<string>South-East</string>
+	<key>South-West</key>
+	<string>South-West</string>
+	<key>Start</key>
+	<string>Start</string>
+	<key>Status</key>
+	<string>Status</string>
+	<key>Supported Systems</key>
+	<string>Supported Systems</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>Switching to hardcore mode requires restarting the game.</string>
+	<key>Sync failed: %@</key>
+	<string>Sync failed: %@</string>
+	<key>Syncing…</key>
+	<string>Syncing…</string>
+	<key>System Main Menu</key>
+	<string>System Main Menu</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>The GDI %@ should contain file names referencing tracks but none could be found.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>The architectures in "%@" could not be checked: %@</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>The core cannot be installed at "%@" because that name is already used by "%@".</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>The core could not be installed because its destination is unsafe.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>The core could not be installed safely: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>The core download finished without producing an archive.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>The core file "%@" does not contain the required %@ code. It contains: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>The core replacement did not produce an installed bundle.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>The downloaded archive must contain exactly one core plugin, but %ld were found.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>The downloaded core "%@" could not be signed (codesign status %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>The downloaded core archive could not be extracted.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>The downloaded core archive could not be inspected safely.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>The downloaded core contains an unsafe link at "%@".</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>The downloaded core could not be signed: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>The downloaded core does not contain its declared executable.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>The downloaded core executable is not a macOS Mach-O binary.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>The downloaded core file "%@" could not be inspected: %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>The downloaded core has bundle identifier "%@" instead of the expected "%@".</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>The downloaded core has version "%@" instead of the expected "%@".</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>The downloaded core is not a valid plugin bundle.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>The downloaded core plugin points outside its temporary folder.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>The emulator does not have read permissions to the ROM.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>The file %@ does not respect the CUE sheet format.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>The installed core could not be loaded. The previous core has been restored.</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>The language changes the next time you open OpenEmu.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</string>
+	<key>The selected data was not deleted</key>
+	<string>The selected data was not deleted</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>This code doesn't match a known cheat format for this system.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>This core has not declared RetroAchievements support</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>This core supports RetroAchievements for this system.</string>
+	<key>This folder cannot be used</key>
+	<string>This folder cannot be used</string>
+	<key>This save state can't be loaded.</key>
+	<string>This save state can't be loaded.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>Timeout waiting for connection from helper app</string>
+	<key>Track count mismatch</key>
+	<string>Track count mismatch</string>
+	<key>Trigger %@</key>
+	<string>Trigger %@</string>
+	<key>Try Again</key>
+	<string>Try Again</string>
+	<key>Try again in about %d seconds.</key>
+	<string>Try again in about %d seconds.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>Unable to delete default shader preset</string>
+	<key>Unable to delete the active shader</key>
+	<string>Unable to delete the active shader</string>
+	<key>Unavailable</key>
+	<string>Unavailable</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>Uncheck any game you don't want to update.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>Unlocked %d of %d achievements · %d of %d points</string>
+	<key>Untitled Achievement</key>
+	<string>Untitled Achievement</string>
+	<key>Update Available</key>
+	<string>Update Available</string>
+	<key>Upload failed: %@</key>
+	<string>Upload failed: %@</string>
+	<key>Uploaded %@.</key>
+	<string>Uploaded %@.</string>
+	<key>Uploading %@…</key>
+	<string>Uploading %@…</string>
+	<key>Use This Folder</key>
+	<string>Use This Folder</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>Use the controls below to filter by name and the status you chose</string>
+	<key>Username</key>
+	<string>Username</string>
+	<key>Username cannot be empty.</key>
+	<string>Username cannot be empty.</string>
+	<key>Verifying credentials…</key>
+	<string>Verifying credentials…</string>
+	<key>Verifying…</key>
+	<string>Verifying…</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</string>
+	<key>West</key>
+	<string>West</string>
+	<key>Win Condition</key>
+	<string>Win Condition</string>
+	<key>Working</key>
+	<string>Working</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>Your library can’t be opened with this version of OpenEmu.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>Your local saves will not be affected. You can sign back in at any time.</string>
+	<key>retroachievements.org password</key>
+	<string>retroachievements.org password</string>
+	<key>retroachievements.org username</key>
+	<string>retroachievements.org username</string>
+	<key>screenscraper.fr password</key>
+	<string>screenscraper.fr password</string>
+	<key>screenscraper.fr username</key>
+	<string>screenscraper.fr username</string>
+	<key>unknown</key>
+	<string>unknown</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (saved)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  Signed in as %@</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>Login succeeded but RetroAchievements returned no token.</string>
+	<key>Invalid user/password combination.</key>
+	<string>Invalid user/password combination.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>Login failed. Check username and password.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</string>
+	<key>+%u pts</key>
+	<string>+%u pts</string>
+	<key>No backup found</key>
+	<string>No backup found</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>The core backup has an unexpected bundle identifier.</string>
+	<key>Invalid HTTP response</key>
+	<string>Invalid HTTP response</string>
 </dict>
 </plist>

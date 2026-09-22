@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Achievement Unlocked</string>
+	<key>Hardcore Mode</key>
+	<string>Hardcore Mode</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Buttons</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>HOME</string>
+	<key>Tilt</key>
+	<string>Tilt</string>
+	<key>Forward</key>
+	<string>Forward</string>
+	<key>Backward</key>
+	<string>Backward</string>
+	<key>Swing</key>
+	<string>Swing</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Classic Controller</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Special Buttons</string>
+	<key>Change Extension</key>
+	<string>Change Extension</string>
+	<key>Hold Sideways</key>
+	<string>Hold Sideways</string>
+	<key>Hold Upright</key>
+	<string>Hold Upright</string>
+	<key>Sleep</key>
+	<string>Sleep</string>
+	<key>Stop</key>
+	<string>Stop</string>
+	<key>Slow Motion</key>
+	<string>Slow Motion</string>
 </dict>
 </plist>

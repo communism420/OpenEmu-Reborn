@@ -397,7 +397,7 @@ final class PrefDebugController: NSViewController {
     func previewAchievementBanner(_ sender: Any?) {
         let docs = NSDocumentController.shared.documents.compactMap { $0 as? OEGameDocument }
         guard let doc = docs.first else { return }
-        doc.achievementUnlocked(id: 0, title: "A New Quest", description: "Obtain the Broken Picori Blade", badgeURL: "", points: 10)
+        doc.achievementUnlocked(id: 0, title: NSLocalizedString("A New Quest", comment: "Sample achievement title"), description: NSLocalizedString("Obtain the Broken Picori Blade", comment: "Sample achievement description"), badgeURL: "", points: 10)
     }
 
     // MARK: - Library Window

@@ -76,6 +76,7 @@ class SourcePackagingTests(unittest.TestCase):
         archive = self.args.output / info["archive"]
         self.assertEqual(info["source_sha"], self.source_sha)
         self.assertEqual(info["mame_upstream_revision"], self.upstream_sha)
+        self.assertEqual(info["mame_upstream_repository"], "https://github.com/stuartcarnie/mame.git")
         self.assertEqual(info["mame_patch_sha256"], hashlib.sha256(self.patch_bytes).hexdigest())
         self.assertEqual(info["tracked_source_files"], 6)
         self.assertEqual(info["archive_size"], archive.stat().st_size)
@@ -105,6 +106,23 @@ class SourcePackagingTests(unittest.TestCase):
             self.git(restored, "init", "-q")
             self.git(restored, "apply", str(saved_patch))
             self.assertEqual((restored / "source.c").read_bytes(), self.patched)
+
+    def test_fork_repository_is_taken_from_committed_pin(self):
+        (self.reborn / MODULE.PIN).write_text(
+            f"OpenEmu-Silicon/mame commit: {self.upstream_sha}\n"
+            "source: https://github.com/OpenEmu-Silicon/mame.git\n")
+        self.commit(self.reborn)
+        self.args.source_sha = self.git(self.reborn, "rev-parse", "HEAD").decode().strip()
+        MODULE.package(self.args)
+        info = json.loads((self.args.output / "SOURCE-INFO.json").read_text())
+        self.assertEqual(info["mame_upstream_repository"], "https://github.com/OpenEmu-Silicon/mame.git")
+
+    def test_missing_repository_is_rejected(self):
+        (self.reborn / MODULE.PIN).write_text(f"mame commit: {self.upstream_sha}\n")
+        self.commit(self.reborn)
+        self.args.source_sha = self.git(self.reborn, "rev-parse", "HEAD").decode().strip()
+        with self.assertRaisesRegex(ValueError, "pinned MAME repository"):
+            MODULE.package(self.args)
 
     def test_reborn_source_sha_must_match(self):
         self.args.source_sha = "a" * 40
