@@ -138,5 +138,9 @@
 	<string>Par grille</string>
 	<key>as List</key>
 	<string>Par liste</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Réinitialiser l'autorisation de surveillance de l'entrée…</string>
+	<key>Take Native Screenshot</key>
+	<string>Capturer à la résolution native</string>
 </dict>
 </plist>

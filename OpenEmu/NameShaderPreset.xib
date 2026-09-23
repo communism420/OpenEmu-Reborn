@@ -37,6 +37,9 @@
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </textField>
                 <stackView hidden="YES" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ake-B9-kf7">
                     <rect key="frame" x="20" y="48" width="420" height="14"/>

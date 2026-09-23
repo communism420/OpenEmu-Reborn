@@ -127,5 +127,27 @@
 	<string>Во время выполнения данной операции OpenEmu может не отвечать.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Показывать масштаб в пикселях вместо точек</string>
+	<key>Dark</key>
+	<string>Тёмная</string>
+	<key>Download additional shaders</key>
+	<string>Скачать дополнительные шейдеры</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Адаптивная синхронизация на совместимых экранах (полный экран)</string>
+	<key>Preview achievement banner</key>
+	<string>Предпросмотр уведомления о достижении</string>
+	<key>Save States</key>
+	<string>Состояния игры</string>
+	<key>Use new save states view</key>
+	<string>Новый вид состояний игры</string>
+	<key>Use new screenshots view</key>
+	<string>Новый вид снимков экрана</string>
+	<key>Vibrant</key>
+	<string>Полупрозрачная</string>
+	<key>Vibrant Wood</key>
+	<string>Полупрозрачное дерево</string>
+	<key>Wood</key>
+	<string>Дерево</string>
 </dict>
 </plist>

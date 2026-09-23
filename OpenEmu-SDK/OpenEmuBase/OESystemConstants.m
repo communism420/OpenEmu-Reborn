@@ -39,10 +39,13 @@ NSString *const OESystemIdentifierNDS        = @"openemu.system.nds";
 NSString *const OESystemIdentifierGenesis    = @"openemu.system.sg";
 NSString *const OESystemIdentifierSMS        = @"openemu.system.sms";
 NSString *const OESystemIdentifierGameGear   = @"openemu.system.gg";
+NSString *const OESystemIdentifierSG1000     = @"openemu.system.sg1000";
+NSString *const OESystemIdentifierColecoVision = @"openemu.system.colecovision";
 NSString *const OESystemIdentifierSegaCD     = @"openemu.system.scd";
 NSString *const OESystemIdentifierSega32X    = @"openemu.system.32x";
 NSString *const OESystemIdentifierAtari2600  = @"openemu.system.2600";
 NSString *const OESystemIdentifierPSX        = @"openemu.system.psx";
+NSString *const OESystemIdentifierSaturn     = @"openemu.system.saturn";
 
 // MARK: - Cheat Code Type Strings
 

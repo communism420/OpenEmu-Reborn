@@ -92,18 +92,16 @@ enum OECoreMigration {
 
         DispatchQueue.main.async {
             let alert = NSAlert()
-            alert.messageText = "Incompatible Cores Moved"
-            alert.informativeText = """
-                OpenEmu found \(movedCores.count == 1 ? "a core" : "\(movedCores.count) cores") \
-                that cannot run on this Mac and moved \(movedCores.count == 1 ? "it" : "them") to \
-                \(legacy.path).
+            alert.messageText = NSLocalizedString("Incompatible Cores Moved", comment: "")
+            alert.informativeText = String(format: NSLocalizedString("""
+                OpenEmu moved cores that cannot run on this Mac to %@.
 
-                Moved: \(movedCores.joined(separator: ", "))
+                Moved: %@
 
                 Compatible replacements will download automatically when available.
-                """
+                """, comment: ""), legacy.path, movedCores.joined(separator: ", "))
             alert.alertStyle = .informational
-            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
             alert.runModal()
         }
     }

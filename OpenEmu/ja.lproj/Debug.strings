@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>Appearance:</key>
-	<string>Appearance:</string>
+	<string>外観：</string>
 	<key>Auto (region)</key>
-	<string>Auto</string>
+	<string>自動</string>
 	<key>Background Thread</key>
-	<string>Background Thread</string>
+	<string>バックグラウンドスレッド</string>
 	<key>Cancel cover sync for all games</key>
 	<string>全てのゲームのカバー同期をキャンセル</string>
 	<key>Checked</key>
@@ -19,11 +19,11 @@
 	<key>Cleanup rom hashes</key>
 	<string>ROMのハッシュをクリーンアップ</string>
 	<key>Clear shader cache</key>
-	<string>Clear shader cache</string>
+	<string>シェーダーキャッシュを消去</string>
 	<key>Controls Setup</key>
 	<string>コントローラー設定</string>
 	<key>Dark (default)</key>
-	<string>Dark (default)</string>
+	<string>ダーク（標準）</string>
 	<key>Database Actions</key>
 	<string>データベース操作</string>
 	<key>Debug Mode</key>
@@ -33,7 +33,7 @@
 	<key>Delete artwork that can be downloaded</key>
 	<string>ダウンロード可能な写真を削除</string>
 	<key>Delete useless image objects</key>
-	<string>Delete useless image objects</string>
+	<string>不要な画像オブジェクトを削除</string>
 	<key>Disable aspect ratio correction in screenshots</key>
 	<string>スクリーンショットのアスペクト比調整を無効にする</string>
 	<key>Download missing artwork…</key>
@@ -41,7 +41,7 @@
 	<key>Draw button mask above image</key>
 	<string>画像の上に重なるボタンマスクを作成</string>
 	<key>Europe</key>
-	<string>Europe</string>
+	<string>ヨーロッパ</string>
 	<key>Game View Background color:</key>
 	<string>ゲーム画面の背景色:</string>
 	<key>General</key>
@@ -49,11 +49,11 @@
 	<key>HUD Bar / Gameplay</key>
 	<string>HUDバー / ゲームプレイ</string>
 	<key>Japan</key>
-	<string>Japan</string>
+	<string>日本</string>
 	<key>Library Window</key>
 	<string>ライブラリ ウィンドウ</string>
 	<key>Light</key>
-	<string>Light</string>
+	<string>ライト</string>
 	<key>Log HID Events</key>
 	<string>HID イベントを記録</string>
 	<key>Log Keyboard Events</key>
@@ -61,11 +61,11 @@
 	<key>Manually choose system on import</key>
 	<string>インポート時にシステムを自分で選択</string>
 	<key>North America</key>
-	<string>North America</string>
+	<string>北米</string>
 	<key>OpenVGDB</key>
 	<string>OpenVGDB</string>
 	<key>Other</key>
-	<string>Other</string>
+	<string>その他</string>
 	<key>Perform Sanity Check on Database</key>
 	<string>データベース上のSanity Checkを開始</string>
 	<key>Range: %@ to %@</key>
@@ -79,7 +79,7 @@
 	<key>Reset main window size</key>
 	<string>メインウィンドウのサイズをリセット</string>
 	<key>Reveal user shader folder</key>
-	<string>Reveal user shader folder</string>
+	<string>ユーザーのシェーダーフォルダを表示</string>
 	<key>Run games using:</key>
 	<string>以下を用いてゲームを起動:</string>
 	<key>Select first field after setting the last</key>
@@ -89,7 +89,7 @@
 	<key>Setup Assistant has finished</key>
 	<string>セットアップ・アシスタントが完了しました。</string>
 	<key>Shaders</key>
-	<string>Shaders</string>
+	<string>シェーダー</string>
 	<key>Show all special keys</key>
 	<string>グローバルキーを全て表示する</string>
 	<key>Show audio output device in menu</key>
@@ -107,15 +107,15 @@
 	<key>Show quicksave states in save state category</key>
 	<string>セーブステートカテゴリのクイックセーブを表示</string>
 	<key>Sync games without artwork</key>
-	<string>Sync games without artwork</string>
+	<string>アートワークのないゲームを同期</string>
 	<key>System</key>
-	<string>System</string>
+	<string>システム</string>
 	<key>Take screenshots in native size</key>
 	<string>スクリーンショットをネイティブサイズで表示</string>
 	<key>Threshold for analog controls bound to buttons:</key>
 	<string>ボタンによるアナログ操作のしきい値:</string>
 	<key>Toggle game scanner view</key>
-	<string>Toggle game scanner view</string>
+	<string>ゲームスキャナ表示を切り替え</string>
 	<key>Unchecked</key>
 	<string>チェックなし</string>
 	<key>Update OpenVGDB</key>
@@ -126,5 +126,27 @@
 	<string>これをしている間、OpenEmu は責任を負いかねます。</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>拡大率メニューの単位をポイントからピクセルに変更</string>
+	<key>Dark</key>
+	<string>ダーク</string>
+	<key>Download additional shaders</key>
+	<string>追加のシェーダーをダウンロード</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>対応ディスプレイで可変リフレッシュレートを有効にする（フルスクリーン）</string>
+	<key>Preview achievement banner</key>
+	<string>実績バナーをプレビュー</string>
+	<key>Save States</key>
+	<string>ステートセーブ</string>
+	<key>Use new save states view</key>
+	<string>新しいステートセーブ表示を使用</string>
+	<key>Use new screenshots view</key>
+	<string>新しいスクリーンショット表示を使用</string>
+	<key>Vibrant</key>
+	<string>半透明</string>
+	<key>Vibrant Wood</key>
+	<string>半透明の木目</string>
+	<key>Wood</key>
+	<string>木目</string>
 </dict>
 </plist>

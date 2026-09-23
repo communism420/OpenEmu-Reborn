@@ -69,7 +69,7 @@
 	<key>Load State</key>
 	<string>Загрузить состояние</string>
 	<key>Log Responder Chain</key>
-	<string>Log Responder Chain</string>
+	<string>Записать цепочку обработчиков в журнал</string>
 	<key>Minimize</key>
 	<string>Скрыть</string>
 	<key>New Collection Folder</key>
@@ -113,7 +113,7 @@
 	<key>Start Game</key>
 	<string>Начать игру</string>
 	<key>Submit Feedback</key>
-	<string>Submit Feedback</string>
+	<string>Отправить отзыв</string>
 	<key>Take Screenshot</key>
 	<string>Сделать снимок экрана</string>
 	<key>Undo</key>
@@ -138,5 +138,9 @@
 	<string>В виде сетки</string>
 	<key>as List</key>
 	<string>В виде списка</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Сбросить разрешение на отслеживание ввода…</string>
+	<key>Take Native Screenshot</key>
+	<string>Снимок в исходном разрешении</string>
 </dict>
 </plist>

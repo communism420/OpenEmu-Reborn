@@ -85,5 +85,43 @@ Denk daran, dass du die Tastenbelegung deiner Tastatur oder deines Controllers j
 	<string>Willkommen bei OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>Fenster:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Neben den gerade installierten Kernen bietet dieser Community-Fork Funktionen, die das Original nicht enthält:
+
+• RetroAchievements — erzielen Sie Erfolge beim Spielen auf NES, SNES, GBA, Genesis und weiteren Systemen. Melden Sie sich unter Einstellungen → Erfolge an.
+• Coverbilder — automatische Cover über ScreenScraper. Geben Sie Ihre Zugangsdaten unter Einstellungen → Coverbilder ein.
+• Spielen mit… — wählen Sie per Rechtsklick auf ein Spiel den verwendeten Kern.
+• Steuerung — passen Sie in den Einstellungen die Tastatur- und Gamepadbelegung für jeden Spieler an.</string>
+	<key>Click Go to open your library.</key>
+	<string>Klicken Sie auf „Los“, um Ihre Bibliothek zu öffnen.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Klicken Sie auf „Weiter“, um Ihre Kerne auszuwählen.</string>
+	<key>Downloading Data...</key>
+	<string>Daten werden geladen...</string>
+	<key>Game Scanner</key>
+	<string>Spielesuche</string>
+	<key>Name:</key>
+	<string>Name:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn ist modular aufgebaut und kann dank der Arbeit anderer großartiger Open-Source-Projekte viele Spielsysteme mithilfe von „Kernen“ emulieren. Für einige müssen Sie ausdrücklich bestätigen, dass Sie sie installieren und verwenden möchten. Ihre Lieblingssysteme und -spiele funktionieren möglicherweise nicht ohne diese Kerne.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn läuft nativ auf Macs mit Apple Silicon und Intel-Prozessoren. Kompatible Emulationskerne laufen direkt auf dem Prozessor Ihres Mac, ohne Übersetzungsschicht.
+
+Diese Einrichtung installiert die Systemkerne, die Sie zum Spielen benötigen. Kerne sind modulare Plugins — eines pro System — und können jederzeit in den Einstellungen hinzugefügt oder entfernt werden.</string>
+	<key>Resolve Issues</key>
+	<string>Probleme beheben</string>
+	<key>Scanner Paused</key>
+	<string>Suche pausiert</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Willkommen bei OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Neu in OpenEmu Reborn</string>
 </dict>
 </plist>

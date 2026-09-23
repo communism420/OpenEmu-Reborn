@@ -168,6 +168,10 @@ def package(args):
     match = re.search(rb"commit:\s*([0-9a-f]{40})", pinned_bytes)
     require(match is not None, "missing pinned MAME revision")
     revision = match[1].decode("ascii")
+    repositories = re.findall(rb"^source: (https://github\.com/[A-Za-z0-9_.-]+/mame\.git)\s*$",
+                              pinned_bytes, re.MULTILINE)
+    require(len(repositories) == 1, "missing or ambiguous pinned MAME repository")
+    upstream_repository = repositories[0].decode("ascii")
     source = args.mame_source.resolve(strict=True)
     require(git(source, "rev-parse", "HEAD").decode().strip() == revision, "MAME checkout does not match the pinned revision")
     destination = args.output.absolute()
@@ -178,7 +182,7 @@ def package(args):
     changed = verify_applied_patch(source, revision, patch_bytes, entries)
     archive_name = f"MAME-source-{args.source_sha[:12]}.tar.gz"
     metadata = {"schema": 1, "kind": "mame-source", "source_repository": REPOSITORY,
-                "source_sha": args.source_sha, "mame_upstream_repository": "https://github.com/stuartcarnie/mame.git",
+                "source_sha": args.source_sha, "mame_upstream_repository": upstream_repository,
                 "mame_upstream_revision": revision, "mame_patch_sha256": hashlib.sha256(patch_bytes).hexdigest(),
                 "patch_paths": changed, "tracked_source_files": len(entries), "archive": archive_name,
                 "source_layout": "unmodified pinned upstream tree plus exact Reborn patch",

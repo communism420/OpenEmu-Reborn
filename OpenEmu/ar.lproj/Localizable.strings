@@ -13,7 +13,7 @@
 	<key>%@ games you add to OpenEmu will appear in this Console Library</key>
 	<string>ألعاب %@ التي تضيفها إلى OpenEmu ستظهر في مكتبة ألعاب الجهاز هذه</string>
 	<key>%ux</key>
-	<string>%ux</string>
+	<string>%u ضعف</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
 	<string>        &lt;b&gt;إذا وفقط إذا وُجدت المشكلة&lt;/b&gt;، الرجاء إرسال البلاغ &lt;b&gt;(باللغة الإنجليزية)&lt;/b&gt; مع مراعاة تضمين مايلي: &lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;موديل جهاز الماك المستخدَم &lt;b&gt;و&lt;/b&gt; إصدار نظام التشغيل المُثبَت&lt;ul&gt;&lt;li&gt;Macحول هذا الـ &lt;  يمكن العثور على هذه المعلومة من خلال قائمة أبل&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;اسم اللعبة التي كنت تلعبها &lt;b&gt;بالظبط&lt;/b&gt;&lt;/li&gt;&lt;li&gt;OpenEmuHelperApp تقرير أعطال&lt;ul&gt;&lt;li&gt; OpenEmuHelperApp افتح برنامج وحدة التحكم، اضغط على تقارير الأعطال في الشريط الجانبي، ثم ابحث عن آخر مستند باسم&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;! ابحث دائما عن تعليقات وبلاغات مشابهة من مستخديمن آخرين&lt;/b&gt;&lt;br&gt;إذا تم إهمال تضمين أحد المعلومات، أو أن بلاغًا مشابهًا تم إرساله بالفعل سيتم إلغاء بلاغك</string>
 	<key>ALERT_INPUT_MONITORING_HEADLINE</key>
@@ -225,7 +225,7 @@
 	<key>Downloading and Installing Core…</key>
 	<string>جار تحميل وتثبيت النواة…</string>
 	<key>Downloading core list...</key>
-	<string>Downloading core list…</string>
+	<string>جارٍ تنزيل قائمة الأنوية…</string>
 	<key>Drag &amp; Drop Games Here</key>
 	<string>اسحب و أفلت الألعاب هنا</string>
 	<key>Drag &amp; Drop Save States Here</key>
@@ -233,9 +233,9 @@
 	<key>Duplicate Collection</key>
 	<string>كرر المجموعة</string>
 	<key>ECM compressed binaries cannot be imported. Please read the disc importing guide.</key>
-	<string>ECM compressed binaries cannot be imported. Please read the disc importing guide.</string>
+	<string>لا يمكن استيراد الملفات الثنائية المضغوطة بتنسيق ECM. يرجى قراءة دليل استيراد الأقراص.</string>
 	<key>ECM compressed binary detected.</key>
-	<string>ECM compressed binary detected.</string>
+	<string>تم اكتشاف ملف ثنائي مضغوط بتنسيق ECM.</string>
 	<key>ERROR_PLUGIN_IMPORT_ALREADYLOADED</key>
 	<string>تم تحميل نسخة من هذة الإضافة بالفعل</string>
 	<key>ERROR_PLUGIN_IMPORT_OUTOFSUPPORT</key>
@@ -295,7 +295,7 @@ If not, hold down buttons ①+②.</key>
 	<key>Increase Grid Size</key>
 	<string>زيادة حجم الشبكة</string>
 	<key>Insert Cart/Disk/Tape…</key>
-	<string>Insert Cart/Disk/Tape…</string>
+	<string>إدخال خرطوشة/قرص/شريط…</string>
 	<key>Install</key>
 	<string>تثبيت</string>
 	<key>Install %@</key>
@@ -333,7 +333,7 @@ If not, hold down buttons ①+②.</key>
 	<key>MOVE_ALERT_MOVE_BUTTON</key>
 	<string>انقله إلى مجلد التطبيقات</string>
 	<key>MOVE_ALERT_NEEDS_AUTH</key>
-	<string>You need to authenticate with an administrator name and password to complete this step. Alternatively, you can choose a different location or quit the App and move it manually.</string>
+	<string>تحتاج إلى المصادقة باسم مسؤول وكلمة مروره لإكمال هذه الخطوة. يمكنك بدلًا من ذلك اختيار موقع آخر، أو إنهاء التطبيق ونقله يدويًا.</string>
 	<key>MOVE_ALERT_TITLE</key>
 	<string>انقل OpenEmu إلى مجلد التطبيقات</string>
 	<key>Make sure your internet connection is active and download a suitable core.</key>
@@ -559,7 +559,7 @@ bugs please visit us on our GitHub.</key>
 	<key>System</key>
 	<string>النظام</string>
 	<key>System Default</key>
-	<string>System Default</string>
+	<string>إعداد النظام الافتراضي</string>
 	<key>System Files</key>
 	<string>ملفات النظام</string>
 	<key>Takes you to the %@ project website</key>
@@ -585,9 +585,9 @@ Please do not report problems as we are not responsible for the development of %
 	<key>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
 
 You can go to the Controls preferences to check which associations were affected.</key>
-	<string>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
+	<string>لا يطابق ملف تعريف أزرار أحد أجهزة التحكم الملف الذي اكتُشف عند آخر توصيل له بـ OpenEmu. أُعيد تعيين بعض عناصر التحكم المرتبطة بهذا الجهاز.
 
-You can go to the Controls preferences to check which associations were affected.</string>
+يمكنك مراجعة إعدادات التحكم في التفضيلات لمعرفة التعيينات المتأثرة.</string>
 	<key>The core could not be downloaded. Try installing it from the Cores preferences.</key>
 	<string>تغذر تحميل النواة. حاول تثبيتها من 'الأنوية' في التفضيلات.</string>
 	<key>The emulator could not load ROM.</key>
@@ -623,7 +623,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Toggle Fullscreen</key>
 	<string>التبديل إلى وضع ملء الشاشة</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>ألعاب منزلية التطوير</string>
 	<key>Toolbar: Library</key>
 	<string>المكتبة</string>
 	<key>Toolbar: Save States</key>
@@ -676,8 +676,6 @@ You can go to the Controls preferences to check which associations were affected
 	<string>تم نقل مكتبتك بنجاح.</string>
 	<key>this guide</key>
 	<string>هذا الدليل</string>
-	<key>Add Cheat</key>
-	<string>أضف الغش</string>
 	<key>Cheat Search…</key>
 	<string>بحث عن شفرات غش…</string>
 	<key>Cheat Search</key>
@@ -718,10 +716,872 @@ You can go to the Controls preferences to check which associations were affected
 	<string>القيمة السابقة</string>
 	<key>This Value:</key>
 	<string>هذه القيمة:</string>
-	<key>Cheat Description</key>
-	<string>وصف الغش</string>
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>يتم عرض أول %1$@ من %2$@ تطابق، ضيّق نطاق البحث</string>
 
+	<key></key>
+	<string></string>
+	<key>%.1f%% unlocked</key>
+	<string>تم فتح %.1f%%</string>
+	<key>%@ result found 🎯</key>
+	<string>تم العثور على %@ من النتائج 🎯</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · الإنجازات: %d من %d · النقاط: %d من %d</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · الترتيب #%d</string>
+	<key>%d points</key>
+	<string>%d نقطة</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>لم يتطابق %ld من الملفات مع أي لعبة وسيتم تخطيها.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>كل رمز يتكوّن من 12 خانة ست عشرية، مثل 80097BA0 270F. اربط أسطر الغش المتعددة بعلامة '+'.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>كل رمز يتكوّن من 12 خانة ست عشرية، مثل 8033B21D0064. اربط أسطر الغش المتعددة بعلامة '+'.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;مسافة&gt;</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>يجري بالفعل البحث عن أنوية جديدة.</string>
+	<key>A core update check is already in progress.</key>
+	<string>يجري بالفعل التحقق من تحديثات الأنوية.</string>
+	<key>A name is required.</key>
+	<string>يجب إدخال اسم.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>يتوفر حفظ أحدث للعبة '%@' في %@ (من %@). هل تريد استعادته قبل اللعب؟</string>
+	<key>Account Sign-ins</key>
+	<string>تسجيلات الدخول إلى الحسابات</string>
+	<key>Achievement Set</key>
+	<string>مجموعة الإنجازات</string>
+	<key>Achievement Set:</key>
+	<string>مجموعة الإنجازات:</string>
+	<key>Achievement set complete</key>
+	<string>اكتملت مجموعة الإنجازات</string>
+	<key>Achievements</key>
+	<string>الإنجازات</string>
+	<key>Achievements unavailable</key>
+	<string>الإنجازات غير متاحة</string>
+	<key>Achievements…</key>
+	<string>الإنجازات…</string>
+	<key>Active Now</key>
+	<string>نشط الآن</string>
+	<key>Active: %@</key>
+	<string>النشط: %@</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>ستُعاد تعيين جميع إعدادات OpenEmu وتعيينات وحدات التحكم وبيانات تسجيل الدخول المحفوظة في مجلد البيانات الحالي. عند التشغيل التالي، ستختار مجلد بيانات وتكمل الإعداد من جديد.
+
+لن تُحذف الألعاب أو BIOS أو ملفات الحفظ أو الأنوية. اختر مجلد البيانات نفسه مجددًا لمواصلة استخدام مكتبته. لن تتغير أذونات macOS.
+
+لا يمكن التراجع عن ذلك بعد التأكيد.</string>
+	<key>All achievements earned</key>
+	<string>تم الحصول على جميع الإنجازات</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>جميع الملفات المتبقية، بما فيها ما أضفته يدويًا. تُحفظ سجلات هوية المجلد والقفل وعمليات الحذف المعلّقة.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>تفضيلات التطبيق وإعدادات النوافذ والإعداد الأولي.</string>
+	<key>Apply</key>
+	<string>تطبيق</string>
+	<key>Are you sure you want to delete the shader preset called '%@'?</key>
+	<string>هل تريد بالتأكيد حذف إعداد المظلّل المسبق '%@'؟</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>هل تريد بالتأكيد إعادة '%@' إلى الإصدار السابق؟</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS والبرامج الثابتة</string>
+	<key>Broker endpoint is nil</key>
+	<string>نقطة اتصال الوسيط غير موجودة</string>
+	<key>Button %ld</key>
+	<string>الزر %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>يحتوي ملف CUE على علامة اقتباس غير صالحة.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>لا يحتوي ملف CUE على أي اسم ملف</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>يتطلب تنسيق CUE وضع أسماء الملفات بين علامتي اقتباس "، لكن لم يُعثر عليهما.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>يتطلب تنسيق CUE علامات اقتباس "، لكنه يستخدم %@ بدلًا منها.</string>
+	<key>Caches and Temporary Files</key>
+	<string>الذاكرة المؤقتة والملفات المؤقتة</string>
+	<key>Challenge Active</key>
+	<string>التحدّي نشط</string>
+	<key>Check Again</key>
+	<string>التحقق مجددًا</string>
+	<key>Check for Update</key>
+	<string>التحقق من التحديث</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>تحقق من اتصال قرص البيانات وإمكانية الكتابة إليه. تم الاحتفاظ بالإعدادات السابقة.</string>
+	<key>Choose</key>
+	<string>اختيار</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>اختيار مجلد بيانات OpenEmu</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>اختر مجلد صور الأغلفة. تُطابق الملفات مع الألعاب بحسب الاسم المطابق تمامًا.</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>اختر مجلدًا لنسخ حالات الحفظ وحفظ البطارية وملفات BIOS احتياطيًا. اختر مجلدًا داخل iCloud Drive للمزامنة تلقائيًا بين أجهزة Mac لديك.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>اختر مجلدًا فارغًا أو مجلد بيانات OpenEmu موجودًا.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>اختر أو أنشئ مجلدًا مخصصًا لمكتبة الألعاب والألعاب المستوردة وBIOS وملفات الحفظ والأنوية والإعدادات والمظلّلات والذاكرة المؤقتة. لن تُنقل البيانات الموجودة تلقائيًا. لمواصلة استخدام مكتبة قديمة، اختر مجلد بيانات OpenEmu الخاص بها.</string>
+	<key>Choose what to remove</key>
+	<string>اختيار ما تريد إزالته</string>
+	<key>Completed</key>
+	<string>مكتمل</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>صِل القرص وحاول مجددًا، أو حدّد مكان المجلد نفسه. لن تُستبدل مكتبتك.
+
+%@
+
+%@</string>
+	<key>Continue…</key>
+	<string>متابعة…</string>
+	<key>Controller Mappings</key>
+	<string>تعيينات وحدات التحكم</string>
+	<key>Core supports RetroAchievements</key>
+	<string>النواة تدعم RetroAchievements</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>تعذّرت قراءة الملف في المسار %@. تأكد من وجوده في المكان المحدد وإمكانية قراءته.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>تعذّرت قراءة الملف في المسار %@ بسبب مشكلة في الأذونات.</string>
+	<key>Custom Shader Files</key>
+	<string>ملفات المظلّلات المخصصة</string>
+	<key>D-pad Down</key>
+	<string>لوحة الاتجاهات: أسفل</string>
+	<key>D-pad Left</key>
+	<string>لوحة الاتجاهات: يسار</string>
+	<key>D-pad Right</key>
+	<string>لوحة الاتجاهات: يمين</string>
+	<key>D-pad Up</key>
+	<string>لوحة الاتجاهات: أعلى</string>
+	<key>Data folder</key>
+	<string>مجلد البيانات</string>
+	<key>Default %@ preset for %@</key>
+	<string>الإعداد المسبق الافتراضي لـ %@ من أجل %@</string>
+	<key>Delete Settings and Data…</key>
+	<string>حذف الإعدادات والبيانات…</string>
+	<key>Delete Shader Preset</key>
+	<string>حذف إعداد المظلّل المسبق</string>
+	<key>Did it work?</key>
+	<string>هل نجح ذلك؟</string>
+	<key>Download &amp; Play</key>
+	<string>تنزيل ولعب</string>
+	<key>East</key>
+	<string>شرق</string>
+	<key>Edit</key>
+	<string>تحرير</string>
+	<key>Edit…</key>
+	<string>تحرير…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>المحاكي بانتظار الموافقة</string>
+	<key>Enabled</key>
+	<string>مفعّل</string>
+	<key>Europe</key>
+	<string>أوروبا</string>
+	<key>Failed to launch helper app</key>
+	<string>تعذّر تشغيل التطبيق المساعد</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>لا يبدو أن الملف %@ ملف نص عادي.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>الملف %@ ليس ملف نص عادي.</string>
+	<key>File cannot be read</key>
+	<string>تعذّرت قراءة الملف</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>تعذّرت قراءة الملف (مشكلة في الأذونات)</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>الملفات الموجودة في مجلد Shaders. الإعدادات المسبقة المحفوظة في تفضيلات التطبيق مشمولة ضمن «إعدادات OpenEmu».</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>عُثر على أغلفة لـ %ld من أصل %ld لعبة محددة.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>لا يحتوي GDI على أي مسارات</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>رموز Game Genie أو Action Replay. اربط أسطر الغش المتعددة بعلامة '+'.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>رموز Game Genie أو PAR. اربط أسطر الغش المتعددة بعلامة '+'.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>رموز Game Genie أو قيم ست عشرية مباشرة (XXXX:YY). اربط الأسطر المتعددة بعلامة '+'.</string>
+	<key>Game Library and Games</key>
+	<string>مكتبة الألعاب والألعاب</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>ملفات الألعاب وقاعدة بيانات المكتبة والأغلفة والغش داخل هذا المجلد. تُحفظ الألعاب الخارجية. قد تفقد ملفات الحفظ ولقطات الشاشة المحتفَظ بها سجلاتها في المكتبة.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>رموز GameShark (بلا شرطة) أو Game Genie (بشرطة). اربط الأسطر المتعددة بعلامة '+'.</string>
+	<key>Hardcore Mode</key>
+	<string>الوضع الصعب</string>
+	<key>Hardcore Reset</key>
+	<string>إعادة تشغيل للوضع الصعب</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>ستُحفظ إنجازات الوضع الصعب كإنجازات الوضع العادي إلى أن تعتمد RetroAchievements تطبيق OpenEmu-Silicon.</string>
+	<key>Hash: %@</key>
+	<string>قيمة التجزئة: %@</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>توقّف المساعد بشكل غير متوقع</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>إذا كان OpenEmu مفعّلًا بالفعل، فقد يكون macOS يتحقق من نسخة أخرى أو نسخة أُعيد بناؤها. أغلق هذه النسخة وافتحها مجددًا ثم أعد التحقق. إعادة تعيين إعدادات OpenEmu لا تعيد تعيين أذونات macOS.</string>
+	<key>Image Adjustments…</key>
+	<string>ضبط الصورة…</string>
+	<key>Import Artwork from Folder…</key>
+	<string>استيراد الأغلفة من مجلد…</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>الأنوية وإضافات الأنظمة المثبّتة</string>
+	<key>Interface Language:</key>
+	<string>لغة الواجهة:</string>
+	<key>Invalid CUE sheet format</key>
+	<string>تنسيق ملف CUE غير صالح</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>أُنشئت هذه الحالة باستخدام النواة «%@» التي لم تعد مضمنة في OpenEmu. ستبدأ اللعبة دون تحميلها.</string>
+	<key>Japan</key>
+	<string>اليابان</string>
+	<key>Leaderboard Failed</key>
+	<string>فشل تحدّي لوحة الصدارة</string>
+	<key>Leaderboard Result</key>
+	<string>نتيجة لوحة الصدارة</string>
+	<key>Leaderboard Started</key>
+	<string>بدأ تحدّي لوحة الصدارة</string>
+	<key>Leaderboard Submitted</key>
+	<string>تم إرسال نتيجة لوحة الصدارة</string>
+	<key>Load Anyway</key>
+	<string>التحميل على أي حال</string>
+	<key>Locate Folder…</key>
+	<string>تحديد مكان المجلد…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>حدّد مكان مجلد بيانات OpenEmu الذي اخترته سابقًا. لن يستبدل مجلد مختلف أو فارغ مكتبتك.</string>
+	<key>Logged in</key>
+	<string>تم تسجيل الدخول</string>
+	<key>M3U missing referenced file</key>
+	<string>ملف يشير إليه M3U مفقود</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>يشير M3U إلى ملف يتعذّر الوصول إليه في المسار %@.</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mastered</key>
+	<string>تم الإتقان</string>
+	<key>Missable</key>
+	<string>قابل للفوات</string>
+	<key>Missing referenced file</key>
+	<string>الملف المشار إليه مفقود</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>تستخدم أكثر من نواة مثبّتة معرّف الحزمة "%@". أزل النسخة المكررة قبل التحديث.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>هل تريد نقل البيانات المحددة إلى سلة المهملات؟</string>
+	<key>Move to Trash and Quit</key>
+	<string>نقل إلى سلة المهملات والخروج</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>يجب أن تتكوّن رموز N64 من 12 خانة ست عشرية (عنوان من 8 خانات وقيمة من 4)، مثل 8033B21D0064. لا تدعم نواة Mupen64Plus رموز GameShark Pro / Action Replay الأطول ذات 16 خانة.</string>
+	<key>Name must not contain “%@.”</key>
+	<string>يجب ألا يحتوي الاسم على «%@».</string>
+	<key>New Shader Preset</key>
+	<string>إعداد مظلّل مسبق جديد</string>
+	<key>Newer Save Available</key>
+	<string>يتوفر حفظ أحدث</string>
+	<key>No Core</key>
+	<string>لا توجد نواة</string>
+	<key>No Shader</key>
+	<string>بدون مظلّل</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>لم يُعثر على مجموعة إنجازات لهذه اللعبة أو قيمة التجزئة.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>لم يتم الإبلاغ عن أي إنجازات لهذه اللعبة.</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>لا يتوفر تنزيل متوافق وموثّق لهذه النواة. تحقّق من التحديثات مجددًا.</string>
+	<key>No matching artwork found.</key>
+	<string>لم يُعثر على أغلفة مطابقة.</string>
+	<key>No parameters available.</key>
+	<string>لا تتوفر معاملات.</string>
+	<key>North</key>
+	<string>شمال</string>
+	<key>North America</key>
+	<string>أمريكا الشمالية</string>
+	<key>North-East</key>
+	<string>شمال شرقي</string>
+	<key>North-West</key>
+	<string>شمال غربي</string>
+	<key>Not logged in</key>
+	<string>لم يتم تسجيل الدخول</string>
+	<key>Not signed in</key>
+	<string>لم يتم تسجيل الدخول</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>لن يُحذف شيء حتى تؤكد في الشاشة التالية. اختر «إعدادات OpenEmu» لإعادة الإعداد الأولي عند التشغيل التالي.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>وكيل OEXPCMatchMaking غير موجود</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>تتأثر البيانات داخل هذا المجلد فقط. تُحفظ الملفات الخارجية وOpenEmu.app، بما فيه الأنوية المضمّنة.</string>
+	<key>Open System Settings</key>
+	<string>فتح إعدادات النظام</string>
+	<key>OpenEmu Settings</key>
+	<string>إعدادات OpenEmu</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>ملفات OpenEmu المؤقتة وذاكرته المؤقتة المخزّنة في هذا المجلد.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>يتعذّر على OpenEmu فتح مجلد بياناته</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>تعذّر على OpenEmu الاتصال بعملية حذف البيانات. لم تتغير بياناتك. سيُغلق OpenEmu الآن؛ افتحه مجددًا للمحاولة.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>تعذّر على OpenEmu العثور على إضافة نظام لتشغيل اللعبة</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>تعذّر على OpenEmu إكمال حذف البيانات المحددة</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>تعذّر على OpenEmu تجهيز حذف البيانات</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>تعذّر على OpenEmu حفظ إعداداته</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>تعذّر على OpenEmu حفظ إعداداته. تحقق من اتصال قرص البيانات وإمكانية الكتابة إليه.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>لم يعثر OpenEmu على نواة للاستخدام. قد لا تتوفر نواة لهذا النظام بعد، أو قد لا تكون متصلًا بالإنترنت.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>يجب إعادة تشغيل OpenEmu لطلب إذن مراقبة الإدخال مجددًا.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>لقطات شاشة OpenEmu وموقعها المخصص داخل المجلد. لقطات الشاشة الخاصة بالأنوية مشمولة ضمن «ملفات الحفظ وبيانات الأجهزة».</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>سيُغلق OpenEmu ثم يحذف البيانات المحددة، بما فيها Settings.plist وملف قفله. سيُعاد الإعداد الأولي عند التشغيل التالي. يمكن استعادة الملفات المحذوفة من سلة المهملات. قد تبقى علامات المجلد المخفية ومخزن تسجيل دخول فارغ.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>سيُغلق OpenEmu ثم يحذف البيانات المحددة. ستُحفظ إعدادات التطبيق ومجلد البيانات المختار. يمكن استعادة الملفات المحذوفة من سلة المهملات. قد تبقى علامات المجلد المخفية ومخزن تسجيل دخول فارغ.</string>
+	<key>Other Files in This Folder</key>
+	<string>الملفات الأخرى في هذا المجلد</string>
+	<key>Other Region</key>
+	<string>منطقة أخرى</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>يجب أن تتكوّن رموز PSX GameShark من 12 خانة ست عشرية (مثل 80097BA0 270F). بايت النوع: 30=8 بت، 80=16 بت.</string>
+	<key>Parameters</key>
+	<string>المعاملات</string>
+	<key>Paste parameters</key>
+	<string>لصق المعاملات</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>الإيقاف المؤقت محظور في الوضع الصعب</string>
+	<key>Pending submissions completed.</key>
+	<string>اكتملت الإرسالات المعلّقة.</string>
+	<key>Permission reset</key>
+	<string>تمت إعادة تعيين الإذن</string>
+	<key>Play Without Restoring</key>
+	<string>اللعب دون استعادة</string>
+	<key>Play Without Syncing</key>
+	<string>اللعب دون مزامنة</string>
+	<key>Play With…</key>
+	<string>اللعب باستخدام…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>اللعب مع الارتباط بـ Sonic &amp; Knuckles</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>يرجى تسجيل الدخول مجددًا من التفضيلات ← الإنجازات.</string>
+	<key>Progression</key>
+	<string>التقدّم</string>
+	<key>RA: Offline</key>
+	<string>RA: غير متصل</string>
+	<key>Relaunch Now</key>
+	<string>إعادة التشغيل الآن</string>
+	<key>Remove OpenEmu Data</key>
+	<string>إزالة بيانات OpenEmu</string>
+	<key>Rename Shader Preset</key>
+	<string>إعادة تسمية إعداد المظلّل المسبق</string>
+	<key>Reset Permission</key>
+	<string>إعادة تعيين الإذن</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>هل تريد إعادة تعيين جميع الإعدادات والخروج من OpenEmu؟</string>
+	<key>Reset and Quit</key>
+	<string>إعادة التعيين والخروج</string>
+	<key>Reset parameters</key>
+	<string>إعادة تعيين المعاملات</string>
+	<key>Restart Required</key>
+	<string>يلزم إعادة التشغيل</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>تجري إعادة التشغيل لتطبيق الوضع الصعب.</string>
+	<key>Restore &amp; Play</key>
+	<string>استعادة ولعب</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>خطأ في RetroAchievements</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements غير متصل</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>أُعيد الاتصال بـ RetroAchievements</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>فشل تسجيل الدخول إلى RetroAchievements</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements غير متاح</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>تعذّر تحميل RetroAchievements لهذه الجلسة.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements مفعّل، لكن لم يُعثر على مجموعة إنجازات لهذه اللعبة أو قيمة التجزئة.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>فشل تسجيل الدخول إلى RetroAchievements. سجّل الدخول مجددًا من التفضيلات ← الإنجازات.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: لم يتم التعرّف على اللعبة</string>
+	<key>Revert</key>
+	<string>إرجاع</string>
+	<key>Revert to previous version?</key>
+	<string>هل تريد الإرجاع إلى الإصدار السابق؟</string>
+	<key>SHARE_STANDARD_MENU_ITEM_TITLE</key>
+	<string>مشاركة…</string>
+	<key>Save Anyway</key>
+	<string>الحفظ على أي حال</string>
+	<key>Save Cheat</key>
+	<string>حفظ رمز الغش</string>
+	<key>Save State Version Mismatch</key>
+	<string>إصدار حالة الحفظ غير متطابق</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>تحميل حالات الحفظ معطّل في الوضع الصعب.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>حالات الحفظ وحفظ البطارية وبطاقات الذاكرة ومجلدات دعم المحاكيات، بما فيها محتوى الأجهزة المثبّت وإعداداته.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>ستُعطّل حالات الحفظ والإرجاع والتقدّم إطارًا بإطار والغش.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>بيانات اعتماد الحسابات وتسجيل الدخول المحفوظة في هذا المجلد.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>تعيينات لوحة المفاتيح ووحدات تحكم الألعاب المحفوظة.</string>
+	<key>Saves and Console Data</key>
+	<string>ملفات الحفظ وبيانات الأجهزة</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>لقطات شاشة الألعاب المحذوفة</string>
+	<key>Select</key>
+	<string>اختيار</string>
+	<key>Select Backup Folder</key>
+	<string>اختيار مجلد النسخ الاحتياطي</string>
+	<key>Signed in</key>
+	<string>تم تسجيل الدخول</string>
+	<key>Softcore Mode</key>
+	<string>الوضع العادي</string>
+	<key>Softcore enforced</key>
+	<string>الوضع العادي مفروض</string>
+	<key>Some submissions are pending retry.</key>
+	<string>بعض الإرسالات بانتظار إعادة المحاولة.</string>
+	<key>South</key>
+	<string>جنوب</string>
+	<key>South-East</key>
+	<string>جنوب شرقي</string>
+	<key>South-West</key>
+	<string>جنوب غربي</string>
+	<key>Start</key>
+	<string>بدء</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>يتطلب التبديل إلى الوضع الصعب إعادة تشغيل اللعبة.</string>
+	<key>System Main Menu</key>
+	<string>القائمة الرئيسية للنظام</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>يجب أن يتضمن ملف CUE %@ أسماء ملفات تشير إلى أجزاء القرص، لكن لم يُعثر عليها.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>مجلد BIOS. البرامج الثابتة داخل مجلدات دعم المحاكيات مشمولة ضمن «ملفات الحفظ وبيانات الأجهزة».</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>يجب أن يتضمن ملف GDI %@ أسماء ملفات تشير إلى المسارات، لكن لم يُعثر عليها.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>تعذّر التحقق من المعماريات في "%@": %@</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>لا يمكن تثبيت النواة في "%@" لأن "%@" يستخدم ذلك الاسم بالفعل.</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>تعذّر تثبيت النواة لأن وجهتها غير آمنة.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>تعذّر تثبيت النواة بأمان: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>انتهى تنزيل النواة دون إنشاء ملف أرشيف.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>لا يحتوي ملف النواة "%@" على الشيفرة المطلوبة لـ %@. ويحتوي على: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>لم ينتج عن استبدال النواة حزمة مثبّتة.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>يفتقد تحديث النواة معلومات صالحة عن التوقيع أو الحجم أو المعالج.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>لم يُرجع خادم تحديث النواة استجابة HTTPS ناجحة.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>توقيع تحديث النواة غير صالح. لم يتم تثبيت أي شيء.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>يجب أن يحتوي الأرشيف المُنزّل على إضافة نواة واحدة فقط، لكن عُثر على %ld.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>تعذّر توقيع النواة المُنزّلة "%@" (حالة codesign: %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>تعذّر استخراج أرشيف النواة المُنزّل.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>تعذّر فحص أرشيف النواة المُنزّل بأمان.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>حجم أرشيف النواة المُنزّل غير متوقع. لم يتم تثبيت أي شيء.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>تحتوي النواة المُنزّلة على رابط غير آمن في "%@".</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>تعذّر توقيع النواة المُنزّلة: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>لا تحتوي النواة المُنزّلة على الملف التنفيذي المعلن.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>الملف التنفيذي للنواة المُنزّلة ليس ملف macOS ثنائيًا بتنسيق Mach-O.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>تعذّر فحص ملف النواة المُنزّل "%@": %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>معرّف حزمة النواة المُنزّلة هو "%@" بدلًا من المعرّف المتوقع "%@".</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>إصدار النواة المُنزّلة هو "%@" بدلًا من الإصدار المتوقع "%@".</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>النواة المُنزّلة ليست حزمة إضافة صالحة.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>تشير إضافة النواة المُنزّلة إلى مكان خارج مجلدها المؤقت.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>لا يملك المحاكي إذن قراءة ملف ROM.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>لا يلتزم الملف %@ بتنسيق CUE.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>مجلدا Cores وSystems المثبّتان. تُحفظ الأنوية المضمّنة داخل OpenEmu.app.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>تعذّر تحميل النواة المثبّتة. تمت استعادة النواة السابقة.</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>ستتغير اللغة عند فتح OpenEmu في المرة القادمة.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>تعذّر إكمال إعادة التعيين واستعادة بعض الإعدادات. أعد توصيل قرص البيانات وتحقق من أذوناته قبل المحاولة مجددًا.</string>
+	<key>The selected data was not deleted</key>
+	<string>لم تُحذف البيانات المحددة</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>عدد المسارات (%@) وعدد مراجع ملفات المسارات (%@) في GDI %@ غير متطابقين.</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>ثُبّتت النواة المحدّثة. أعد تشغيل OpenEmu لاستخدامها؛ تستمر الألعاب الجارية باستخدام الإصدار السابق.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>لا يطابق هذا الرمز أي تنسيق غش معروف لهذا النظام.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>لم تعلن هذه النواة دعم RetroAchievements</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>تدعم هذه النواة RetroAchievements لهذا النظام.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>نسخة OpenEmu Reborn هذه لا تثق بمصدر تحديث النواة هذا.</string>
+	<key>This folder cannot be used</key>
+	<string>لا يمكن استخدام هذا المجلد</string>
+	<key>This save state can't be loaded.</key>
+	<string>لا يمكن تحميل حالة الحفظ هذه.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>أُنشئت حالة الحفظ هذه باستخدام %@ الإصدار %@، لكن الإصدار المثبّت هو %@. قد يؤدي تحميلها إلى انهيار التطبيق.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>انتهت مهلة انتظار اتصال التطبيق المساعد</string>
+	<key>Track count mismatch</key>
+	<string>عدد المسارات غير متطابق</string>
+	<key>Trigger %@</key>
+	<string>الزناد %@</string>
+	<key>Try Again</key>
+	<string>إعادة المحاولة</string>
+	<key>Try again in about %d seconds.</key>
+	<string>حاول مجددًا بعد نحو %d ثانية.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>لتحميل حالات الحفظ، عطّل الوضع الصعب من التفضيلات ◂ RetroAchievements.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>يتعذّر حذف إعداد المظلّل المسبق الافتراضي</string>
+	<key>Unable to delete the active shader</key>
+	<string>يتعذّر حذف المظلّل النشط</string>
+	<key>Unavailable</key>
+	<string>غير متاح</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>أزل تحديد أي لعبة لا تريد تحديثها.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>الإنجازات المفتوحة: %d من %d · النقاط: %d من %d</string>
+	<key>Untitled Achievement</key>
+	<string>إنجاز بلا عنوان</string>
+	<key>Update Available</key>
+	<string>يتوفر تحديث</string>
+	<key>Use This Folder</key>
+	<string>استخدام هذا المجلد</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>بانتظار بيانات لعبة RetroAchievements من نواة المحاكي. إذا بقيت فارغة، فتأكد من تسجيل دخولك ودعم النواة واللعبة النشطتين لـ RetroAchievements.</string>
+	<key>West</key>
+	<string>غرب</string>
+	<key>Win Condition</key>
+	<string>شرط الفوز</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>لا يمكن فتح مكتبتك بهذا الإصدار من OpenEmu.</string>
+	<key>unknown</key>
+	<string>غير معروف</string>
+	<key> — not yet supported</key>
+	<string> — غير مدعوم بعد</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d من %3$d)</string>
+	<key>%@ result found</key>
+	<string>تم العثور على %@ من النتائج</string>
+	<key>%@ results found</key>
+	<string>تم العثور على %@ من النتائج</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>تمت مزامنة حفظ '%@' من السحابة.</string>
+	<key>A New Quest</key>
+	<string>مغامرة جديدة</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>انتهت صلاحية رمز الوصول وتعذّر تجديده. يرجى تسجيل الدخول مجددًا.</string>
+	<key>Action</key>
+	<string>إجراء</string>
+	<key>Active</key>
+	<string>نشط</string>
+	<key>Add %@</key>
+	<string>إضافة %@</string>
+	<key>All</key>
+	<string>الكل</string>
+	<key>All saves are up to date.</key>
+	<string>جميع ملفات الحفظ محدّثة.</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>انسخ حالات الحفظ وحفظ البطارية وملفات BIOS احتياطيًا بشكل تلقائي إلى أي مجلد. اختر مجلدًا داخل iCloud Drive للمزامنة بين أجهزة Mac، أو استخدم Dropbox أو قرصًا خارجيًا أو أي مسار محلي.</string>
+	<key>Backup Folder</key>
+	<string>مجلد النسخ الاحتياطي</string>
+	<key>Browse Online Cheats</key>
+	<string>تصفّح رموز الغش عبر الإنترنت</string>
+	<key>Browse Online Cheats…</key>
+	<string>تصفّح رموز الغش عبر الإنترنت…</string>
+	<key>Challenge: %@</key>
+	<string>التحدّي: %@</string>
+	<key>Cheat Code</key>
+	<string>رمز الغش</string>
+	<key>Cheat Name</key>
+	<string>اسم الغش</string>
+	<key>Cheat Removed</key>
+	<string>أُزيل رمز الغش</string>
+	<key>Choose Folder…</key>
+	<string>اختيار مجلد…</string>
+	<key>Clear</key>
+	<string>مسح</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>انقر لإضافة ملاحظات لهذا الغش أو تعديلها</string>
+	<key>Click to see the code</key>
+	<string>انقر لعرض الرمز</string>
+	<key>Close</key>
+	<string>إغلاق</string>
+	<key>Cloud Sync</key>
+	<string>المزامنة السحابية</string>
+	<key>Code</key>
+	<string>الرمز</string>
+	<key>Code already used</key>
+	<string>الرمز مستخدم بالفعل</string>
+	<key>Connected</key>
+	<string>متصل</string>
+	<key>Copy</key>
+	<string>نسخ</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>تعذّر الاتصال بـ ScreenScraper — تحقق من اتصالك.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>تعذّر الاتصال بـ ScreenScraper — تحقق من اتصالك. (%@)</string>
+	<key>Cover Art</key>
+	<string>صور الأغلفة</string>
+	<key>Did this cheat code work for you?</key>
+	<string>هل نجح رمز الغش هذا لديك؟</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>يعطّل تحميل حالات الحفظ والإرجاع والتقدّم إطارًا بإطار والغش. مطلوب للإنجازات المصنّفة.</string>
+	<key>Don't Send</key>
+	<string>عدم الإرسال</string>
+	<key>Download failed: %@</key>
+	<string>فشل التنزيل: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>جارٍ تنزيل '%@' من السحابة…</string>
+	<key>Downloading…</key>
+	<string>جارٍ التنزيل…</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>تعذّر استبدال رمز التفويض برموز الوصول.</string>
+	<key>Filename</key>
+	<string>اسم الملف</string>
+	<key>Game</key>
+	<string>اللعبة</string>
+	<key>Gamma:</key>
+	<string>غاما:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>خطأ في واجهة Google Drive (HTTP %ld): %@</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>الوضع الصعب (موصى به)</string>
+	<key>Help Improve OpenEmu</key>
+	<string>المساعدة في تحسين OpenEmu</string>
+	<key>I don't know</key>
+	<string>لا أعرف</string>
+	<key>Import</key>
+	<string>استيراد</string>
+	<key>Incompatible Cores Moved</key>
+	<string>نُقلت الأنوية غير المتوافقة</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>عُثر على %ld من حالات الحفظ غير المتوافقة</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>المثبّت: %@
+الأحدث: %@</string>
+	<key>Invalid Backup Folder</key>
+	<string>مجلد النسخ الاحتياطي غير صالح</string>
+	<key>It does not work for me</key>
+	<string>لا يعمل لدي</string>
+	<key>It works for me</key>
+	<string>يعمل لدي</string>
+	<key>Keep for Now</key>
+	<string>الاحتفاظ بها حاليًا</string>
+	<key>Last backed up: %@</key>
+	<string>آخر نسخ احتياطي: %@</string>
+	<key>Last backup failed</key>
+	<string>فشل آخر نسخ احتياطي</string>
+	<key>Last synced: %@</key>
+	<string>آخر مزامنة: %@</string>
+	<key>Leaderboard: %@</key>
+	<string>لوحة الصدارة: %@</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>حدد ما إذا كانت الشفرة تعمل لديك أم لا</string>
+	<key>Modified</key>
+	<string>معدّل</string>
+	<key>No backup yet</key>
+	<string>لا توجد نسخة احتياطية بعد</string>
+	<key>No cheats found</key>
+	<string>لم يُعثر على شفرات</string>
+	<key>No folder selected</key>
+	<string>لم يُحدَّد مجلد</string>
+	<key>Not Connected</key>
+	<string>غير متصل</string>
+	<key>Not Working</key>
+	<string>لا تعمل</string>
+	<key>Not set</key>
+	<string>غير محدد</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>لم تسجل الدخول إلى Google Drive. يُرجى تسجيل الدخول من التفضيلات.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>لم تسجل الدخول — سيتم تخطي ScreenScraper. لا يزال OpenVGDB وlibretro-thumbnails نشطَين.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>لم تسجل الدخول — لن يجري تتبع الإنجازات.</string>
+	<key>Not supported by this emulator.</key>
+	<string>غير مدعوم في هذا المحاكي.</string>
+	<key>Not synced yet</key>
+	<string>لم تتم المزامنة بعد</string>
+	<key>Notes</key>
+	<string>ملاحظات</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>رمز التفويض مفقود في إعادة توجيه OAuth.</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>احصل على سيف بيكوري المكسور</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>يبحث OpenEmu عن صور الأغلفة في ثلاثة مصادر بالترتيب: قاعدة بيانات OpenVGDB المضمنة، ثم ScreenScraper (إذا سجلت الدخول أدناه)، وأخيرًا libretro-thumbnails كحل أخير. يوفر تسجيل الدخول إلى ScreenScraper أفضل تغطية، والتسجيل مجاني.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>نقل OpenEmu الأنوية التي لا يمكنها العمل على هذا الـ Mac إلى %@.
+
+تم نقل: %@
+
+ستُنزَّل البدائل المتوافقة تلقائيًا عند توفرها.</string>
+	<key>Opening sign-in page…</key>
+	<string>جارٍ فتح صفحة تسجيل الدخول…</string>
+	<key>Password</key>
+	<string>كلمة المرور</string>
+	<key>Password cannot be empty.</key>
+	<string>لا يمكن ترك كلمة المرور فارغة.</string>
+	<key>Provider</key>
+	<string>مزوّد الخدمة</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>لا تتضمن النسخة الاحتياطية ملفات ROM.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>سجّل في retroachievements.org — التسجيل مجاني.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>سجّل في screenscraper.fr — التسجيل مجاني.</string>
+	<key>Remove</key>
+	<string>إزالة</string>
+	<key>Saturation:</key>
+	<string>التشبع:</string>
+	<key>Save</key>
+	<string>حفظ</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>تم بلوغ الحد المسموح لطلبات ScreenScraper. حاول مرة أخرى لاحقًا.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>رفض ScreenScraper بيانات تسجيل الدخول هذه. تحقق من اسم المستخدم وكلمة المرور.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>رفض ScreenScraper بيانات تسجيل الدخول هذه. أعد إدخال كلمة المرور واحفظها.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>رفض ScreenScraper بيانات تسجيل الدخول. تحقق من اسم المستخدم وكلمة المرور في التفضيلات ← صور الأغلفة.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>أعاد ScreenScraper استجابة غير متوقعة.</string>
+	<key>Send Crash Reports</key>
+	<string>إرسال تقارير الأعطال</string>
+	<key>Set Status</key>
+	<string>تعيين الحالة</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>تُعرض أول %1$@ شفرة من أصل %2$@. ضيّق نطاق البحث.</string>
+	<key>Sign In</key>
+	<string>تسجيل الدخول</string>
+	<key>Sign Out</key>
+	<string>تسجيل الخروج</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>هل تريد تسجيل الخروج من Google Drive؟</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>سجّل الدخول إلى حساب RetroAchievements لتحصل على إنجازات أثناء اللعب. تُستخدم كلمة المرور للحصول على رمز تسجيل الدخول فقط، ولا تُخزَّن على القرص مطلقًا.</string>
+	<key>Sign-in failed: %@</key>
+	<string>فشل تسجيل الدخول: %@</string>
+	<key>Signed in to Google Drive.</key>
+	<string>تم تسجيل الدخول إلى Google Drive.</string>
+	<key>Signing in…</key>
+	<string>جارٍ تسجيل الدخول…</string>
+	<key>Status</key>
+	<string>الحالة</string>
+	<key>Supported Systems</key>
+	<string>الأنظمة المدعومة</string>
+	<key>Sync failed: %@</key>
+	<string>فشلت المزامنة: %@</string>
+	<key>Syncing…</key>
+	<string>جارٍ المزامنة…</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>لا يمكن أن يكون مجلد النسخ الاحتياطي داخل مجلد بيانات OpenEmu. اختر موقعًا آخر، مثل مجلد على قرص خارجي أو داخل iCloud Drive.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>أُنشئت حالات الحفظ التالية بإصدارات أقدم من الأنوية ولم تعد متوافقة. سيؤدي تحميلها إلى عطل.
+
+الأنوية المتأثرة:
+%@
+
+يمكنك الاحتفاظ بها الآن ونسخ الملفات احتياطيًا من:
+%@
+قبل حذفها، أو إزالتها فورًا.</string>
+	<key>Upload failed: %@</key>
+	<string>فشل الرفع: %@</string>
+	<key>Uploaded %@.</key>
+	<string>تم رفع %@.</string>
+	<key>Uploading %@…</key>
+	<string>جارٍ رفع %@…</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>استخدم عناصر التحكم أدناه للتصفية حسب الاسم والحالة التي اخترتها</string>
+	<key>Username</key>
+	<string>اسم المستخدم</string>
+	<key>Username cannot be empty.</key>
+	<string>لا يمكن ترك اسم المستخدم فارغًا.</string>
+	<key>Verifying credentials…</key>
+	<string>جارٍ التحقق من بيانات تسجيل الدخول…</string>
+	<key>Verifying…</key>
+	<string>جارٍ التحقق…</string>
+	<key>Working</key>
+	<string>تعمل</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>هل تريد إرسال تقارير الأعطال تلقائيًا عند تعطل OpenEmu؟ يساعد ذلك الفريق على اكتشاف الأخطاء وإصلاحها بسرعة أكبر.
+
+تتضمن التقارير اسم اللعبة والنظام والنواة المستخدمة وقت العطل. لا تتضمن مطلقًا ملفات الألعاب أو بيانات الحفظ أو كلمات المرور.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>لن تتأثر ملفات الحفظ المحلية. يمكنك تسجيل الدخول مجددًا في أي وقت.</string>
+	<key>retroachievements.org password</key>
+	<string>كلمة مرور retroachievements.org</string>
+	<key>retroachievements.org username</key>
+	<string>اسم المستخدم في retroachievements.org</string>
+	<key>screenscraper.fr password</key>
+	<string>كلمة مرور screenscraper.fr</string>
+	<key>screenscraper.fr username</key>
+	<string>اسم المستخدم في screenscraper.fr</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (محفوظة)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ اكتُشفت حزم أنوية مكررة: %@. افتح %@ وأزل النسخة الزائدة من كل نواة متأثرة.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  تم تسجيل الدخول باسم %@</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>نجح تسجيل الدخول، لكن RetroAchievements لم يُرجع رمز مصادقة.</string>
+	<key>Invalid user/password combination.</key>
+	<string>اسم المستخدم أو كلمة المرور غير صحيحة.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>فشل تسجيل الدخول. تحقق من اسم المستخدم وكلمة المرور.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>لم يُعثر على حزمة وسيطة أو نواة OpenEmu مثبّتة لإنشاء الملف التنفيذي للمكوّن الإضافي.</string>
+	<key>+%u pts</key>
+	<string>النقاط: +%u</string>
+	<key>No backup found</key>
+	<string>لم يُعثر على نسخة احتياطية</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>معرّف الحزمة في النسخة الاحتياطية للنواة غير متوقع.</string>
+	<key>Invalid HTTP response</key>
+	<string>استجابة HTTP غير صالحة</string>
 </dict>
 </plist>

@@ -47,28 +47,28 @@ final class PrefRetroAchievementsController: NSViewController {
 
     private let headerLabel     = NSTextField(labelWithString: "")
     private let descLabel       = NSTextField(wrappingLabelWithString: "")
-    private let usernameLabel   = NSTextField(labelWithString: "Username")
+    private let usernameLabel   = NSTextField(labelWithString: NSLocalizedString("Username", comment: ""))
     private let usernameField   = NSTextField()
-    private let passwordLabel   = NSTextField(labelWithString: "Password")
+    private let passwordLabel   = NSTextField(labelWithString: NSLocalizedString("Password", comment: ""))
     private let passwordField   = NSSecureTextField()
     private let signInButton    = NSButton()
     private let signOutButton   = NSButton()
     private let statusLabel     = NSTextField(labelWithString: "")
     private let registerLabel   = NSTextField(labelWithString: "")
     private let hardcoreDivider = NSBox()
-    private let hardcoreCheckbox = NSButton(checkboxWithTitle: "Hardcore mode (recommended)", target: nil, action: nil)
+    private let hardcoreCheckbox = NSButton(checkboxWithTitle: NSLocalizedString("Hardcore mode (recommended)", comment: ""), target: nil, action: nil)
     private let hardcoreSubtitle = NSTextField(wrappingLabelWithString: "")
 
     private let supportedDivider = NSBox()
     private let supportedLabel   = NSTextField(labelWithString: "")
-    private let supportedGrid    = NSStackView()
+    private let supportedGrid    = NSGridView()
 
     private var hardcoreObserver: Any?
 
     // MARK: - Lifecycle
 
     override func loadView() {
-        view = NSView(frame: NSRect(x: 0, y: 0, width: 468, height: 580))
+        view = NSView(frame: NSRect(x: 0, y: 0, width: 468, height: 610))
         buildUI()
     }
 
@@ -110,12 +110,12 @@ final class PrefRetroAchievementsController: NSViewController {
     // MARK: - Build UI
 
     private func buildUI() {
-        headerLabel.stringValue = "Achievements"
+        headerLabel.stringValue = NSLocalizedString("Achievements", comment: "")
         headerLabel.font = .boldSystemFont(ofSize: 15)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
 
-        descLabel.stringValue = "Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk."
+        descLabel.stringValue = NSLocalizedString("Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.", comment: "")
         descLabel.font = .systemFont(ofSize: 12)
         descLabel.textColor = .secondaryLabelColor
         descLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +126,7 @@ final class PrefRetroAchievementsController: NSViewController {
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usernameLabel)
 
-        usernameField.placeholderString = "retroachievements.org username"
+        usernameField.placeholderString = NSLocalizedString("retroachievements.org username", comment: "")
         usernameField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usernameField)
 
@@ -135,11 +135,11 @@ final class PrefRetroAchievementsController: NSViewController {
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordLabel)
 
-        passwordField.placeholderString = "retroachievements.org password"
+        passwordField.placeholderString = NSLocalizedString("retroachievements.org password", comment: "")
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordField)
 
-        signInButton.title = "Sign In"
+        signInButton.title = NSLocalizedString("Sign In", comment: "")
         signInButton.bezelStyle = .rounded
         signInButton.controlSize = .regular
         signInButton.keyEquivalent = "\r"
@@ -148,7 +148,7 @@ final class PrefRetroAchievementsController: NSViewController {
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signInButton)
 
-        signOutButton.title = "Sign Out"
+        signOutButton.title = NSLocalizedString("Sign Out", comment: "")
         signOutButton.bezelStyle = .rounded
         signOutButton.controlSize = .regular
         signOutButton.target = self
@@ -160,7 +160,7 @@ final class PrefRetroAchievementsController: NSViewController {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(statusLabel)
 
-        registerLabel.stringValue = "Register at retroachievements.org — it's free."
+        registerLabel.stringValue = NSLocalizedString("Register at retroachievements.org — it's free.", comment: "")
         registerLabel.font = .systemFont(ofSize: 11)
         registerLabel.textColor = .tertiaryLabelColor
         registerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -176,7 +176,7 @@ final class PrefRetroAchievementsController: NSViewController {
         hardcoreCheckbox.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hardcoreCheckbox)
 
-        hardcoreSubtitle.stringValue = "Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements."
+        hardcoreSubtitle.stringValue = NSLocalizedString("Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.", comment: "")
         hardcoreSubtitle.font = .systemFont(ofSize: 11)
         hardcoreSubtitle.textColor = .secondaryLabelColor
         hardcoreSubtitle.translatesAutoresizingMaskIntoConstraints = false
@@ -242,14 +242,13 @@ final class PrefRetroAchievementsController: NSViewController {
         supportedDivider.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(supportedDivider)
 
-        supportedLabel.stringValue = "Supported Systems"
+        supportedLabel.stringValue = NSLocalizedString("Supported Systems", comment: "")
         supportedLabel.font = .boldSystemFont(ofSize: 13)
         supportedLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(supportedLabel)
 
-        supportedGrid.orientation = .vertical
-        supportedGrid.alignment = .leading
-        supportedGrid.spacing = 4
+        supportedGrid.rowSpacing = 6
+        supportedGrid.columnSpacing = 16
         supportedGrid.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(supportedGrid)
 
@@ -266,6 +265,7 @@ final class PrefRetroAchievementsController: NSViewController {
             supportedGrid.topAnchor.constraint(equalTo: supportedLabel.bottomAnchor, constant: 12),
             supportedGrid.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             supportedGrid.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            supportedGrid.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24),
         ])
     }
 
@@ -287,18 +287,21 @@ final class PrefRetroAchievementsController: NSViewController {
                 // OpenEmu models Game Boy and Game Boy Color as one system (openemu.system.gb);
                 // Gambatte detects the cartridge type and earns GBC achievements. Show both.
                 if id == "openemu.system.gb" { name = "Game Boy / Game Boy Color" }
+                // "Nintendo (NES)" loses its only distinguishing part once the parenthetical
+                // is stripped, leaving a bare, misleading "Nintendo" — unlike "Super Nintendo
+                // (SNES)", which reads fine as "Super Nintendo" on its own.
+                if id == "openemu.system.nes" { name = "Nintendo Entertainment System" }
                 return (name, sys.systemIcon)
             }
             .sorted { $0.0 < $1.0 }
 
+        // NSGridView keeps column widths consistent across every row — unlike the previous
+        // approach of one independent, equally-distributed NSStackView per row, where each
+        // row's column widths were sized from that row's own content alone, so columns drifted
+        // out of alignment from one row to the next.
         let columns = 3
         for rowStart in stride(from: 0, to: systems.count, by: columns) {
-            let rowStack = NSStackView()
-            rowStack.orientation = .horizontal
-            rowStack.spacing = 8
-            rowStack.distribution = .fillEqually
-            rowStack.translatesAutoresizingMaskIntoConstraints = false
-
+            var cells: [NSView] = []
             for i in rowStart ..< min(rowStart + columns, systems.count) {
                 let (name, icon) = systems[i]
 
@@ -314,7 +317,6 @@ final class PrefRetroAchievementsController: NSViewController {
                 let nameLabel = NSTextField(labelWithString: name)
                 nameLabel.font = .systemFont(ofSize: 12)
                 nameLabel.lineBreakMode = .byTruncatingTail
-                nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
                 let cell = NSStackView(views: [imageView, nameLabel])
                 cell.orientation = .horizontal
@@ -322,15 +324,30 @@ final class PrefRetroAchievementsController: NSViewController {
                 cell.alignment = .centerY
                 cell.translatesAutoresizingMaskIntoConstraints = false
 
-                rowStack.addArrangedSubview(cell)
+                cells.append(cell)
             }
-            // Pad partial last row so fillEqually keeps columns consistent
-            if rowStart + columns > systems.count {
-                for _ in systems.count ..< rowStart + columns {
-                    rowStack.addArrangedSubview(NSView())
-                }
+            // Pad a partial last row so NSGridView's column count stays consistent.
+            for _ in cells.count ..< columns {
+                cells.append(NSView())
             }
-            supportedGrid.addArrangedSubview(rowStack)
+            supportedGrid.addRow(with: cells)
+        }
+
+        // NSGridView sizes each column to its own widest cell by default, which left the
+        // "Nintendo Entertainment System" column far wider than the other two. Force all
+        // columns to one shared width, sized to fit the longest name across the whole list,
+        // so the columns actually line up as a grid rather than three ragged widths.
+        let font = NSFont.systemFont(ofSize: 12)
+        let maxNameWidth = systems.map { (name, _) in
+            ceil((name as NSString).size(withAttributes: [.font: font]).width)
+        }.max() ?? 0
+        let iconWidth: CGFloat = 16
+        let iconSpacing: CGFloat = 6
+        let columnWidth = iconWidth + iconSpacing + maxNameWidth
+
+        for column in 0 ..< columns where column < supportedGrid.numberOfColumns {
+            supportedGrid.column(at: column).xPlacement = .leading
+            supportedGrid.column(at: column).width = columnWidth
         }
     }
 
@@ -349,7 +366,7 @@ final class PrefRetroAchievementsController: NSViewController {
     private func loadSavedCredentials() {
         usernameField.stringValue = OEPreferences.shared.string(forKey: "RAUsername") ?? ""
         if OECredentialStore.shared.has(.retroAchievementsToken) {
-            passwordField.placeholderString = "••••••••  (saved)"
+            passwordField.placeholderString = NSLocalizedString("••••••••  (saved)", comment: "")
         }
     }
 
@@ -357,12 +374,12 @@ final class PrefRetroAchievementsController: NSViewController {
         let username = OEPreferences.shared.string(forKey: "RAUsername") ?? ""
         let isSignedIn = !username.isEmpty && OECredentialStore.shared.has(.retroAchievementsToken)
         if isSignedIn {
-            statusLabel.stringValue = "✓  Signed in as \(username)"
+            statusLabel.stringValue = String(format: NSLocalizedString("✓  Signed in as %@", comment: ""), username)
             statusLabel.textColor = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)
             signInButton.isEnabled = false
             signOutButton.isEnabled = true
         } else {
-            statusLabel.stringValue = "Not signed in — achievements will not be tracked."
+            statusLabel.stringValue = NSLocalizedString("Not signed in — achievements will not be tracked.", comment: "")
             statusLabel.textColor = .secondaryLabelColor
             signInButton.isEnabled = true
             signOutButton.isEnabled = false
@@ -395,18 +412,17 @@ final class PrefRetroAchievementsController: NSViewController {
         }
 
         signInButton.isEnabled = false
-        statusLabel.stringValue = "Signing in…"
+        statusLabel.stringValue = NSLocalizedString("Signing in…", comment: "")
         statusLabel.textColor = .secondaryLabelColor
 
-        RetroAchievementsAPI.login(username: username, password: password) { [weak self] result in
+        OERetroAchievementsLoginClient.login(withUsername: username, password: password) { [weak self] token, _, error in
             guard let self = self else { return }
-            switch result {
-            case .success(let token):
+            if let token = token {
                 OECredentialStore.shared.set(token, forKey: .retroAchievementsToken)
                 OEPreferences.shared.set(username, forKey: "RAUsername")
                 self.passwordField.stringValue = ""
-                self.passwordField.placeholderString = "••••••••  (saved)"
-                self.setStatus("✓  Signed in as \(username)", isError: false)
+                self.passwordField.placeholderString = NSLocalizedString("••••••••  (saved)", comment: "")
+                self.setStatus(String(format: NSLocalizedString("✓  Signed in as %@", comment: ""), username), isError: false)
                 self.signOutButton.isEnabled = true
                 // Notify any running game sessions so they can log in mid-session
                 NotificationCenter.default.post(
@@ -414,8 +430,8 @@ final class PrefRetroAchievementsController: NSViewController {
                     object: nil,
                     userInfo: [RACredentialsTokenKey: token, RACredentialsUsernameKey: username]
                 )
-            case .failure(let error):
-                self.setStatus(error.localizedDescription, isError: true)
+            } else {
+                self.setStatus(error?.localizedDescription ?? NSLocalizedString("Login failed. Check username and password.", comment: "RetroAchievements login failed"), isError: true)
             }
         }
     }
@@ -425,7 +441,7 @@ final class PrefRetroAchievementsController: NSViewController {
         OECredentialStore.shared.remove(.retroAchievementsToken)
         usernameField.stringValue = ""
         passwordField.stringValue = ""
-        passwordField.placeholderString = "retroachievements.org password"
+        passwordField.placeholderString = NSLocalizedString("retroachievements.org password", comment: "")
         updateStatus()
         NotificationCenter.default.post(name: .OERACredentialsDidChange, object: nil)
     }
@@ -437,75 +453,12 @@ extension PrefRetroAchievementsController: PreferencePane {
 
     var icon: NSImage? {
         if #available(macOS 11.0, *) {
-            return NSImage(systemSymbolName: "trophy", accessibilityDescription: "Achievements")
+            return NSImage(systemSymbolName: "trophy", accessibilityDescription: NSLocalizedString("Achievements", comment: ""))
         }
         return nil
     }
 
     var panelTitle: String { "Achievements" }
 
-    var viewSize: NSSize { NSSize(width: 468, height: 580) }
-}
-
-
-
-// MARK: - RA API
-
-private enum RetroAchievementsAPI {
-
-    enum LoginError: LocalizedError {
-        case networkError(Error)
-        case invalidResponse
-        case authFailed(String)
-
-        var errorDescription: String? {
-            switch self {
-            case .networkError(let e): return "Network error: \(e.localizedDescription)"
-            case .invalidResponse:     return "Unexpected response from RetroAchievements."
-            case .authFailed(let msg): return msg
-            }
-        }
-    }
-
-    /// GET login credentials and return the RA token on success.
-    static func login(username: String, password: String,
-                      completion: @escaping (Result<String, LoginError>) -> Void) {
-        var components = URLComponents(string: "https://retroachievements.org/dorequest.php")!
-        components.queryItems = [
-            URLQueryItem(name: "r", value: "login2"),
-            URLQueryItem(name: "u", value: username),
-            URLQueryItem(name: "p", value: password),
-        ]
-        guard let url = components.url else {
-            completion(.failure(.invalidResponse))
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("OpenEmu-Silicon/1.0 (macOS)", forHTTPHeaderField: "User-Agent")
-
-        URLSession.oeShared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                NSLog("[RA] Network error: %@", error.localizedDescription)
-                DispatchQueue.main.async { completion(.failure(.networkError(error))) }
-                return
-            }
-
-            guard let data = data,
-                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-            else {
-                DispatchQueue.main.async { completion(.failure(.invalidResponse)) }
-                return
-            }
-
-            if let token = json["Token"] as? String, !token.isEmpty {
-                DispatchQueue.main.async { completion(.success(token)) }
-            } else {
-                let message = (json["Error"] as? String) ?? "Login failed. Check username and password."
-                NSLog("[RA] Auth failed: %@", message)
-                DispatchQueue.main.async { completion(.failure(.authFailed(message))) }
-            }
-        }.resume()
-    }
+    var viewSize: NSSize { NSSize(width: 468, height: 610) }
 }

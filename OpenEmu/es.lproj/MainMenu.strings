@@ -138,5 +138,9 @@
 	<string>Como cuadrícula</string>
 	<key>as List</key>
 	<string>Como lista</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Restablecer permiso de monitorización de entrada…</string>
+	<key>Take Native Screenshot</key>
+	<string>Capturar a resolución nativa</string>
 </dict>
 </plist>

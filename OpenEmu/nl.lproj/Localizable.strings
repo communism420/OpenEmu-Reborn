@@ -15,13 +15,13 @@
 	<key>%ux</key>
 	<string>%ux</string>
 	<key>A name is required.</key>
-	<string>A name is required.</string>
+	<string>Een naam is vereist.</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
 	<string>&lt;b&gt;If and only if this issue persists&lt;/b&gt;, please submit feedback including:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;The model of Mac you are using &lt;b&gt;and&lt;/b&gt; the version of macOS you have installed&lt;ul&gt;&lt;li&gt;This information is found in  &gt; About this Mac&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;The &lt;b&gt;exact name&lt;/b&gt; of the game you were playing&lt;/li&gt;&lt;li&gt;The crash report of OpenEmuHelperApp&lt;ul&gt;&lt;li&gt;Open Console.app, click on "Crash Reports" or "User Reports" in the sidebar, then look for the latest document with OpenEmuHelperApp in the name&lt;/ul&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Always search for similar feedback previously reported by other users!&lt;/b&gt;&lt;br&gt;If any of this information is omitted, or if similar feedback has already been issued, your issue report may be closed.</string>
 	<key>ALERT_INPUT_MONITORING_HEADLINE</key>
-	<string>OpenEmu requires additional permissions</string>
+	<string>OpenEmu heeft extra machtigingen nodig</string>
 	<key>ALERT_INPUT_MONITORING_PART1</key>
-	<string>OpenEmu must be granted the Input Monitoring permission in order to use the keyboard as an input device.</string>
+	<string>OpenEmu heeft toestemming voor invoercontrole nodig om het toetsenbord als invoerapparaat te gebruiken.</string>
 	<key>ALERT_INPUT_MONITORING_PART2</key>
 	<string>Toggling the permission may also resolve keyboard input issues.</string>
 	<key>ALERT_INPUT_MONITORING_PART2_MONTEREY</key>
@@ -29,11 +29,9 @@
 	<key>ALERT_INPUT_MONITORING_PART2_TAHOE</key>
 	<string>Click &quot;Open System Settings&quot; below, find OpenEmu in the list, and enable the toggle. Then relaunch the app for the change to take effect.</string>
 	<key>ALERT_MOVE_LIBRARY_HTML</key>
-	<string>The OpenEmu Game Library contains a database file which could get corrupted if the library is moved to the following locations:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Folders managed by cloud synchronization software (like &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Network drives&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;Additionally, &lt;b&gt;sharing the same library between multiple computers or users&lt;/b&gt; may also corrupt it. This also applies to moving the library to external USB drives.</string>
+	<string>De OpenEmu-spelbibliotheek bevat een databasebestand dat beschadigd kan raken als de bibliotheek naar de volgende locaties wordt verplaatst:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Mappen die door cloudsynchronisatiesoftware worden beheerd (zoals &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Netwerkschijven&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;Ook kan &lt;b&gt;het delen van dezelfde bibliotheek tussen meerdere computers of gebruikers&lt;/b&gt; beschadiging veroorzaken. Dit geldt ook voor het verplaatsen van de bibliotheek naar externe USB-schijven.</string>
 	<key>Add</key>
 	<string>Toevoegen</string>
-	<key>Add Cheat</key>
-	<string>Voeg cheat toe</string>
 	<key>Add Cheat…</key>
 	<string>Voeg cheat toe…</string>
 	<key>Add Cover Art from File…</key>
@@ -49,13 +47,13 @@
 	<key>All Homebrew</key>
 	<string>Alle homebrew</string>
 	<key>Already in library, but manually deleted or unreachable:</key>
-	<string>Already in library, but manually deleted or unreachable:</string>
+	<string>Al in de bibliotheek, maar handmatig verwijderd of onbereikbaar:</string>
 	<key>Already in library:</key>
-	<string>Already in library:</string>
+	<string>Al in de bibliotheek:</string>
 	<key>An error occurred while preparing the setup assistant. (%@) Make sure you are connected to the internet and try again.</key>
-	<string>An error occurred while preparing the setup assistant. (%@) Make sure you are connected to the internet and try again.</string>
+	<string>Er is een fout opgetreden bij het voorbereiden van de configuratieassistent. (%@) Controleer je internetverbinding en probeer opnieuw.</string>
 	<key>An issue was detected with one of your controllers.</key>
-	<string>An issue was detected with one of your controllers.</string>
+	<string>Er is een probleem met een van je controllers gevonden.</string>
 	<key>Are you sure you want to delete %ld save states from your OpenEmu library?</key>
 	<string>Weet u zeker dat u %ld opgeslagen spellen wilt verwijderen uit uw OpenEmu-bibliotheek?</string>
 	<key>Are you sure you want to delete %ld screenshots from your OpenEmu library?</key>
@@ -75,7 +73,7 @@
 	<key>Are you sure you want to quit the game?</key>
 	<string>Weet u zeker dat u de spel wilt stoppen?</string>
 	<key>Are you sure you want to remove the collection '%@'?</key>
-	<string>Weet u zeker dat u deze verzameling wilt verwijderen?</string>
+	<string>Weet je zeker dat je de verzameling '%@' wilt verwijderen?</string>
 	<key>Are you sure you want to remove the selected game from the collection?</key>
 	<string>Weet u zeker dat u het geselecteerde spel wilt verwijderen uit de verzameling?</string>
 	<key>Are you sure you want to remove the selected games from the collection?</key>
@@ -101,17 +99,15 @@
 	<key>Change Volume</key>
 	<string>Wijzig volume</string>
 	<key>Changed button for %1$@ to %2$@.</key>
-	<string>Changed button for %1$@ to %2$@.</string>
-	<key>Cheat Description</key>
-	<string>Beschrijving van cheat</string>
+	<string>Knop voor %1$@ gewijzigd in %2$@.</string>
 	<key>Check out some excellent homebrew games.</key>
-	<string>Check out some excellent homebrew games.</string>
+	<string>Ontdek een aantal uitstekende homebrewspellen.</string>
 	<key>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</key>
-	<string>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</string>
+	<string>Kies Apple-menu  &gt; Systeemvoorkeuren, klik op Beveiliging en privacy en open het tabblad Privacy. Verwijder de bestaande machtiging voor Bestanden en mappen voor OpenEmu, als die er is, en verleen in plaats daarvan Volledige schijftoegang.</string>
 	<key>Choose Library…</key>
 	<string>Kies bibliotheek…</string>
 	<key>Choose Location…</key>
-	<string>Choose Location…</string>
+	<string>Kies locatie…</string>
 	<key>Choose OpenEmu Library</key>
 	<string>Kies OpenEmu-bibliotheek</string>
 	<key>Choose a valid file.</key>
@@ -131,11 +127,11 @@
 	<key>Consolidate Files…</key>
 	<string>Voeg bestanden samen…</string>
 	<key>Consolidating files failed.</key>
-	<string>Consolidating files failed.</string>
+	<string>Het samenvoegen van bestanden is mislukt.</string>
 	<key>Consolidating will copy all of the selected games into the OpenEmu Library folder.</key>
 	<string>Samenvoegen zal alle geselecteerde spellen kopiëren naar de OpenEmu-bibliotheekmap.</string>
 	<key>Contains no data:</key>
-	<string>Contains no data:</string>
+	<string>Bevat geen gegevens:</string>
 	<key>Continue</key>
 	<string>Ga door</string>
 	<key>Controls</key>
@@ -147,7 +143,7 @@
 	<key>Copying ROM Files…</key>
 	<string>ROM-bestanden kopiëren…</string>
 	<key>Copying ROM files failed!</key>
-	<string>Copying ROM files failed!</string>
+	<string>Het kopiëren van ROM-bestanden is mislukt!</string>
 	<key>Copying artwork failed!</key>
 	<string>Omslagafbeelding kopiëren mislukt!</string>
 	<key>Core</key>
@@ -167,11 +163,11 @@
 	<key>Create or Load Save State</key>
 	<string>Maak of laad momentopname</string>
 	<key>Create your personal collection of screenshots. To take a screenshot, you can use the keyboard shortcut ⌘ + T while playing a game.</key>
-	<string>Create your personal collection of screenshots. To take a screenshot, you can use the keyboard shortcut ⌘ + T while playing a game.</string>
+	<string>Maak je eigen verzameling schermafbeeldingen. Gebruik tijdens het spelen de sneltoets ⌘ + T om een schermafbeelding te maken.</string>
 	<key>Decrease Grid Size</key>
-	<string>Decrease Grid Size</string>
+	<string>Verklein raster</string>
 	<key>Default %@ preset for %@</key>
-	<string>Default %@ preset for %@</string>
+	<string>Standaardvoorinstelling %@ voor %@</string>
 	<key>Default Core</key>
 	<string>Standaardkern</string>
 	<key>Delete</key>
@@ -195,7 +191,7 @@
 	<key>Delete Screenshots</key>
 	<string>Verwijder schermafbeeldingen</string>
 	<key>Delete Shader Preset</key>
-	<string>Delete Shader Preset</string>
+	<string>Verwijder shadervoorinstelling</string>
 	<key>Description</key>
 	<string>Beschrijving</string>
 	<key>Deselect All</key>
@@ -235,11 +231,11 @@
 	<key>Downloading core list...</key>
 	<string>Downloading core list...</string>
 	<key>Drag &amp; Drop Games Here</key>
-	<string>Drag &amp; Drop Games Here</string>
+	<string>Sleep spellen hierheen</string>
 	<key>Drag &amp; Drop Save States Here</key>
-	<string>Drag &amp; Drop Save States Here</string>
+	<string>Sleep opgeslagen staten hierheen</string>
 	<key>Duplicate Collection</key>
-	<string>Duplicate Collection</string>
+	<string>Dupliceer verzameling</string>
 	<key>ECM compressed binaries cannot be imported. Please read the disc importing guide.</key>
 	<string>Met ECM gecomprimeerde binaire bestanden kunnen niet worden geïmporteerd. Lees alstublieft de gids over het importeren van schijven.</string>
 	<key>ECM compressed binary detected.</key>
@@ -247,9 +243,9 @@
 	<key>ERROR_PLUGIN_IMPORT_ALREADYLOADED</key>
 	<string>Er is al een versie van deze plug-in geladen</string>
 	<key>ERROR_PLUGIN_IMPORT_OUTOFSUPPORT</key>
-	<string>This plugin is currently unsupported</string>
+	<string>Deze plug-in wordt momenteel niet ondersteund</string>
 	<key>Edit Game Controls…</key>
-	<string>Edit Game Controls…</string>
+	<string>Bewerk spelbesturing…</string>
 	<key>Enable now</key>
 	<string>Schakel nu in</string>
 	<key>Error!</key>
@@ -261,9 +257,9 @@
 	<key>Fetching Games…</key>
 	<string>Spellen ophalen…</string>
 	<key>Files failed to import.</key>
-	<string>Files failed to import.</string>
+	<string>Bestanden konden niet worden geïmporteerd.</string>
 	<key>Fill Screen</key>
-	<string>Fill Screen</string>
+	<string>Vul scherm</string>
 	<key>Filter by:</key>
 	<string>Filter op:</string>
 	<key>Game %ld of %ld</key>
@@ -285,7 +281,7 @@
 	<key>Homebrew Games</key>
 	<string>Homebrewspellen</string>
 	<key>I understand the risks</key>
-	<string>I understand the risks</string>
+	<string>Ik begrijp de risico's</string>
 	<key>If there is a red button on the back battery cover, press it.
 If not, hold down buttons ①+②.</key>
 	<string>Als er een rode knop op de achterste batterijcover is, druk hem dan in.
@@ -293,35 +289,35 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>If you change the core you current progress will be lost and save states will not work anymore.</key>
 	<string>Als u de kern wijzigt verliest u uw huidige voortgang en zullen momentopnames niet langer werken.</string>
 	<key>Ignore</key>
-	<string>Ignore</string>
+	<string>Negeer</string>
 	<key>In a few days, this core plugin is going to be automatically removed. Once it is removed, any save states created with it will stop working.</key>
-	<string>In a few days, this core plugin is going to be automatically removed. Once it is removed, any save states created with it will stop working.</string>
+	<string>Deze kernplug-in wordt over enkele dagen automatisch verwijderd. Daarna werken de opgeslagen staten die ermee zijn gemaakt niet meer.</string>
 	<key>In order to emulate some systems, BIOS files are needed due to increasing complexity of the hardware and software of modern gaming consoles. Please read our %@ for more information.</key>
 	<string>Om sommige systemen te emuleren zijn BIOS-bestanden nodig door de verhoogde complexiteit van de hardware en software van moderne consoles. Lees alstublieft onze %@ voor meer informatie.</string>
 	<key>In order to play the game it must be downloaded.</key>
 	<string>Om het spel te spelen moet het gedownload worden.</string>
 	<key>Increase Grid Size</key>
-	<string>Increase Grid Size</string>
+	<string>Vergroot raster</string>
 	<key>Insert Cart/Disk/Tape…</key>
 	<string>Cart/Disk/Tape inwerpen…</string>
 	<key>Install</key>
 	<string>Installeer</string>
 	<key>Install %@</key>
-	<string>Install %@</string>
+	<string>Installeer %@</string>
 	<key>Install %@ and Set as Default</key>
-	<string>Install %@ and Set as Default</string>
+	<string>Installeer %@ en stel in als standaard</string>
 	<key>Installing Core</key>
 	<string>Kern installeren</string>
 	<key>Invalid cue sheet format:</key>
-	<string>Invalid cue sheet format:</string>
+	<string>Ongeldig CUE-formaat:</string>
 	<key>Invalid gdi format:</key>
-	<string>Invalid gdi format:</string>
+	<string>Ongeldig GDI-formaat:</string>
 	<key>Join multi-line cheats with '+' e.g. 000-000+111-111</key>
 	<string>Voeg multi-line cheats samen met '+', bijvoorbeeld 000-000+111-111</string>
 	<key>Keyboard</key>
 	<string>Toetsenbord</string>
 	<key>Keycode 0x%lX</key>
-	<string>Keycode 0x%lX</string>
+	<string>Toetscode 0x%lX</string>
 	<key>Last Played</key>
 	<string>Laatst gespeeld</string>
 	<key>Learn More</key>
@@ -337,13 +333,13 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Low Controller Battery</key>
 	<string>Batterij van controller bijna leeg</string>
 	<key>MOVE_ALERT_INFO_TEXT</key>
-	<string>OpenEmu must move to your Applications folder in order to work properly.</string>
+	<string>OpenEmu moet naar de map Apps worden verplaatst om goed te werken.</string>
 	<key>MOVE_ALERT_MOVE_BUTTON</key>
-	<string>Move to Applications folder</string>
+	<string>Verplaats naar map Apps</string>
 	<key>MOVE_ALERT_NEEDS_AUTH</key>
-	<string>You need to authenticate with an administrator name and password to complete this step. Alternatively, you can choose a different location or quit the App and move it manually.</string>
+	<string>Je moet je aanmelden met de naam en het wachtwoord van een beheerder om deze stap te voltooien. Je kunt ook een andere locatie kiezen of de app afsluiten en handmatig verplaatsen.</string>
 	<key>MOVE_ALERT_TITLE</key>
-	<string>Move to Applications folder</string>
+	<string>Verplaats naar map Apps</string>
 	<key>Make sure your internet connection is active and download a suitable core.</key>
 	<string>Zorg dat uw internetverbinding actief is en download een geschikte kern.</string>
 	<key>Make your Wiimote discoverable</key>
@@ -351,23 +347,23 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Missing Core</key>
 	<string>Kern ontbreekt</string>
 	<key>Missing referenced file:</key>
-	<string>Missing referenced file:</string>
+	<string>Verwezen bestand ontbreekt:</string>
 	<key>Move to Trash</key>
 	<string>Verplaats naar prullenmand</string>
 	<key>Moving Library…</key>
-	<string>Moving Library…</string>
+	<string>Bibliotheek verplaatsen…</string>
 	<key>Moving the Game Library is not recommended</key>
-	<string>Moving the Game Library is not recommended</string>
+	<string>Het verplaatsen van de spelbibliotheek wordt afgeraden</string>
 	<key>Must not be compressed:</key>
-	<string>Must not be compressed:</string>
+	<string>Mag niet gecomprimeerd zijn:</string>
 	<key>Mute Audio</key>
 	<string>Demp geluid</string>
 	<key>NOT FOUND: "%@"</key>
-	<string>NOT FOUND: "%@"</string>
+	<string>NIET GEVONDEN: '%@'</string>
 	<key>Name</key>
 	<string>Naam</string>
 	<key>Name must not contain “%@.”</key>
-	<string>Name must not contain “%@.”</string>
+	<string>De naam mag geen ‘%@’ bevatten.</string>
 	<key>New Collection</key>
 	<string>Nieuwe verzameling</string>
 	<key>New Collection from Selection</key>
@@ -375,7 +371,7 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>New Folder</key>
 	<string>Nieuwe map</string>
 	<key>New Shader Preset</key>
-	<string>New Shader Preset</string>
+	<string>Nieuwe shadervoorinstelling</string>
 	<key>New Smart Collection</key>
 	<string>Nieuwe slimme verzameling</string>
 	<key>No</key>
@@ -391,17 +387,17 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>No game played yet!</key>
 	<string>Nog geen spel gespeeld!</string>
 	<key>No parameters available.</key>
-	<string>No parameters available.</string>
+	<string>Geen parameters beschikbaar.</string>
 	<key>No permission to open:</key>
-	<string>No permission to open:</string>
+	<string>Geen toestemming om te openen:</string>
 	<key>No valid system detected:</key>
-	<string>No valid system detected:</string>
+	<string>Geen geldig systeem gevonden:</string>
 	<key>None</key>
 	<string>Geen</string>
 	<key>Not assigned</key>
-	<string>Not assigned</string>
+	<string>Niet toegewezen</string>
 	<key>Not plain text:</key>
-	<string>Not plain text:</string>
+	<string>Geen platte tekst:</string>
 	<key>OK</key>
 	<string>OK</string>
 	<key>Only files in the OpenEmu Library folder will be moved to the Trash.</key>
@@ -411,25 +407,25 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Open Library</key>
 	<string>Open bibliotheek</string>
 	<key>Open System Preferences</key>
-	<string>Open System Preferences</string>
+	<string>Open Systeemvoorkeuren</string>
 	<key>OpenEmu could not download required data from the internet</key>
-	<string>OpenEmu could not download required data from the internet</string>
+	<string>OpenEmu kon de vereiste gegevens niet van internet downloaden</string>
 	<key>OpenEmu could not find a Core to launch the game</key>
-	<string>OpenEmu could not find a Core to launch the game</string>
+	<string>OpenEmu kon geen kern vinden om het spel te starten</string>
 	<key>OpenEmu includes a save state feature that allows you to continue playing exactly where you left off.</key>
-	<string>OpenEmu includes a save state feature that allows you to continue playing exactly where you left off.</string>
+	<string>OpenEmu kan de spelstaat opslaan, zodat je precies verder kunt spelen waar je was gebleven.</string>
 	<key>OpenEmu needs a library to continue. You may choose an existing OpenEmu library or create a new one</key>
-	<string>OpenEmu needs a library to continue. You may choose an existing OpenEmu library or create a new one</string>
+	<string>OpenEmu heeft een bibliotheek nodig om door te gaan. Je kunt een bestaande OpenEmu-bibliotheek kiezen of een nieuwe maken</string>
 	<key>OpenEmu uses 'Cores' to emulate games. You need the %@ Core to play %@</key>
 	<string>OpenEmu uses 'Cores' to emulate games. You need the %1$@ Core to play %2$@</string>
 	<key>OpenEmu will save and quit all games that are currently running.</key>
-	<string>OpenEmu will save and quit all games that are currently running.</string>
+	<string>OpenEmu slaat alle actieve spellen op en sluit ze af.</string>
 	<key>Options</key>
 	<string>Opties</string>
 	<key>Parameters</key>
 	<string>Parameters</string>
 	<key>Paste parameters</key>
-	<string>Paste parameters</string>
+	<string>Plak parameters</string>
 	<key>Pause Game</key>
 	<string>Pauze spel</string>
 	<key>Pause/Restart</key>
@@ -451,7 +447,7 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Player %ld</key>
 	<string>Speler %ld</string>
 	<key>Please close all games and wait for the importer to finish.</key>
-	<string>Please close all games and wait for the importer to finish.</string>
+	<string>Sluit alle spellen en wacht tot het importeren klaar is.</string>
 	<key>Quick Load</key>
 	<string>Snel laden</string>
 	<key>Quick Save</key>
@@ -471,13 +467,13 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Recently Added</key>
 	<string>Onlangs toegevoegd</string>
 	<key>Recovered Auto Save</key>
-	<string>Recovered Auto Save</string>
+	<string>Herstelde automatische opslag</string>
 	<key>Remove Collection</key>
 	<string>Verwijder verzameling</string>
 	<key>Remove Game</key>
-	<string>Remove Game</string>
+	<string>Verwijder spel</string>
 	<key>Remove Games</key>
-	<string>Remove Games</string>
+	<string>Verwijder spellen</string>
 	<key>Rename</key>
 	<string>Hernoem</string>
 	<key>Rename "%@"</key>
@@ -485,15 +481,15 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Rename Game</key>
 	<string>Hernoem spel</string>
 	<key>Rename Shader Preset</key>
-	<string>Rename Shader Preset</string>
+	<string>Hernoem shadervoorinstelling</string>
 	<key>Rename Special Save State or something?</key>
 	<string>Hernoem speciale momentopname of zo?</string>
 	<key>Reopen without loading state</key>
-	<string>Reopen without loading state</string>
+	<string>Open opnieuw zonder staat te laden</string>
 	<key>Required files are missing.</key>
 	<string>Benodigde bestanden ontbreken.</string>
 	<key>Reset parameters</key>
-	<string>Reset parameters</string>
+	<string>Zet parameters terug</string>
 	<key>Resolve %ld Issue</key>
 	<string>Verhelp %ld probleem</string>
 	<key>Resolve %ld Issues</key>
@@ -507,7 +503,7 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Resume Game</key>
 	<string>Hervat spel</string>
 	<key>Retry</key>
-	<string>Retry</string>
+	<string>Probeer opnieuw</string>
 	<key>SHARE_STANDARD_MENU_ITEM_TITLE</key>
 	<string>Deel…</string>
 	<key>Save As:</key>
@@ -521,7 +517,7 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Save States</key>
 	<string>Momentopnames</string>
 	<key>Save-Game-%ld %@</key>
-	<string>Save-Game-%ld %@</string>
+	<string>Opgeslagen-spel-%ld %@</string>
 	<key>Scanner Paused</key>
 	<string>Scanner gepauzeerd</string>
 	<key>Scanning Directory</key>
@@ -537,7 +533,7 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Select Audio Output Device</key>
 	<string>Audio-uitvoerapparaat</string>
 	<key>Select Cheat</key>
-	<string>Cheats</string>
+	<string>Selecteer cheat</string>
 	<key>Select Core</key>
 	<string>Kernen</string>
 	<key>Select Disc</key>
@@ -547,9 +543,9 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Select Scale</key>
 	<string>Schaal</string>
 	<key>Select Shader</key>
-	<string>Shaders</string>
+	<string>Selecteer shader</string>
 	<key>Shader Parameters</key>
-	<string>Shader Parameters</string>
+	<string>Shaderparameters</string>
 	<key>Share</key>
 	<string>Deel</string>
 	<key>Show in Finder</key>
@@ -557,15 +553,15 @@ Zoniet, hou dan de knoppen ①+② ingedrukt.</string>
 	<key>Since version 2.1, OpenEmu requires a GPU which supports Metal. Metal is available on all Macs that support macOS 10.14 or later.
 
 As OpenEmu does not work with your current hardware/software configuration, it will now close.</key>
-	<string>Since version 2.1, OpenEmu requires a GPU which supports Metal. Metal is available on all Macs that support macOS 10.14 or later.
+	<string>Sinds versie 2.1 vereist OpenEmu een GPU die Metal ondersteunt. Metal is beschikbaar op alle Macs die macOS 10.14 of nieuwer ondersteunen.
 
-As OpenEmu does not work with your current hardware/software configuration, it will now close.</string>
+Omdat OpenEmu niet werkt met je huidige hardware- en softwareconfiguratie, wordt het nu afgesloten.</string>
 	<key>Slot %ld</key>
 	<string>Slot %ld</string>
 	<key>Some migrations failed to complete properly</key>
 	<string>Sommige migraties zijn niet correct afgerond</string>
 	<key>Sometimes a crash may occur while loading a save state because of incompatibilities between different versions of the same core. Do you want to open the game without loading a save state?</key>
-	<string>Sometimes a crash may occur while loading a save state because of incompatibilities between different versions of the same core. Do you want to open the game without loading a save state?</string>
+	<string>Bij het laden van een opgeslagen staat kan een crash optreden door incompatibiliteit tussen verschillende versies van dezelfde kern. Wil je het spel openen zonder een opgeslagen staat te laden?</string>
 	<key>Special thanks to everyone that made
 OpenEmu possible. To find out more
 about our contributors, emulator cores,
@@ -586,7 +582,7 @@ documentatie en licenties en om bugs te melden.</string>
 	<key>System</key>
 	<string>Systeem</string>
 	<key>System Default</key>
-	<string>System Default</string>
+	<string>Systeemstandaard</string>
 	<key>System Files</key>
 	<string>Systeembestanden</string>
 	<key>Takes you to the %@ project website</key>
@@ -598,13 +594,13 @@ Please do not report problems as we are not responsible for the development of %
 
 Gelieve deze problemen niet te rapporteren omdat wij niet verantwoordelijk zijn voor de ontwikkeling van %2$@.</string>
 	<key>The %@ core has quit unexpectedly</key>
-	<string>The %@ core has quit unexpectedly</string>
+	<string>De kern %@ is onverwacht gestopt</string>
 	<key>The %@ core has quit unexpectedly after loading a save state</key>
-	<string>The %@ core has quit unexpectedly after loading a save state</string>
+	<string>De kern %@ is onverwacht gestopt na het laden van een opgeslagen staat</string>
 	<key>The %@ core plugin is deprecated</key>
-	<string>The %@ core plugin is deprecated</string>
+	<string>De kernplug-in %@ is verouderd</string>
 	<key>The %@ core plugin is deprecated, and will be removed soon</key>
-	<string>The %@ core plugin is deprecated, and will be removed soon</string>
+	<string>De kernplug-in %@ is verouderd en wordt binnenkort verwijderd</string>
 	<key>The OpenEmu Library could not be found.</key>
 	<string>De OpenEmu-bibliotheek kon niet gevonden worden.</string>
 	<key>The System plugin could not be found!</key>
@@ -614,13 +610,13 @@ Gelieve deze problemen niet te rapporteren omdat wij niet verantwoordelijk zijn 
 	<key>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
 
 You can go to the Controls preferences to check which associations were affected.</key>
-	<string>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
+	<string>Het knopprofiel van een van je controllers komt niet overeen met het profiel dat is herkend toen deze voor het laatst met OpenEmu was verbonden. Sommige toewijzingen voor deze controller zijn teruggezet.
 
-You can go to the Controls preferences to check which associations were affected.</string>
+Je kunt in de besturingsvoorkeuren controleren welke toewijzingen zijn gewijzigd.</string>
 	<key>The core could not be downloaded. Try installing it from the Cores preferences.</key>
 	<string>De kern kon niet worden gedownload. Probeer ze te installeren vanaf de voorkeuren voor kernen.</string>
 	<key>The emulator could not load ROM.</key>
-	<string>The emulator could not load the ROM.</string>
+	<string>De emulator kon de ROM niet laden.</string>
 	<key>The file you selected doesn't exist</key>
 	<string>The bestand dat u selecteerde bestaat niet</string>
 	<key>The game '%@' could not be started because a rom file could not be found. Do you want to locate it?</key>
@@ -632,7 +628,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>This cannot be undone.</key>
 	<string>Dit kan niet ongedaan worden gemaakt.</string>
 	<key>This core plugin will not be available in the future. Once it is removed, any save states created with it will stop working.</key>
-	<string>This core plugin will not be available in the future. Once it is removed, any save states created with it will stop working.</string>
+	<string>Deze kernplug-in zal in de toekomst niet meer beschikbaar zijn. Zodra deze is verwijderd, werken de opgeslagen staten die ermee zijn gemaakt niet meer.</string>
 	<key>This save state was created with a different core. Do you want to switch to that core now?</key>
 	<string>Deze momentopname werd met een andere kern gemaakt. Wilt u nu omschakelen naar deze kern?</string>
 	<key>This will remove all items from the queue. Items that finished importing will be preserved in your library.</key>
@@ -640,19 +636,19 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Title:</key>
 	<string>Titel:</string>
 	<key>To assign a new key or button to %@, press this button, then press the desired key or button on your keyboard or gamepad.</key>
-	<string>To assign a new key or button to %@, press this button, then press the desired key or button on your keyboard or gamepad.</string>
+	<string>Druk op deze knop en vervolgens op de gewenste toets of knop op je toetsenbord of gamepad om een nieuwe toets of knop aan %@ toe te wijzen.</string>
 	<key>To launch the save state %@ you will need to install the '%@' Core</key>
 	<string>Om de momentopname %1$@ te starten zal u de kern '%2$@' moeten installeren</string>
 	<key>To run this core you need the following:
 
 %@Drag and drop the required file(s) onto the game library window and try again.</key>
-	<string>To run this core you need the following:
+	<string>Om deze kern te gebruiken heb je het volgende nodig:
 
-%@Drag and drop the required file(s) onto the game library window and try again.</string>
+%@Sleep de vereiste bestanden naar het spelbibliotheekvenster en probeer opnieuw.</string>
 	<key>Toggle Fullscreen</key>
 	<string>Schakel schermvullende weergave in/uit</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>Werkbalk: Homebrew</string>
 	<key>Toolbar: Library</key>
 	<string>Bibliotheek</string>
 	<key>Toolbar: Save States</key>
@@ -662,11 +658,11 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Trash downloaded Files</key>
 	<string>Gooi gedownloade bestanden in de prullenmand</string>
 	<key>Unexpected error:</key>
-	<string>Unexpected error:</string>
+	<string>Onverwachte fout:</string>
 	<key>Unmute Audio</key>
 	<string>Ontdemp geluid</string>
 	<key>Update</key>
-	<string>Update</string>
+	<string>Werk bij</string>
 	<key>Updating Library</key>
 	<string>Bibliotheek bijwerken</string>
 	<key>User guide on BIOS files</key>
@@ -682,7 +678,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Warning</key>
 	<string>Waarschuwing</string>
 	<key>We suggest you switch to the %@ core plugin as soon as possible.</key>
-	<string>We suggest you switch to the %@ core plugin as soon as possible.</string>
+	<string>We raden je aan zo snel mogelijk over te stappen op de kernplug-in %@.</string>
 	<key>With OpenEmu you can save your progress at any time using save states. We will even make auto saves for you, when you leave a game. Come back here to get an overview of all your saves.</key>
 	<string>Met OpenEmu kan u uw voortgang op elk moment opslaan via momentopnames. We zullen zelfs automatische momentopnames maken voor u wanneer u een spel verlaat. Kom hiernaar terug om een overzicht te krijgen van al uw opgeslagen spellen.</string>
 	<key>Won't be able to recognize it as special save state…</key>
@@ -698,7 +694,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>You need to restart the application to commit the change</key>
 	<string>U moet de toepassing herstarten om de aanpassing door te voeren</string>
 	<key>Your Mac is too old for this version of OpenEmu</key>
-	<string>Your Mac is too old for this version of OpenEmu</string>
+	<string>Je Mac is te oud voor deze versie van OpenEmu</string>
 	<key>Your game finished importing, do you want to play it now?</key>
 	<string>Uw spel is geïmporteerd, wilt u het nu spelen?</string>
 	<key>Your library was moved sucessfully.</key>
@@ -716,9 +712,9 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Comparison</key>
 	<string>Vergelijking</string>
 	<key>Unsigned (&gt;=0)</key>
-	<string>Unsigned (&gt;=0)</string>
+	<string>Zonder teken (&gt;=0)</string>
 	<key>Signed (+/-)</key>
-	<string>Signed (+/-)</string>
+	<string>Met teken (+/-)</string>
 	<key>Hexadecimal</key>
 	<string>Hexadecimaal</string>
 	<key>Data Size</key>
@@ -752,5 +748,843 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>Eerste %1$@ van %2$@ overeenkomsten weergegeven, verfijn je zoekopdracht</string>
 
+	<key>%.1f%% unlocked</key>
+	<string>%.1f%% ontgrendeld</string>
+	<key>%@ result found 🎯</key>
+	<string>%@ resultaat gevonden 🎯</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · %d van %d prestaties · %d van %d punten</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · Rang %d</string>
+	<key>%d points</key>
+	<string>%d punten</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld bestand(en) kwamen met geen enkel spel overeen en worden overgeslagen.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>12 hexadecimale tekens per code, bijv. 80097BA0 270F. Verbind meerregelige cheats met '+'.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>12 hexadecimale tekens per code, bijv. 8033B21D0064. Verbind meerregelige cheats met '+'.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;spatie&gt;</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>Er wordt al naar nieuwe kernen gezocht.</string>
+	<key>A core update check is already in progress.</key>
+	<string>Er wordt al naar kernupdates gezocht.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>Er is een nieuwere opslag voor '%@' beschikbaar in je %@ (van %@). Wil je deze herstellen voordat je speelt?</string>
+	<key>Account Sign-ins</key>
+	<string>Accountaanmeldingen</string>
+	<key>Achievement Set</key>
+	<string>Prestatieset</string>
+	<key>Achievement Set:</key>
+	<string>Prestatieset:</string>
+	<key>Achievement set complete</key>
+	<string>Prestatieset voltooid</string>
+	<key>Achievements</key>
+	<string>Prestaties</string>
+	<key>Achievements unavailable</key>
+	<string>Prestaties niet beschikbaar</string>
+	<key>Achievements…</key>
+	<string>Prestaties…</string>
+	<key>Active Now</key>
+	<string>Nu actief</string>
+	<key>Active: %@</key>
+	<string>Actief: %@</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>Alle OpenEmu-instellingen, controllertoewijzingen en opgeslagen aanmeldingen in de huidige gegevensmap worden teruggezet. Bij de volgende start kies je een gegevensmap en doorloop je de configuratie opnieuw.
+
+Spellen, BIOS-bestanden, opgeslagen spellen en kernen worden niet verwijderd. Kies dezelfde gegevensmap om de bibliotheek te blijven gebruiken. macOS-machtigingen veranderen niet.
+
+Na bevestiging kan dit niet ongedaan worden gemaakt.</string>
+	<key>All achievements earned</key>
+	<string>Alle prestaties behaald</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>Alle overige bestanden, ook handmatig toegevoegde bestanden. Technische gegevens over de mapidentiteit, vergrendeling en geplande verwijdering blijven behouden.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>Appvoorkeuren, vensterinstellingen en eerste configuratie.</string>
+	<key>Apply</key>
+	<string>Pas toe</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>Weet je zeker dat je '%@' wilt terugzetten naar de vorige versie?</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS en firmware</string>
+	<key>Broker endpoint is nil</key>
+	<string>Het eindpunt van de bemiddelaar ontbreekt</string>
+	<key>Button %ld</key>
+	<string>Knop %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>Het CUE-bestand bevat een ongeldig aanhalingsteken.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>Het CUE-bestand bevat geen bestandsnamen</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>In het CUE-formaat moeten bestandsnamen tussen aanhalingstekens " staan, maar deze ontbreken.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>Het CUE-formaat vereist aanhalingstekens ", maar gebruikt in plaats daarvan %@.</string>
+	<key>Caches and Temporary Files</key>
+	<string>Caches en tijdelijke bestanden</string>
+	<key>Challenge Active</key>
+	<string>Uitdaging actief</string>
+	<key>Check Again</key>
+	<string>Controleer opnieuw</string>
+	<key>Check for Update</key>
+	<string>Zoek naar update</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Controleer of de gegevensschijf is aangesloten en beschrijfbaar is. De vorige instellingen zijn behouden.</string>
+	<key>Choose</key>
+	<string>Kies</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>Kies de OpenEmu-gegevensmap</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>Kies een map met hoesafbeeldingen. Bestanden worden aan spellen gekoppeld als de naam exact overeenkomt.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Kies een lege map of een bestaande OpenEmu-gegevensmap.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Kies of maak een aparte map voor je spelbibliotheek, geïmporteerde spellen, BIOS-bestanden, opgeslagen spellen, kernen, instellingen, shaders en caches. Bestaande gegevens worden niet automatisch verplaatst. Kies de bijbehorende OpenEmu-gegevensmap om een oude bibliotheek te blijven gebruiken.</string>
+	<key>Choose what to remove</key>
+	<string>Kies wat je wilt verwijderen</string>
+	<key>Completed</key>
+	<string>Voltooid</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Sluit de schijf aan en probeer opnieuw, of zoek dezelfde map. Je bibliotheek wordt niet vervangen.
+
+%@
+
+%@</string>
+	<key>Continue…</key>
+	<string>Ga door…</string>
+	<key>Controller Mappings</key>
+	<string>Controllertoewijzingen</string>
+	<key>Core supports RetroAchievements</key>
+	<string>Kern ondersteunt RetroAchievements</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>Het bestand op pad %@ kon niet worden gelezen. Controleer of het bestand op de aangegeven locatie staat en leesbaar is.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>Het bestand op pad %@ kon niet worden gelezen vanwege een probleem met de toegangsrechten.</string>
+	<key>Custom Shader Files</key>
+	<string>Aangepaste shaderbestanden</string>
+	<key>D-pad Down</key>
+	<string>Richtingsknop omlaag</string>
+	<key>D-pad Left</key>
+	<string>Richtingsknop links</string>
+	<key>D-pad Right</key>
+	<string>Richtingsknop rechts</string>
+	<key>D-pad Up</key>
+	<string>Richtingsknop omhoog</string>
+	<key>Data folder</key>
+	<string>Gegevensmap</string>
+	<key>Delete Settings and Data…</key>
+	<string>Verwijder instellingen en gegevens…</string>
+	<key>Did it work?</key>
+	<string>Is het gelukt?</string>
+	<key>Download &amp; Play</key>
+	<string>Download en speel</string>
+	<key>East</key>
+	<string>Oost</string>
+	<key>Edit</key>
+	<string>Bewerk</string>
+	<key>Edit…</key>
+	<string>Bewerk…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>Emulator wacht op goedkeuring</string>
+	<key>Enabled</key>
+	<string>Ingeschakeld</string>
+	<key>Europe</key>
+	<string>Europa</string>
+	<key>Failed to launch helper app</key>
+	<string>Hulpprogramma kon niet worden gestart</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>Het bestand %@ lijkt geen plattetekstbestand te zijn.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>Het bestand %@ is geen plattetekstbestand.</string>
+	<key>File cannot be read</key>
+	<string>Bestand kan niet worden gelezen</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>Bestand kan niet worden gelezen (probleem met toegangsrechten)</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Bestanden in de map Shaders. Voorinstellingen die in de appvoorkeuren zijn opgeslagen vallen onder OpenEmu-instellingen.</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>Hoesafbeeldingen gevonden voor %ld van de %ld geselecteerde spellen.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>GDI bevat geen tracks</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie of Action Replay. Verbind meerregelige cheats met '+'.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Game Genie- of PAR-codes. Verbind meerregelige cheats met '+'.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie of ruwe hexadecimale waarden (XXXX:YY). Verbind meerregelige cheats met '+'.</string>
+	<key>Game Library and Games</key>
+	<string>Spelbibliotheek en spellen</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>Spelbestanden, bibliotheekdatabase, hoesafbeeldingen en cheats in deze map. Externe spellen blijven behouden. Bewaarde opgeslagen spellen en schermafbeeldingen kunnen hun bibliotheekverwijzingen verliezen.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark (zonder streepje) of Game Genie (met streepje). Verbind meerregelige cheats met '+'.</string>
+	<key>Hardcore Mode</key>
+	<string>Hardcoremodus</string>
+	<key>Hardcore Reset</key>
+	<string>Hardcoreherstart</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>Hardcoreprestaties worden als softcore opgeslagen totdat OpenEmu-Silicon door RetroAchievements is goedgekeurd.</string>
+	<key>Hash: %@</key>
+	<string>Hashwaarde: %@</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>Hulpprogramma is onverwacht gestopt</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>Als OpenEmu al is ingeschakeld, controleert macOS mogelijk nog een andere of opnieuw gebouwde kopie. Sluit deze kopie af, open haar opnieuw en controleer nogmaals. Het terugzetten van OpenEmu-instellingen zet macOS-machtigingen niet terug.</string>
+	<key>Image Adjustments…</key>
+	<string>Beeldaanpassingen…</string>
+	<key>Import Artwork from Folder…</key>
+	<string>Importeer hoesafbeeldingen uit map…</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>Geïnstalleerde kernen en systeemplug-ins</string>
+	<key>Invalid CUE sheet format</key>
+	<string>Ongeldig CUE-formaat</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>Deze is gemaakt met ‘%@’, een kern die OpenEmu niet meer bevat. Het spel wordt zonder deze opslag gestart.</string>
+	<key>Japan</key>
+	<string>Japan</string>
+	<key>Leaderboard Failed</key>
+	<string>Poging voor klassement mislukt</string>
+	<key>Leaderboard Result</key>
+	<string>Klassementsresultaat</string>
+	<key>Leaderboard Started</key>
+	<string>Poging voor klassement gestart</string>
+	<key>Leaderboard Submitted</key>
+	<string>Klassementsresultaat ingediend</string>
+	<key>Load Anyway</key>
+	<string>Laad toch</string>
+	<key>Locate Folder…</key>
+	<string>Zoek map…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Zoek de OpenEmu-gegevensmap die je eerder hebt gekozen. Een andere of lege map vervangt je bibliotheek niet.</string>
+	<key>Logged in</key>
+	<string>Ingelogd</string>
+	<key>M3U missing referenced file</key>
+	<string>In M3U genoemd bestand ontbreekt</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>M3U verwijst naar een onbereikbaar bestand op pad %@.</string>
+	<key>Mastered</key>
+	<string>Volledig beheerst</string>
+	<key>Missable</key>
+	<string>Misbaar</string>
+	<key>Missing referenced file</key>
+	<string>Verwezen bestand ontbreekt</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>Meer dan één geïnstalleerde kern gebruikt bundel-ID '%@'. Verwijder het duplicaat voordat je bijwerkt.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>Geselecteerde gegevens naar de prullenmand verplaatsen?</string>
+	<key>Move to Trash and Quit</key>
+	<string>Verplaats naar prullenmand en stop</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>N64-codes moeten 12 hexadecimale tekens bevatten (adres van 8 tekens + waarde van 4 tekens), bijv. 8033B21D0064. De Mupen64Plus-kern ondersteunt geen langere GameShark Pro-/Action Replay-codes van 16 tekens.</string>
+	<key>Newer Save Available</key>
+	<string>Nieuwere opslag beschikbaar</string>
+	<key>No Core</key>
+	<string>Geen kern</string>
+	<key>No Shader</key>
+	<string>Geen shader</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>Er is geen prestatieset gevonden voor dit spel of deze hashwaarde.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>Er zijn geen prestaties gemeld voor dit spel.</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>Er is geen compatibele, geverifieerde download voor deze kern beschikbaar. Zoek opnieuw naar updates.</string>
+	<key>No matching artwork found.</key>
+	<string>Geen passende hoesafbeeldingen gevonden.</string>
+	<key>North</key>
+	<string>Noord</string>
+	<key>North America</key>
+	<string>Noord-Amerika</string>
+	<key>North-East</key>
+	<string>Noordoost</string>
+	<key>North-West</key>
+	<string>Noordwest</string>
+	<key>Not logged in</key>
+	<string>Niet ingelogd</string>
+	<key>Not signed in</key>
+	<string>Niet aangemeld</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>Er wordt niets verwijderd totdat je dit op het volgende scherm bevestigt. Kies OpenEmu-instellingen om bij de volgende start de eerste configuratie te herhalen.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>De OEXPCMatchMaking-proxy ontbreekt</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>Alleen gegevens in deze map worden beïnvloed. Externe bestanden en OpenEmu.app, inclusief de meegeleverde kernen, blijven behouden.</string>
+	<key>Open System Settings</key>
+	<string>Open Systeeminstellingen</string>
+	<key>OpenEmu Settings</key>
+	<string>OpenEmu-instellingen</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>OpenEmu-caches en tijdelijke bestanden in deze map.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu kan zijn gegevensmap niet openen</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>OpenEmu kon geen verbinding maken met het hulpproces voor gegevensverwijdering. Je gegevens zijn ongewijzigd. OpenEmu stopt nu; open het opnieuw om het nogmaals te proberen.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>OpenEmu kon geen systeemplug-in vinden om het spel te starten</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>OpenEmu kon het verwijderen van de geselecteerde gegevens niet voltooien</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>OpenEmu kon de gegevensverwijdering niet voorbereiden</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>OpenEmu kon zijn instellingen niet opslaan</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>OpenEmu kon zijn instellingen niet opslaan. Controleer of de gegevensschijf is aangesloten en beschrijfbaar is.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>OpenEmu kon geen bruikbare kern vinden. Mogelijk is er nog geen kern voor dit systeem beschikbaar of heb je geen internetverbinding.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>OpenEmu moet opnieuw starten om weer toestemming voor invoercontrole te vragen.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>OpenEmu-schermafbeeldingen en hun aangepaste locatie binnen deze map. Schermafbeeldingen van kernen vallen onder Opgeslagen spellen en consolegegevens.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu stopt en verwijdert daarna de geselecteerde gegevens, inclusief Settings.plist en het vergrendelingsbestand. Bij de volgende start wordt de eerste configuratie herhaald. Verwijderde bestanden kunnen uit de prullenmand worden hersteld. Verborgen mapmarkeringen en een lege opslag voor aanmeldingen kunnen achterblijven.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu stopt en verwijdert daarna de geselecteerde gegevens. Je appinstellingen en gekozen gegevensmap blijven behouden. Verwijderde bestanden kunnen uit de prullenmand worden hersteld. Verborgen mapmarkeringen en een lege opslag voor aanmeldingen kunnen achterblijven.</string>
+	<key>Other Files in This Folder</key>
+	<string>Overige bestanden in deze map</string>
+	<key>Other Region</key>
+	<string>Andere regio</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>PSX GameShark-codes moeten 12 hexadecimale tekens bevatten (bijv. 80097BA0 270F). Typebyte: 30=8-bits, 80=16-bits.</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>Pauzeren geblokkeerd in hardcoremodus</string>
+	<key>Pending submissions completed.</key>
+	<string>Openstaande inzendingen voltooid.</string>
+	<key>Permission reset</key>
+	<string>Machtiging teruggezet</string>
+	<key>Play Without Restoring</key>
+	<string>Speel zonder te herstellen</string>
+	<key>Play Without Syncing</key>
+	<string>Speel zonder te synchroniseren</string>
+	<key>Play With…</key>
+	<string>Speel met…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>Speel gekoppeld aan Sonic &amp; Knuckles</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>Meld je opnieuw aan via Voorkeuren → Prestaties.</string>
+	<key>Progression</key>
+	<string>Voortgang</string>
+	<key>RA: Offline</key>
+	<string>RA: Offline</string>
+	<key>Relaunch Now</key>
+	<string>Start nu opnieuw</string>
+	<key>Remove OpenEmu Data</key>
+	<string>Verwijder OpenEmu-gegevens</string>
+	<key>Reset Permission</key>
+	<string>Zet machtiging terug</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>Alle instellingen terugzetten en OpenEmu stoppen?</string>
+	<key>Reset and Quit</key>
+	<string>Zet terug en stop</string>
+	<key>Restart Required</key>
+	<string>Opnieuw starten vereist</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>Opnieuw starten om de hardcoremodus toe te passen.</string>
+	<key>Restore &amp; Play</key>
+	<string>Herstel en speel</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>RetroAchievements-fout</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements is offline</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>RetroAchievements opnieuw verbonden</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>Aanmelden bij RetroAchievements mislukt</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements niet beschikbaar</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>RetroAchievements kon voor deze sessie niet worden geladen.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements is ingeschakeld, maar er is geen prestatieset gevonden voor dit spel of deze hashwaarde.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>Aanmelden bij RetroAchievements is mislukt. Meld je opnieuw aan via Voorkeuren → Prestaties.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: spel niet herkend</string>
+	<key>Revert</key>
+	<string>Zet terug</string>
+	<key>Revert to previous version?</key>
+	<string>Terugzetten naar de vorige versie?</string>
+	<key>Save Anyway</key>
+	<string>Bewaar toch</string>
+	<key>Save Cheat</key>
+	<string>Bewaar cheat</string>
+	<key>Save State Version Mismatch</key>
+	<string>Versie van opgeslagen staat komt niet overeen</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>Het laden van opgeslagen staten is uitgeschakeld in de hardcoremodus.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>Opgeslagen staten, batterijopslagen, geheugenkaarten en ondersteuningsmappen van emulators, inclusief geïnstalleerde console-inhoud en configuratie.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>Opgeslagen staten, terugspoelen, beeld voor beeld vooruitgaan en cheats worden uitgeschakeld.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>Opgeslagen accountgegevens en aanmeldinformatie in deze map.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>Opgeslagen toetsenbord- en controllertoewijzingen.</string>
+	<key>Saves and Console Data</key>
+	<string>Opgeslagen spellen en consolegegevens</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>Schermafbeeldingen van verwijderde spellen</string>
+	<key>Select</key>
+	<string>Selecteer</string>
+	<key>Signed in</key>
+	<string>Aangemeld</string>
+	<key>Softcore Mode</key>
+	<string>Softcoremodus</string>
+	<key>Softcore enforced</key>
+	<string>Softcoremodus verplicht</string>
+	<key>Some submissions are pending retry.</key>
+	<string>Sommige inzendingen wachten op een nieuwe poging.</string>
+	<key>South</key>
+	<string>Zuid</string>
+	<key>South-East</key>
+	<string>Zuidoost</string>
+	<key>South-West</key>
+	<string>Zuidwest</string>
+	<key>Start</key>
+	<string>Start</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>Om naar de hardcoremodus over te schakelen moet het spel opnieuw worden gestart.</string>
+	<key>System Main Menu</key>
+	<string>Hoofdmenu van systeem</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>Het CUE-bestand %@ moet bestandsnamen bevatten die naar cd-segmenten verwijzen, maar er zijn er geen gevonden.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>De BIOS-map. Firmware in ondersteuningsmappen van emulators valt onder Opgeslagen spellen en consolegegevens.</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>Het GDI-bestand %@ moet bestandsnamen bevatten die naar tracks verwijzen, maar er zijn er geen gevonden.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>De architecturen in '%@' konden niet worden gecontroleerd: %@</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>De kern kan niet op '%@' worden geïnstalleerd, omdat die naam al door '%@' wordt gebruikt.</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>De kern kon niet worden geïnstalleerd omdat de bestemming onveilig is.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>De kern kon niet veilig worden geïnstalleerd: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>De kerndownload is voltooid zonder een archiefbestand op te leveren.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>Het kernbestand '%@' bevat niet de vereiste %@-code. Het bevat: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>Het vervangen van de kern heeft geen geïnstalleerde bundel opgeleverd.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>De kernupdate mist geldige informatie over de handtekening, grootte of processor.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>De server voor kernupdates heeft geen succesvolle HTTPS-respons gegeven.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>De handtekening van de kernupdate is ongeldig. Er is niets geïnstalleerd.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>Het gedownloade archief moet precies één kernplug-in bevatten, maar er zijn er %ld gevonden.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>De gedownloade kern '%@' kon niet worden ondertekend (codesign-status %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>Het gedownloade kernarchief kon niet worden uitgepakt.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>Het gedownloade kernarchief kon niet veilig worden gecontroleerd.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>Het gedownloade kernarchief heeft een onverwachte grootte. Er is niets geïnstalleerd.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>De gedownloade kern bevat een onveilige koppeling op '%@'.</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>De gedownloade kern kon niet worden ondertekend: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>De gedownloade kern bevat niet het opgegeven uitvoerbare bestand.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>Het uitvoerbare bestand van de gedownloade kern is geen macOS Mach-O-bestand.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>Het gedownloade kernbestand '%@' kon niet worden gecontroleerd: %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>De gedownloade kern heeft bundel-ID '%@' in plaats van de verwachte '%@'.</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>De gedownloade kern heeft versie '%@' in plaats van de verwachte '%@'.</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>De gedownloade kern is geen geldige plug-inbundel.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>De gedownloade kernplug-in verwijst buiten zijn tijdelijke map.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>De emulator heeft geen leestoegang tot de ROM.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>Het bestand %@ voldoet niet aan het CUE-formaat.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>De geïnstalleerde mappen Cores en Systems. Kernen die bij OpenEmu.app zijn meegeleverd blijven behouden.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>De geïnstalleerde kern kon niet worden geladen. De vorige kern is hersteld.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>Het terugzetten kon niet worden voltooid en sommige instellingen konden niet worden hersteld. Sluit de gegevensschijf opnieuw aan en controleer de toegangsrechten voordat je opnieuw probeert.</string>
+	<key>The selected data was not deleted</key>
+	<string>De geselecteerde gegevens zijn niet verwijderd</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>Het aantal tracks (%@) en het aantal gevonden trackbestandsverwijzingen (%@) in het GDI-bestand %@ komen niet overeen.</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>De bijgewerkte kern is geïnstalleerd. Start OpenEmu opnieuw om deze te gebruiken; actieve spellen blijven de vorige versie gebruiken.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>Deze code komt niet overeen met een bekend cheatformaat voor dit systeem.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>Deze kern heeft geen ondersteuning voor RetroAchievements opgegeven</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>Deze kern ondersteunt RetroAchievements voor dit systeem.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>Deze kopie van OpenEmu Reborn vertrouwt deze updatebron voor kernen niet.</string>
+	<key>This folder cannot be used</key>
+	<string>Deze map kan niet worden gebruikt</string>
+	<key>This save state can't be loaded.</key>
+	<string>Deze opgeslagen staat kan niet worden geladen.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>Deze opgeslagen staat is gemaakt met %@ versie %@, maar versie %@ is geïnstalleerd. Laden kan een crash veroorzaken.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>Time-out bij wachten op verbinding van hulpprogramma</string>
+	<key>Track count mismatch</key>
+	<string>Aantal tracks komt niet overeen</string>
+	<key>Trigger %@</key>
+	<string>Trigger %@</string>
+	<key>Try Again</key>
+	<string>Probeer opnieuw</string>
+	<key>Try again in about %d seconds.</key>
+	<string>Probeer het over ongeveer %d seconden opnieuw.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>Schakel de hardcoremodus uit via Voorkeuren ▸ RetroAchievements om opgeslagen staten te laden.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>Standaardshadervoorinstelling kan niet worden verwijderd</string>
+	<key>Unable to delete the active shader</key>
+	<string>De actieve shader kan niet worden verwijderd</string>
+	<key>Unavailable</key>
+	<string>Niet beschikbaar</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>Vink de spellen uit die je niet wilt bijwerken.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>%d van %d prestaties ontgrendeld · %d van %d punten</string>
+	<key>Untitled Achievement</key>
+	<string>Naamloze prestatie</string>
+	<key>Update Available</key>
+	<string>Update beschikbaar</string>
+	<key>Use This Folder</key>
+	<string>Gebruik deze map</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>Wachten op RetroAchievements-spelgegevens van de emulatorkern. Als dit leeg blijft, controleer dan of je bent aangemeld en of de actieve kern en het spel RetroAchievements ondersteunen.</string>
+	<key>West</key>
+	<string>West</string>
+	<key>Win Condition</key>
+	<string>Voorwaarde om te winnen</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>Je bibliotheek kan niet worden geopend met deze versie van OpenEmu.</string>
+	<key>unknown</key>
+	<string>onbekend</string>
+	<key>Interface Language:</key>
+	<string>Interfacetaal:</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>De taal verandert de volgende keer dat je OpenEmu opent.</string>
+	<key>Select Backup Folder</key>
+	<string>Kies reservekopiemap</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>Kies een map voor reservekopieën van je opgeslagen staten, batterijopslagen en BIOS-bestanden. Kies een map in iCloud Drive om automatisch tussen je Macs te synchroniseren.</string>
+	<key> — not yet supported</key>
+	<string> — nog niet ondersteund</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d van %3$d)</string>
+	<key>%@ result found</key>
+	<string>%@ resultaat gevonden</string>
+	<key>%@ results found</key>
+	<string>%@ resultaten gevonden</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>Opslag voor '%@' gesynchroniseerd vanuit de cloud.</string>
+	<key>A New Quest</key>
+	<string>Een nieuwe queeste</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>Het toegangstoken is verlopen en kon niet worden vernieuwd. Meld je opnieuw aan.</string>
+	<key>Action</key>
+	<string>Actie</string>
+	<key>Active</key>
+	<string>Actief</string>
+	<key>Add %@</key>
+	<string>Voeg %@ toe</string>
+	<key>All</key>
+	<string>Alle</string>
+	<key>All saves are up to date.</key>
+	<string>Alle opgeslagen spellen zijn bijgewerkt.</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>Maak automatisch reservekopieën van opgeslagen staten, batterijopslagen en BIOS-bestanden in een willekeurige map. Kies een map in iCloud Drive om tussen je Macs te synchroniseren, of gebruik Dropbox, een externe schijf of een lokaal pad.</string>
+	<key>Backup Folder</key>
+	<string>Reservekopiemap</string>
+	<key>Browse Online Cheats</key>
+	<string>Bekijk online cheats</string>
+	<key>Browse Online Cheats…</key>
+	<string>Bekijk online cheats…</string>
+	<key>Challenge: %@</key>
+	<string>Uitdaging: %@</string>
+	<key>Cheat Code</key>
+	<string>Cheatcode</string>
+	<key>Cheat Name</key>
+	<string>Cheatnaam</string>
+	<key>Cheat Removed</key>
+	<string>Cheat verwijderd</string>
+	<key>Choose Folder…</key>
+	<string>Kies map…</string>
+	<key>Clear</key>
+	<string>Wis</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>Klik om notities voor deze cheat toe te voegen of te bewerken</string>
+	<key>Click to see the code</key>
+	<string>Klik om de code te bekijken</string>
+	<key>Close</key>
+	<string>Sluit</string>
+	<key>Cloud Sync</key>
+	<string>Cloudsynchronisatie</string>
+	<key>Code</key>
+	<string>Code</string>
+	<key>Code already used</key>
+	<string>Code al gebruikt</string>
+	<key>Connected</key>
+	<string>Verbonden</string>
+	<key>Copy</key>
+	<string>Kopieer</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>ScreenScraper is niet bereikbaar — controleer je verbinding.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>ScreenScraper is niet bereikbaar — controleer je verbinding. (%@)</string>
+	<key>Cover Art</key>
+	<string>Hoesafbeeldingen</string>
+	<key>Did this cheat code work for you?</key>
+	<string>Werkte deze cheatcode bij jou?</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>Schakelt het laden van opgeslagen staten, terugspoelen, beeld voor beeld vooruitgaan en cheats uit. Vereist voor gerangschikte prestaties.</string>
+	<key>Don't Send</key>
+	<string>Verstuur niet</string>
+	<key>Download failed: %@</key>
+	<string>Download mislukt: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>'%@' downloaden uit de cloud…</string>
+	<key>Downloading…</key>
+	<string>Downloaden…</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>De autorisatiecode kon niet worden ingewisseld voor tokens.</string>
+	<key>Filename</key>
+	<string>Bestandsnaam</string>
+	<key>Game</key>
+	<string>Spel</string>
+	<key>Gamma:</key>
+	<string>Gamma:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Google Drive-API-fout (HTTP %ld): %@</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>Hardcoremodus (aanbevolen)</string>
+	<key>Help Improve OpenEmu</key>
+	<string>Help OpenEmu verbeteren</string>
+	<key>I don't know</key>
+	<string>Ik weet het niet</string>
+	<key>Import</key>
+	<string>Importeer</string>
+	<key>Incompatible Cores Moved</key>
+	<string>Incompatibele kernen verplaatst</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>Incompatibele opgeslagen staten gevonden: %ld</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>Geïnstalleerd: %@
+Nieuwste: %@</string>
+	<key>Invalid Backup Folder</key>
+	<string>Ongeldige reservekopiemap</string>
+	<key>It does not work for me</key>
+	<string>Het werkt niet bij mij</string>
+	<key>It works for me</key>
+	<string>Het werkt bij mij</string>
+	<key>Keep for Now</key>
+	<string>Bewaar voorlopig</string>
+	<key>Last backed up: %@</key>
+	<string>Laatste reservekopie: %@</string>
+	<key>Last backup failed</key>
+	<string>Laatste reservekopie mislukt</string>
+	<key>Last synced: %@</key>
+	<string>Laatst gesynchroniseerd: %@</string>
+	<key>Leaderboard: %@</key>
+	<string>Klassement: %@</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>Geef aan of de cheat bij jou werkte</string>
+	<key>Modified</key>
+	<string>Gewijzigd</string>
+	<key>No backup yet</key>
+	<string>Nog geen reservekopie</string>
+	<key>No cheats found</key>
+	<string>Geen cheats gevonden</string>
+	<key>No folder selected</key>
+	<string>Geen map geselecteerd</string>
+	<key>Not Connected</key>
+	<string>Niet verbonden</string>
+	<key>Not Working</key>
+	<string>Werkt niet</string>
+	<key>Not set</key>
+	<string>Niet ingesteld</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>Niet aangemeld bij Google Drive. Meld je aan via Voorkeuren.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>Niet aangemeld — ScreenScraper wordt overgeslagen. OpenVGDB en libretro-thumbnails blijven actief.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>Niet aangemeld — prestaties worden niet bijgehouden.</string>
+	<key>Not supported by this emulator.</key>
+	<string>Niet ondersteund door deze emulator.</string>
+	<key>Not synced yet</key>
+	<string>Nog niet gesynchroniseerd</string>
+	<key>Notes</key>
+	<string>Notities</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>De OAuth-omleiding bevat geen autorisatiecode.</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>Verkrijg het gebroken Picori-zwaard</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>OpenEmu zoekt op drie plaatsen naar hoesafbeeldingen: eerst in de ingebouwde OpenVGDB-database, daarna bij ScreenScraper (als je hieronder bent aangemeld) en als laatste bij libretro-thumbnails. Aanmelden bij ScreenScraper biedt de beste dekking — registreren is gratis.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>OpenEmu heeft kernen die niet op deze Mac kunnen draaien verplaatst naar %@.
+
+Verplaatst: %@
+
+Compatibele vervangers worden automatisch gedownload zodra ze beschikbaar zijn.</string>
+	<key>Opening sign-in page…</key>
+	<string>Aanmeldpagina openen…</string>
+	<key>Password</key>
+	<string>Wachtwoord</string>
+	<key>Password cannot be empty.</key>
+	<string>Het wachtwoord mag niet leeg zijn.</string>
+	<key>Provider</key>
+	<string>Aanbieder</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>ROM's worden niet in de reservekopie opgenomen.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>Registreer je op retroachievements.org — het is gratis.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>Registreer je op screenscraper.fr — het is gratis.</string>
+	<key>Remove</key>
+	<string>Verwijder</string>
+	<key>Saturation:</key>
+	<string>Verzadiging:</string>
+	<key>Save</key>
+	<string>Bewaar</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>De aanvraaglimiet van ScreenScraper is bereikt. Probeer het later opnieuw.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>ScreenScraper heeft deze aanmeldgegevens geweigerd. Controleer je gebruikersnaam en wachtwoord.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>ScreenScraper heeft deze aanmeldgegevens geweigerd. Voer je wachtwoord opnieuw in en sla het op.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>ScreenScraper heeft je aanmeldgegevens geweigerd. Controleer je gebruikersnaam en wachtwoord in Voorkeuren → Hoesafbeeldingen.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>ScreenScraper gaf een onverwacht antwoord.</string>
+	<key>Send Crash Reports</key>
+	<string>Verstuur crashrapporten</string>
+	<key>Set Status</key>
+	<string>Stel status in</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>De eerste %1$@ van %2$@ cheats worden weergegeven. Verfijn je zoekopdracht.</string>
+	<key>Sign In</key>
+	<string>Meld aan</string>
+	<key>Sign Out</key>
+	<string>Meld af</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>Afmelden bij Google Drive?</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>Meld je aan bij je RetroAchievements-account om tijdens het spelen prestaties te behalen. Je wachtwoord wordt alleen gebruikt om een aanmeldtoken te verkrijgen en wordt nooit op schijf opgeslagen.</string>
+	<key>Sign-in failed: %@</key>
+	<string>Aanmelden mislukt: %@</string>
+	<key>Signed in to Google Drive.</key>
+	<string>Aangemeld bij Google Drive.</string>
+	<key>Signing in…</key>
+	<string>Aanmelden…</string>
+	<key>Status</key>
+	<string>Status</string>
+	<key>Supported Systems</key>
+	<string>Ondersteunde systemen</string>
+	<key>Sync failed: %@</key>
+	<string>Synchronisatie mislukt: %@</string>
+	<key>Syncing…</key>
+	<string>Synchroniseren…</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>De reservekopiemap mag niet in de OpenEmu-gegevensmap staan. Kies een andere locatie, bijvoorbeeld een map op een externe schijf of in iCloud Drive.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>De volgende opgeslagen staten zijn gemaakt met oudere kernversies en zijn niet meer compatibel. Laden zou een crash veroorzaken.
+
+Betrokken kernen:
+%@
+
+Je kunt ze voorlopig bewaren en een reservekopie maken van de bestanden in:
+%@
+voordat je ze verwijdert, of ze meteen verwijderen.</string>
+	<key>Upload failed: %@</key>
+	<string>Upload mislukt: %@</string>
+	<key>Uploaded %@.</key>
+	<string>%@ geüpload.</string>
+	<key>Uploading %@…</key>
+	<string>%@ uploaden…</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>Gebruik de onderstaande bediening om te filteren op naam en de gekozen status</string>
+	<key>Username</key>
+	<string>Gebruikersnaam</string>
+	<key>Username cannot be empty.</key>
+	<string>De gebruikersnaam mag niet leeg zijn.</string>
+	<key>Verifying credentials…</key>
+	<string>Aanmeldgegevens controleren…</string>
+	<key>Verifying…</key>
+	<string>Controleren…</string>
+	<key>Working</key>
+	<string>Werkt</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>Wil je automatisch crashrapporten versturen als OpenEmu crasht? Hiermee kan het team fouten sneller vinden en oplossen.
+
+Rapporten bevatten de speltitel, het systeem en de kern die op het moment van de crash werden gebruikt. Spelbestanden, opgeslagen spelgegevens en wachtwoorden worden nooit meegestuurd.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>Je lokaal opgeslagen spellen worden niet beïnvloed. Je kunt je op elk moment opnieuw aanmelden.</string>
+	<key>retroachievements.org password</key>
+	<string>Wachtwoord voor retroachievements.org</string>
+	<key>retroachievements.org username</key>
+	<string>Gebruikersnaam voor retroachievements.org</string>
+	<key>screenscraper.fr password</key>
+	<string>Wachtwoord voor screenscraper.fr</string>
+	<key>screenscraper.fr username</key>
+	<string>Gebruikersnaam voor screenscraper.fr</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (opgeslagen)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ Dubbele kernbundels gevonden: %@. Open %@ en verwijder de extra kopie van elke betrokken kern.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  Aangemeld als %@</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>Het aanmelden is gelukt, maar RetroAchievements heeft geen authenticatietoken teruggestuurd.</string>
+	<key>Invalid user/password combination.</key>
+	<string>De combinatie van gebruikersnaam en wachtwoord is ongeldig.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>Aanmelden mislukt. Controleer je gebruikersnaam en wachtwoord.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>Er is geen brugmodule of geïnstalleerde OpenEmu-kern gevonden om het uitvoerbare bestand van de plug-in te maken.</string>
+	<key>+%u pts</key>
+	<string>+%u ptn</string>
+	<key>No backup found</key>
+	<string>Geen reservekopie gevonden</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>De reservekopie van de kern heeft een onverwachte bundelidentificatie.</string>
+	<key>Invalid HTTP response</key>
+	<string>Ongeldig HTTP-antwoord</string>
 </dict>
 </plist>

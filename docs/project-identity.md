@@ -1,4 +1,4 @@
-# OpenEmu Reborn 1.0.0: identity and scope
+# OpenEmu Reborn: identity and scope
 
 OpenEmu Reborn is an independent, fan-maintained revival based on
 [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon), descended
@@ -17,8 +17,9 @@ running macOS 11 or later. This is not support for literally every Mac or every
 game. Recent local fixes have not been runtime-tested on Apple Silicon; do not
 infer ARM gameplay verification from an Intel build or a source-level change.
 
-No Reborn release has been published yet, and repository Issues are currently
-disabled. Use a documentation or draft PR for non-confidential proposed changes
+The published app release is `1.0.0` (build `23`). The current source version is
+`1.0.1` (build `24`); source version changes do not publish release archives.
+Repository Issues are currently disabled. Use a documentation or draft PR for non-confidential proposed changes
 and test reports. Use Releases, Issues, Discussions, or private vulnerability
 reporting only when the relevant repository feature is available. Do not send
 Reborn reports to upstream trackers as a substitute.

@@ -190,6 +190,35 @@ class LocalPolicyTests(unittest.TestCase):
             b'shouldUseLaunchSchemeArgsEnv="NO"').replace(b"<Testables>", ARGS + b"\n  <Testables>")
         self.validate()
 
+    def test_unchanged_reviewed_scheme_with_existing_arguments_allowed(self):
+        reviewed = SCHEME.replace(b'shouldUseLaunchSchemeArgsEnv="YES"',
+            b'shouldUseLaunchSchemeArgsEnv="NO"').replace(b"<Testables>", ARGS + b"<Testables>")
+        self.snapshot["source_scheme"] = reviewed
+        self.snapshot["current_scheme"] = reviewed.replace(b"><", b">\n  <")
+        self.validate()
+
+    def test_existing_arguments_do_not_allow_new_scheme_changes(self):
+        reviewed = SCHEME.replace(b'shouldUseLaunchSchemeArgsEnv="YES"',
+            b'shouldUseLaunchSchemeArgsEnv="NO"').replace(b"<Testables>", ARGS + b"<Testables>")
+        self.snapshot["source_scheme"] = reviewed
+        for before, after in (
+                (b'buildImplicitDependencies="YES"', b'buildImplicitDependencies="NO"'),
+                (b'<LaunchAction buildConfiguration="Debug"', b'<LaunchAction buildConfiguration="Release"'),
+                (b'skipped="NO"', b'skipped="YES"'),
+                (b'buildConfiguration="Debug" shouldUse', b'buildConfiguration="Release" shouldUse'),
+                (b'shouldUseLaunchSchemeArgsEnv="NO"', b'shouldUseLaunchSchemeArgsEnv="YES"'),
+                (b'-ApplePersistenceIgnoreState YES', b'-DisableAllTests YES'),
+                (ARGS, b'')):
+            with self.subTest(before=before):
+                self.snapshot["current_scheme"] = reviewed.replace(before, after)
+                with self.assertRaises(ValueError):
+                    self.validate()
+
+    def test_identical_scheme_still_requires_exactly_one_test_action(self):
+        for scheme in (b'<Scheme/>', b'<Scheme><TestAction/><TestAction/></Scheme>'):
+            with self.subTest(scheme=scheme), self.assertRaisesRegex(ValueError, "one TestAction"):
+                MODULE.check_scheme(scheme, scheme)
+
     def test_scheme_build_or_launch_changes_rejected(self):
         for before, after in ((b'buildImplicitDependencies="YES"', b'buildImplicitDependencies="NO"'),
                               (b'<LaunchAction buildConfiguration="Debug"', b'<LaunchAction buildConfiguration="Release"')):

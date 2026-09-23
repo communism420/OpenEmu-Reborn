@@ -24,6 +24,7 @@
 
 import Foundation
 import OpenEmuBase
+import OpenEmuKitPrivate
 internal import os.log
 
 extension NSXPCConnection {
@@ -47,6 +48,7 @@ extension NSXPCConnection {
         let task = Process()
         task.executableURL = url
         task.arguments = ["\(Self.helperIdentifierArgumentPrefix)\(identifier)", "\(Self.helperServiceNameArgumentPrefix)\(name)"]
+        task.arguments?.append(contentsOf: OEHelperLanguageArguments())
         if OEStoragePaths.isConfigured {
             task.arguments?.append("--org.openemu.data-root=\(OEStoragePaths.dataRootURL.path)")
         }

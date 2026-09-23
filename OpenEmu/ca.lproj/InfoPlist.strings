@@ -7,11 +7,11 @@
 	<key>Archived Game</key>
 	<string>Joc arxivat</string>
 	<key>OpenEmu Core Plugin</key>
-	<string>OpenEmu Core Plugin</string>
+	<string>Connector de nucli d'OpenEmu</string>
 	<key>OpenEmu Save State</key>
 	<string>Partida desada de l'OpenEmu</string>
 	<key>OpenEmu Shader</key>
-	<string>OpenEmu Shader</string>
+	<string>Ombrejador d'OpenEmu</string>
 	<key>OpenEmu System Plugin</key>
 	<string>Connector del sistema</string>
 </dict>

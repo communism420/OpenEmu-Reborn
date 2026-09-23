@@ -42,7 +42,7 @@
 	<key>Game Library Folder Location:</key>
 	<string>موقع مجلد مكتبة الألعاب:</string>
 	<key>Go</key>
-	<string>الذهاب</string>
+	<string>بدء</string>
 	<key>Great! You are all setup now and ready to get gaming!
 
 Remember you can change both your keyboard and gamepad controls for yourself and other players via the Preferences at any time.</key>
@@ -81,5 +81,49 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<string>مرحبا بك في OpenEmu !</string>
 	<key>Window Management:</key>
 	<string>مدير النافذة:</string>
+	<key>Cancel</key>
+	<string>إلغاء</string>
+	<key>New Preset</key>
+	<string>إعداد مسبق جديد</string>
+	<key>Save Preset</key>
+	<string>حفظ</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>بالإضافة إلى الأنوية التي ثبّتّها للتو، يضيف هذا الفرع المجتمعي ميزات غير موجودة في الإصدار الأصلي:
+
+• RetroAchievements — احصل على إنجازات أثناء اللعب على NES وSNES وGBA وGenesis وغيرها. سجّل الدخول من التفضيلات ← الإنجازات.
+• صور الأغلفة — جلب صور الأغلفة تلقائيًا عبر ScreenScraper. أضف بيانات تسجيل الدخول في التفضيلات ← صور الأغلفة.
+• اللعب باستخدام… — انقر بزر الفأرة الأيمن على أي لعبة لاختيار النواة التي تشغّلها.
+• التحكم — خصّص تعيينات لوحة المفاتيح وجهاز التحكم لكل لاعب في التفضيلات.</string>
+	<key>Click Go to open your library.</key>
+	<string>انقر على «بدء» لفتح مكتبتك.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>انقر على «التالي» لاختيار الأنوية.</string>
+	<key>Downloading Data...</key>
+	<string>جارٍ تنزيل البيانات…</string>
+	<key>Game Scanner</key>
+	<string>ماسح الألعاب</string>
+	<key>Name:</key>
+	<string>الاسم:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>يعتمد OpenEmu Reborn على وحدات مستقلة، وبفضل عمل مشاريع رائعة أخرى مفتوحة المصدر يمكنه محاكاة مجموعة واسعة من أنظمة الألعاب عبر «الأنوية». تتطلب بعض الأنوية تحديدها وتأكيد رغبتك في تثبيتها واستخدامها. قد لا تعمل أنظمة الألعاب والألعاب المفضلة لديك دون هذه الأنوية.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>يعمل OpenEmu Reborn بشكل أصلي على أجهزة Mac بمعالجات Apple Silicon وIntel. تعمل أنوية المحاكاة المتوافقة مباشرةً على معالج Mac دون طبقة ترجمة.
+
+سيثبّت هذا الإعداد أنوية الأنظمة اللازمة لبدء اللعب. الأنوية إضافات مستقلة، واحدة لكل نظام، ويمكنك إضافتها أو إزالتها من التفضيلات في أي وقت.</string>
+	<key>Resolve Issues</key>
+	<string>حل المشكلات</string>
+	<key>Scanner Paused</key>
+	<string>الماسح متوقف مؤقتًا</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>مرحبًا بك في OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>الجديد في OpenEmu Reborn</string>
 </dict>
 </plist>

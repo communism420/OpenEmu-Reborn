@@ -7,8 +7,10 @@ URLs until the corresponding archives are public, their hashes/signatures have
 been verified, and both complete catalogs are published. A successful CI run or
 a reachable XML file alone is not a working update service.
 
-The application remains version **1.0.0**, now internal build **23**. Internal
-build numbers increase independently of the public application version.
+The published application is **1.0.0**, internal build **23**. Current sources
+prepare **1.0.1**, internal build **24**; this does not advertise or publish a
+new update. Internal build numbers increase independently of the public
+application version.
 
 ## Trust and processor selection
 

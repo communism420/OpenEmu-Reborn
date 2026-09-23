@@ -138,5 +138,9 @@
 	<string>com una graella</string>
 	<key>as List</key>
 	<string>com una llista</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Restableix el permís de monitoratge d'entrada…</string>
+	<key>Take Native Screenshot</key>
+	<string>Captura a la resolució nativa</string>
 </dict>
 </plist>

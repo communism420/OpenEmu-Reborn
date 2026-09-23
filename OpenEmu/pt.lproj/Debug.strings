@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Appearance:</key>
-	<string>Appearance:</string>
+	<string>Aspeto:</string>
 	<key>Auto (region)</key>
-	<string>Auto</string>
+	<string>Automático (região)</string>
 	<key>Background Thread</key>
-	<string>Background Thread</string>
+	<string>Tarefa em segundo plano</string>
 	<key>Cancel cover sync for all games</key>
 	<string>Cancelar sincronia da capa para todos os jogos</string>
 	<key>Checked</key>
-	<string>Checked</string>
+	<string>Selecionado</string>
 	<key>Cleanup Save States</key>
 	<string>Limpar salvamentos</string>
 	<key>Cleanup autosave state</key>
@@ -19,21 +19,21 @@
 	<key>Cleanup rom hashes</key>
 	<string>Limpar hífens das roms</string>
 	<key>Clear shader cache</key>
-	<string>Clear shader cache</string>
+	<string>Limpar cache dos shaders</string>
 	<key>Controls Setup</key>
 	<string>Configuração dos Controles</string>
 	<key>Dark (default)</key>
-	<string>Dark (default)</string>
+	<string>Escuro (predefinição)</string>
 	<key>Database Actions</key>
 	<string>Ações de Banco de Dados</string>
 	<key>Debug Mode</key>
 	<string>Modo Debug</string>
 	<key>Default Value: %@</key>
-	<string>Default Value: %@</string>
+	<string>Valor predefinido: %@</string>
 	<key>Delete artwork that can be downloaded</key>
-	<string>Delete artwork that can be downloaded</string>
+	<string>Eliminar capas que podem ser descarregadas</string>
 	<key>Delete useless image objects</key>
-	<string>Delete useless image objects</string>
+	<string>Eliminar objetos de imagem desnecessários</string>
 	<key>Disable aspect ratio correction in screenshots</key>
 	<string>Desabilitar correção de proporção da tela</string>
 	<key>Download missing artwork…</key>
@@ -41,7 +41,7 @@
 	<key>Draw button mask above image</key>
 	<string>Mostrar contorno do botão na imagem</string>
 	<key>Europe</key>
-	<string>Europe</string>
+	<string>Europa</string>
 	<key>Game View Background color:</key>
 	<string>Cor de Fundo do Game View:</string>
 	<key>General</key>
@@ -49,11 +49,11 @@
 	<key>HUD Bar / Gameplay</key>
 	<string>Barra de Informações / Gameplay</string>
 	<key>Japan</key>
-	<string>Japan</string>
+	<string>Japão</string>
 	<key>Library Window</key>
 	<string>Janela de Biblioteca</string>
 	<key>Light</key>
-	<string>Light</string>
+	<string>Claro</string>
 	<key>Log HID Events</key>
 	<string>Gravar Eventos de HID</string>
 	<key>Log Keyboard Events</key>
@@ -61,15 +61,15 @@
 	<key>Manually choose system on import</key>
 	<string>Escolher sistema manualmente ao importar</string>
 	<key>North America</key>
-	<string>North America</string>
+	<string>América do Norte</string>
 	<key>OpenVGDB</key>
 	<string>OpenVGDB</string>
 	<key>Other</key>
-	<string>Other</string>
+	<string>Outro</string>
 	<key>Perform Sanity Check on Database</key>
 	<string>Realizar Checagem de Consistência no Banco de Dados</string>
 	<key>Range: %@ to %@</key>
-	<string>Range: %@ to %@</string>
+	<string>Intervalo: %@ a %@</string>
 	<key>Region:</key>
 	<string>Região:</string>
 	<key>Remove duplicated roms</key>
@@ -77,9 +77,9 @@
 	<key>Remove untracked artwork files</key>
 	<string>Remover Artes de Capa desconhecidas</string>
 	<key>Reset main window size</key>
-	<string>Reset main window size</string>
+	<string>Repor o tamanho da janela principal</string>
 	<key>Reveal user shader folder</key>
-	<string>Reveal user shader folder</string>
+	<string>Mostrar a pasta de shaders do utilizador</string>
 	<key>Run games using:</key>
 	<string>Rodar jogos usando:</string>
 	<key>Select first field after setting the last</key>
@@ -107,18 +107,17 @@
 	<key>Show quicksave states in save state category</key>
 	<string>Exibir salvamentos rápidos em categorias</string>
 	<key>Sync games without artwork</key>
-	<string>Sync games without artwork</string>
+	<string>Sincronizar jogos sem capas</string>
 	<key>System</key>
-	<string>System</string>
+	<string>Sistema</string>
 	<key>Take screenshots in native size</key>
 	<string>Fazer Capturas de Tela em tamanho nativo</string>
 	<key>Threshold for analog controls bound to buttons:</key>
-	<string>Threshold for analog controls
-bound to buttons:</string>
+	<string>Limiar dos controlos analógicos associados a botões:</string>
 	<key>Toggle game scanner view</key>
 	<string>Exibir/Ocultar visão do scanner de jogos</string>
 	<key>Unchecked</key>
-	<string>Unchecked</string>
+	<string>Não selecionado</string>
 	<key>Update OpenVGDB</key>
 	<string>Atualizar OpenVGDB</string>
 	<key>Use quicksave slots</key>
@@ -127,5 +126,27 @@ bound to buttons:</string>
 	<string>O OpenEmu pode ficar sem responder enquanto essa operação estiver rodando</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Alterar a unidade da escala de pontos para píxeis</string>
+	<key>Dark</key>
+	<string>Escuro</string>
+	<key>Download additional shaders</key>
+	<string>Descarregar shaders adicionais</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Ativar sincronização adaptativa em ecrãs compatíveis (ecrã completo)</string>
+	<key>Preview achievement banner</key>
+	<string>Pré-visualizar faixa de conquista</string>
+	<key>Save States</key>
+	<string>Estados guardados</string>
+	<key>Use new save states view</key>
+	<string>Usar a nova vista de estados guardados</string>
+	<key>Use new screenshots view</key>
+	<string>Usar a nova vista de capturas de ecrã</string>
+	<key>Vibrant</key>
+	<string>Translúcido</string>
+	<key>Vibrant Wood</key>
+	<string>Madeira translúcida</string>
+	<key>Wood</key>
+	<string>Madeira</string>
 </dict>
 </plist>

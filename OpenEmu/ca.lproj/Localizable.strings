@@ -15,7 +15,7 @@
 	<key>%ux</key>
 	<string>%ux</string>
 	<key>A name is required.</key>
-	<string>A name is required.</string>
+	<string>Cal un nom.</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
 	<string>&lt;b&gt;Si aquest problema persisteix&lt;/b&gt;, si us plau, envieu-nos comentaris en anglès que inclogui:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;El model de Mac que esteu utilitzant &lt;b&gt;i&lt;/b&gt; la versió de macOS que teniu instal·lada&lt;ul&gt;&lt;li&gt;Aquesta informació es troba a  &gt; Sobre aquest Mac&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;El &lt;b&gt;nom exacte&lt;/b&gt; del joc al qual estàveu jugant&lt;/li&gt;&lt;li&gt;L'informe de fallada de l'OpenEmuHelperApp&lt;ul&gt;&lt;li&gt;Obriu Console.app, feu clic a "Informes d'errors" o "Informes d'usuari" a la barra lateral, després busqueu el document més recent amb el nom OpenEmuHelperApp&lt;/ul&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Busqueu primer els comentaris similars reportats prèviament per altres usuaris&lt;/b&gt;&lt;br&gt;Si s'omet qualsevol d'aquesta informació, o si ja s'ha reportat una incidència semblant, aquest informe es podria tancar.</string>
 	<key>ALERT_INPUT_MONITORING_HEADLINE</key>
@@ -32,8 +32,6 @@
 	<string>La biblioteca dels jocs de l'OpenEmu conté un fitxer de base de dades que podria corrompre's si la biblioteca es mou als següents llocs:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Carpetes gestionades per programari de sincronització en el núvol (com ara &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Unitats de xarxa&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;A més, &lt;b&gt;compartir la mateixa biblioteca entre diversos ordinadors o usuaris&lt;/b&gt; també pot corrompre-la. Això també s'aplica a moure la biblioteca a unitats USB externes.</string>
 	<key>Add</key>
 	<string>Afegeix</string>
-	<key>Add Cheat</key>
-	<string>Afegeix un truc</string>
 	<key>Add Cheat…</key>
 	<string>Afegeix un truc…</string>
 	<key>Add Cover Art from File…</key>
@@ -102,8 +100,6 @@
 	<string>Canvia el volum</string>
 	<key>Changed button for %1$@ to %2$@.</key>
 	<string>S'ha canviat el botó per a %1$@ a %2$@.</string>
-	<key>Cheat Description</key>
-	<string>Descripció del truc</string>
 	<key>Check out some excellent homebrew games.</key>
 	<string>Proveu alguns jocs homebrew excel·lents.</string>
 	<key>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</key>
@@ -111,7 +107,7 @@
 	<key>Choose Library…</key>
 	<string>Trieu la biblioteca…</string>
 	<key>Choose Location…</key>
-	<string>Choose Location…</string>
+	<string>Tria una ubicació…</string>
 	<key>Choose OpenEmu Library</key>
 	<string>Trieu una biblioteca de l'OpenEmu</string>
 	<key>Choose a valid file.</key>
@@ -171,7 +167,7 @@
 	<key>Decrease Grid Size</key>
 	<string>Redueix la mida de la graella</string>
 	<key>Default %@ preset for %@</key>
-	<string>Default %@ preset for %@</string>
+	<string>Preajustament %@ per defecte de %@</string>
 	<key>Default Core</key>
 	<string>Nucli per defecte</string>
 	<key>Delete</key>
@@ -195,7 +191,7 @@
 	<key>Delete Screenshots</key>
 	<string>Esborra les captures de pantalla</string>
 	<key>Delete Shader Preset</key>
-	<string>Delete Shader Preset</string>
+	<string>Suprimeix el preajustament d'ombrejador</string>
 	<key>Description</key>
 	<string>Descripció</string>
 	<key>Deselect All</key>
@@ -337,13 +333,13 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Low Controller Battery</key>
 	<string>La càrrega de la bateria del controlador és baixa</string>
 	<key>MOVE_ALERT_INFO_TEXT</key>
-	<string>OpenEmu must move to your Applications folder in order to work properly.</string>
+	<string>Cal moure OpenEmu a la carpeta Aplicacions perquè funcioni correctament.</string>
 	<key>MOVE_ALERT_MOVE_BUTTON</key>
-	<string>Move to Applications folder</string>
+	<string>Mou a la carpeta Aplicacions</string>
 	<key>MOVE_ALERT_NEEDS_AUTH</key>
-	<string>You need to authenticate with an administrator name and password to complete this step. Alternatively, you can choose a different location or quit the App and move it manually.</string>
+	<string>Cal autenticar-vos amb un nom i una contrasenya d'administrador per completar aquest pas. També podeu triar una altra ubicació o sortir de l'app i moure-la manualment.</string>
 	<key>MOVE_ALERT_TITLE</key>
-	<string>Move to Applications folder</string>
+	<string>Mou a la carpeta Aplicacions</string>
 	<key>Make sure your internet connection is active and download a suitable core.</key>
 	<string>Assegureu-vos que la connexió a Internet està activada i baixeu un nucli adequat.</string>
 	<key>Make your Wiimote discoverable</key>
@@ -367,7 +363,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Name</key>
 	<string>Nom</string>
 	<key>Name must not contain “%@.”</key>
-	<string>Name must not contain “%@.”</string>
+	<string>El nom no pot contenir «%@».</string>
 	<key>New Collection</key>
 	<string>Nova col·lecció</string>
 	<key>New Collection from Selection</key>
@@ -375,7 +371,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>New Folder</key>
 	<string>Nova carpeta</string>
 	<key>New Shader Preset</key>
-	<string>New Shader Preset</string>
+	<string>Preajustament d'ombrejador nou</string>
 	<key>New Smart Collection</key>
 	<string>Nova col·lecció intel·ligent</string>
 	<key>No</key>
@@ -391,7 +387,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>No game played yet!</key>
 	<string>Encara no heu jugat a cap joc</string>
 	<key>No parameters available.</key>
-	<string>No parameters available.</string>
+	<string>No hi ha paràmetres disponibles.</string>
 	<key>No permission to open:</key>
 	<string>No hi ha permisos per obrir:</string>
 	<key>No valid system detected:</key>
@@ -427,9 +423,9 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Options</key>
 	<string>Opcions</string>
 	<key>Parameters</key>
-	<string>Parameters</string>
+	<string>Paràmetres</string>
 	<key>Paste parameters</key>
-	<string>Paste parameters</string>
+	<string>Enganxa els paràmetres</string>
 	<key>Pause Game</key>
 	<string>Pausa la partida</string>
 	<key>Pause/Restart</key>
@@ -485,7 +481,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Rename Game</key>
 	<string>Canvia el nom del joc</string>
 	<key>Rename Shader Preset</key>
-	<string>Rename Shader Preset</string>
+	<string>Canvia el nom del preajustament d'ombrejador</string>
 	<key>Rename Special Save State or something?</key>
 	<string>Reanomena la partida desada especial o alguna cosa?</string>
 	<key>Reopen without loading state</key>
@@ -493,7 +489,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Required files are missing.</key>
 	<string>Falten els arxius requerits.</string>
 	<key>Reset parameters</key>
-	<string>Reset parameters</string>
+	<string>Restableix els paràmetres</string>
 	<key>Resolve %ld Issue</key>
 	<string>Resoleu %ld problema</string>
 	<key>Resolve %ld Issues</key>
@@ -521,7 +517,7 @@ Si no, manteniu premuts els botons ①+②.</string>
 	<key>Save States</key>
 	<string>Partides desades</string>
 	<key>Save-Game-%ld %@</key>
-	<string>Save-Game-%ld %@</string>
+	<string>Partida-desada-%ld %@</string>
 	<key>Scanner Paused</key>
 	<string>S'ha pausat l'escàner</string>
 	<key>Scanning Directory</key>
@@ -653,7 +649,7 @@ Podeu anar a les preferències dels controls per comprovar quines associacions s
 	<key>Toggle Fullscreen</key>
 	<string>Commuta el mode de pantalla completa</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>Barra d'eines: Homebrew</string>
 	<key>Toolbar: Library</key>
 	<string>Biblioteca</string>
 	<key>Toolbar: Save States</key>
@@ -753,5 +749,843 @@ Podeu anar a les preferències dels controls per comprovar quines associacions s
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>Es mostren les primeres %1$@ de %2$@ coincidències, refina la cerca</string>
 
+	<key>%.1f%% unlocked</key>
+	<string>%.1f%% desbloquejat</string>
+	<key>%@ result found 🎯</key>
+	<string>%@ resultat trobat 🎯</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · %d de %d assoliments · %d de %d punts</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · Posició núm. %d</string>
+	<key>%d points</key>
+	<string>%d punts</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld fitxer(s) no coincideixen amb cap joc i s'ometran.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>12 caràcters hexadecimals per codi, p. ex. 80097BA0 270F. Uniu les línies dels trucs amb '+'.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>12 caràcters hexadecimals per codi, p. ex. 8033B21D0064. Uniu les línies dels trucs amb '+'.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;espai&gt;</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>Ja s'està comprovant si hi ha nuclis nous.</string>
+	<key>A core update check is already in progress.</key>
+	<string>Ja s'està comprovant si hi ha actualitzacions dels nuclis.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>Hi ha una partida desada més recent de «%@» a %@ (de %@). Voleu restaurar-la abans de jugar?</string>
+	<key>Account Sign-ins</key>
+	<string>Inicis de sessió dels comptes</string>
+	<key>Achievement Set</key>
+	<string>Conjunt d'assoliments</string>
+	<key>Achievement Set:</key>
+	<string>Conjunt d'assoliments:</string>
+	<key>Achievement set complete</key>
+	<string>Conjunt d'assoliments completat</string>
+	<key>Achievements</key>
+	<string>Assoliments</string>
+	<key>Achievements unavailable</key>
+	<string>Assoliments no disponibles</string>
+	<key>Achievements…</key>
+	<string>Assoliments…</string>
+	<key>Active Now</key>
+	<string>Actiu ara</string>
+	<key>Active: %@</key>
+	<string>Actiu: %@</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>Es restabliran totes les preferències d'OpenEmu, les assignacions dels comandaments i els inicis de sessió desats a la carpeta de dades actual. A la propera obertura, triareu una carpeta de dades i tornareu a completar la configuració.
+
+No se suprimiran els jocs, les BIOS, les partides desades ni els nuclis. Trieu la mateixa carpeta per continuar utilitzant-ne la biblioteca. Els permisos de macOS no canviaran.
+
+Un cop confirmat, no es podrà desfer.</string>
+	<key>All achievements earned</key>
+	<string>Tots els assoliments aconseguits</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>Tots els fitxers restants, inclosos els afegits manualment. Es conserven els registres tècnics d'identitat de la carpeta, bloqueig i supressió pendent.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>Preferències de l'app, configuració de les finestres i configuració inicial.</string>
+	<key>Apply</key>
+	<string>Aplica</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>Segur que voleu tornar «%@» a la versió anterior?</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS i microprogramari</string>
+	<key>Broker endpoint is nil</key>
+	<string>Falta el punt de connexió de l'intermediari</string>
+	<key>Button %ld</key>
+	<string>Botó %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>El fitxer CUE conté unes cometes no vàlides.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>El fitxer CUE no conté cap nom de fitxer</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>El format CUE requereix cometes " al voltant dels noms dels fitxers, però no se n'ha trobat cap.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>El format CUE requereix cometes ", però fa servir %@.</string>
+	<key>Caches and Temporary Files</key>
+	<string>Memòries cau i fitxers temporals</string>
+	<key>Challenge Active</key>
+	<string>Repte actiu</string>
+	<key>Check Again</key>
+	<string>Torna a comprovar</string>
+	<key>Check for Update</key>
+	<string>Comprova si hi ha actualitzacions</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Comproveu que el disc de dades estigui connectat i permeti l'escriptura. S'ha conservat la configuració anterior.</string>
+	<key>Choose</key>
+	<string>Tria</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>Tria la carpeta de dades d'OpenEmu</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>Trieu una carpeta d'imatges de caràtules. Els fitxers s'associen als jocs pel nom exacte.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Trieu una carpeta buida o una carpeta de dades d'OpenEmu existent.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Trieu o creeu una carpeta dedicada a la biblioteca de jocs, els jocs importats, les BIOS, les partides desades, els nuclis, la configuració, els ombrejadors i les memòries cau. Les dades existents no es mouen automàticament. Per continuar utilitzant una biblioteca antiga, seleccioneu-ne la carpeta de dades d'OpenEmu.</string>
+	<key>Choose what to remove</key>
+	<string>Tria què vols suprimir</string>
+	<key>Completed</key>
+	<string>Completat</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Connecteu el disc i torneu-ho a provar, o localitzeu la mateixa carpeta. No se substituirà la biblioteca.
+
+%@
+
+%@</string>
+	<key>Continue…</key>
+	<string>Continua…</string>
+	<key>Controller Mappings</key>
+	<string>Assignacions dels comandaments</string>
+	<key>Core supports RetroAchievements</key>
+	<string>El nucli admet RetroAchievements</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>No s'ha pogut llegir el fitxer de la ruta %@. Assegureu-vos que sigui a la ubicació indicada i que es pugui llegir.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>No s'ha pogut llegir el fitxer de la ruta %@ per un problema de permisos.</string>
+	<key>Custom Shader Files</key>
+	<string>Fitxers d'ombrejadors personalitzats</string>
+	<key>D-pad Down</key>
+	<string>Creu de control avall</string>
+	<key>D-pad Left</key>
+	<string>Creu de control esquerra</string>
+	<key>D-pad Right</key>
+	<string>Creu de control dreta</string>
+	<key>D-pad Up</key>
+	<string>Creu de control amunt</string>
+	<key>Data folder</key>
+	<string>Carpeta de dades</string>
+	<key>Delete Settings and Data…</key>
+	<string>Suprimeix la configuració i les dades…</string>
+	<key>Did it work?</key>
+	<string>Ha funcionat?</string>
+	<key>Download &amp; Play</key>
+	<string>Baixa i juga</string>
+	<key>East</key>
+	<string>Est</string>
+	<key>Edit</key>
+	<string>Edita</string>
+	<key>Edit…</key>
+	<string>Edita…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>Emulador pendent d'aprovació</string>
+	<key>Enabled</key>
+	<string>Activat</string>
+	<key>Europe</key>
+	<string>Europa</string>
+	<key>Failed to launch helper app</key>
+	<string>No s'ha pogut iniciar l'aplicació auxiliar</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>El fitxer %@ no sembla ser un fitxer de text pla.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>El fitxer %@ no és un fitxer de text pla.</string>
+	<key>File cannot be read</key>
+	<string>No es pot llegir el fitxer</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>No es pot llegir el fitxer (problema de permisos)</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Fitxers de la carpeta Shaders. Els preajustaments desats a les preferències de l'app s'inclouen a Configuració d'OpenEmu.</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>S'han trobat caràtules per a %ld de %ld jocs seleccionats.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>El GDI no conté cap pista</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie o Action Replay. Uniu les línies dels trucs amb '+'.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Codis Game Genie o PAR. Uniu les línies dels trucs amb '+'.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie o valors hexadecimals en brut (XXXX:YY). Uniu les línies dels trucs amb '+'.</string>
+	<key>Game Library and Games</key>
+	<string>Biblioteca de jocs i jocs</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>Fitxers dels jocs, base de dades de la biblioteca, caràtules i trucs d'aquesta carpeta. Es conserven els jocs externs. Les partides desades i les captures conservades poden perdre els registres a la biblioteca.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark (sense guionet) o Game Genie (amb guionet). Uniu les línies dels trucs amb '+'.</string>
+	<key>Hardcore Mode</key>
+	<string>Mode hardcore</string>
+	<key>Hardcore Reset</key>
+	<string>Reinici en mode hardcore</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>Els assoliments hardcore es desaran com a softcore fins que RetroAchievements aprovi OpenEmu-Silicon.</string>
+	<key>Hash: %@</key>
+	<string>Empremta: %@</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>L'aplicació auxiliar s'ha tancat inesperadament</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>Si OpenEmu ja està activat, pot ser que macOS encara comprovi una altra còpia o una còpia recompilada. Tanqueu i torneu a obrir aquesta còpia i repetiu la comprovació. Restablir la configuració d'OpenEmu no restableix els permisos de macOS.</string>
+	<key>Image Adjustments…</key>
+	<string>Ajustaments de la imatge…</string>
+	<key>Import Artwork from Folder…</key>
+	<string>Importa caràtules d'una carpeta…</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>Nuclis i connectors de sistema instal·lats</string>
+	<key>Invalid CUE sheet format</key>
+	<string>Format CUE no vàlid</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>Es va crear amb «%@», un nucli que OpenEmu ja no inclou. El joc s'iniciarà sense aquest estat desat.</string>
+	<key>Japan</key>
+	<string>Japó</string>
+	<key>Leaderboard Failed</key>
+	<string>Intent de classificació fallit</string>
+	<key>Leaderboard Result</key>
+	<string>Resultat de la classificació</string>
+	<key>Leaderboard Started</key>
+	<string>Intent de classificació iniciat</string>
+	<key>Leaderboard Submitted</key>
+	<string>Resultat enviat a la classificació</string>
+	<key>Load Anyway</key>
+	<string>Carrega igualment</string>
+	<key>Locate Folder…</key>
+	<string>Localitza la carpeta…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Localitzeu la carpeta de dades d'OpenEmu que havíeu seleccionat. Una carpeta diferent o buida no substituirà la biblioteca.</string>
+	<key>Logged in</key>
+	<string>Sessió iniciada</string>
+	<key>M3U missing referenced file</key>
+	<string>Falta un fitxer referenciat al M3U</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>El M3U fa referència a un fitxer inaccessible a la ruta %@.</string>
+	<key>Mastered</key>
+	<string>Dominat</string>
+	<key>Missable</key>
+	<string>Es pot perdre</string>
+	<key>Missing referenced file</key>
+	<string>Falta el fitxer referenciat</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>Més d'un nucli instal·lat utilitza l'identificador de paquet «%@». Suprimiu el duplicat abans d'actualitzar.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>Voleu traslladar les dades seleccionades a la paperera?</string>
+	<key>Move to Trash and Quit</key>
+	<string>Trasllada a la paperera i surt</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>Els codis N64 han de tenir 12 caràcters hexadecimals (adreça de 8 caràcters + valor de 4), p. ex. 8033B21D0064. El nucli Mupen64Plus no admet els codis GameShark Pro / Action Replay de 16 caràcters.</string>
+	<key>Newer Save Available</key>
+	<string>Hi ha una partida desada més recent</string>
+	<key>No Core</key>
+	<string>Cap nucli</string>
+	<key>No Shader</key>
+	<string>Sense ombrejador</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>No s'ha trobat cap conjunt d'assoliments per a aquest joc o empremta.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>No s'ha informat de cap assoliment per a aquest joc.</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>No hi ha cap baixada compatible i verificada per a aquest nucli. Torneu a comprovar si hi ha actualitzacions.</string>
+	<key>No matching artwork found.</key>
+	<string>No s'ha trobat cap caràtula coincident.</string>
+	<key>North</key>
+	<string>Nord</string>
+	<key>North America</key>
+	<string>Amèrica del Nord</string>
+	<key>North-East</key>
+	<string>Nord-est</string>
+	<key>North-West</key>
+	<string>Nord-oest</string>
+	<key>Not logged in</key>
+	<string>Sessió no iniciada</string>
+	<key>Not signed in</key>
+	<string>Sessió no iniciada</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>No se suprimeix res fins que ho confirmeu a la pantalla següent. Seleccioneu Configuració d'OpenEmu per repetir la configuració inicial a la propera obertura.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>Falta el servidor intermediari OEXPCMatchMaking</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>Només s'afecten les dades d'aquesta carpeta. Es conserven els fitxers externs i OpenEmu.app, inclosos els nuclis integrats.</string>
+	<key>Open System Settings</key>
+	<string>Obre la configuració del sistema</string>
+	<key>OpenEmu Settings</key>
+	<string>Configuració d'OpenEmu</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>Memòries cau i fitxers temporals d'OpenEmu desats en aquesta carpeta.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu no pot obrir la carpeta de dades</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>OpenEmu no ha pogut contactar amb el procés de supressió de dades. Les dades no han canviat. OpenEmu es tancarà; torneu-lo a obrir per reintentar-ho.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>OpenEmu no ha trobat cap connector de sistema per iniciar el joc</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>OpenEmu no ha pogut acabar de suprimir les dades seleccionades</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>OpenEmu no ha pogut preparar la supressió de dades</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>OpenEmu no ha pogut desar la configuració</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>OpenEmu no ha pogut desar la configuració. Comproveu que el disc de dades estigui connectat i permeti l'escriptura.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>OpenEmu no ha trobat cap nucli per utilitzar. Potser encara no n'hi ha cap per a aquest sistema, o potser no teniu connexió a Internet.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>Cal reiniciar OpenEmu per tornar a sol·licitar accés al monitoratge d'entrada.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>Captures de pantalla d'OpenEmu i la ubicació personalitzada dins d'aquesta carpeta. Les captures dels nuclis s'inclouen a Partides desades i dades de les consoles.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu es tancarà i després suprimirà les dades seleccionades, inclosos Settings.plist i el fitxer de bloqueig. A la propera obertura es repetirà la configuració inicial. Els fitxers suprimits es poden recuperar de la paperera. Poden quedar marcadors de carpeta ocults i un magatzem d'inicis de sessió buit.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu es tancarà i després suprimirà les dades seleccionades. Es conservaran la configuració de l'app i la carpeta de dades triada. Els fitxers suprimits es poden recuperar de la paperera. Poden quedar marcadors de carpeta ocults i un magatzem d'inicis de sessió buit.</string>
+	<key>Other Files in This Folder</key>
+	<string>Altres fitxers d'aquesta carpeta</string>
+	<key>Other Region</key>
+	<string>Altra regió</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>Els codis GameShark de PSX han de tenir 12 caràcters hexadecimals (p. ex. 80097BA0 270F). Byte de tipus: 30=8 bits, 80=16 bits.</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>Pausa bloquejada en mode hardcore</string>
+	<key>Pending submissions completed.</key>
+	<string>S'han completat els enviaments pendents.</string>
+	<key>Permission reset</key>
+	<string>Permís restablert</string>
+	<key>Play Without Restoring</key>
+	<string>Juga sense restaurar</string>
+	<key>Play Without Syncing</key>
+	<string>Juga sense sincronitzar</string>
+	<key>Play With…</key>
+	<string>Juga amb…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>Juga connectat a Sonic &amp; Knuckles</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>Torneu a iniciar la sessió des de Preferències → Assoliments.</string>
+	<key>Progression</key>
+	<string>Progrés</string>
+	<key>RA: Offline</key>
+	<string>RA: fora de línia</string>
+	<key>Relaunch Now</key>
+	<string>Reinicia ara</string>
+	<key>Remove OpenEmu Data</key>
+	<string>Suprimeix les dades d'OpenEmu</string>
+	<key>Reset Permission</key>
+	<string>Restableix el permís</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>Voleu restablir tota la configuració i sortir d'OpenEmu?</string>
+	<key>Reset and Quit</key>
+	<string>Restableix i surt</string>
+	<key>Restart Required</key>
+	<string>Cal reiniciar</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>S'està reiniciant per aplicar el mode hardcore.</string>
+	<key>Restore &amp; Play</key>
+	<string>Restaura i juga</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>Error de RetroAchievements</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements fora de línia</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>RetroAchievements s'ha reconnectat</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>Ha fallat l'inici de sessió a RetroAchievements</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements no disponible</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>No s'ha pogut carregar RetroAchievements per a aquesta sessió.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements està activat, però no s'ha trobat cap conjunt d'assoliments per a aquest joc o empremta.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>Ha fallat l'inici de sessió a RetroAchievements. Torneu a iniciar-la des de Preferències → Assoliments.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: joc no reconegut</string>
+	<key>Revert</key>
+	<string>Reverteix</string>
+	<key>Revert to previous version?</key>
+	<string>Voleu tornar a la versió anterior?</string>
+	<key>Save Anyway</key>
+	<string>Desa igualment</string>
+	<key>Save Cheat</key>
+	<string>Desa el truc</string>
+	<key>Save State Version Mismatch</key>
+	<string>La versió de l'estat desat no coincideix</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>La càrrega d'estats desats està desactivada en mode hardcore.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>Estats desats, partides desades amb bateria, targetes de memòria i carpetes de suport dels emuladors, inclosos el contingut i la configuració de les consoles instal·lats.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>Es desactivaran els estats desats, el rebobinatge, l'avanç fotograma a fotograma i els trucs.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>Credencials dels comptes i informació d'inici de sessió desades en aquesta carpeta.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>Assignacions desades del teclat i dels comandaments de joc.</string>
+	<key>Saves and Console Data</key>
+	<string>Partides desades i dades de les consoles</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>Captures dels jocs suprimits</string>
+	<key>Select</key>
+	<string>Selecciona</string>
+	<key>Signed in</key>
+	<string>Sessió iniciada</string>
+	<key>Softcore Mode</key>
+	<string>Mode softcore</string>
+	<key>Softcore enforced</key>
+	<string>Mode softcore obligatori</string>
+	<key>Some submissions are pending retry.</key>
+	<string>Alguns enviaments estan pendents de reintent.</string>
+	<key>South</key>
+	<string>Sud</string>
+	<key>South-East</key>
+	<string>Sud-est</string>
+	<key>South-West</key>
+	<string>Sud-oest</string>
+	<key>Start</key>
+	<string>Inicia</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>Per canviar al mode hardcore cal reiniciar el joc.</string>
+	<key>System Main Menu</key>
+	<string>Menú principal del sistema</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>El fitxer .cue %@ hauria de contenir noms de fitxers que facin referència a segments de CD, però no se n'ha trobat cap.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>La carpeta BIOS. El microprogramari de les carpetes de suport dels emuladors s'inclou a Partides desades i dades de les consoles.</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>El GDI %@ hauria de contenir noms de fitxers que facin referència a pistes, però no se n'ha trobat cap.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>No s'han pogut comprovar les arquitectures de «%@»: %@</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>No es pot instal·lar el nucli a «%@» perquè «%@» ja utilitza aquest nom.</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>No s'ha pogut instal·lar el nucli perquè la destinació no és segura.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>No s'ha pogut instal·lar el nucli de manera segura: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>La baixada del nucli ha acabat sense generar cap arxiu.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>El fitxer de nucli «%@» no conté el codi %@ necessari. Conté: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>La substitució del nucli no ha generat cap paquet instal·lat.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>L'actualització del nucli no conté informació vàlida de signatura, mida o processador.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>El servidor d'actualitzacions dels nuclis no ha retornat una resposta HTTPS correcta.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>La signatura de l'actualització del nucli no és vàlida. No s'ha instal·lat res.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>L'arxiu baixat ha de contenir exactament un connector de nucli, però se n'han trobat %ld.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>No s'ha pogut signar el nucli baixat «%@» (estat de codesign %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>No s'ha pogut extreure l'arxiu del nucli baixat.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>No s'ha pogut inspeccionar de manera segura l'arxiu del nucli baixat.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>L'arxiu del nucli baixat té una mida inesperada. No s'ha instal·lat res.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>El nucli baixat conté un enllaç no segur a «%@».</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>No s'ha pogut signar el nucli baixat: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>El nucli baixat no conté l'executable declarat.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>L'executable del nucli baixat no és un binari Mach-O de macOS.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>No s'ha pogut inspeccionar el fitxer de nucli baixat «%@»: %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>El nucli baixat té l'identificador de paquet «%@» en lloc de l'esperat «%@».</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>El nucli baixat té la versió «%@» en lloc de l'esperada «%@».</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>El nucli baixat no és un paquet de connector vàlid.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>El connector de nucli baixat apunta fora de la carpeta temporal.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>L'emulador no té permisos de lectura de la ROM.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>El fitxer %@ no respecta el format CUE.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>Les carpetes Cores i Systems instal·lades. Es conserven els nuclis integrats a OpenEmu.app.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>No s'ha pogut carregar el nucli instal·lat. S'ha restaurat el nucli anterior.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>No s'ha pogut acabar el restabliment i no s'han pogut restaurar alguns paràmetres. Torneu a connectar el disc de dades i comproveu-ne els permisos abans de reintentar-ho.</string>
+	<key>The selected data was not deleted</key>
+	<string>No s'han suprimit les dades seleccionades</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>El nombre de pistes (%@) i les referències de fitxers de pista trobades (%@) al GDI %@ no coincideixen.</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>El nucli actualitzat està instal·lat. Reinicieu OpenEmu per utilitzar-lo; els jocs en execució continuen amb la versió anterior.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>Aquest codi no coincideix amb cap format de truc conegut per a aquest sistema.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>Aquest nucli no ha declarat compatibilitat amb RetroAchievements</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>Aquest nucli admet RetroAchievements per a aquest sistema.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>Aquesta còpia d'OpenEmu Reborn no confia en aquest canal d'actualitzacions de nuclis.</string>
+	<key>This folder cannot be used</key>
+	<string>No es pot utilitzar aquesta carpeta</string>
+	<key>This save state can't be loaded.</key>
+	<string>No es pot carregar aquest estat desat.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>Aquest estat desat es va crear amb %@ versió %@, però hi ha instal·lada la versió %@. Carregar-lo pot provocar una fallada.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>S'ha esgotat el temps d'espera de connexió de l'aplicació auxiliar</string>
+	<key>Track count mismatch</key>
+	<string>El nombre de pistes no coincideix</string>
+	<key>Trigger %@</key>
+	<string>Gallet %@</string>
+	<key>Try Again</key>
+	<string>Torna-ho a provar</string>
+	<key>Try again in about %d seconds.</key>
+	<string>Torneu-ho a provar d'aquí a uns %d segons.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>Desactiveu el mode hardcore a Preferències ▸ RetroAchievements per carregar estats desats.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>No es pot suprimir el preajustament d'ombrejador per defecte</string>
+	<key>Unable to delete the active shader</key>
+	<string>No es pot suprimir l'ombrejador actiu</string>
+	<key>Unavailable</key>
+	<string>No disponible</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>Desmarqueu els jocs que no vulgueu actualitzar.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>%d de %d assoliments desbloquejats · %d de %d punts</string>
+	<key>Untitled Achievement</key>
+	<string>Assoliment sense títol</string>
+	<key>Update Available</key>
+	<string>Actualització disponible</string>
+	<key>Use This Folder</key>
+	<string>Utilitza aquesta carpeta</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>S'estan esperant les metadades de RetroAchievements del joc des del nucli de l'emulador. Si això continua buit, comproveu que hàgiu iniciat la sessió i que el nucli i el joc actius admetin RetroAchievements.</string>
+	<key>West</key>
+	<string>Oest</string>
+	<key>Win Condition</key>
+	<string>Condició de victòria</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>No es pot obrir la biblioteca amb aquesta versió d'OpenEmu.</string>
+	<key>unknown</key>
+	<string>desconegut</string>
+	<key>Interface Language:</key>
+	<string>Idioma de la interfície:</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>L'idioma canviarà la propera vegada que obriu OpenEmu.</string>
+	<key>Select Backup Folder</key>
+	<string>Selecciona la carpeta de còpies de seguretat</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>Trieu una carpeta per fer còpies de seguretat dels estats desats, les partides desades amb bateria i els fitxers BIOS. Trieu una carpeta dins d'iCloud Drive per sincronitzar automàticament entre els vostres Mac.</string>
+	<key> — not yet supported</key>
+	<string> — encara no compatible</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d de %3$d)</string>
+	<key>%@ result found</key>
+	<string>%@ resultat trobat</string>
+	<key>%@ results found</key>
+	<string>%@ resultats trobats</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>S'ha sincronitzat la partida desada de «%@» des del núvol.</string>
+	<key>A New Quest</key>
+	<string>Una nova missió</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>El testimoni d'accés ha caducat i no s'ha pogut renovar. Torneu a iniciar la sessió.</string>
+	<key>Action</key>
+	<string>Acció</string>
+	<key>Active</key>
+	<string>Actiu</string>
+	<key>Add %@</key>
+	<string>Afegeix %@</string>
+	<key>All</key>
+	<string>Tots</string>
+	<key>All saves are up to date.</key>
+	<string>Totes les partides desades estan actualitzades.</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>Feu còpies de seguretat automàtiques dels estats desats, les partides desades amb bateria i els fitxers BIOS a qualsevol carpeta. Trieu una carpeta d'iCloud Drive per sincronitzar entre els vostres Mac, o utilitzeu Dropbox, un disc extern o una ruta local.</string>
+	<key>Backup Folder</key>
+	<string>Carpeta de còpies de seguretat</string>
+	<key>Browse Online Cheats</key>
+	<string>Explora trucs en línia</string>
+	<key>Browse Online Cheats…</key>
+	<string>Explora trucs en línia…</string>
+	<key>Challenge: %@</key>
+	<string>Repte: %@</string>
+	<key>Cheat Code</key>
+	<string>Codi del truc</string>
+	<key>Cheat Name</key>
+	<string>Nom del truc</string>
+	<key>Cheat Removed</key>
+	<string>Truc suprimit</string>
+	<key>Choose Folder…</key>
+	<string>Tria una carpeta…</string>
+	<key>Clear</key>
+	<string>Esborra</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>Feu clic per afegir o editar notes d'aquest truc</string>
+	<key>Click to see the code</key>
+	<string>Feu clic per veure el codi</string>
+	<key>Close</key>
+	<string>Tanca</string>
+	<key>Cloud Sync</key>
+	<string>Sincronització al núvol</string>
+	<key>Code</key>
+	<string>Codi</string>
+	<key>Code already used</key>
+	<string>Codi ja utilitzat</string>
+	<key>Connected</key>
+	<string>Connectat</string>
+	<key>Copy</key>
+	<string>Copia</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>No s'ha pogut contactar amb ScreenScraper — comproveu la connexió.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>No s'ha pogut contactar amb ScreenScraper — comproveu la connexió. (%@)</string>
+	<key>Cover Art</key>
+	<string>Caràtules</string>
+	<key>Did this cheat code work for you?</key>
+	<string>Us ha funcionat aquest codi de truc?</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>Desactiva la càrrega d'estats desats, el rebobinatge, l'avanç fotograma a fotograma i els trucs. Necessari per als assoliments classificats.</string>
+	<key>Don't Send</key>
+	<string>No enviïs</string>
+	<key>Download failed: %@</key>
+	<string>Ha fallat la baixada: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>S'està baixant «%@» del núvol…</string>
+	<key>Downloading…</key>
+	<string>S'està baixant…</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>No s'ha pogut bescanviar el codi d'autorització per testimonis.</string>
+	<key>Filename</key>
+	<string>Nom del fitxer</string>
+	<key>Game</key>
+	<string>Joc</string>
+	<key>Gamma:</key>
+	<string>Gamma:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Error de l'API de Google Drive (HTTP %ld): %@</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>Mode hardcore (recomanat)</string>
+	<key>Help Improve OpenEmu</key>
+	<string>Ajuda a millorar OpenEmu</string>
+	<key>I don't know</key>
+	<string>No ho sé</string>
+	<key>Import</key>
+	<string>Importa</string>
+	<key>Incompatible Cores Moved</key>
+	<string>S'han mogut els nuclis incompatibles</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>Estats desats incompatibles trobats: %ld</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>Instal·lat: %@
+Més recent: %@</string>
+	<key>Invalid Backup Folder</key>
+	<string>Carpeta de còpies de seguretat no vàlida</string>
+	<key>It does not work for me</key>
+	<string>No em funciona</string>
+	<key>It works for me</key>
+	<string>Em funciona</string>
+	<key>Keep for Now</key>
+	<string>Conserva de moment</string>
+	<key>Last backed up: %@</key>
+	<string>Darrera còpia de seguretat: %@</string>
+	<key>Last backup failed</key>
+	<string>Ha fallat la darrera còpia de seguretat</string>
+	<key>Last synced: %@</key>
+	<string>Darrera sincronització: %@</string>
+	<key>Leaderboard: %@</key>
+	<string>Classificació: %@</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>Indiqueu si el truc us ha funcionat o no</string>
+	<key>Modified</key>
+	<string>Modificat</string>
+	<key>No backup yet</key>
+	<string>Encara no hi ha cap còpia de seguretat</string>
+	<key>No cheats found</key>
+	<string>No s'ha trobat cap truc</string>
+	<key>No folder selected</key>
+	<string>No s'ha seleccionat cap carpeta</string>
+	<key>Not Connected</key>
+	<string>No connectat</string>
+	<key>Not Working</key>
+	<string>No funciona</string>
+	<key>Not set</key>
+	<string>No definit</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>No heu iniciat sessió a Google Drive. Inicieu-la des de Preferències.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>Sessió no iniciada — s'ometrà ScreenScraper. OpenVGDB i libretro-thumbnails continuen actius.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>Sessió no iniciada — no es farà seguiment dels assoliments.</string>
+	<key>Not supported by this emulator.</key>
+	<string>No és compatible amb aquest emulador.</string>
+	<key>Not synced yet</key>
+	<string>Encara no s'ha sincronitzat</string>
+	<key>Notes</key>
+	<string>Notes</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>Falta el codi d'autorització a la redirecció OAuth.</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>Aconsegueix l'espasa trencada dels Minish</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>OpenEmu cerca caràtules en tres llocs: primer a la base de dades OpenVGDB integrada, després a ScreenScraper (si heu iniciat sessió a continuació) i finalment a libretro-thumbnails com a últim recurs. Iniciar sessió a ScreenScraper ofereix la millor cobertura — el registre és gratuït.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>OpenEmu ha mogut a %@ els nuclis que no poden funcionar en aquest Mac.
+
+Moguts: %@
+
+Es baixaran automàticament substituts compatibles quan estiguin disponibles.</string>
+	<key>Opening sign-in page…</key>
+	<string>S'està obrint la pàgina d'inici de sessió…</string>
+	<key>Password</key>
+	<string>Contrasenya</string>
+	<key>Password cannot be empty.</key>
+	<string>La contrasenya no pot estar buida.</string>
+	<key>Provider</key>
+	<string>Proveïdor</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>Les ROM no s'inclouen a la còpia de seguretat.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>Registreu-vos a retroachievements.org — és gratuït.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>Registreu-vos a screenscraper.fr — és gratuït.</string>
+	<key>Remove</key>
+	<string>Suprimeix</string>
+	<key>Saturation:</key>
+	<string>Saturació:</string>
+	<key>Save</key>
+	<string>Desa</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>S'ha arribat al límit de peticions de ScreenScraper. Torneu-ho a provar més tard.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>ScreenScraper ha rebutjat aquestes credencials. Comproveu el nom d'usuari i la contrasenya.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>ScreenScraper ha rebutjat aquestes credencials. Torneu a introduir la contrasenya i deseu-la.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>ScreenScraper ha rebutjat les credencials. Comproveu el nom d'usuari i la contrasenya a Preferències → Caràtules.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>ScreenScraper ha retornat una resposta inesperada.</string>
+	<key>Send Crash Reports</key>
+	<string>Envia informes de fallades</string>
+	<key>Set Status</key>
+	<string>Defineix l'estat</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>Es mostren els primers %1$@ de %2$@ trucs. Restringiu la cerca.</string>
+	<key>Sign In</key>
+	<string>Inicia la sessió</string>
+	<key>Sign Out</key>
+	<string>Tanca la sessió</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>Voleu tancar la sessió de Google Drive?</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>Inicieu sessió al vostre compte de RetroAchievements per aconseguir assoliments mentre jugueu. La contrasenya només s'utilitza per obtenir un testimoni d'inici de sessió i mai no es desa al disc.</string>
+	<key>Sign-in failed: %@</key>
+	<string>Ha fallat l'inici de sessió: %@</string>
+	<key>Signed in to Google Drive.</key>
+	<string>S'ha iniciat sessió a Google Drive.</string>
+	<key>Signing in…</key>
+	<string>S'està iniciant la sessió…</string>
+	<key>Status</key>
+	<string>Estat</string>
+	<key>Supported Systems</key>
+	<string>Sistemes compatibles</string>
+	<key>Sync failed: %@</key>
+	<string>Ha fallat la sincronització: %@</string>
+	<key>Syncing…</key>
+	<string>S'està sincronitzant…</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>La carpeta de còpies de seguretat no pot estar dins de la carpeta de dades d'OpenEmu. Trieu una altra ubicació, com ara una carpeta en un disc extern o dins d'iCloud Drive.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>Els estats desats següents es van crear amb versions antigues dels nuclis i ja no són compatibles. Carregar-los provocaria una fallada.
+
+Nuclis afectats:
+%@
+
+Podeu conservar-los i fer una còpia dels fitxers de:
+%@
+abans de suprimir-los, o suprimir-los immediatament.</string>
+	<key>Upload failed: %@</key>
+	<string>Ha fallat la pujada: %@</string>
+	<key>Uploaded %@.</key>
+	<string>S'ha pujat %@.</string>
+	<key>Uploading %@…</key>
+	<string>S'està pujant %@…</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>Utilitzeu els controls següents per filtrar pel nom i l'estat triat</string>
+	<key>Username</key>
+	<string>Nom d'usuari</string>
+	<key>Username cannot be empty.</key>
+	<string>El nom d'usuari no pot estar buit.</string>
+	<key>Verifying credentials…</key>
+	<string>S'estan verificant les credencials…</string>
+	<key>Verifying…</key>
+	<string>S'està verificant…</string>
+	<key>Working</key>
+	<string>Funciona</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>Voleu enviar informes automàticament quan OpenEmu falli? Això ajuda l'equip a trobar i corregir errors més de pressa.
+
+Els informes inclouen el títol del joc, el sistema i el nucli utilitzats en el moment de la fallada. Mai no inclouen fitxers de jocs, dades desades ni contrasenyes.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>Les partides desades locals no es veuran afectades. Podeu tornar a iniciar sessió en qualsevol moment.</string>
+	<key>retroachievements.org password</key>
+	<string>Contrasenya de retroachievements.org</string>
+	<key>retroachievements.org username</key>
+	<string>Nom d'usuari de retroachievements.org</string>
+	<key>screenscraper.fr password</key>
+	<string>Contrasenya de screenscraper.fr</string>
+	<key>screenscraper.fr username</key>
+	<string>Nom d'usuari de screenscraper.fr</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (desada)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ S'han detectat paquets de nucli duplicats: %@. Obriu %@ i suprimiu la còpia addicional de cada nucli afectat.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  Sessió iniciada com a %@</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>S'ha iniciat la sessió, però RetroAchievements no ha retornat cap testimoni d'autenticació.</string>
+	<key>Invalid user/password combination.</key>
+	<string>La combinació de nom d'usuari i contrasenya no és vàlida.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>No s'ha pogut iniciar la sessió. Comprova el nom d'usuari i la contrasenya.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>No s’ha trobat cap mòdul d’enllaç ni cap nucli OpenEmu instal·lat per crear l’executable del connector.</string>
+	<key>+%u pts</key>
+	<string>+%u punts</string>
+	<key>No backup found</key>
+	<string>No s’ha trobat cap còpia de seguretat</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>La còpia de seguretat del nucli té un identificador de paquet inesperat.</string>
+	<key>Invalid HTTP response</key>
+	<string>Resposta HTTP no vàlida</string>
 </dict>
 </plist>

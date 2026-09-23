@@ -65,6 +65,9 @@
                                                             <font key="font" metaFont="systemMedium" size="11"/>
                                                         </buttonCell>
                                                         <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -146,6 +149,9 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </textField>
                         <textField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KwU-gZ-ksn">
                             <rect key="frame" x="13" y="11" width="89" height="14"/>
@@ -154,6 +160,9 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </textField>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-ey-EH6" customClass="GameScannerButton" customModule="OpenEmu" customModuleProvider="target">
                             <rect key="frame" x="166" y="22" width="26" height="30"/>
@@ -182,6 +191,9 @@
                             <connections>
                                 <action selector="showIssuesView:" target="-2" id="H8k-SO-c9D"/>
                             </connections>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
                     <constraints>

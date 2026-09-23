@@ -56,11 +56,11 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<key>Let’s Go!</key>
 	<string>В добрый путь!</string>
 	<key>Move to Default Location</key>
-	<string>Move to Default Location</string>
+	<string>Переместить в стандартную папку</string>
 	<key>Move...</key>
 	<string>Move...</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>Новый набор настроек</string>
 	<key>Next</key>
 	<string>Далее</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -85,5 +85,43 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<string>Добро пожаловать в OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>Управление окном:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Помимо только что установленных ядер, этот форк сообщества добавляет возможности, которых нет в оригинале:
+
+• RetroAchievements — получайте достижения в играх NES, SNES, GBA, Genesis и других систем. Войдите через «Настройки → Достижения».
+• Обложки — автоматическая загрузка через ScreenScraper. Укажите учётные данные в «Настройки → Обложки».
+• Запустить через… — нажмите правой кнопкой на игре, чтобы выбрать ядро.
+• Управление — настройте клавиатуру и геймпад отдельно для каждого игрока в настройках.</string>
+	<key>Click Go to open your library.</key>
+	<string>Нажмите «Поехали!», чтобы открыть библиотеку.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Нажмите «Далее», чтобы выбрать ядра.</string>
+	<key>Downloading Data...</key>
+	<string>Загрузка данных...</string>
+	<key>Game Scanner</key>
+	<string>Поиск игр</string>
+	<key>Name:</key>
+	<string>Название:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn имеет модульную структуру и благодаря работе других замечательных проектов с открытым кодом может эмулировать множество игровых систем («ядра»). Для некоторых нужно отметить и подтвердить установку и использование. Без этих ядер ваши любимые системы и игры могут не запускаться.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn работает нативно на Mac с Apple Silicon и Intel. Совместимые ядра эмуляции исполняются прямо на процессоре вашего Mac, без слоя трансляции.
+
+Во время настройки будут установлены системные ядра, необходимые для начала игры. Ядра — это модульные плагины для отдельных систем; их можно добавлять и удалять в настройках в любое время.</string>
+	<key>Resolve Issues</key>
+	<string>Исправить проблемы</string>
+	<key>Scanner Paused</key>
+	<string>Поиск приостановлен</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Добро пожаловать в OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Что нового в OpenEmu Reborn</string>
 </dict>
 </plist>

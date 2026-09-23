@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Allow playing with controllers when in background</key>
-	<string>Allow playing with controllers when in background</string>
+	<string>Sta spelen met controllers op de achtergrond toe</string>
 	<key>Always float popout gameplay window on top</key>
-	<string>Always float popout gameplay window on top</string>
+	<string>Houd het losse spelvenster altijd bovenaan</string>
 	<key>Always launch games fullscreen</key>
 	<string>Start spellen altijd in schermvullende weergave</string>
 	<key>Always pause gameplay when in background</key>
 	<string>Pauzeer altijd gameplay wanneer op de achtergrond</string>
 	<key>Always snap popout gameplay window to integer scale</key>
-	<string>Always snap popout gameplay window to integer scale</string>
+	<string>Schaal het losse spelvenster altijd met een gehele factor</string>
 	<key>Always use popout gameplay window</key>
 	<string>Gebruik altijd pop-out gameplay-venster</string>
 	<key>An exciting world of video games is within your grasp. To help you get started, we’d like to ask you a few quick questions which will guide you through the following…
@@ -38,7 +38,7 @@
 	<string>Kopiëer bestanden naar spellenbibliotheekmap bij toevoegen
 aan bibliotheek</string>
 	<key>Downloading Data…</key>
-	<string>Downloading Data…</string>
+	<string>Gegevens downloaden…</string>
 	<key>Edit</key>
 	<string>Wijzig</string>
 	<key>Game Library Folder Location:</key>
@@ -52,17 +52,17 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 
 Onthoud dat u op elk moment via Voorkeuren de bediening via toetsenbord en gamepad kunt wijzigen voor uzelf en andere spelers.</string>
 	<key>Import Into:</key>
-	<string>Import Into:</string>
+	<string>Importeer in:</string>
 	<key>Input:</key>
 	<string>Invoer:</string>
 	<key>Let’s Go!</key>
 	<string>Kom op!</string>
 	<key>Move to Default Location</key>
-	<string>Move to Default Location</string>
+	<string>Verplaats naar standaardlocatie</string>
 	<key>Move...</key>
 	<string>Move...</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>Nieuwe voorinstelling</string>
 	<key>Next</key>
 	<string>Volgende</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -70,7 +70,7 @@ Onthoud dat u op elk moment via Voorkeuren de bediening via toetsenbord en gamep
 	<key>Organization Methods:</key>
 	<string>Organisatiemethodes:</string>
 	<key>Reset All</key>
-	<string>Reset All</string>
+	<string>Zet alles terug</string>
 	<key>Reset Warnings</key>
 	<string>Stel waarschuwingen opnieuw in</string>
 	<key>Reset all dialog warnings:</key>
@@ -87,5 +87,43 @@ Onthoud dat u op elk moment via Voorkeuren de bediening via toetsenbord en gamep
 	<string>Welkom bij OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>Vensterbeheer:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Naast de zojuist geïnstalleerde kernen voegt deze communityfork functies toe die niet in het origineel zitten:
+
+• RetroAchievements — behaal prestaties terwijl je speelt op NES, SNES, GBA, Genesis en meer. Meld je aan via Voorkeuren → Prestaties.
+• Hoesafbeeldingen — automatische afbeeldingen via ScreenScraper. Voeg je aanmeldgegevens toe in Voorkeuren → Hoesafbeeldingen.
+• Speel met… — klik met de rechtermuisknop op een spel om de kern te kiezen.
+• Besturing — pas de toetsenbord- en gamepadtoewijzingen per speler aan in Voorkeuren.</string>
+	<key>Click Go to open your library.</key>
+	<string>Klik op 'Begin' om je bibliotheek te openen.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Klik op 'Volgende' om je kernen te kiezen.</string>
+	<key>Downloading Data...</key>
+	<string>Gegevens downloaden...</string>
+	<key>Game Scanner</key>
+	<string>Spelscanner</string>
+	<key>Name:</key>
+	<string>Naam:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn is modulair en kan dankzij het werk van andere geweldige opensourceprojecten veel verschillende spelsystemen emuleren met 'kernen'. Bij enkele moet je aanvinken en bevestigen dat je ze wilt installeren en gebruiken. Je favoriete spelsystemen en spellen werken mogelijk niet zonder deze kernen.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn draait rechtstreeks op zowel Apple Silicon- als Intel-Macs. Compatibele emulatiekernen draaien direct op de processor van je Mac, zonder vertaallaag.
+
+Deze configuratie installeert de systeemkernen die je nodig hebt om te spelen. Kernen zijn modulaire plug-ins — één per systeem — en kunnen op elk moment via Voorkeuren worden toegevoegd of verwijderd.</string>
+	<key>Resolve Issues</key>
+	<string>Los problemen op</string>
+	<key>Scanner Paused</key>
+	<string>Scanner gepauzeerd</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Welkom bij OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Nieuw in OpenEmu Reborn</string>
 </dict>
 </plist>

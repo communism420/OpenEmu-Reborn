@@ -140,5 +140,7 @@
 	<string>Izgara Olarak</string>
 	<key>as List</key>
 	<string>Liste olarak</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Giriş izleme iznini sıfırla…</string>
 </dict>
 </plist>

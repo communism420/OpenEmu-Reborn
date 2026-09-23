@@ -45,6 +45,9 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
                             <constraints>
@@ -83,6 +86,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="317">
@@ -99,6 +103,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="319">
@@ -109,6 +114,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
@@ -129,6 +135,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="nextEvent:" target="-2" id="UE6-nW-434"/>
@@ -166,6 +173,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="backEvent:" target="-2" id="MA8-F9-Izg"/>
@@ -182,6 +190,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="327">
@@ -196,6 +205,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A5g-3z-11R">
@@ -292,6 +302,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="nextEvent:" target="-2" id="C4D-2e-O6q"/>
@@ -332,6 +343,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="399">
@@ -348,6 +360,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="398">
@@ -358,6 +371,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
@@ -379,6 +393,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="nextEvent:" target="-2" id="gHq-GH-thV"/>
@@ -392,6 +407,7 @@ This setup will install the system cores you need to start playing. Cores are mo
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localizeTitle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="backEvent:" target="-2" id="DmF-60-UR2"/>

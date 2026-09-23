@@ -31,6 +31,7 @@ final class PrefLibraryController: NSViewController {
     @IBOutlet var librariesView: NSView!
     @IBOutlet var pathField: NSPathControl!
     @IBOutlet var resetLocationButton: NSButton!
+    private let languagePopUp = NSPopUpButton(frame: .zero, pullsDown: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,8 @@ final class PrefLibraryController: NSViewController {
             gridView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -30)
         ])
 
+        addLanguageSelection(to: gridView)
+
         let resetButton = NSButton(title: NSLocalizedString("Delete Settings and Data…", comment: "Select settings and data to remove"),
                                    target: self, action: #selector(resetAllSettings(_:)))
         resetButton.bezelStyle = .rounded
@@ -87,6 +90,47 @@ final class PrefLibraryController: NSViewController {
     }
     
     // MARK: - Actions
+
+    private func addLanguageSelection(to gridView: NSGridView) {
+        let label = NSTextField(labelWithString: NSLocalizedString("Interface Language:", comment: "Interface language preference label"))
+        languagePopUp.identifier = NSUserInterfaceItemIdentifier("interfaceLanguage")
+        languagePopUp.addItem(withTitle: NSLocalizedString("System Default", comment: "Use the macOS interface language"))
+        languagePopUp.lastItem?.representedObject = OEInterfaceLanguage.systemDefault
+        for language in OEInterfaceLanguage.availableLanguages(in: Bundle.main.localizations) {
+            languagePopUp.addItem(withTitle: OEInterfaceLanguage.nativeName(for: language))
+            languagePopUp.lastItem?.representedObject = language
+        }
+        languagePopUp.target = self
+        languagePopUp.action = #selector(changeInterfaceLanguage(_:))
+        restoreLanguageSelection()
+        let row = gridView.addRow(with: [label, languagePopUp])
+        row.topPadding = 14
+        let note = NSTextField(wrappingLabelWithString: NSLocalizedString(
+            "The language changes the next time you open OpenEmu.", comment: "Language change requires a new launch"))
+        note.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+        note.textColor = .secondaryLabelColor
+        note.preferredMaxLayoutWidth = 320
+        gridView.addRow(with: [NSGridCell.emptyContentView, note])
+    }
+
+    private func restoreLanguageSelection() {
+        let saved = OEPreferences.shared.string(forKey: OEInterfaceLanguage.preferenceKey) ?? OEInterfaceLanguage.systemDefault
+        let item = languagePopUp.itemArray.first { ($0.representedObject as? String) == saved }
+        languagePopUp.select(item ?? languagePopUp.item(at: 0))
+    }
+
+    @objc private func changeInterfaceLanguage(_ sender: NSPopUpButton) {
+        guard let language = sender.selectedItem?.representedObject as? String else { return }
+        do {
+            // Atomic OEPreferences persistence retains unrelated settings and
+            // reports failure before the popup may claim a new saved value.
+            try OEPreferences.shared.setValues([OEInterfaceLanguage.preferenceKey: language])
+        } catch {
+            restoreLanguageSelection()
+            // The shared settings failure observer presents the persistence
+            // error. Do not silently keep an unsaved selection or open two alerts.
+        }
+    }
 
     @IBAction func resetAllSettings(_ sender: Any?) {
         (NSApp.delegate as? AppDelegate)?.resetAllSettingsAndQuit(sender)

@@ -19,7 +19,7 @@
 	<key>3</key>
 	<string>3</string>
 	<key>3D Control Pad</key>
-	<string>3D Control Pad</string>
+	<string>Controller 3D</string>
 	<key>4</key>
 	<string>4</string>
 	<key>5</key>
@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>Azione</string>
 	<key>Analog</key>
 	<string>Analogico</string>
 	<key>Analog Mode</key>
@@ -63,13 +63,13 @@
 	<key>C</key>
 	<string>C</string>
 	<key>C-Pad</key>
-	<string>C-Pad</string>
+	<string>Croce direzionale C</string>
 	<key>C-Stick</key>
-	<string>C-Stick</string>
+	<string>Levetta C</string>
 	<key>Change Disk Side</key>
 	<string>Cambia lato disco</string>
 	<key>Clear</key>
-	<string>Clear</string>
+	<string>Cancella</string>
 	<key>Configure</key>
 	<string>Configurazione</string>
 	<key>Console Pause</key>
@@ -77,13 +77,13 @@
 	<key>Console Reset</key>
 	<string>Reset console</string>
 	<key>D-Pad</key>
-	<string>D-Pad</string>
+	<string>Croce direzionale</string>
 	<key>Display Mode</key>
 	<string>Vista</string>
 	<key>Down</key>
 	<string>Giù</string>
 	<key>Enter</key>
-	<string>Enter</string>
+	<string>Invio</string>
 	<key>Fast Forward</key>
 	<string>Avanti veloce</string>
 	<key>Fire</key>
@@ -105,11 +105,11 @@
 	<key>L</key>
 	<string>L</string>
 	<key>L Diff</key>
-	<string>L Diff</string>
+	<string>Difficoltà sinistra</string>
 	<key>L Diff A</key>
-	<string>L Diff A</string>
+	<string>Difficoltà sinistra A</string>
 	<key>L Diff B</key>
-	<string>L Diff B</string>
+	<string>Difficoltà sinistra B</string>
 	<key>L1</key>
 	<string>L1</string>
 	<key>L2</key>
@@ -133,7 +133,7 @@
 	<key>Load</key>
 	<string>Carica</string>
 	<key>Menu</key>
-	<string>Menu</string>
+	<string>Menù</string>
 	<key>Mic</key>
 	<string>Microfono</string>
 	<key>Mode</key>
@@ -145,11 +145,11 @@
 	<key>Next Display Mode</key>
 	<string>Vista successiva</string>
 	<key>Option</key>
-	<string>Option</string>
+	<string>Opzione</string>
 	<key>Option 1</key>
-	<string>Option 1</string>
+	<string>Opzione 1</string>
 	<key>Option 2</key>
-	<string>Option 2</string>
+	<string>Opzione 2</string>
 	<key>P</key>
 	<string>P</string>
 	<key>Pause/Resume</key>
@@ -157,7 +157,7 @@
 	<key>Player Start</key>
 	<string>Inizia gioco</string>
 	<key>Power</key>
-	<string>Power</string>
+	<string>Alimentazione</string>
 	<key>Quick Load</key>
 	<string>Carica veloce</string>
 	<key>Quick Save</key>
@@ -165,11 +165,11 @@
 	<key>R</key>
 	<string>R</string>
 	<key>R Diff</key>
-	<string>R Diff</string>
+	<string>Difficoltà destra</string>
 	<key>R Diff A</key>
-	<string>R Diff A</string>
+	<string>Difficoltà destra A</string>
 	<key>R Diff B</key>
-	<string>R Diff B</string>
+	<string>Difficoltà destra B</string>
 	<key>R1</key>
 	<string>R1</string>
 	<key>R2</key>
@@ -197,23 +197,23 @@
 	<key>Right Trigger</key>
 	<string>Grilletto destro</string>
 	<key>Run</key>
-	<string>Run</string>
+	<string>Esegui</string>
 	<key>Save</key>
 	<string>Salva</string>
 	<key>Screenshot</key>
 	<string>Istantanea</string>
 	<key>Select</key>
-	<string>Select</string>
+	<string>Seleziona</string>
 	<key>Service</key>
 	<string>Pulsante di servizio</string>
 	<key>Shake</key>
 	<string>Scuoti</string>
 	<key>Sound</key>
-	<string>Sound</string>
+	<string>Audio</string>
 	<key>Special Keys</key>
 	<string>Tasti speciali</string>
 	<key>Start</key>
-	<string>Start</string>
+	<string>Avvia</string>
 	<key>Step Backward</key>
 	<string>Fotogramma precedente</string>
 	<key>Step Forward</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Obiettivo sbloccato</string>
+	<key>Hardcore Mode</key>
+	<string>Modalità hardcore</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Pulsanti</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>Pulsante HOME</string>
+	<key>Tilt</key>
+	<string>Inclinazione</string>
+	<key>Forward</key>
+	<string>Avanti</string>
+	<key>Backward</key>
+	<string>Indietro</string>
+	<key>Swing</key>
+	<string>Oscillazione</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Controller classico</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Pulsanti speciali</string>
+	<key>Change Extension</key>
+	<string>Cambia accessorio</string>
+	<key>Hold Sideways</key>
+	<string>Tieni in orizzontale</string>
+	<key>Hold Upright</key>
+	<string>Tieni in verticale</string>
+	<key>Sleep</key>
+	<string>Sospensione</string>
+	<key>Stop</key>
+	<string>Interrompi</string>
+	<key>Slow Motion</key>
+	<string>Rallentatore</string>
 </dict>
 </plist>

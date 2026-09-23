@@ -26,3 +26,4 @@
 #import "../KeyValueScanner.h"
 #import "NSBundle+CacheFlushing.h"
 #import "OEThreadProxy.h"
+#import "OEHostLocalization.h"

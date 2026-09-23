@@ -5,13 +5,15 @@
 
 Run without arguments for the first Reborn release. Future releases can pass
 --expected-version and --expected-build without rewriting these invariants.
---app compares an existing Release app and its menu resources to current source.
+--app compares an existing Release app and every localization catalog to source.
 """
 
 import argparse
 from pathlib import Path
 import plistlib
 import re
+import subprocess
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
@@ -31,6 +33,72 @@ def read(relative):
 def plist(path):
     with path.open('rb') as stream:
         return plistlib.load(stream)
+
+
+def localization_catalog(path):
+    # Xcode may emit binary .strings; the system-plugin post-install tool emits
+    # OpenStep InfoPlist.strings. Compare parsed values, not file encodings.
+    try:
+        values = plist(path)
+    except plistlib.InvalidFileException:
+        result = subprocess.run(
+            ['/usr/bin/plutil', '-convert', 'xml1', '-o', '-', '--', str(path)],
+            capture_output=True, check=False)
+        if result.returncode:
+            raise ValueError(f'{path}: invalid localization catalog: '
+                             + result.stderr.decode(errors='replace'))
+        values = plistlib.loads(result.stdout)
+    if not isinstance(values, dict) or any(
+            not isinstance(key, str) or not isinstance(value, str)
+            for key, value in values.items()):
+        raise ValueError(f'{path}: expected a dictionary of localized strings')
+    return values
+
+
+def catalog_differences(expected, actual, *, allow_generated_entries=False):
+    differences = []
+    for key, value in expected.items():
+        if key not in actual:
+            differences.append(f'Missing key: {key!r}')
+        elif actual[key] != value:
+            differences.append(f'Changed value for {key!r}: {actual[key]!r} != {value!r}')
+    if not allow_generated_entries:
+        for key in sorted(actual.keys() - expected.keys()):
+            differences.append(f'Unexpected key: {key!r}')
+    return differences
+
+
+class LocalizationCatalogComparisonTests(unittest.TestCase):
+    def test_xml_binary_and_openstep_are_compared_as_strings(self):
+        values = {'Arcade Game': '街机游戏', 'Quoted': 'First\n"Second"'}
+        with tempfile.TemporaryDirectory(prefix='openemu-catalog-comparison-') as directory:
+            path = Path(directory) / 'InfoPlist.strings'
+            for fmt in (plistlib.FMT_XML, plistlib.FMT_BINARY):
+                path.write_bytes(plistlib.dumps(values, fmt=fmt))
+                self.assertEqual(localization_catalog(path), values)
+            path.write_text('"Arcade Game" = "街机游戏";\n'
+                            '"Quoted" = "First\\n\\"Second\\"";\n', encoding='utf-8')
+            self.assertEqual(localization_catalog(path), values)
+
+    def test_generated_entries_do_not_allow_overwriting_source_translations(self):
+        expected = {'Arcade Game': '街机游戏'}
+        generated = {**expected, 'Wii Game': 'Wii 游戏'}
+        self.assertEqual(catalog_differences(expected, generated,
+                                            allow_generated_entries=True), [])
+        generated['Arcade Game'] = 'Arcade 游戏'
+        self.assertEqual(len(catalog_differences(expected, generated,
+                                               allow_generated_entries=True)), 1)
+
+    def test_missing_source_keys_and_unexpected_non_info_keys_are_rejected(self):
+        self.assertEqual(catalog_differences({'New': 'Nouveau'}, {}), ["Missing key: 'New'"])
+        self.assertEqual(catalog_differences({}, {'Stale': 'Old'}), ["Unexpected key: 'Stale'"])
+
+    def test_non_string_catalog_is_rejected(self):
+        with tempfile.TemporaryDirectory(prefix='openemu-catalog-comparison-') as directory:
+            path = Path(directory) / 'Invalid.strings'
+            path.write_bytes(plistlib.dumps({'Invalid': 42}))
+            with self.assertRaisesRegex(ValueError, 'dictionary of localized strings'):
+                localization_catalog(path)
 
 
 def build_components(value):
@@ -165,11 +233,27 @@ class RebornAppBrandingTests(unittest.TestCase):
             for key in MENU_KEYS:
                 self.assertEqual(actual_menu[key], expected[key], f'{source.parent.name}: {key}')
 
+    def test_existing_release_app_preserves_all_localization_catalogs(self):
+        if OPTIONS.app is None:
+            self.skipTest('Pass --app /absolute/OpenEmu.app for packaged-resource checks')
+        self.assertTrue(OPTIONS.app.is_absolute(), '--app must be an explicit absolute path')
+        sources = sorted((REPOSITORY / 'OpenEmu').glob('*.lproj/*.strings'))
+        self.assertTrue(sources, 'No source localization catalogs found')
+        resources = OPTIONS.app / 'Contents/Resources'
+        for source in sources:
+            relative = Path(source.parent.name) / source.name
+            with self.subTest(catalog=str(relative)):
+                built = resources / relative
+                self.assertTrue(built.is_file(), f'Missing packaged catalog: {relative}')
+                self.assertEqual(catalog_differences(
+                    localization_catalog(source), localization_catalog(built),
+                    allow_generated_entries=source.name == 'InfoPlist.strings'), [])
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--expected-version', default='1.0.0')
-    parser.add_argument('--expected-build', default='23')
+    parser.add_argument('--expected-version', default='1.0.1')
+    parser.add_argument('--expected-build', default='24')
     parser.add_argument('--app', type=Path)
     OPTIONS = parser.parse_args()
     unittest.main(argv=['test-reborn-app-branding.py'], verbosity=2)

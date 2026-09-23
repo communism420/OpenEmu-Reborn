@@ -261,7 +261,7 @@ Replace `<N>` with the actual PR number and `<CoreName>` with the scheme name (e
 
 The issue tracker at `communism420/OpenEmu-Reborn` is the primary place for bug reports, feature requests, core integration work, and release checklists.
 
-**Current repository state:** Issues are disabled, and no Reborn release has been published yet. Do not enable repository features, promise an available release/Discussion, or send Reborn reports to an upstream tracker. While Issues are disabled, describe the concern and test plan in a PR; the issue commands and issue-link rules below apply only when Issues are available.
+**Current repository state:** Issues are disabled. Reborn `1.0.0` is published; `1.0.1` is the current source version, not yet a published release. Do not enable repository features, promise an unpublished release/Discussion, or send Reborn reports to an upstream tracker. While Issues are disabled, describe the concern and test plan in a PR; the issue commands and issue-link rules below apply only when Issues are available.
 
 **Issue templates** — always use the appropriate template:
 

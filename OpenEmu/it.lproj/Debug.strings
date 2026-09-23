@@ -127,5 +127,27 @@ associati a controlli analogici:</string>
 	<string>Mentre questa operazione è in corso, OpenEmu smetterà di rispondere.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Usa pixel anziché punti nel menu scala</string>
+	<key>Dark</key>
+	<string>Scuro</string>
+	<key>Download additional shaders</key>
+	<string>Scarica shader aggiuntivi</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Abilita sincronizzazione adattiva sugli schermi compatibili (schermo intero)</string>
+	<key>Preview achievement banner</key>
+	<string>Anteprima del banner obiettivi</string>
+	<key>Save States</key>
+	<string>Stati salvati</string>
+	<key>Use new save states view</key>
+	<string>Usa la nuova vista degli stati salvati</string>
+	<key>Use new screenshots view</key>
+	<string>Usa la nuova vista delle istantanee</string>
+	<key>Vibrant</key>
+	<string>Traslucido</string>
+	<key>Vibrant Wood</key>
+	<string>Legno traslucido</string>
+	<key>Wood</key>
+	<string>Legno</string>
 </dict>
 </plist>

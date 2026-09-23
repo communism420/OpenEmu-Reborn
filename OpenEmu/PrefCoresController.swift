@@ -134,7 +134,7 @@ final class PrefCoresController: NSViewController {
             (.systemColumn,  NSLocalizedString("System",      comment: "Cores prefs column"), 180, 120, 260),
             (.coreColumn,    NSLocalizedString("Core",        comment: "Cores prefs column"), 160, 100, 240),
             (.versionColumn, NSLocalizedString("Version",     comment: "Cores prefs column"), 110,  80, 150),
-            (.actionColumn,  "Select Core",                                                   160, 120, 10000),
+            (.actionColumn,  NSLocalizedString("Select Core", comment: "Cores prefs column"), 160, 120, 10000),
         ]
 
         for (ident, title, width, minW, maxW) in columns {
@@ -207,7 +207,7 @@ final class PrefCoresController: NSViewController {
             warningBanner.isHidden = true
         } else {
             let names = collisions.sorted().joined(separator: ", ")
-            warningBanner.stringValue = "⚠ Duplicate core bundles detected: \(names). Open \(URL.oeApplicationSupportDirectory.appendingPathComponent("Cores").path) and remove the extra copy of each affected core."
+            warningBanner.stringValue = String(format: NSLocalizedString("⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.", comment: ""), names, URL.oeApplicationSupportDirectory.appendingPathComponent("Cores").path)
             warningBanner.isHidden = false
         }
         var map: [String: (name: String, cores: [CoreDownload])] = [:]
@@ -413,7 +413,7 @@ extension PrefCoresController: NSTableViewDelegate {
             if let core = entry.activeCore {
                 let cur = core.version.isEmpty ? "—" : core.version
                 let lat = core.appcastItem?.version ?? cur
-                cell.textField?.stringValue = "Ver: \(cur)\nLat: \(lat)"
+                cell.textField?.stringValue = String(format: NSLocalizedString("Installed: %@\nLatest: %@", comment: ""), cur, lat)
                 cell.toolTip = core.requiresRestart
                     ? NSLocalizedString("The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.", comment: "Core update awaiting restart")
                     : nil
@@ -473,7 +473,7 @@ extension PrefCoresController: NSTableViewDelegate {
         if let core = active {
             let mgmt: NSMenuItem
             if core.isDownloading {
-                mgmt = disabledItem("Downloading…")
+                mgmt = disabledItem(NSLocalizedString("Downloading…", comment: ""))
             } else if core.requiresRestart {
                 mgmt = disabledItem(NSLocalizedString("Restart Required", comment: "Core update awaiting restart"))
             } else if core.canBeInstalled && core.appcastItem == nil {
@@ -512,8 +512,8 @@ extension PrefCoresController: NSTableViewDelegate {
                 menu.addItem(.separator())
 
                 for raCore in entry.retroArchCores {
-                    var label = raCore.isPluginInstalled ? raCore.displayName : "Add \(raCore.displayName)"
-                    if raCore.requiresHWRender { label += " — not yet supported" }
+                    var label = raCore.isPluginInstalled ? raCore.displayName : String(format: NSLocalizedString("Add %@", comment: ""), raCore.displayName)
+                    if raCore.requiresHWRender { label += NSLocalizedString(" — not yet supported", comment: "") }
                     let item  = makeItem(label, row: row, kind: .addRetroArch(raCore))
                     item.state = raCore.bundleIdentifier.caseInsensitiveCompare(activeID ?? "") == .orderedSame ? .on : .off
                     menu.addItem(item)
@@ -524,8 +524,8 @@ extension PrefCoresController: NSTableViewDelegate {
             if !menu.items.isEmpty { menu.addItem(.separator()) }
             let activeID = entry.activeCoreID
             for raCore in entry.retroArchCores {
-                var label = raCore.isPluginInstalled ? raCore.displayName : "Add \(raCore.displayName)"
-                if raCore.requiresHWRender { label += " — not yet supported" }
+                var label = raCore.isPluginInstalled ? raCore.displayName : String(format: NSLocalizedString("Add %@", comment: ""), raCore.displayName)
+                if raCore.requiresHWRender { label += NSLocalizedString(" — not yet supported", comment: "") }
                 let item  = makeItem(label, row: row, kind: .addRetroArch(raCore))
                 item.state = raCore.bundleIdentifier.caseInsensitiveCompare(activeID ?? "") == .orderedSame ? .on : .off
                 menu.addItem(item)
@@ -538,11 +538,11 @@ extension PrefCoresController: NSTableViewDelegate {
             titleLabel = ra.displayName
         } else if let core = active {
             if core.isDownloading {
-                titleLabel = "Downloading…"
+                titleLabel = NSLocalizedString("Downloading…", comment: "")
             } else if core.requiresRestart {
                 titleLabel = NSLocalizedString("Restart Required", comment: "Core update awaiting restart")
             } else if core.canBeInstalled {
-                titleLabel = "Install \(core.name)"
+                titleLabel = String(format: NSLocalizedString("Install %@", comment: ""), core.name)
             } else if core.hasUpdate {
                 titleLabel = "⬆ \(core.name)"
             } else {
@@ -781,7 +781,7 @@ extension PrefCoresController {
             bridgeBin = template
         } else {
             throw NSError(domain: "OpenEmu", code: 1, userInfo: [
-                NSLocalizedDescriptionKey: "No bridge bundle or installed OpenEmu core found to seed the plugin executable."
+                NSLocalizedDescriptionKey: NSLocalizedString("No bridge bundle or installed OpenEmu core found to seed the plugin executable.", comment: "RetroArch core installation error")
             ])
         }
         let binaryURL = macOSDir.appendingPathComponent(core.pluginName)

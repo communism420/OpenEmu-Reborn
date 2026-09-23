@@ -5,13 +5,13 @@
 	<key>Allow playing with controllers when in background</key>
 	<string>ゲーム画面がバックグラウンドにあってもコントローラを有効にする</string>
 	<key>Always float popout gameplay window on top</key>
-	<string>Always float popout gameplay window on top</string>
+	<string>独立したゲームウインドウを常に最前面に表示</string>
 	<key>Always launch games fullscreen</key>
 	<string>常にゲーム画面をフルスクリーンで起動する</string>
 	<key>Always pause gameplay when in background</key>
 	<string>ゲーム画面がバックグラウンドにある時は一時停止する</string>
 	<key>Always snap popout gameplay window to integer scale</key>
-	<string>Always snap popout gameplay window to integer scale</string>
+	<string>独立したゲームウインドウを常に整数倍率に合わせる</string>
 	<key>Always use popout gameplay window</key>
 	<string>常にゲーム画面をポップアップする</string>
 	<key>An exciting world of video games is within your grasp. To help you get started, we’d like to ask you a few quick questions which will guide you through the following…
@@ -37,13 +37,13 @@
 	<key>Copy files to Game Library folder when adding to library</key>
 	<string>ライブラリへ追加されたファイルをゲームライブラリフォルダへコピーする</string>
 	<key>Downloading Data…</key>
-	<string>Downloading Data…</string>
+	<string>データをダウンロード中…</string>
 	<key>Edit</key>
 	<string>編集</string>
 	<key>Game Library Folder Location:</key>
 	<string>ゲームライブラリフォルダの場所:</string>
 	<key>Go</key>
-	<string>次へ</string>
+	<string>開始</string>
 	<key>Great! You are all setup now and ready to get gaming!
 
 Remember you can change both your keyboard and gamepad controls for yourself and other players via the Preferences at any time.</key>
@@ -57,11 +57,11 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<key>Let’s Go!</key>
 	<string>次へ</string>
 	<key>Move to Default Location</key>
-	<string>Move to Default Location</string>
+	<string>デフォルトの場所に移動</string>
 	<key>Move...</key>
-	<string>Move...</string>
+	<string>移動…</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>新しいプリセット</string>
 	<key>Next</key>
 	<string>次へ</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -69,7 +69,7 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<key>Organization Methods:</key>
 	<string>整理順序:</string>
 	<key>Reset All</key>
-	<string>Reset All</string>
+	<string>すべてリセット</string>
 	<key>Reset Warnings</key>
 	<string>警告をリセット</string>
 	<key>Reset all dialog warnings:</key>
@@ -86,5 +86,43 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<string>OpenEmuへようこそ！</string>
 	<key>Window Management:</key>
 	<string>ウィンドウ管理:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>インストールしたコアに加え、このコミュニティ版ではオリジナルにない機能を利用できます：
+
+• RetroAchievements — NES、SNES、GBA、Genesis などのゲームで実績を獲得できます。「環境設定」→「実績」からサインインしてください。
+• カバーアート — ScreenScraper からパッケージ画像を自動取得します。「環境設定」→「カバーアート」に認証情報を入力してください。
+• 使用するコアを選んでプレイ… — ゲームを右クリックすると、実行するコアを選択できます。
+• コントローラ — 環境設定で、プレイヤーごとにキーボードとゲームパッドの割り当てを変更できます。</string>
+	<key>Click Go to open your library.</key>
+	<string>「開始」をクリックするとライブラリが開きます。</string>
+	<key>Click Next to choose your cores.</key>
+	<string>「次へ」をクリックしてコアを選択してください。</string>
+	<key>Downloading Data...</key>
+	<string>データをダウンロード中…</string>
+	<key>Game Scanner</key>
+	<string>ゲームスキャナ</string>
+	<key>Name:</key>
+	<string>名前：</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn はモジュール方式を採用し、優れたオープンソースプロジェクトの成果を利用して、「コア」と呼ばれる部品で多種多様なゲーム機をエミュレートします。一部のコアは、チェックを入れてインストールと使用を確認する必要があります。これらのコアがないと、お気に入りのゲーム機やゲームを実行できない場合があります。</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn は Apple Silicon と Intel のどちらの Mac でもネイティブで動作します。対応するエミュレーションコアは、変換レイヤーを介さずに Mac のプロセッサで直接動作します。
+
+この設定では、プレイを始めるために必要なゲーム機のコアをインストールします。コアはゲーム機ごとの独立したプラグインで、環境設定からいつでも追加や削除ができます。</string>
+	<key>Resolve Issues</key>
+	<string>問題を解決</string>
+	<key>Scanner Paused</key>
+	<string>スキャンは一時停止中</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>OpenEmu Reborn へようこそ</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>OpenEmu Reborn の新機能</string>
 </dict>
 </plist>

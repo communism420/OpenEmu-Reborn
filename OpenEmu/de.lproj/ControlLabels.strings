@@ -19,7 +19,7 @@
 	<key>3</key>
 	<string>3</string>
 	<key>3D Control Pad</key>
-	<string>3D Control Pad</string>
+	<string>3D-Controller</string>
 	<key>4</key>
 	<string>4</string>
 	<key>5</key>
@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>Aktion</string>
 	<key>Analog</key>
 	<string>Analog-Stick</string>
 	<key>Analog Mode</key>
@@ -69,9 +69,9 @@
 	<key>Change Disk Side</key>
 	<string>Disk umdrehen</string>
 	<key>Clear</key>
-	<string>Clear</string>
+	<string>Löschen</string>
 	<key>Configure</key>
-	<string>Configure</string>
+	<string>Konfigurieren</string>
 	<key>Console Pause</key>
 	<string>Konsole pausieren</string>
 	<key>Console Reset</key>
@@ -84,7 +84,7 @@ neu starten</string>
 	<key>Down</key>
 	<string>Unten</string>
 	<key>Enter</key>
-	<string>Enter</string>
+	<string>Eingabe</string>
 	<key>Fast Forward</key>
 	<string>Schnell-vorlauf</string>
 	<key>Fire</key>
@@ -100,7 +100,7 @@ neu starten</string>
 	<key>Insert Coin</key>
 	<string>Münze einwerfen</string>
 	<key>Jump</key>
-	<string>Jump</string>
+	<string>Springen</string>
 	<key>Keypad</key>
 	<string>Tastatur</string>
 	<key>L</key>
@@ -138,9 +138,9 @@ neu starten</string>
 	<key>Mic</key>
 	<string>Mikrofon</string>
 	<key>Mode</key>
-	<string>Mode</string>
+	<string>Modus</string>
 	<key>Mode Switch</key>
-	<string>Mode Switch</string>
+	<string>Modus wechseln</string>
 	<key>Mute</key>
 	<string>Ton aus</string>
 	<key>Next Display Mode</key>
@@ -156,9 +156,9 @@ neu starten</string>
 	<key>Pause/Resume</key>
 	<string>Pause/Fortsetzen</string>
 	<key>Player Start</key>
-	<string>Player Start</string>
+	<string>Spieler starten</string>
 	<key>Power</key>
-	<string>Power</string>
+	<string>Ein/Aus</string>
 	<key>Quick Load</key>
 	<string>Schnell laden</string>
 	<key>Quick Save</key>
@@ -198,15 +198,15 @@ neu starten</string>
 	<key>Right Trigger</key>
 	<string>R</string>
 	<key>Run</key>
-	<string>Run</string>
+	<string>Starten</string>
 	<key>Save</key>
 	<string>Sichern</string>
 	<key>Screenshot</key>
 	<string>Bildschirm-foto</string>
 	<key>Select</key>
-	<string>Select</string>
+	<string>Auswählen</string>
 	<key>Service</key>
-	<string>Service</string>
+	<string>Wartung</string>
 	<key>Shake</key>
 	<string>Schütteln</string>
 	<key>Sound</key>
@@ -214,13 +214,13 @@ neu starten</string>
 	<key>Special Keys</key>
 	<string>Spezialtasten</string>
 	<key>Start</key>
-	<string>Start</string>
+	<string>Starten</string>
 	<key>Step Backward</key>
 	<string>Schritt zurück</string>
 	<key>Step Forward</key>
 	<string>Schritt vor</string>
 	<key>Swap Joysticks</key>
-	<string>Swap Joysticks</string>
+	<string>Joysticks tauschen</string>
 	<key>Switches</key>
 	<string>Schalter</string>
 	<key>TV Black &amp; White</key>
@@ -230,9 +230,9 @@ neu starten</string>
 	<key>Top Action</key>
 	<string>Aktion oben</string>
 	<key>Trigger L</key>
-	<string>Trigger L</string>
+	<string>Schultertaste L</string>
 	<key>Trigger R</key>
-	<string>Trigger R</string>
+	<string>Schultertaste R</string>
 	<key>Up</key>
 	<string>Oben</string>
 	<key>Volume Down</key>
@@ -269,5 +269,47 @@ neu starten</string>
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Erfolg freigeschaltet</string>
+	<key>Hardcore Mode</key>
+	<string>Hardcore-Modus</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Tasten</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>HOME-Taste</string>
+	<key>Tilt</key>
+	<string>Neigen</string>
+	<key>Forward</key>
+	<string>Vorwärts</string>
+	<key>Backward</key>
+	<string>Rückwärts</string>
+	<key>Swing</key>
+	<string>Schwingen</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Klassischer Controller</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Sondertasten</string>
+	<key>Change Extension</key>
+	<string>Erweiterung wechseln</string>
+	<key>Hold Sideways</key>
+	<string>Waagerecht halten</string>
+	<key>Hold Upright</key>
+	<string>Senkrecht halten</string>
+	<key>Sleep</key>
+	<string>Ruhezustand</string>
+	<key>Stop</key>
+	<string>Stoppen</string>
+	<key>Slow Motion</key>
+	<string>Zeitlupe</string>
 </dict>
 </plist>

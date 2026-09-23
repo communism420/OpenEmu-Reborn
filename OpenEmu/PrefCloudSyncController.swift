@@ -113,17 +113,17 @@ final class PrefCloudSyncController: NSViewController {
         tableView.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
         
         let sysCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("System"))
-        sysCol.headerCell.stringValue = "System"
+        sysCol.headerCell.stringValue = NSLocalizedString("System", comment: "")
         sysCol.width = 60
         tableView.addTableColumn(sysCol)
         
         let fileCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("Filename"))
-        fileCol.headerCell.stringValue = "Filename"
+        fileCol.headerCell.stringValue = NSLocalizedString("Filename", comment: "")
         fileCol.width = 200
         tableView.addTableColumn(fileCol)
         
         let dateCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("Modified"))
-        dateCol.headerCell.stringValue = "Modified"
+        dateCol.headerCell.stringValue = NSLocalizedString("Modified", comment: "")
         dateCol.width = 120
         tableView.addTableColumn(dateCol)
         
@@ -136,13 +136,13 @@ final class PrefCloudSyncController: NSViewController {
     
     private func buildUI() {
         // ── Header ──────────────────────────────────────────────────
-        bkHeaderLabel.stringValue = "Backup Folder"
+        bkHeaderLabel.stringValue = NSLocalizedString("Backup Folder", comment: "")
         bkHeaderLabel.font = .boldSystemFont(ofSize: 15)
         bkHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bkHeaderLabel)
 
         // ── Description ─────────────────────────────────────────────
-        bkDescLabel.stringValue = "Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path."
+        bkDescLabel.stringValue = NSLocalizedString("Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.", comment: "")
         bkDescLabel.font = .systemFont(ofSize: 12)
         bkDescLabel.textColor = .secondaryLabelColor
         bkDescLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +165,7 @@ final class PrefCloudSyncController: NSViewController {
         view.addSubview(bkFolderPathLabel)
 
         // ── Buttons ──────────────────────────────────────────────────
-        bkChooseButton.title = "Choose Folder…"
+        bkChooseButton.title = NSLocalizedString("Choose Folder…", comment: "")
         bkChooseButton.bezelStyle = .rounded
         bkChooseButton.controlSize = .regular
         bkChooseButton.font = .systemFont(ofSize: 13)
@@ -174,7 +174,7 @@ final class PrefCloudSyncController: NSViewController {
         bkChooseButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bkChooseButton)
 
-        bkOpenFinderButton.title = "Show in Finder"
+        bkOpenFinderButton.title = NSLocalizedString("Show in Finder", comment: "")
         bkOpenFinderButton.bezelStyle = .rounded
         bkOpenFinderButton.controlSize = .regular
         bkOpenFinderButton.font = .systemFont(ofSize: 13)
@@ -183,7 +183,7 @@ final class PrefCloudSyncController: NSViewController {
         bkOpenFinderButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bkOpenFinderButton)
 
-        bkRemoveButton.title = "Remove"
+        bkRemoveButton.title = NSLocalizedString("Remove", comment: "")
         bkRemoveButton.bezelStyle = .rounded
         bkRemoveButton.controlSize = .regular
         bkRemoveButton.font = .systemFont(ofSize: 13)
@@ -199,7 +199,7 @@ final class PrefCloudSyncController: NSViewController {
         view.addSubview(bkLastSyncedLabel)
 
         // ── Note ─────────────────────────────────────────────────────
-        bkNoteLabel.stringValue = "ROMs are not included in the backup."
+        bkNoteLabel.stringValue = NSLocalizedString("ROMs are not included in the backup.", comment: "")
         bkNoteLabel.font = .systemFont(ofSize: 11)
         bkNoteLabel.textColor = .tertiaryLabelColor
         bkNoteLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -251,12 +251,12 @@ final class PrefCloudSyncController: NSViewController {
         
         if isSignedIn {
             statusDot.textColor    = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)  // green
-            statusLabel.stringValue = "Connected"
+            statusLabel.stringValue = NSLocalizedString("Connected", comment: "")
             statusLabel.textColor   = NSColor(red: 0.2, green: 0.78, blue: 0.35, alpha: 1)
             fetchCloudFiles()
         } else {
             statusDot.textColor    = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1) // red
-            statusLabel.stringValue = "Not Connected"
+            statusLabel.stringValue = NSLocalizedString("Not Connected", comment: "")
             statusLabel.textColor   = NSColor(red: 0.87, green: 0.20, blue: 0.18, alpha: 1)
             cloudFiles = []
             tableView.reloadData()
@@ -271,9 +271,9 @@ final class PrefCloudSyncController: NSViewController {
         
         if isSignedIn {
             if let date = OESaveSyncManager.shared.lastSyncDate {
-                lastSyncedLabel.stringValue = "Last synced: \(dateFormatter.string(from: date))"
+                lastSyncedLabel.stringValue = String(format: NSLocalizedString("Last synced: %@", comment: ""), dateFormatter.string(from: date))
             } else {
-                lastSyncedLabel.stringValue = "Not synced yet"
+                lastSyncedLabel.stringValue = NSLocalizedString("Not synced yet", comment: "")
             }
         }
     }
@@ -311,19 +311,19 @@ final class PrefCloudSyncController: NSViewController {
         switch mgr.status {
         case .noFolderSelected:
             bkStatusDot.textColor     = gray
-            bkStatusLabel.stringValue = "No folder selected"
+            bkStatusLabel.stringValue = NSLocalizedString("No folder selected", comment: "")
             bkStatusLabel.textColor   = gray
         case .idle:
             bkStatusDot.textColor     = green
-            bkStatusLabel.stringValue = "Active"
+            bkStatusLabel.stringValue = NSLocalizedString("Active", comment: "")
             bkStatusLabel.textColor   = green
         case .syncing:
             bkStatusDot.textColor     = yellow
-            bkStatusLabel.stringValue = "Syncing…"
+            bkStatusLabel.stringValue = NSLocalizedString("Syncing…", comment: "")
             bkStatusLabel.textColor   = yellow
         case .failed:
             bkStatusDot.textColor     = red
-            bkStatusLabel.stringValue = "Last backup failed"
+            bkStatusLabel.stringValue = NSLocalizedString("Last backup failed", comment: "")
             bkStatusLabel.textColor   = red
         @unknown default:
             break
@@ -334,9 +334,9 @@ final class PrefCloudSyncController: NSViewController {
         bkRemoveButton.isHidden        = !hasFolderURL
 
         if let date = mgr.lastBackupDate {
-            bkLastSyncedLabel.stringValue = "Last backed up: \(dateFormatter.string(from: date))"
+            bkLastSyncedLabel.stringValue = String(format: NSLocalizedString("Last backed up: %@", comment: ""), dateFormatter.string(from: date))
         } else if hasFolderURL {
-            bkLastSyncedLabel.stringValue = "No backup yet"
+            bkLastSyncedLabel.stringValue = NSLocalizedString("No backup yet", comment: "")
         } else {
             bkLastSyncedLabel.stringValue = ""
         }
@@ -367,10 +367,10 @@ final class PrefCloudSyncController: NSViewController {
     
     @objc private func signOut() {
         let alert = NSAlert()
-        alert.messageText     = "Sign Out of Google Drive?"
-        alert.informativeText = "Your local saves will not be affected. You can sign back in at any time."
-        alert.addButton(withTitle: "Sign Out")
-        alert.addButton(withTitle: "Cancel")
+        alert.messageText     = NSLocalizedString("Sign Out of Google Drive?", comment: "")
+        alert.informativeText = NSLocalizedString("Your local saves will not be affected. You can sign back in at any time.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Sign Out", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         alert.alertStyle = .warning
         
         guard alert.runModal() == .alertFirstButtonReturn else { return }
@@ -446,7 +446,7 @@ extension PrefCloudSyncController: PreferencePane {
     var icon: NSImage? {
         // Use the built-in iCloud/cloud SF Symbol (available macOS 11+), fallback to nil.
         if #available(macOS 11.0, *) {
-            return NSImage(systemSymbolName: "icloud.and.arrow.up", accessibilityDescription: "Cloud Sync")
+            return NSImage(systemSymbolName: "icloud.and.arrow.up", accessibilityDescription: NSLocalizedString("Cloud Sync", comment: ""))
         }
         return NSImage(named: NSImage.networkName)
     }

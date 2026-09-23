@@ -69,7 +69,7 @@
 	<key>Load State</key>
 	<string>ロードステート</string>
 	<key>Log Responder Chain</key>
-	<string>Log Responder Chain</string>
+	<string>レスポンダチェーンをログに記録</string>
 	<key>Minimize</key>
 	<string>しまう</string>
 	<key>New Collection Folder</key>
@@ -121,7 +121,7 @@
 	<key>Undock Game Window</key>
 	<string>ゲームウインドウを切り離す</string>
 	<key>Use Selection for Find</key>
-	<string>Use Selection for Find</string>
+	<string>選択部分を検索に使用</string>
 	<key>User Guide</key>
 	<string>ユーザーガイド</string>
 	<key>View</key>
@@ -138,5 +138,9 @@
 	<string>グリッド表示</string>
 	<key>as List</key>
 	<string>リスト表示</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>入力監視のアクセス権をリセット…</string>
+	<key>Take Native Screenshot</key>
+	<string>元の解像度でスクリーンショットを撮影</string>
 </dict>
 </plist>

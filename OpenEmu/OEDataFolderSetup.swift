@@ -252,20 +252,27 @@ enum OEDataFolderSetup {
     }
 
     static func makeFolderPanel(isRecovery: Bool) -> NSOpenPanel {
-        let panel = NSOpenPanel()
-        panel.title = NSLocalizedString("Choose OpenEmu Data Folder", comment: "First launch folder picker")
-        panel.message = panel.title
-        panel.prompt = NSLocalizedString("Use This Folder", comment: "Confirm data folder")
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        panel.canCreateDirectories = !isRecovery
-        panel.allowsMultipleSelection = false
-
         // A long native message can make the file panel wider than the screen.
         // Keep the complete explanation in a width-bounded, wrapping accessory.
         let explanation = isRecovery
             ? NSLocalizedString("Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.", comment: "Recovery folder picker explanation")
             : NSLocalizedString("Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.", comment: "First launch folder picker explanation")
+        return makeDirectoryPanel(
+            title: NSLocalizedString("Choose OpenEmu Data Folder", comment: "First launch folder picker"),
+            explanation: explanation, canCreateDirectories: !isRecovery)
+    }
+
+    /// Let AppKit supply its compact, localized action-button label. A long
+    /// custom prompt competes with Cancel and New Folder on smaller displays.
+    static func makeDirectoryPanel(title: String, explanation: String,
+                                   canCreateDirectories: Bool = true) -> NSOpenPanel {
+        let panel = NSOpenPanel()
+        panel.title = title
+        panel.message = title
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.canCreateDirectories = canCreateDirectories
+        panel.allowsMultipleSelection = false
         let visibleFrame = (panel.screen ?? NSScreen.main)?.visibleFrame
             ?? NSRect(x: 0, y: 0, width: 1024, height: 768)
         // Size the accessory BEFORE attaching it. A bare text field exposes
@@ -285,44 +292,109 @@ enum OEDataFolderSetup {
     }
 
     static func fitFolderPanel(_ panel: NSOpenPanel, in visibleFrame: NSRect, initially: Bool = true) {
-        let available = visibleFrame.insetBy(dx: 12, dy: 12)
+        var available = visibleFrame.insetBy(dx: 12, dy: 12)
+        if panel.sheetParent != nil {
+            // AppKit anchors a sheet below its parent's title bar; moving its
+            // origin cannot lift its buttons back on screen. Fit the height
+            // BELOW that attachment point instead of using the whole display.
+            available.size.height = max(0, min(available.maxY, panel.frame.maxY) - available.minY)
+        }
         var frame = initially ? folderPanelFrame(in: visibleFrame) : panel.frame
         frame.size.width = min(frame.width, available.width)
         frame.size.height = min(frame.height, available.height)
         (panel.accessoryView as? FolderExplanationView)?.fit(width: explanationWidth(for: frame))
         panel.contentView?.layoutSubtreeIfNeeded()
+        // The native panel can report a larger minimum only AFTER its remote
+        // file-browser view has loaded. A screen clamp must not override that
+        // minimum and force the native action buttons into each other.
+        let contentMinimum = panel.frameRect(forContentRect: NSRect(origin: .zero, size: panel.contentMinSize)).size
+        frame.size.width = max(frame.width, panel.minSize.width, contentMinimum.width)
+        frame.size.height = max(frame.height, panel.minSize.height, contentMinimum.height)
         if panel.frame.size != frame.size { panel.setFrame(frame, display: false) }
         // Respect native control sizes and the user's resizing/moving. After
         // the initial placement, only correct an out-of-bounds window.
         frame = panel.frame
         let origin = NSPoint(
-            x: initially ? available.midX - frame.width / 2 : min(max(frame.minX, available.minX), available.maxX - frame.width),
-            y: initially ? available.midY - frame.height / 2 : min(max(frame.minY, available.minY), available.maxY - frame.height))
-        if frame.origin != origin { panel.setFrameOrigin(origin) }
+            x: initially && frame.width <= available.width ? available.midX - frame.width / 2 : max(available.minX, min(frame.minX, available.maxX - frame.width)),
+            y: initially && frame.height <= available.height ? available.midY - frame.height / 2 : max(available.minY, min(frame.minY, available.maxY - frame.height)))
+        if panel.sheetParent == nil, frame.origin != origin { panel.setFrameOrigin(origin) }
     }
 
     static func runFolderPanel(_ panel: NSOpenPanel) -> NSApplication.ModalResponse {
         let sizing = FolderPanelSizing(panel: panel)
-        // Native layout/restored geometry may run after runModal starts. Refit
-        // on the NEXT modal-loop turn, including late same-screen resizes.
-        let center = NotificationCenter.default
-        let observers = [NSWindow.didBecomeKeyNotification, NSWindow.didChangeScreenNotification,
-                         NSWindow.didResizeNotification,
+        sizing.start()
+        defer { sizing.stop() }
+        return panel.runModal()
+    }
+
+    static func beginFolderPanel(_ panel: NSOpenPanel, for window: NSWindow,
+                                 completion: @escaping @MainActor (NSApplication.ModalResponse) -> Void) {
+        let sizing = FolderPanelSizing(panel: panel)
+        sizing.start()
+        panel.beginSheetModal(for: window) { response in
+            sizing.stop()
+            completion(response)
+        }
+    }
+
+    @MainActor
+    private final class FolderPanelSizing {
+        let panel: NSOpenPanel
+        var isActive = true
+        private var isPending = false
+        private var observers: [NSObjectProtocol] = []
+        private var minimumObservers: [NSKeyValueObservation] = []
+
+        init(panel: NSOpenPanel) { self.panel = panel }
+
+        func start() {
+            // Native layout/restored geometry may run after runModal starts.
+            // Refit on the NEXT modal-loop turn, including an origin-only
+            // restored move after the panel has already been sized correctly.
+            let center = NotificationCenter.default
+            observers = [NSWindow.didBecomeKeyNotification, NSWindow.didChangeScreenNotification,
+                         NSWindow.didResizeNotification, NSWindow.didMoveNotification,
                          NSApplication.didChangeScreenParametersNotification].map { name in
-            center.addObserver(forName: name, object: name == NSApplication.didChangeScreenParametersNotification ? nil : panel,
-                               queue: .main) { _ in
-                MainActor.assumeIsolated { sizing.scheduleFit() }
+                center.addObserver(forName: name, object: name == NSApplication.didChangeScreenParametersNotification ? nil : panel,
+                                   queue: .main) { [weak self] _ in
+                    MainActor.assumeIsolated { self?.scheduleFit() }
+                }
+            }
+            minimumObservers = [panel.observe(\.minSize, options: [.new]) { [weak self] _, _ in
+                MainActor.assumeIsolated { self?.scheduleFit() }
+            }, panel.observe(\.contentMinSize, options: [.new]) { [weak self] _, _ in
+                MainActor.assumeIsolated { self?.scheduleFit() }
+            }]
+            if let screen = panel.screen ?? NSScreen.main {
+                fitFolderPanel(panel, in: screen.visibleFrame)
+            }
+            scheduleFit()
+        }
+
+        func stop() {
+            isActive = false
+            observers.forEach(NotificationCenter.default.removeObserver)
+            observers.removeAll()
+            minimumObservers.forEach { $0.invalidate() }
+            minimumObservers.removeAll()
+        }
+
+        func scheduleFit() {
+            guard isActive, !isPending else { return }
+            isPending = true
+            // DispatchQueue.main alone does not reliably run during startup's
+            // nested modal loop. Coalescing also avoids synchronous relayout.
+            // Keep isPending set while fitting so our own corrective move or
+            // resize notification cannot schedule a recursive fitting pass.
+            RunLoop.main.perform(inModes: [.default, .modalPanel, .eventTracking]) { [weak self] in
+                MainActor.assumeIsolated {
+                    guard let self else { return }
+                    defer { self.isPending = false }
+                    guard self.isActive, let screen = self.panel.screen ?? NSScreen.main else { return }
+                    fitFolderPanel(self.panel, in: screen.visibleFrame, initially: false)
+                }
             }
         }
-        defer {
-            sizing.isActive = false
-            observers.forEach(center.removeObserver)
-        }
-        if let screen = panel.screen ?? NSScreen.main {
-            fitFolderPanel(panel, in: screen.visibleFrame)
-        }
-        sizing.scheduleFit()
-        return panel.runModal()
     }
 
     private static func explanationWidth(for frame: NSRect) -> CGFloat {
@@ -352,30 +424,6 @@ enum OEDataFolderSetup {
             let size = NSSize(width: width, height: ceil(height))
             if frame.size != size { setFrameSize(size) }
             label.frame = NSRect(origin: .zero, size: size)
-        }
-    }
-
-    @MainActor
-    private final class FolderPanelSizing {
-        let panel: NSOpenPanel
-        var isActive = true
-        private var isPending = false
-
-        init(panel: NSOpenPanel) { self.panel = panel }
-
-        func scheduleFit() {
-            guard isActive, !isPending else { return }
-            isPending = true
-            // DispatchQueue.main alone does not reliably run during startup's
-            // nested modal loop. Coalescing also avoids synchronous relayout.
-            RunLoop.main.perform(inModes: [.default, .modalPanel, .eventTracking]) { [weak self] in
-                MainActor.assumeIsolated {
-                    guard let self else { return }
-                    defer { self.isPending = false }
-                    guard self.isActive, let screen = self.panel.screen ?? NSScreen.main else { return }
-                    fitFolderPanel(self.panel, in: screen.visibleFrame, initially: false)
-                }
-            }
         }
     }
 

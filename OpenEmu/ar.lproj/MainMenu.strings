@@ -7,7 +7,7 @@
 	<key>Always Hide HUD</key>
 	<string>دائمًا اخفي شريط التحكم داخل نافذة اللعبة</string>
 	<key>Back Up…</key>
-	<string>Back Up…</string>
+	<string>نسخ احتياطي…</string>
 	<key>Bring All to Front</key>
 	<string>تقديم الجميع للأمام</string>
 	<key>Check for Updates…</key>
@@ -23,9 +23,9 @@
 	<key>Delete</key>
 	<string>حذف</string>
 	<key>Display Duplicates</key>
-	<string>Display Duplicates</string>
+	<string>عرض العناصر المكررة</string>
 	<key>Display Exact Duplicates</key>
-	<string>Display Exact Duplicates</string>
+	<string>عرض العناصر المتطابقة تمامًا</string>
 	<key>Edit</key>
 	<string>تعديل</string>
 	<key>Edit Smart Collection</key>
@@ -69,7 +69,7 @@
 	<key>Load State</key>
 	<string>تحميل الحالة</string>
 	<key>Log Responder Chain</key>
-	<string>Log Responder Chain</string>
+	<string>تسجيل سلسلة المستجيبين</string>
 	<key>Minimize</key>
 	<string>تصغير في شريط الأيقونات</string>
 	<key>New Collection Folder</key>
@@ -140,5 +140,7 @@
 	<string>كشبكة</string>
 	<key>as List</key>
 	<string>كقائمة</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>إعادة تعيين إذن مراقبة الإدخال…</string>
 </dict>
 </plist>

@@ -29,7 +29,7 @@ extension NSButton {
         get { return false }
         set {
             if newValue == true {
-                title = Bundle.main.preferredLocalizedString(forKey: title, value: "No translation", table: "OEControls")
+                title = Bundle.main.preferredLocalizedString(forKey: title, value: title, table: "OEControls")
             }
         }
    }
@@ -40,7 +40,7 @@ extension NSTextField {
         get { return false }
         set {
             if newValue == true {
-                stringValue = Bundle.main.preferredLocalizedString(forKey: stringValue, value: "No translation", table: "OEControls")
+                stringValue = Bundle.main.preferredLocalizedString(forKey: stringValue, value: stringValue, table: "OEControls")
             }
         }
     }
@@ -53,7 +53,7 @@ extension NSMenu {
             if newValue == true {
                 let localizedTitle = Bundle.main.preferredLocalizedString(forKey: title, value: "No translation", table: "MainMenu")
                 if localizedTitle == "No translation" {
-                    title = Bundle.main.preferredLocalizedString(forKey: title, value: "No translation", table: nil)
+                    title = Bundle.main.preferredLocalizedString(forKey: title, value: title, table: nil)
                 }
                 else {
                     title = localizedTitle
@@ -70,7 +70,7 @@ extension NSMenuItem {
             if newValue == true {
                 let localizedTitle = Bundle.main.preferredLocalizedString(forKey: title, value: "No translation", table: "MainMenu")
                 if localizedTitle == "No translation" {
-                    title = Bundle.main.preferredLocalizedString(forKey: title, value: "No translation", table: nil)
+                    title = Bundle.main.preferredLocalizedString(forKey: title, value: title, table: nil)
                 }
                 else {
                     title = localizedTitle

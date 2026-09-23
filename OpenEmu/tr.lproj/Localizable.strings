@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>"%@" in %@</key>
-	<string>"%1$@" in %2$@</string>
+	<string>%2$@ içinde "%1$@"</string>
 	<key>%@ copy</key>
 	<string>%@ Kopya</string>
 	<key>%@ could not be enabled because its plugin was not found.</key>
@@ -17,7 +17,7 @@
 	<key>A name is required.</key>
 	<string>İsim gereklidir.</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
-	<string>&lt;b&gt;If and only if this issue persists&lt;/b&gt;, please submit feedback including:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;The model of Mac you are using &lt;b&gt;and&lt;/b&gt; the version of macOS you have installed&lt;ul&gt;&lt;li&gt;This information is found in  &gt; About this Mac&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;The &lt;b&gt;exact name&lt;/b&gt; of the game you were playing&lt;/li&gt;&lt;li&gt;The crash report of OpenEmuHelperApp&lt;ul&gt;&lt;li&gt;Open Console.app, click on “Crash Reports” or “User Reports” in the sidebar, then look for the latest document with OpenEmuHelperApp in the name&lt;/ul&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Always search for similar feedback previously reported by other users!&lt;/b&gt;&lt;br&gt;If any of this information is omitted, or if similar feedback has already been issued, your issue report may be closed.</string>
+	<string>&lt;b&gt;Yalnızca sorun devam ederse&lt;/b&gt; lütfen şu bilgileri içeren geri bildirim gönderin:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Kullandığınız Mac modeli &lt;b&gt;ve&lt;/b&gt; yüklü macOS sürümü&lt;ul&gt;&lt;li&gt;Bu bilgi  &gt; Bu Mac Hakkında bölümündedir&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Oynadığınız oyunun &lt;b&gt;tam adı&lt;/b&gt;&lt;/li&gt;&lt;li&gt;OpenEmuHelperApp çökme raporu&lt;ul&gt;&lt;li&gt;Konsol uygulamasını açın, kenar çubuğunda “Çökme Raporları” veya “Kullanıcı Raporları”na tıklayın ve adında OpenEmuHelperApp bulunan en yeni belgeyi bulun&lt;/ul&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Diğer kullanıcıların bildirdiği benzer sorunları mutlaka arayın!&lt;/b&gt;&lt;br&gt;Bu bilgilerden biri eksikse veya benzer bir bildirim zaten varsa hata bildiriminiz kapatılabilir.</string>
 	<key>ALERT_INPUT_MONITORING_HEADLINE</key>
 	<string>OpenEmu ek izinler gerektirir</string>
 	<key>ALERT_INPUT_MONITORING_PART1</key>
@@ -321,7 +321,7 @@ Eğer yoksa, ①+② butonlarını basılı tutun.</string>
 	<key>Keyboard</key>
 	<string>Klavye</string>
 	<key>Keycode 0x%lX</key>
-	<string>Keycode 0x%lX</string>
+	<string>Tuş kodu 0x%lX</string>
 	<key>Last Played</key>
 	<string>Son Oynanan</string>
 	<key>Learn More</key>
@@ -653,7 +653,7 @@ Hangi ilişkilendirmelerin etkilendiğini kontrol etmek için Kontrolcü tercihl
 	<key>Toggle Fullscreen</key>
 	<string>Tam Ekran yap</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>Araç çubuğu: bağımsız oyunlar</string>
 	<key>Toolbar: Library</key>
 	<string>Kütüphane</string>
 	<key>Toolbar: Save States</key>
@@ -706,8 +706,6 @@ Hangi ilişkilendirmelerin etkilendiğini kontrol etmek için Kontrolcü tercihl
 	<string>Kütüphaneniz başarı ile taşındı.</string>
 	<key>this guide</key>
 	<string>Bu rehber</string>
-	<key>Add Cheat</key>
-	<string>Hile ekle</string>
 	<key>Cheat Search…</key>
 	<string>Hile Ara…</string>
 	<key>Cheat Search</key>
@@ -748,10 +746,846 @@ Hangi ilişkilendirmelerin etkilendiğini kontrol etmek için Kontrolcü tercihl
 	<string>Önceki değer</string>
 	<key>This Value:</key>
 	<string>Bu değer:</string>
-	<key>Cheat Description</key>
-	<string>Hile Açıklaması </string>
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>%2$@ eşleşmeden ilk %1$@ tanesi gösteriliyor, aramanızı daraltın</string>
 
+	<key> — not yet supported</key>
+	<string> — henüz desteklenmiyor</string>
+	<key>%.1f%% unlocked</key>
+	<string>%.1f%% açıldı</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d / %3$d)</string>
+	<key>%@ result found</key>
+	<string>%@ sonuç bulundu</string>
+	<key>%@ result found 🎯</key>
+	<string>%@ sonuç bulundu 🎯</string>
+	<key>%@ results found</key>
+	<string>%@ sonuç bulundu</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · %d / %d başarım · %d / %d puan</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · Sıra #%d</string>
+	<key>%d points</key>
+	<string>%d puan</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld dosya hiçbir oyunla eşleşmedi ve atlanacak.</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>'%@' kaydı buluttan eşzamanlandı.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>Kod başına 12 onaltılık karakter, ör. 80097BA0 270F. Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>Kod başına 12 onaltılık karakter, ör. 8033B21D0064. Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;boşluk&gt;</string>
+	<key>A New Quest</key>
+	<string>Yeni bir görev</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>Yeni çekirdekler zaten denetleniyor.</string>
+	<key>A core update check is already in progress.</key>
+	<string>Çekirdek güncellemeleri zaten denetleniyor.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>'%@' için %@ içinde daha yeni bir kayıt var (%@ tarihli). Oynamadan önce geri yüklensin mi?</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>Erişim belirtecinin süresi doldu ve yenilenemedi. Yeniden oturum açın.</string>
+	<key>Account Sign-ins</key>
+	<string>Hesap oturumları</string>
+	<key>Achievement Set</key>
+	<string>Başarım seti</string>
+	<key>Achievement Set:</key>
+	<string>Başarım seti:</string>
+	<key>Achievement set complete</key>
+	<string>Başarım seti tamamlandı</string>
+	<key>Achievements</key>
+	<string>Başarımlar</string>
+	<key>Achievements unavailable</key>
+	<string>Başarımlar kullanılamıyor</string>
+	<key>Achievements…</key>
+	<string>Başarımlar…</string>
+	<key>Action</key>
+	<string>Eylem</string>
+	<key>Active</key>
+	<string>Etkin</string>
+	<key>Active Now</key>
+	<string>Şu anda etkin</string>
+	<key>Active: %@</key>
+	<string>Etkin: %@</string>
+	<key>Add %@</key>
+	<string>%@ ekle</string>
+	<key>All</key>
+	<string>Tümü</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>Geçerli veri klasöründeki tüm OpenEmu tercihleri, denetleyici eşlemeleri ve kayıtlı oturumlar sıfırlanacak. Sonraki açılışta veri klasörünü seçip kurulumu yeniden tamamlayacaksınız.
+
+Oyunlar, BIOS, kayıtlar ve çekirdekler silinmez. Aynı arşivi kullanmak için aynı veri klasörünü seçin. macOS izinleri değişmez.
+
+Onaydan sonra bu işlem geri alınamaz.</string>
+	<key>All achievements earned</key>
+	<string>Tüm başarımlar kazanıldı</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>Elle eklediğiniz dosyalar dahil kalan tüm dosyalar. Klasörün teknik kimliği, kilidi ve bekleyen silme kayıtları korunur.</string>
+	<key>All saves are up to date.</key>
+	<string>Tüm kayıtlar güncel.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>Uygulama tercihleri, pencere ayarları ve ilk kurulum.</string>
+	<key>Apply</key>
+	<string>Uygula</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>'%@' önceki sürümüne geri alınsın mı?</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>Kayıt durumlarını, pil destekli kayıtları ve BIOS dosyalarını herhangi bir klasöre otomatik yedekleyin. Mac’leriniz arasında eşzamanlamak için iCloud Drive içinde bir klasör seçin ya da Dropbox, harici disk veya yerel bir yol kullanın.</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS ve donanım yazılımı</string>
+	<key>Backup Folder</key>
+	<string>Yedekleme klasörü</string>
+	<key>Broker endpoint is nil</key>
+	<string>Aracı bağlantı uç noktası boş</string>
+	<key>Browse Online Cheats</key>
+	<string>Çevrimiçi hilelere göz at</string>
+	<key>Browse Online Cheats…</key>
+	<string>Çevrimiçi hilelere göz at…</string>
+	<key>Button %ld</key>
+	<string>Düğme %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>CUE dosyasında geçersiz tırnak işareti var.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>CUE dosyası hiçbir dosya adı içermiyor</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>CUE biçimi dosya adlarının çevresinde " tırnak işaretleri gerektirir, ancak bulunamadı.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>CUE biçimi " tırnak işaretleri gerektirir, ancak %@ kullanılmış.</string>
+	<key>Caches and Temporary Files</key>
+	<string>Önbellekler ve geçici dosyalar</string>
+	<key>Challenge Active</key>
+	<string>Meydan okuma etkin</string>
+	<key>Challenge: %@</key>
+	<string>Meydan okuma: %@</string>
+	<key>Cheat Code</key>
+	<string>Hile kodu</string>
+	<key>Cheat Name</key>
+	<string>Hile adı</string>
+	<key>Cheat Removed</key>
+	<string>Hile kaldırıldı</string>
+	<key>Check Again</key>
+	<string>Yeniden denetle</string>
+	<key>Check for Update</key>
+	<string>Güncelleme denetle</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Veri diskinin bağlı ve yazılabilir olduğundan emin olun. Önceki ayarlar korundu.</string>
+	<key>Choose</key>
+	<string>Seç</string>
+	<key>Choose Folder…</key>
+	<string>Klasör seç…</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>OpenEmu veri klasörünü seçin</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>Kapak görselleri klasörünü seçin. Dosyalar oyunlarla tam ad eşleşmesine göre eşleştirilir.</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>Kayıt durumlarınızı, pil destekli kayıtlarınızı ve BIOS dosyalarınızı yedeklemek için bir klasör seçin. Mac’leriniz arasında otomatik eşzamanlama için iCloud Drive içinde bir klasör seçin.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Boş bir klasör veya mevcut bir OpenEmu veri klasörü seçin.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Oyun arşiviniz, içe aktarılan oyunlar, BIOS, kayıtlar, çekirdekler, ayarlar, gölgelendiriciler ve önbellekler için ayrı bir klasör seçin veya oluşturun. Mevcut veriler otomatik taşınmaz. Eski arşivi kullanmaya devam etmek için onun OpenEmu veri klasörünü seçin.</string>
+	<key>Choose what to remove</key>
+	<string>Silinecek öğeleri seçin</string>
+	<key>Clear</key>
+	<string>Temizle</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>Bu hileye not eklemek veya notları düzenlemek için tıklayın</string>
+	<key>Click to see the code</key>
+	<string>Kodu görmek için tıklayın</string>
+	<key>Close</key>
+	<string>Kapat</string>
+	<key>Cloud Sync</key>
+	<string>Bulut eşzamanlama</string>
+	<key>Code</key>
+	<string>Kod</string>
+	<key>Code already used</key>
+	<string>Kod zaten kullanılıyor</string>
+	<key>Completed</key>
+	<string>Tamamlandı</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Diski bağlayıp yeniden deneyin veya aynı klasörü bulun. Arşiviniz değiştirilmeyecek.
+
+%@
+
+%@</string>
+	<key>Connected</key>
+	<string>Bağlı</string>
+	<key>Continue…</key>
+	<string>Devam et…</string>
+	<key>Controller Mappings</key>
+	<string>Denetleyici eşlemeleri</string>
+	<key>Copy</key>
+	<string>Kopyala</string>
+	<key>Core supports RetroAchievements</key>
+	<string>Çekirdek RetroAchievements destekliyor</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>ScreenScraper’a ulaşılamadı — bağlantınızı denetleyin.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>ScreenScraper’a ulaşılamadı — bağlantınızı denetleyin. (%@)</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>%@ yolundaki dosya okunamadı. Dosyanın belirtilen konumda ve okunabilir olduğundan emin olun.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>%@ yolundaki dosya izin sorunu nedeniyle okunamadı.</string>
+	<key>Cover Art</key>
+	<string>Kapak görselleri</string>
+	<key>Custom Shader Files</key>
+	<string>Özel gölgelendirici dosyaları</string>
+	<key>D-pad Down</key>
+	<string>Yön düğmesi aşağı</string>
+	<key>D-pad Left</key>
+	<string>Yön düğmesi sol</string>
+	<key>D-pad Right</key>
+	<string>Yön düğmesi sağ</string>
+	<key>D-pad Up</key>
+	<string>Yön düğmesi yukarı</string>
+	<key>Data folder</key>
+	<string>Veri klasörü</string>
+	<key>Delete Settings and Data…</key>
+	<string>Ayarları ve verileri sil…</string>
+	<key>Did it work?</key>
+	<string>İşe yaradı mı?</string>
+	<key>Did this cheat code work for you?</key>
+	<string>Bu hile kodu sizde işe yaradı mı?</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>Kayıt durumu yüklemeyi, geri sarmayı, kare ilerletmeyi ve hileleri kapatır. Sıralamalı başarımlar için gereklidir.</string>
+	<key>Don't Send</key>
+	<string>Gönderme</string>
+	<key>Download &amp; Play</key>
+	<string>İndir ve oyna</string>
+	<key>Download failed: %@</key>
+	<string>İndirme başarısız: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>'%@' buluttan indiriliyor…</string>
+	<key>Downloading…</key>
+	<string>İndiriliyor…</string>
+	<key>East</key>
+	<string>Doğu</string>
+	<key>Edit</key>
+	<string>Düzenle</string>
+	<key>Edit…</key>
+	<string>Düzenle…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>Emülatör onay bekliyor</string>
+	<key>Enabled</key>
+	<string>Etkin</string>
+	<key>Europe</key>
+	<string>Avrupa</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>Yetkilendirme kodu belirteçlerle değiştirilemedi.</string>
+	<key>Failed to launch helper app</key>
+	<string>Yardımcı uygulama başlatılamadı</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>%@ dosyası düz metin dosyası gibi görünmüyor.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>%@ dosyası düz metin dosyası değil.</string>
+	<key>File cannot be read</key>
+	<string>Dosya okunamıyor</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>Dosya okunamıyor (izin sorunu)</string>
+	<key>Filename</key>
+	<string>Dosya adı</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Shaders klasöründeki dosyalar. Uygulama tercihlerine kaydedilen ön ayarlar OpenEmu ayarlarına dahildir.</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>Seçilen %ld / %ld oyun için kapak görseli bulundu.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>GDI parça içermiyor</string>
+	<key>Game</key>
+	<string>Oyun</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie veya Action Replay. Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Game Genie veya PAR kodları. Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie veya ham onaltılık kod (XXXX:YY). Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>Game Library and Games</key>
+	<string>Oyun arşivi ve oyunlar</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>Bu klasördeki oyun dosyaları, arşiv veritabanı, kapak görselleri ve hileler. Dışarıdaki oyunlar korunur. Tutulan kayıtların ve ekran görüntülerinin arşiv kayıtları kaybolabilir.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark (tiresiz) veya Game Genie (tireli). Çok satırlı hileleri '+' ile birleştirin.</string>
+	<key>Gamma:</key>
+	<string>Gama:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Google Drive API hatası (HTTP %ld): %@</string>
+	<key>Hardcore Mode</key>
+	<string>Zorlu mod</string>
+	<key>Hardcore Reset</key>
+	<string>Zorlu mod için yeniden başlatma</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>Zorlu mod (önerilir)</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>OpenEmu-Silicon RetroAchievements tarafından onaylanana kadar zorlu mod başarımları normal modda kaydedilecek.</string>
+	<key>Hash: %@</key>
+	<string>Özet: %@</string>
+	<key>Help Improve OpenEmu</key>
+	<string>OpenEmu’yu geliştirmeye yardım edin</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>Yardımcı işlem beklenmedik biçimde sonlandı</string>
+	<key>I don't know</key>
+	<string>Bilmiyorum</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>OpenEmu zaten etkinse macOS başka veya yeniden derlenmiş bir kopyayı denetliyor olabilir. Bu kopyadan çıkıp yeniden açın, sonra tekrar denetleyin. OpenEmu ayarlarını sıfırlamak macOS izinlerini sıfırlamaz.</string>
+	<key>Image Adjustments…</key>
+	<string>Görüntü ayarları…</string>
+	<key>Import</key>
+	<string>İçe aktar</string>
+	<key>Import Artwork from Folder…</key>
+	<string>Klasörden kapak görsellerini içe aktar…</string>
+	<key>Incompatible Cores Moved</key>
+	<string>Uyumsuz çekirdekler taşındı</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>Uyumsuz kayıt durumu bulundu: %ld</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>Kurulu çekirdekler ve sistem eklentileri</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>Kurulu: %@
+En yeni: %@</string>
+	<key>Interface Language:</key>
+	<string>Arayüz dili:</string>
+	<key>Invalid Backup Folder</key>
+	<string>Geçersiz yedekleme klasörü</string>
+	<key>Invalid CUE sheet format</key>
+	<string>Geçersiz CUE biçimi</string>
+	<key>It does not work for me</key>
+	<string>Bende çalışmıyor</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>OpenEmu’nun artık içermediği “%@” çekirdeğiyle oluşturulmuş. Oyun bu kayıt durumu olmadan başlayacak.</string>
+	<key>It works for me</key>
+	<string>Bende çalışıyor</string>
+	<key>Japan</key>
+	<string>Japonya</string>
+	<key>Keep for Now</key>
+	<string>Şimdilik tut</string>
+	<key>Last backed up: %@</key>
+	<string>Son yedekleme: %@</string>
+	<key>Last backup failed</key>
+	<string>Son yedekleme başarısız</string>
+	<key>Last synced: %@</key>
+	<string>Son eşzamanlama: %@</string>
+	<key>Leaderboard Failed</key>
+	<string>Liderlik tablosu denemesi başarısız</string>
+	<key>Leaderboard Result</key>
+	<string>Liderlik tablosu sonucu</string>
+	<key>Leaderboard Started</key>
+	<string>Liderlik tablosu denemesi başladı</string>
+	<key>Leaderboard Submitted</key>
+	<string>Liderlik tablosu sonucu gönderildi</string>
+	<key>Leaderboard: %@</key>
+	<string>Liderlik tablosu: %@</string>
+	<key>Load Anyway</key>
+	<string>Yine de yükle</string>
+	<key>Locate Folder…</key>
+	<string>Klasörü bul…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Daha önce seçtiğiniz OpenEmu veri klasörünü bulun. Başka veya boş bir klasör arşivinizin yerini alamaz.</string>
+	<key>Logged in</key>
+	<string>Oturum açıldı</string>
+	<key>M3U missing referenced file</key>
+	<string>M3U başvurusu yapılan dosya eksik</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>M3U, %@ yolundaki erişilemeyen dosyaya başvuruyor.</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>Hilenin sizde işe yarayıp yaramadığını işaretleyin</string>
+	<key>Mastered</key>
+	<string>Ustalaşıldı</string>
+	<key>Missable</key>
+	<string>Kaçırılabilir</string>
+	<key>Missing referenced file</key>
+	<string>Başvurulan dosya eksik</string>
+	<key>Modified</key>
+	<string>Değiştirildi</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>Birden fazla kurulu çekirdek "%@" paket kimliğini kullanıyor. Güncellemeden önce kopyayı kaldırın.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>Seçilen veriler Çöp Sepeti’ne taşınsın mı?</string>
+	<key>Move to Trash and Quit</key>
+	<string>Çöp Sepeti’ne taşı ve çık</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>N64 kodları 12 onaltılık karakterden oluşmalıdır (8 karakter adres + 4 karakter değer), ör. 8033B21D0064. Mupen64Plus çekirdeği daha uzun 16 karakterli GameShark Pro / Action Replay kodlarını desteklemez.</string>
+	<key>Newer Save Available</key>
+	<string>Daha yeni kayıt mevcut</string>
+	<key>No Core</key>
+	<string>Çekirdek yok</string>
+	<key>No Shader</key>
+	<string>Gölgelendirici yok</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>Bu oyun/özet için başarım seti bulunamadı.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>Bu oyun için başarım bildirilmedi.</string>
+	<key>No backup yet</key>
+	<string>Henüz yedek yok</string>
+	<key>No cheats found</key>
+	<string>Hile bulunamadı</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>Bu çekirdek için uyumlu ve doğrulanmış bir indirme yok. Güncellemeleri yeniden denetleyin.</string>
+	<key>No folder selected</key>
+	<string>Klasör seçilmedi</string>
+	<key>No matching artwork found.</key>
+	<string>Eşleşen kapak görseli bulunamadı.</string>
+	<key>North</key>
+	<string>Kuzey</string>
+	<key>North America</key>
+	<string>Kuzey Amerika</string>
+	<key>North-East</key>
+	<string>Kuzeydoğu</string>
+	<key>North-West</key>
+	<string>Kuzeybatı</string>
+	<key>Not Connected</key>
+	<string>Bağlı değil</string>
+	<key>Not Working</key>
+	<string>Çalışmıyor</string>
+	<key>Not logged in</key>
+	<string>Oturum açılmadı</string>
+	<key>Not set</key>
+	<string>Ayarlanmadı</string>
+	<key>Not signed in</key>
+	<string>Giriş yapılmadı</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>Google Drive oturumu açılmamış. Tercihler üzerinden oturum açın.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>Oturum açılmadı — ScreenScraper atlanacak. OpenVGDB ve libretro-thumbnails hâlâ etkin.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>Oturum açılmadı — başarımlar izlenmeyecek.</string>
+	<key>Not supported by this emulator.</key>
+	<string>Bu emülatör desteklemiyor.</string>
+	<key>Not synced yet</key>
+	<string>Henüz eşzamanlanmadı</string>
+	<key>Notes</key>
+	<string>Notlar</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>Sonraki ekranda onaylayana kadar hiçbir şey silinmez. Sonraki açılışta ilk kurulumu tekrarlamak için OpenEmu ayarlarını seçin.</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>OAuth yönlendirmesinde yetkilendirme kodu eksik.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>OEXPCMatchMaking vekili boş</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>Kırık Picori Kılıcı’nı edin</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>Yalnızca bu klasördeki veriler etkilenir. Dış dosyalar ve paketli çekirdekleriyle birlikte OpenEmu.app korunur.</string>
+	<key>Open System Settings</key>
+	<string>Sistem Ayarları’nı aç</string>
+	<key>OpenEmu Settings</key>
+	<string>OpenEmu ayarları</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>Bu klasördeki OpenEmu önbellekleri ve geçici dosyaları.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu veri klasörünü açamıyor</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>OpenEmu veri silme işlemiyle iletişim kuramadı. Verileriniz değişmedi. OpenEmu şimdi kapanacak; yeniden denemek için tekrar açın.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>OpenEmu oyunu başlatacak sistem eklentisini bulamadı</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>OpenEmu seçilen verileri silmeyi tamamlayamadı</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>OpenEmu veri silme işlemini hazırlayamadı</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>OpenEmu ayarlarını kaydedemedi</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>OpenEmu ayarlarını kaydedemedi. Veri diskinin bağlı ve yazılabilir olduğunu denetleyin.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>OpenEmu kullanılacak çekirdek bulamadı. Bu sistem için henüz çekirdek olmayabilir veya internete bağlı olmayabilirsiniz.</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>OpenEmu kapakları üç yerde arar: önce yerleşik OpenVGDB veritabanı, sonra ScreenScraper (aşağıda oturum açtıysanız), son olarak libretro-thumbnails. ScreenScraper’da oturum açmak en geniş kapsamı sağlar — kayıt ücretsizdir.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>OpenEmu bu Mac’te çalışamayan çekirdekleri %@ konumuna taşıdı.
+
+Taşınanlar: %@
+
+Uyumlu alternatifler kullanılabilir olduğunda otomatik indirilecek.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>Giriş izleme erişimini yeniden istemek için OpenEmu’nun yeniden başlatılması gerekiyor.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>OpenEmu ekran görüntüleri ve veri klasörü içindeki özel konumları. Çekirdeklerin ekran görüntüleri Kayıtlar ve konsol verilerine dahildir.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu kapanıp Settings.plist ve kilit dosyası dahil seçilen verileri silecek. Sonraki açılışta ilk kurulum tekrarlanacak. Silinen dosyalar Çöp Sepeti’nden kurtarılabilir. Gizli klasör işaretleri ve boş oturum deposu kalabilir.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu kapanıp seçilen verileri silecek. Uygulama ayarlarınız ve seçili veri klasörünüz korunacak. Silinen dosyalar Çöp Sepeti’nden kurtarılabilir. Gizli klasör işaretleri ve boş oturum deposu kalabilir.</string>
+	<key>Opening sign-in page…</key>
+	<string>Oturum açma sayfası açılıyor…</string>
+	<key>Other Files in This Folder</key>
+	<string>Bu klasördeki diğer dosyalar</string>
+	<key>Other Region</key>
+	<string>Diğer bölge</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>PSX GameShark kodları 12 onaltılık karakter olmalıdır (ör. 80097BA0 270F). Tür baytı: 30=8 bit, 80=16 bit.</string>
+	<key>Password</key>
+	<string>Parola</string>
+	<key>Password cannot be empty.</key>
+	<string>Parola boş olamaz.</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>Zorlu modda duraklatma engellendi</string>
+	<key>Pending submissions completed.</key>
+	<string>Bekleyen sonuçlar gönderildi.</string>
+	<key>Permission reset</key>
+	<string>İzin sıfırlandı</string>
+	<key>Play Without Restoring</key>
+	<string>Geri yüklemeden oyna</string>
+	<key>Play Without Syncing</key>
+	<string>Eşzamanlamadan oyna</string>
+	<key>Play With…</key>
+	<string>Şununla oyna…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>Sonic &amp; Knuckles’a bağlı olarak oyna</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>Tercihler → Başarımlar bölümünden yeniden oturum açın.</string>
+	<key>Progression</key>
+	<string>İlerleme</string>
+	<key>Provider</key>
+	<string>Sağlayıcı</string>
+	<key>RA: Offline</key>
+	<string>RA: çevrimdışı</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>ROM’lar yedeklemeye dahil değildir.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>retroachievements.org adresinde ücretsiz kaydolun.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>screenscraper.fr adresinde ücretsiz kaydolun.</string>
+	<key>Relaunch Now</key>
+	<string>Şimdi yeniden başlat</string>
+	<key>Remove</key>
+	<string>Kaldır</string>
+	<key>Remove OpenEmu Data</key>
+	<string>OpenEmu verilerini sil</string>
+	<key>Reset Permission</key>
+	<string>İzni sıfırla</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>Tüm ayarlar sıfırlanıp OpenEmu kapatılsın mı?</string>
+	<key>Reset and Quit</key>
+	<string>Sıfırla ve çık</string>
+	<key>Restart Required</key>
+	<string>Yeniden başlatma gerekli</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>Zorlu modu uygulamak için yeniden başlatılıyor.</string>
+	<key>Restore &amp; Play</key>
+	<string>Geri yükle ve oyna</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>RetroAchievements hatası</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements çevrimdışı</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>RetroAchievements bağlantısı yeniden kuruldu</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>RetroAchievements oturumu açılamadı</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements kullanılamıyor</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>RetroAchievements bu oturum için yüklenemedi.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements etkin, ancak bu oyun/özet için başarım seti bulunamadı.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>RetroAchievements oturumu açılamadı. Tercihler → Başarımlar bölümünden yeniden oturum açın.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: oyun tanınmadı</string>
+	<key>Revert</key>
+	<string>Geri al</string>
+	<key>Revert to previous version?</key>
+	<string>Önceki sürüme dönülsün mü?</string>
+	<key>Saturation:</key>
+	<string>Doygunluk:</string>
+	<key>Save</key>
+	<string>Kaydet</string>
+	<key>Save Anyway</key>
+	<string>Yine de kaydet</string>
+	<key>Save Cheat</key>
+	<string>Hileyi kaydet</string>
+	<key>Save State Version Mismatch</key>
+	<string>Kayıt durumu sürümü uyuşmuyor</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>Zorlu modda kayıt durumu yükleme kapalıdır.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>Kayıt durumları, pil destekli kayıtlar, bellek kartları ve kurulu konsol içeriği ile ayarlar dahil emülatör destek klasörleri.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>Kayıt durumları, geri sarma, kare ilerletme ve hileler devre dışı bırakılacak.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>Bu klasörde kayıtlı hesap kimlik bilgileri ve oturum bilgileri.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>Kayıtlı klavye ve oyun denetleyicisi eşlemeleri.</string>
+	<key>Saves and Console Data</key>
+	<string>Kayıtlar ve konsol verileri</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>ScreenScraper istek sınırına ulaşıldı. Daha sonra yeniden deneyin.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>ScreenScraper bu kimlik bilgilerini reddetti. Kullanıcı adınızı ve parolanızı denetleyin.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>ScreenScraper bu kimlik bilgilerini reddetti. Parolanızı yeniden girip kaydedin.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>ScreenScraper kimlik bilgilerinizi reddetti. Tercihler → Kapak görselleri bölümünde kullanıcı adınızı ve parolanızı denetleyin.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>ScreenScraper beklenmeyen bir yanıt verdi.</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>Silinen oyunların ekran görüntüleri</string>
+	<key>Select</key>
+	<string>Seç</string>
+	<key>Select Backup Folder</key>
+	<string>Yedekleme klasörünü seçin</string>
+	<key>Send Crash Reports</key>
+	<string>Çökme raporlarını gönder</string>
+	<key>Set Status</key>
+	<string>Durumu ayarla</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>%2$@ hilenin ilk %1$@ tanesi gösteriliyor. Aramanızı daraltın.</string>
+	<key>Sign In</key>
+	<string>Giriş yap</string>
+	<key>Sign Out</key>
+	<string>Çıkış yap</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>Google Drive oturumu kapatılsın mı?</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>Oynarken başarımlar kazanmak için RetroAchievements hesabınıza giriş yapın. Parolanız yalnızca giriş belirteci almak için kullanılır ve diske kaydedilmez.</string>
+	<key>Sign-in failed: %@</key>
+	<string>Oturum açılamadı: %@</string>
+	<key>Signed in</key>
+	<string>Giriş yapıldı</string>
+	<key>Signed in to Google Drive.</key>
+	<string>Google Drive oturumu açıldı.</string>
+	<key>Signing in…</key>
+	<string>Oturum açılıyor…</string>
+	<key>Softcore Mode</key>
+	<string>Normal mod</string>
+	<key>Softcore enforced</key>
+	<string>Normal mod zorunlu</string>
+	<key>Some submissions are pending retry.</key>
+	<string>Bazı sonuçlar yeniden gönderilmeyi bekliyor.</string>
+	<key>South</key>
+	<string>Güney</string>
+	<key>South-East</key>
+	<string>Güneydoğu</string>
+	<key>South-West</key>
+	<string>Güneybatı</string>
+	<key>Start</key>
+	<string>Başlat</string>
+	<key>Status</key>
+	<string>Durum</string>
+	<key>Supported Systems</key>
+	<string>Desteklenen sistemler</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>Zorlu moda geçmek oyunun yeniden başlatılmasını gerektirir.</string>
+	<key>Sync failed: %@</key>
+	<string>Eşzamanlama başarısız: %@</string>
+	<key>Syncing…</key>
+	<string>Eşzamanlanıyor…</string>
+	<key>System Main Menu</key>
+	<string>Sistem ana menüsü</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>%@ .cue dosyası CD bölümlerine başvuran dosya adları içermeli, ancak bulunamadı.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>BIOS klasörü. Emülatör destek klasörlerindeki donanım yazılımı Kayıtlar ve konsol verilerine dahildir.</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>%@ GDI dosyası parçalara başvuran dosya adları içermeli, ancak bulunamadı.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>"%@" içindeki mimariler denetlenemedi: %@</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>Yedekleme klasörü OpenEmu veri klasörünün içinde olamaz. Harici diskte veya iCloud Drive içinde bir klasör gibi başka bir konum seçin.</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>Çekirdek "%@" konumuna kurulamıyor; bu ad zaten "%@" tarafından kullanılıyor.</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>Hedef konum güvenli olmadığı için çekirdek kurulamadı.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>Çekirdek güvenli biçimde kurulamadı: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>Çekirdek indirmesi tamamlandı, ancak arşiv oluşmadı.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>"%@" çekirdek dosyası gereken %@ kodunu içermiyor. İçerdiği: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>Çekirdek değişiminden sonra kurulu bir paket bulunamadı.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>Çekirdek güncellemesinde geçerli imza, boyut veya işlemci bilgisi eksik.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>Çekirdek güncelleme sunucusu başarılı bir HTTPS yanıtı vermedi.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>Çekirdek güncellemesinin imzası geçersiz. Hiçbir şey kurulmadı.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>İndirilen arşiv tam bir çekirdek eklentisi içermeli, ancak %ld bulundu.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>İndirilen "%@" çekirdeği imzalanamadı (codesign durumu %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>İndirilen çekirdek arşivi çıkarılamadı.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>İndirilen çekirdek arşivi güvenli biçimde incelenemedi.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>İndirilen çekirdek arşivinin boyutu beklenenden farklı. Hiçbir şey kurulmadı.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>İndirilen çekirdekte "%@" konumunda güvenli olmayan bir bağlantı var.</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>İndirilen çekirdek imzalanamadı: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>İndirilen çekirdek, bildirdiği çalıştırılabilir dosyayı içermiyor.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>İndirilen çekirdeğin çalıştırılabilir dosyası macOS Mach-O ikilisi değil.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>İndirilen "%@" çekirdek dosyası incelenemedi: %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>İndirilen çekirdeğin paket kimliği "%@"; beklenen "%@".</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>İndirilen çekirdeğin sürümü "%@"; beklenen "%@".</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>İndirilen çekirdek geçerli bir eklenti paketi değil.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>İndirilen çekirdek eklentisi geçici klasörünün dışına işaret ediyor.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>Emülatörün ROM’u okuma izni yok.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>%@ dosyası CUE biçimine uymuyor.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>Aşağıdaki kayıt durumları eski çekirdek sürümleriyle oluşturulmuş ve artık uyumlu değil. Yüklenmeleri çökmeye yol açar.
+
+Etkilenen çekirdekler:
+%@
+
+Şimdilik tutup silmeden önce şu konumdaki dosyaları yedekleyebilirsiniz:
+%@
+Ya da hemen silebilirsiniz.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>Kurulu Cores ve Systems klasörleri. OpenEmu.app içindeki çekirdekler korunur.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>Kurulu çekirdek yüklenemedi. Önceki çekirdek geri yüklendi.</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>Dil, OpenEmu’yu bir sonraki açışınızda değişir.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>Sıfırlama tamamlanamadı ve bazı ayarlar geri yüklenemedi. Yeniden denemeden önce veri diskini tekrar bağlayıp izinlerini denetleyin.</string>
+	<key>The selected data was not deleted</key>
+	<string>Seçilen veriler silinmedi</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>Parça sayısı (%@) ile bulunan parça dosyası başvuruları (%@), %@ GDI dosyasında uyuşmuyor.</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>Güncel çekirdek kuruldu. Kullanmak için OpenEmu’yu yeniden başlatın; çalışan oyunlar önceki sürümü kullanır.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>Bu kod, bu sistem için bilinen bir hile biçimine uymuyor.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>Bu çekirdek RetroAchievements desteği bildirmemiş</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>Bu çekirdek bu sistem için RetroAchievements destekliyor.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>Bu OpenEmu Reborn kopyası, bu çekirdek güncelleme kaynağına güvenmiyor.</string>
+	<key>This folder cannot be used</key>
+	<string>Bu klasör kullanılamaz</string>
+	<key>This save state can't be loaded.</key>
+	<string>Bu kayıt durumu yüklenemiyor.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>Bu kayıt durumu %@ sürüm %@ ile oluşturulmuş, ancak sürüm %@ kurulu. Yüklemek çökmeye yol açabilir.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>Yardımcı uygulamanın bağlantısı beklenirken zaman aşımı</string>
+	<key>Track count mismatch</key>
+	<string>Parça sayısı uyuşmuyor</string>
+	<key>Trigger %@</key>
+	<string>Tetik %@</string>
+	<key>Try Again</key>
+	<string>Yeniden dene</string>
+	<key>Try again in about %d seconds.</key>
+	<string>Yaklaşık %d saniye sonra yeniden deneyin.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>Kayıt durumlarını yüklemek için Tercihler ▸ RetroAchievements bölümünden zorlu modu kapatın.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>Varsayılan gölgelendirici ön ayarı silinemiyor</string>
+	<key>Unable to delete the active shader</key>
+	<string>Etkin gölgelendirici silinemiyor</string>
+	<key>Unavailable</key>
+	<string>Kullanılamıyor</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>Güncellemek istemediğiniz oyunların işaretini kaldırın.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>%d / %d başarım açıldı · %d / %d puan</string>
+	<key>Untitled Achievement</key>
+	<string>Adsız başarım</string>
+	<key>Update Available</key>
+	<string>Güncelleme mevcut</string>
+	<key>Upload failed: %@</key>
+	<string>Yükleme başarısız: %@</string>
+	<key>Uploaded %@.</key>
+	<string>%@ yüklendi.</string>
+	<key>Uploading %@…</key>
+	<string>%@ yükleniyor…</string>
+	<key>Use This Folder</key>
+	<string>Bu klasörü kullan</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>Ada ve seçtiğiniz duruma göre süzmek için aşağıdaki denetimleri kullanın</string>
+	<key>Username</key>
+	<string>Kullanıcı adı</string>
+	<key>Username cannot be empty.</key>
+	<string>Kullanıcı adı boş olamaz.</string>
+	<key>Verifying credentials…</key>
+	<string>Kimlik bilgileri doğrulanıyor…</string>
+	<key>Verifying…</key>
+	<string>Doğrulanıyor…</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>Emülatör çekirdeğinden RetroAchievements oyun bilgileri bekleniyor. Boş kalırsa oturum açtığınızı ve etkin çekirdeğin/oyunun RetroAchievements desteklediğini doğrulayın.</string>
+	<key>West</key>
+	<string>Batı</string>
+	<key>Win Condition</key>
+	<string>Kazanma koşulu</string>
+	<key>Working</key>
+	<string>Çalışıyor</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>OpenEmu çöktüğünde otomatik çökme raporu göndermek ister misiniz? Bu, ekibin hataları daha hızlı bulup düzeltmesine yardımcı olur.
+
+Raporlar çökme anındaki oyunun adını, sistemi ve çekirdeği içerir. Oyun dosyaları, kayıt verileri ve parolalar asla dahil edilmez.</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>Arşiviniz bu OpenEmu sürümüyle açılamıyor.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>Yerel kayıtlarınız etkilenmez. İstediğiniz zaman yeniden oturum açabilirsiniz.</string>
+	<key>retroachievements.org password</key>
+	<string>retroachievements.org parolası</string>
+	<key>retroachievements.org username</key>
+	<string>retroachievements.org kullanıcı adı</string>
+	<key>screenscraper.fr password</key>
+	<string>screenscraper.fr parolası</string>
+	<key>screenscraper.fr username</key>
+	<string>screenscraper.fr kullanıcı adı</string>
+	<key>unknown</key>
+	<string>bilinmiyor</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (kaydedildi)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ Yinelenen çekirdek paketleri bulundu: %@. %@ konumunu açıp etkilenen her çekirdeğin fazla kopyasını kaldırın.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  %@ olarak oturum açıldı</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>Giriş başarılı oldu, ancak RetroAchievements bir kimlik doğrulama belirteci döndürmedi.</string>
+	<key>Invalid user/password combination.</key>
+	<string>Kullanıcı adı ve parola birleşimi geçersiz.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>Giriş başarısız. Kullanıcı adını ve parolayı kontrol edin.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>Eklentinin çalıştırılabilir dosyasını oluşturmak için bir köprü paketi veya yüklü OpenEmu çekirdeği bulunamadı.</string>
+	<key>+%u pts</key>
+	<string>+%u puan</string>
+	<key>No backup found</key>
+	<string>Yedek bulunamadı</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>Çekirdek yedeğinin paket tanımlayıcısı beklenenden farklı.</string>
+	<key>Invalid HTTP response</key>
+	<string>Geçersiz HTTP yanıtı</string>
 </dict>
 </plist>

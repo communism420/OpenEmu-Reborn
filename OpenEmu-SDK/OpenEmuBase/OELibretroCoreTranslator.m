@@ -60,7 +60,7 @@
 #define RETRO_ENVIRONMENT_SET_ROTATION 1
 #endif
 
-NSString * const OELibretroBridgeVersion = @"4";
+NSString * const OELibretroBridgeVersion = @"5";
 
 
 @interface OELibretroCoreTranslator () <OELibretroInputReceiver>
@@ -1373,13 +1373,19 @@ static void* bridge_dlsym(void *handle, const char *symbol) {
 
     self.coreBundle = [[self owner] bundle];
 
-    // Recompute savesPath now that -owner is available. -init runs before
+    // Resolve all profile paths now that -owner is available. -init runs before
     // the XPC helper assigns -owner, so batterySavesDirectoryPath (which
-    // reads -owner) returns nil at that point — the -init-time value is a
-    // placeholder only, never something to load-bearing code should trust.
+    // reads -owner) returns nil at that point. BIOS callbacks also need the
+    // selected profile before retro_set_environment/retro_init are called.
+    self.biosPath = [self biosDirectoryPath];
     self.savesPath = [self batterySavesDirectoryPath];
+    self.supportPath = [self supportDirectoryPath];
+    free(_biosPathCStr);
+    _biosPathCStr = self.biosPath ? strdup([self.biosPath UTF8String]) : NULL;
     free(_savesPathCStr);
     _savesPathCStr = self.savesPath ? strdup([self.savesPath UTF8String]) : NULL;
+    free(_supportPathCStr);
+    _supportPathCStr = self.supportPath ? strdup([self.supportPath UTF8String]) : NULL;
 
     // Fallback: if owner didn't provide a bundle, scan all loaded bundles
     // for one that declares OELibretroCoreTranslator as its game core class.

@@ -82,6 +82,10 @@ def check_scheme(before, after):
     old.remove(old_test)
     new.remove(new_test)
     require(xml_shape(old) == xml_shape(new), "host scheme changed outside TestAction")
+    # A newer reviewed baseline may already include the approved test arguments.
+    # Keeping that TestAction unchanged needs no migration from the older form.
+    if xml_shape(old_test) == xml_shape(new_test):
+        return
     old_test, new_test = copy.deepcopy(old_test), copy.deepcopy(new_test)
     old_flag = old_test.attrib.pop("shouldUseLaunchSchemeArgsEnv", None)
     new_flag = new_test.attrib.pop("shouldUseLaunchSchemeArgsEnv", None)

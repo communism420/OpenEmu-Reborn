@@ -45,15 +45,15 @@ extension ScreenScraperFetchError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .networkUnavailable(let detail):
-            return "Could not reach ScreenScraper — check your connection. (\(detail))"
+            return String(format: NSLocalizedString("Could not reach ScreenScraper — check your connection. (%@)", comment: ""), detail)
         case .badCredentials:
-            return "ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art."
+            return NSLocalizedString("ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.", comment: "")
         case .rateLimited:
-            return "ScreenScraper rate limit reached. Try again later."
+            return NSLocalizedString("ScreenScraper rate limit reached. Try again later.", comment: "")
         case .notFound:
             return nil  // Not an error worth surfacing — ROM simply isn't in the database
         case .invalidResponse:
-            return "ScreenScraper returned an unexpected response."
+            return NSLocalizedString("ScreenScraper returned an unexpected response.", comment: "")
         }
     }
 }
