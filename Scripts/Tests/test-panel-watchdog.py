@@ -7,10 +7,49 @@
 import contextlib
 import io
 from pathlib import Path
+import plistlib
 import subprocess
 import sys
 import unittest
 from unittest.mock import Mock, call, patch
+
+
+class PanelFixtureMetadataTests(unittest.TestCase):
+    def test_minimal_resolved_test_identity(self):
+        path = Path(__file__).with_name("DataFolderPanelTests-Info.plist")
+        info = plistlib.loads(path.read_bytes())
+        self.assertEqual(info, {
+            "CFBundleDevelopmentRegion": "en",
+            "CFBundleExecutable": "data-folder-panel-tests",
+            "CFBundleIdentifier": "org.openemu.tests.DataFolderPanel",
+            "CFBundleInfoDictionaryVersion": "6.0",
+            "CFBundleName": "DataFolderPanelTests",
+            "CFBundlePackageType": "APPL",
+            "CFBundleShortVersionString": "1.0",
+            "CFBundleVersion": "1",
+            "LSMinimumSystemVersion": "11.0",
+            "NSPrincipalClass": "NSApplication",
+        })
+        self.assertNotIn(b"$(", path.read_bytes())
+
+    def test_fixture_does_not_copy_production_registrations(self):
+        source = Path(__file__).with_name("test-data-folder-panel.sh").read_text()
+        self.assertNotIn("OpenEmu/OpenEmu-Info.plist", source)
+        self.assertIn('cp "$panel_tests_directory/DataFolderPanelTests-Info.plist" '
+                      '"$panel_bundle/Contents/Info.plist"', source)
+        self.assertIn('plutil -lint "$panel_bundle/Contents/Info.plist"', source)
+
+    def test_completed_bundle_is_ad_hoc_signed_and_verified_before_launch(self):
+        source = Path(__file__).with_name("test-data-folder-panel.sh").read_text()
+        compiled = source.index('-o "$panel_bundle/Contents/MacOS/data-folder-panel-tests"')
+        signed = source.index('codesign --force --sign - --timestamp=none "$panel_bundle"')
+        verified = source.index('codesign --verify --deep --strict "$panel_bundle"')
+        launched = source.index("for panel_language in")
+        self.assertLess(compiled, signed)
+        self.assertLess(signed, verified)
+        self.assertLess(verified, launched)
+        self.assertEqual(sum(line.startswith("codesign ") for line in source.splitlines()), 2)
+        self.assertNotIn("--entitlements", source)
 
 
 def watchdog_code():

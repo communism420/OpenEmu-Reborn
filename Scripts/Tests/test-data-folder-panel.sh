@@ -37,15 +37,12 @@ else
 fi
 panel_bundle="$panel_workspace/DataFolderPanelTests.app"
 mkdir -p "$panel_bundle/Contents/MacOS" "$panel_bundle/Contents/Resources/ru.lproj"
-cp "$panel_repository/OpenEmu/OpenEmu-Info.plist" "$panel_bundle/Contents/Info.plist"
-plutil -replace CFBundleIdentifier -string org.openemu.tests.DataFolderPanel "$panel_bundle/Contents/Info.plist"
-plutil -replace CFBundleExecutable -string data-folder-panel-tests "$panel_bundle/Contents/Info.plist"
-plutil -replace NSPrincipalClass -string NSApplication "$panel_bundle/Contents/Info.plist"
-for panel_key in NSMainNibFile NSMainStoryboardFile; do
-    if plutil -extract "$panel_key" raw -o - "$panel_bundle/Contents/Info.plist" >/dev/null 2>&1; then
-        plutil -remove "$panel_key" "$panel_bundle/Contents/Info.plist"
-    fi
-done
+# The production source plist contains unresolved Xcode substitutions and
+# document/URL registrations unrelated to this fixture. Use a complete test
+# identity instead. This packaging repair alone does not establish the cause
+# of an Intel CI stall in AppKit's remote panel service.
+cp "$panel_tests_directory/DataFolderPanelTests-Info.plist" "$panel_bundle/Contents/Info.plist"
+plutil -lint "$panel_bundle/Contents/Info.plist"
 for panel_locale in "$panel_repository"/OpenEmu/*.lproj; do
     [[ -f "$panel_locale/Localizable.strings" ]] || continue
     mkdir -p "$panel_bundle/Contents/Resources/$(basename "$panel_locale")"
@@ -57,6 +54,11 @@ xcrun swiftc -swift-version 6 -strict-concurrency=complete -warnings-as-errors \
     "$panel_workspace/OEDataFolderSetup.swift" "$panel_tests_directory/DataFolderPanelSmokeTests.swift" \
     -framework AppKit "${panel_link_arguments[@]}" \
     -o "$panel_bundle/Contents/MacOS/data-folder-panel-tests"
+
+# Normalize the completed fixture's signature on both CPUs. Ad-hoc signing
+# uses no certificate, private key, entitlement or system permission changes.
+codesign --force --sign - --timestamp=none "$panel_bundle"
+codesign --verify --deep --strict "$panel_bundle"
 
 panel_failed=0
 for panel_language in ${OE_PANEL_TEST_LANGUAGES:-ru en}; do

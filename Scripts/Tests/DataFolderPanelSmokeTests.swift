@@ -225,6 +225,22 @@ struct DataFolderPanelSmokeTests {
             }
         }
         timers.append(lateResize)
+        if !backup {
+            // Native restoration can move a correctly sized modal panel after
+            // its resize notification has already been handled. Move only its
+            // origin, on the same screen, so resize/screen observers cannot
+            // accidentally stand in for the missing move observation.
+            let lateMove = Timer(timeInterval: 2.35, repeats: false) { _ in
+                MainActor.assumeIsolated {
+                    let size = panel.frame.size
+                    panel.setFrameOrigin(NSPoint(x: bounds.minX - 160, y: panel.frame.minY))
+                    require(panel.frame.size == size, "\(scenario) late move preserves panel size")
+                    require(!bounds.contains(panel.frame), "\(scenario) late move injects an off-screen origin")
+                    report("INJECTED ORIGIN-ONLY MOVE: \(scenario) frame=\(panel.frame)")
+                }
+            }
+            timers.append(lateMove)
+        }
         timers.forEach { RunLoop.main.add($0, forMode: backup ? .default : .modalPanel) }
         let result: NSApplication.ModalResponse
         if backup {

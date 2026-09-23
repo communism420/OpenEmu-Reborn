@@ -70,10 +70,19 @@ jobs:
         with:
           xcode-version: '26.5'
 
+      - name: Guard the affected hosted Intel icon service
+        id: iconservices
+        if: matrix.arch == 'x86_64'
+        run: python3 Scripts/ci-macos-iconservices.py apply
+
       - name: Test native file panels before building cores
         timeout-minutes: 10
         run: |
           OE_PANEL_TEST_LANGUAGES='en ru de ar' bash Scripts/Tests/test-data-folder-panel.sh --standalone
+
+      - name: Restore the hosted Intel icon service
+        if: always() && matrix.arch == 'x86_64' && steps.iconservices.outcome != 'skipped' && steps.iconservices.outcome != ''
+        run: python3 Scripts/ci-macos-iconservices.py cleanup
 
   intel-test-build:
     if: inputs.package_intel == true
@@ -100,7 +109,9 @@ jobs:
         run: ./Scripts/check-core-sources.sh
 
       - name: Test native panel timeout diagnostics
-        run: python3 Scripts/Tests/test-panel-watchdog.py
+        run: |
+          python3 Scripts/Tests/test-panel-watchdog.py
+          python3 Scripts/Tests/test-ci-macos-iconservices.py
 
       - name: Test CI artifact provenance guards
         run: |

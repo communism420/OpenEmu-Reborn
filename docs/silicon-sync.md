@@ -73,6 +73,17 @@ The artwork fixture compiles the actual image model against a private in-memory
 database. It checks cold-cache conversion, asynchronous UI loading, and corrupt
 or missing source files without touching the user's artwork or library.
 
+The native-panel CI job has a narrowly scoped workaround for GitHub's Intel
+image `20260824.0517.1`, macOS build `25G76`, affected by
+[runner-images issue 14751](https://github.com/actions/runner-images/issues/14751).
+Only that hosted VM, with a matching IconServices Metal/RenderBox crash report,
+can temporarily disable its crashing icon agent to use generic file icons.
+Commands have five-second limits, and an always-run cleanup restores the
+original enabled state. Other machines and images are unchanged. Native panel
+creation, geometry, cancellation and the 45-second test deadline remain required;
+this test does not establish correct icon rendering on the broken VM. The
+workaround is not included in the application or run on users' Macs.
+
 The source guards are not gameplay tests. The ROM-free bridge fixture loads a
 tiny synthetic external library through the actual built translator and checks
 the selected profile paths, two-player input, analog input, save-state round trips

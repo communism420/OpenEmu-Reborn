@@ -349,10 +349,12 @@ enum OEDataFolderSetup {
 
         func start() {
             // Native layout/restored geometry may run after runModal starts.
-            // Refit on the NEXT modal-loop turn, including late screen resizes.
+            // Refit on the NEXT modal-loop turn, including an origin-only
+            // restored move after the panel has already been sized correctly.
             let center = NotificationCenter.default
             observers = [NSWindow.didBecomeKeyNotification, NSWindow.didChangeScreenNotification,
-                         NSWindow.didResizeNotification, NSApplication.didChangeScreenParametersNotification].map { name in
+                         NSWindow.didResizeNotification, NSWindow.didMoveNotification,
+                         NSApplication.didChangeScreenParametersNotification].map { name in
                 center.addObserver(forName: name, object: name == NSApplication.didChangeScreenParametersNotification ? nil : panel,
                                    queue: .main) { [weak self] _ in
                     MainActor.assumeIsolated { self?.scheduleFit() }
@@ -382,6 +384,8 @@ enum OEDataFolderSetup {
             isPending = true
             // DispatchQueue.main alone does not reliably run during startup's
             // nested modal loop. Coalescing also avoids synchronous relayout.
+            // Keep isPending set while fitting so our own corrective move or
+            // resize notification cannot schedule a recursive fitting pass.
             RunLoop.main.perform(inModes: [.default, .modalPanel, .eventTracking]) { [weak self] in
                 MainActor.assumeIsolated {
                     guard let self else { return }
