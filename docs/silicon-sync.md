@@ -47,6 +47,13 @@ The new MAME revision is `fac13e827b7b8cfa4ee4f5760198d31241e2a544` in
 `OpenEmu-Silicon/mame`. Its source package records the repository from the
 committed pin, instead of incorrectly naming the previous MAME repository.
 
+VirtualJaguar's plugin version is `2.1.1.1`: this is a Reborn wrapper revision
+for the inherited 4:3 aspect-ratio correction, not a new upstream emulator
+release. The previous published plugin was `2.1.1`; keeping that number would
+prevent the updater from offering the correction to users with an installed
+copy. Public core feeds stay unchanged until the new signed archives pass
+verification and are published.
+
 ## Verification
 
 Run the host verification floor, then the integration and provenance guards:
