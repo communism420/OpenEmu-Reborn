@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Native modal first-run/recovery panels, in Russian and English. Compile only
+# Native modal first-run/recovery panels, in the requested languages. Compile only
 # the current host source and this tiny harness against an existing SDK binary.
 # OE_DATA_FOLDER_PANEL_SOURCE can point to a preserved source for negative tests.
 set -euo pipefail
@@ -61,9 +61,38 @@ xcrun swiftc -swift-version 6 -strict-concurrency=complete -warnings-as-errors \
 panel_failed=0
 for panel_language in ${OE_PANEL_TEST_LANGUAGES:-ru en}; do
     mkdir -p "$panel_workspace/$panel_language/Library/Preferences"
+    echo "Starting native panel fixture: $panel_language (45-second deadline)"
     CFFIXED_USER_HOME="$panel_workspace/$panel_language" OE_PANEL_TEST_LANGUAGE="$panel_language" \
-        perl -e 'alarm 45; exec @ARGV' "$panel_bundle/Contents/MacOS/data-folder-panel-tests" \
-        -AppleLanguages "($panel_language)" || panel_failed=1
+        python3 - "$panel_bundle/Contents/MacOS/data-folder-panel-tests" "$panel_language" <<'PY' || panel_failed=1
+import subprocess
+import sys
+import time
+
+executable, language = sys.argv[1:]
+process = subprocess.Popen([executable, '-AppleLanguages', f'({language})'])
+deadline = time.monotonic() + 45
+try:
+    # Reserve the last five seconds of the existing deadline for a stack
+    # sample. A hung AppKit initialization must fail with useful evidence,
+    # rather than only printing "Alarm clock" after silently dying.
+    status = process.wait(timeout=40)
+except subprocess.TimeoutExpired:
+    print(f'NOTE: {language} native panel fixture is near its deadline; sampling PID {process.pid}', flush=True)
+    try:
+        subprocess.run(['/usr/bin/sample', str(process.pid), '1', '10'], timeout=4, check=False)
+    except subprocess.TimeoutExpired:
+        print('NOTE: stack sampling exceeded its four-second diagnostic limit', flush=True)
+    except OSError as error:
+        print(f'NOTE: stack sampling unavailable: {error}', flush=True)
+    try:
+        status = process.wait(timeout=max(0, deadline - time.monotonic()))
+    except subprocess.TimeoutExpired:
+        print(f'FAIL: {language} native panel fixture exceeded its 45-second deadline', flush=True)
+        process.kill()
+        process.wait()
+        sys.exit(1)
+sys.exit(status if status >= 0 else 1)
+PY
 done
 echo "Test-only source, bundle and isolated homes retained at $panel_workspace"
 exit "$panel_failed"

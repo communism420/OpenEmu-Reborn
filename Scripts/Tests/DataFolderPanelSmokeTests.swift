@@ -168,6 +168,7 @@ struct DataFolderPanelSmokeTests {
         visibleFrameOverride = small ? bounds : nil
         let scenario = "\(language)/\(backup ? "backup-sheet" : recovery ? "recovery" : "first-launch")/\(small ? "1024x600" : "actual-screen")"
         activeScenario = scenario
+        report("STAGE: \(scenario) creating native panel")
         // AppKit hosts each panel in a remote service. Keep service failures
         // visible as test failures instead of passing an invalid ObjC result
         // into Swift KVO (which otherwise aborts with a null-pointer cast).
@@ -181,6 +182,7 @@ struct DataFolderPanelSmokeTests {
             visibleFrameOverride = nil
             return
         }
+        report("STAGE: \(scenario) configuring native panel")
         panel.directoryURL = home
         panel.setFrame(NSRect(x: bounds.minX, y: bounds.minY, width: 4000, height: 2000), display: false)
         if language == "ru", !backup {
@@ -231,6 +233,7 @@ struct DataFolderPanelSmokeTests {
             parent.isReleasedWhenClosed = false
             parent.makeKeyAndOrderFront(nil)
             var sheetResponse: NSApplication.ModalResponse?
+            report("STAGE: \(scenario) presenting native sheet")
             OEDataFolderSetup.beginFolderPanel(panel, for: parent) { sheetResponse = $0 }
             let deadline = Date().addingTimeInterval(10)
             while sheetResponse == nil, Date() < deadline {
@@ -240,24 +243,65 @@ struct DataFolderPanelSmokeTests {
             if sheetResponse == nil { panel.cancel(nil) }
             parent.close()
         } else {
+            report("STAGE: \(scenario) entering native modal loop")
             result = OEDataFolderSetup.runFolderPanel(panel)
         }
+        report("STAGE: \(scenario) native panel finished (\(result.rawValue))")
         timers.forEach { $0.invalidate() }
         activeScenario = ""
         require(result == .cancel, "\(scenario) always cancels without selecting a folder")
         visibleFrameOverride = nil
     }
 
+    @MainActor private final class ApplicationDelegate: NSObject, NSApplicationDelegate {
+        let fixedHome: String
+        let language: String
+
+        init(fixedHome: String, language: String) {
+            self.fixedHome = fixedHome
+            self.language = language
+        }
+
+        func applicationWillFinishLaunching(_ notification: Notification) {
+            report("STAGE: AppKit will finish launching")
+        }
+
+        func applicationDidFinishLaunching(_ notification: Notification) {
+            report("STAGE: AppKit finished launching; scheduling panel tests")
+            // Exercise the remote file-panel service under the normal AppKit
+            // launch/event-loop lifecycle. Calling finishLaunching() manually
+            // does not start that loop. Begin after the launch callback returns.
+            RunLoop.main.perform {
+                MainActor.assumeIsolated {
+                    runScenarios(fixedHome: self.fixedHome, language: self.language)
+                }
+            }
+        }
+    }
+
     static func main() {
+        report("STAGE: panel fixture started (\(ProcessInfo.processInfo.operatingSystemVersionString))")
         guard let fixedHome = ProcessInfo.processInfo.environment["CFFIXED_USER_HOME"],
               fixedHome.hasPrefix("/private/tmp/openemu-data-folder-panel.") || fixedHome.hasPrefix("/tmp/openemu-data-folder-panel.") else {
             report("FAIL: an isolated test home is required")
             exit(EXIT_FAILURE)
         }
         let language = ProcessInfo.processInfo.environment["OE_PANEL_TEST_LANGUAGE"] ?? "ru"
+        report("STAGE: \(language) creating NSApplication")
         let application = NSApplication.shared
+        report("STAGE: \(language) setting accessory activation policy")
         application.setActivationPolicy(.accessory)
-        application.finishLaunching()
+        let delegate = ApplicationDelegate(fixedHome: fixedHome, language: language)
+        application.delegate = delegate
+        report("STAGE: \(language) starting NSApplication event loop")
+        withExtendedLifetime(delegate) { application.run() }
+        report("FAIL: AppKit event loop stopped before panel tests completed")
+        exit(EXIT_FAILURE)
+    }
+
+    static func runScenarios(fixedHome: String, language: String) {
+        require(NSApplication.shared.isRunning, "Native panel tests run inside the NSApplication event loop")
+        report("STAGE: \(language) creating reference native panel")
         // Read the uncustomized label once, not by creating an additional
         // unused remote panel during every scenario. Drain this reference and
         // each completed scenario just as NSApplication's event loop would.
@@ -269,6 +313,7 @@ struct DataFolderPanelSmokeTests {
             report("FAIL: AppKit could not create the reference open panel")
             exit(EXIT_FAILURE)
         }
+        report("STAGE: \(language) checking the logged-in display")
         guard let screen = NSScreen.main,
               let original = class_getInstanceMethod(NSScreen.self, #selector(getter: NSScreen.visibleFrame)),
               let replacement = class_getInstanceMethod(NSScreen.self, #selector(NSScreen.oePanelTestVisibleFrame)) else {

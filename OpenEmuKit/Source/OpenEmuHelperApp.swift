@@ -631,9 +631,12 @@ extension OSLog {
         // restore prior state during a hardcore session, regardless of how
         // the call arrives. See HardcoreModePolicy.
         guard HardcoreModePolicy.allows(.loadState, hardcoreEnabled: _hardcoreEnabled) else {
+            let description = NSLocalizedString("Save state loading is disabled in hardcore mode.",
+                                                bundle: OEHostLocalizationBundle(),
+                                                comment: "Hardcore save-state error")
             block(false, NSError(domain: OEGameCoreErrorDomain,
                                  code: 0,
-                                 userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Save state loading is disabled in hardcore mode.", bundle: OEHostLocalizationBundle(), comment: "Hardcore save-state error")]))
+                                 userInfo: [NSLocalizedDescriptionKey: description]))
             return
         }
         gameCore.perform {

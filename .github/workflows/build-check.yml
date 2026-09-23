@@ -17,6 +17,64 @@ on:
     branches: [main]
 
 jobs:
+  swift-source-style:
+    if: inputs.package_intel != true
+    name: Swift source style
+    runs-on: macos-26
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Check shared Swift sources with pinned SwiftLint
+        run: |
+          set -euo pipefail
+          # Intel images currently include SwiftLint, while ARM images do not.
+          # Check both shared projects once before starting the core matrix.
+          lint_dir=$(mktemp -d "$RUNNER_TEMP/openemu-swiftlint.XXXXXX")
+          curl --fail --location --silent --show-error \
+            https://github.com/realm/SwiftLint/releases/download/0.65.1/portable_swiftlint.zip \
+            --output "$lint_dir/portable_swiftlint.zip"
+          (cd "$lint_dir" && echo 'c1e429b0599cf1b516f369a2d9ec04eaf0e436f3c12b637df8851fa52ff694d0  portable_swiftlint.zip' | shasum -a 256 -c -)
+          unzip -q "$lint_dir/portable_swiftlint.zip" -d "$lint_dir"
+          test "$("$lint_dir/swiftlint" version)" = '0.65.1'
+          for lint_project in OpenEmuKit OpenEmu-Shaders; do
+            (cd "$lint_project" && "$lint_dir/swiftlint" lint --no-cache)
+          done
+
+  native-file-panels:
+    needs: swift-source-style
+    if: inputs.package_intel != true
+    name: Native file panels (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-26
+          - arch: x86_64
+            runner: macos-26-intel
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Test native file panels before building cores
+        timeout-minutes: 10
+        run: |
+          OE_PANEL_TEST_LANGUAGES='en ru de ar' bash Scripts/Tests/test-data-folder-panel.sh --standalone
+
   intel-test-build:
     if: inputs.package_intel == true
     uses: ./.github/workflows/intel-test-build.yml
@@ -41,6 +99,9 @@ jobs:
       - name: Check vendored core externals are populated
         run: ./Scripts/check-core-sources.sh
 
+      - name: Test native panel timeout diagnostics
+        run: python3 Scripts/Tests/test-panel-watchdog.py
+
       - name: Test CI artifact provenance guards
         run: |
           python3 Scripts/Tests/test-package-ci-artifact.py
@@ -55,6 +116,7 @@ jobs:
           python3 Scripts/Tests/test-signed-release-app-guards.py
 
   detect-core-changes:
+    needs: [swift-source-style, native-file-panels]
     if: inputs.package_intel != true
     # The `OpenEmu` scheme only builds the main app plus its own dependencies
     # (OpenEmuKit/Base/System) — it never compiles core plugins, so a PR that
@@ -544,6 +606,7 @@ jobs:
           test "$framework_count" -ge 2
 
   build:
+    needs: native-file-panels
     if: inputs.package_intel != true
     name: Build (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
@@ -580,7 +643,7 @@ jobs:
           python3 ./Scripts/Tests/test-core-data-folder.py
           ./Mednafen/Tests/test-generated-playlists.sh
 
-      - name: Test localization and native file panels (${{ matrix.arch }})
+      - name: Test localization (${{ matrix.arch }})
         run: |
           python3 Scripts/Tests/test-core-build-selection.py
           python3 Scripts/Tests/test-localizations.py
@@ -589,7 +652,6 @@ jobs:
           python3 Scripts/check-localizations.py
           bash Scripts/Tests/test-interface-language.sh
           bash Scripts/Tests/test-helper-localization.sh
-          OE_PANEL_TEST_LANGUAGES='en ru de ar' bash Scripts/Tests/test-data-folder-panel.sh --standalone
 
       - name: Build OpenEmu (Debug, ${{ matrix.arch }})
         run: |
