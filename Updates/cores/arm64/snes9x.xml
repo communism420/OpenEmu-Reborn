@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — SNES9x (arm64)</title>
     <item>
-      <title>SNES9x 1.63.5</title>
+      <title>SNES9x 1.63.6</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/SNES9x-arm64.oecoreplugin.zip" length="860078" type="application/octet-stream" sparkle:version="1.63.5" sparkle:shortVersionString="1.63.5" sparkle:edSignature="hGsjuNCellxC5workqkspsEtSLAaUlFjGtF9xzLi2yH07DqlrdETFobJmsWlMj5D49Xw1FaFlUVHT7GB7cDWAw==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/SNES9x-arm64.oecoreplugin.zip" length="864615" type="application/octet-stream" sparkle:version="1.63.6" sparkle:shortVersionString="1.63.6" sparkle:edSignature="q1pS0ZJRHLJY6r+CA/8Maaf/HRyH0DxFyk8teVJqdPBqIUJBd6qXaprKFllByCCzaUAW1U5PuksBjn+xmD3oDQ==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

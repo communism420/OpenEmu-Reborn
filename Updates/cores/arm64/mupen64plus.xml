@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — Mupen64Plus (arm64)</title>
     <item>
-      <title>Mupen64Plus 2.5.17</title>
+      <title>Mupen64Plus 2.5.18</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Mupen64Plus-arm64.oecoreplugin.zip" length="1212870" type="application/octet-stream" sparkle:version="2.5.17" sparkle:shortVersionString="2.5.16" sparkle:edSignature="5cAWuGP9A04B6wbZPoNQyR4JYGyArb1HxBTR0ObZ/cpN6IkYv0HhIt4n9FMn/YCid0sFoynq7yP1tUcdv7nTDA==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Mupen64Plus-arm64.oecoreplugin.zip" length="1218148" type="application/octet-stream" sparkle:version="2.5.18" sparkle:shortVersionString="2.5.16" sparkle:edSignature="OjFgS2sdXlsCSrAIY+J1NUAg+jyTfqLqcl6hlSpS3r6V/ijCo7SkqyyVJhlDUy3nsSvwDyBPBkUItbcTyxXNCg==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

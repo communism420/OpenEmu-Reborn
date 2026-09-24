@@ -6,7 +6,7 @@
       <title>Flycast 2.4.3</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Flycast-arm64.oecoreplugin.zip" length="3086958" type="application/octet-stream" sparkle:version="2.4.3" sparkle:shortVersionString="2.4.3" sparkle:edSignature="bFN8wTxgSBpoFcEVQiD4J9dXnf8aeDVXcbTbcVlIe4ZXvHWZ6vDNYBcq+vHFf2sNvZ84OtZFJekX5zo8eZXeDg==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Flycast-arm64.oecoreplugin.zip" length="3086958" type="application/octet-stream" sparkle:version="2.4.3" sparkle:shortVersionString="2.4.3" sparkle:edSignature="SicKlNSwq1Yz1qbmbL2Z6p6VnFMqkfe4cPpR6RAbMl9W5uml0e47uT0BjVYo5yhpNk8sp2OffmKUwJn0oRmgAQ==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

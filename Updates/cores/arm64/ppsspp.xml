@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — PPSSPP (arm64)</title>
     <item>
-      <title>PPSSPP 1.14.8</title>
+      <title>PPSSPP 1.14.9</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/PPSSPP-arm64.oecoreplugin.zip" length="12676268" type="application/octet-stream" sparkle:version="1.14.8" sparkle:shortVersionString="1.14.8" sparkle:edSignature="TDYOxEyKip1nQmoff2OwxNnEM5I1fNwcwJdZHiatze03Zt04iJO5SezwuQLXThfwVGV2VP1bBmJDbwroP7D3CQ==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/PPSSPP-arm64.oecoreplugin.zip" length="12676262" type="application/octet-stream" sparkle:version="1.14.9" sparkle:shortVersionString="1.14.9" sparkle:edSignature="8W1KeTv8Ch2yjyTtO0O25ukmBd68QlrKNontc3RfLTZIdmM2eT1YCQk391AjPjuqHWC9ibNpM1wVfaEteFQkAw==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

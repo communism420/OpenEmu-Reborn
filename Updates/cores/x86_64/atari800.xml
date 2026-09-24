@@ -6,7 +6,7 @@
       <title>Atari800 3.1.4</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Atari800-x86_64.oecoreplugin.zip" length="170509" type="application/octet-stream" sparkle:version="3.1.4" sparkle:shortVersionString="3.1.4" sparkle:edSignature="B5GqITpB3ZTyYpuKfsHzYzi2T9rpRhqg2Vm0Bg/GFQ+VhiubtxpFZDj/1onS219SBykeff+P5FWS3LwkB4uUDA==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Atari800-x86_64.oecoreplugin.zip" length="170509" type="application/octet-stream" sparkle:version="3.1.4" sparkle:shortVersionString="3.1.4" sparkle:edSignature="4ZiRkbpYm9Tjt5zhodhOLQWCqiKq9mjK6mLyYUXoCW8qDpZqU9qfb54a8Bf5TMGnigxPc9k6Oi5y2fkGjtn+AQ==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

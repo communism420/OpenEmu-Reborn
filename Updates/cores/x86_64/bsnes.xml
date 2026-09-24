@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — BSNES (x86_64)</title>
     <item>
-      <title>BSNES 115.3</title>
+      <title>BSNES 115.4</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/BSNES-x86_64.oecoreplugin.zip" length="998444" type="application/octet-stream" sparkle:version="115.3" sparkle:shortVersionString="115.3" sparkle:edSignature="FG0x5mKlhY9JjX5P1GQ8/Ct4WVxKH6dPIELfPnw0lVt65XddN5OtNB3BJNIaZLcSTFCIRBJIRp6YbOHoC9IQCA==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/BSNES-x86_64.oecoreplugin.zip" length="1004398" type="application/octet-stream" sparkle:version="115.4" sparkle:shortVersionString="115.4" sparkle:edSignature="ssBvy4prhespngm+2QxC7+x8bMBoy8gE+IJiT/mp+cyqeB/FqfWmvhSAGQkCmnrzFdE4QDwYYuvejALPtnZQDg==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

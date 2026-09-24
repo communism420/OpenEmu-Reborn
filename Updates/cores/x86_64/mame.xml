@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — MAME (x86_64)</title>
     <item>
-      <title>MAME 0.250.0.1</title>
+      <title>MAME 0.250.0.2</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/MAME-x86_64.oecoreplugin.zip" length="65439391" type="application/octet-stream" sparkle:version="0.250.0.1" sparkle:shortVersionString="0.250.0.1" sparkle:edSignature="PjbyAvz/77R+oea5lleoO0iGK4Csc6N2Iwq4fff8K9M3wzTrHJCLRRp5XViVLI+t0fHR5C3jbcWj4sGEbwBUAw==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/MAME-x86_64.oecoreplugin.zip" length="65444496" type="application/octet-stream" sparkle:version="0.250.0.2" sparkle:shortVersionString="0.250.0.2" sparkle:edSignature="oiC2pQnPJcr0h86PQvMub5BkkQImT1majHSlCvHPFlUe1MEhYLeJjN0RXd25iJYl4xvsXxJZ6DXabt6O/iGoCQ==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

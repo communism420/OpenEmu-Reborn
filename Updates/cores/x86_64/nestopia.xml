@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — Nestopia (x86_64)</title>
     <item>
-      <title>Nestopia 1.52.5.1</title>
+      <title>Nestopia 1.52.5.2</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Nestopia-x86_64.oecoreplugin.zip" length="853184" type="application/octet-stream" sparkle:version="1.52.5.1" sparkle:shortVersionString="1.52.5.1" sparkle:edSignature="byEiGMHfH0GpKThXuGC422OegVjBzTs1u9Kri83WTKjWXtPiYjMnoSsEhbNqc8b1GB+xwgAP1xLe8/yaO6dRBw==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Nestopia-x86_64.oecoreplugin.zip" length="859653" type="application/octet-stream" sparkle:version="1.52.5.2" sparkle:shortVersionString="1.52.5.2" sparkle:edSignature="C/zayDeU0PN9ri3eksWOmrmWsSsGykdcFk0wnH2IFzkcCewn+qdLjV4Cm8bpQJ619PsYfpeSVD3UPyshIizxAw==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

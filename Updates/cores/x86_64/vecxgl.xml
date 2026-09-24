@@ -6,7 +6,7 @@
       <title>VecXGL 1.2.3</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/VecXGL-x86_64.oecoreplugin.zip" length="39910" type="application/octet-stream" sparkle:version="1.2.3" sparkle:shortVersionString="1.2.3" sparkle:edSignature="8V2Hlfyozbar0mgQAVYu4bCD/NSyyG8j5cAVzjaOcwVzWbiDBJzFq+2tPnNvwZOHdXeCVW3XVtUTjMTOlwjODw==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/VecXGL-x86_64.oecoreplugin.zip" length="39910" type="application/octet-stream" sparkle:version="1.2.3" sparkle:shortVersionString="1.2.3" sparkle:edSignature="zx3YH3XmMw14n8TAS9foHSw+FDNbCflKKsOKxRAeNus1WirIVmeZ4UXCTUJahczbPkmOdRyJncWoGkxViwTKDg==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

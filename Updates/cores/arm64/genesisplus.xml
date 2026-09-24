@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — GenesisPlus (arm64)</title>
     <item>
-      <title>GenesisPlus 1.7.5.7</title>
+      <title>GenesisPlus 1.7.5.8</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/GenesisPlus-arm64.oecoreplugin.zip" length="640229" type="application/octet-stream" sparkle:version="1.7.5.7" sparkle:shortVersionString="1.7.5.7" sparkle:edSignature="2GXqBXGQFD33v8P31HkEBZDrMXi1BtzS5gqpqQODVOdqDO0re205IjL52cjKeRXo4kRvHlOsx4+W3Mbc7VY7Bg==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/GenesisPlus-arm64.oecoreplugin.zip" length="645659" type="application/octet-stream" sparkle:version="1.7.5.8" sparkle:shortVersionString="1.7.5.8" sparkle:edSignature="tkFpV+REe3F22DXXvTpi7s1/Ti/JqBR1rbUTwskzUhxjpbeSvWJYOyfL/wnxaF4Ffy97+HuW58jYyBIsoWiIDw==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>
