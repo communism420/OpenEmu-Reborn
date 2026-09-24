@@ -124,15 +124,13 @@ extension Notification.Name {
 
     /// Presents an NSOpenPanel. On selection: stops current monitoring, saves the new folder,
     /// runs initial sync, then starts FSEventStream. Calls completion(true) on success.
+    @MainActor
     @objc func chooseFolder(relativeTo window: NSWindow, completion: @escaping (_ selected: Bool) -> Void) {
-        let panel = NSOpenPanel()
-        panel.canChooseDirectories = true
-        panel.canChooseFiles = false
-        panel.canCreateDirectories = true
-        panel.prompt = "Select Backup Folder"
-        panel.message = "Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs."
+        let panel = OEDataFolderSetup.makeDirectoryPanel(
+            title: NSLocalizedString("Select Backup Folder", comment: "Folder backup picker title"),
+            explanation: NSLocalizedString("Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.", comment: "Folder backup picker explanation"))
 
-        panel.beginSheetModal(for: window) { [weak self] response in
+        OEDataFolderSetup.beginFolderPanel(panel, for: window) { [weak self] response in
             guard response == .OK, let url = panel.url else {
                 completion(false)
                 return
@@ -143,8 +141,8 @@ extension Notification.Name {
             let supportPath = URL.oeApplicationSupportDirectory.standardized.path
             if url.standardized.path.hasPrefix(supportPath) {
                 let alert = NSAlert()
-                alert.messageText = "Invalid Backup Folder"
-                alert.informativeText = "The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive."
+                alert.messageText = NSLocalizedString("Invalid Backup Folder", comment: "")
+                alert.informativeText = NSLocalizedString("The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.", comment: "")
                 alert.alertStyle = .warning
                 alert.beginSheetModal(for: window) { _ in completion(false) }
                 return

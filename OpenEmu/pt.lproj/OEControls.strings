@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Allow playing with controllers when in background</key>
-	<string>Allow playing with controllers when in background</string>
+	<string>Permitir jogar com comandos em segundo plano</string>
 	<key>Always float popout gameplay window on top</key>
-	<string>Always float popout gameplay window on top</string>
+	<string>Manter sempre a janela de jogo separada por cima</string>
 	<key>Always launch games fullscreen</key>
 	<string>Sempre abrir jogos em Tela Cheia</string>
 	<key>Always pause gameplay when in background</key>
 	<string>Sempre pausar quando estiver em background</string>
 	<key>Always snap popout gameplay window to integer scale</key>
-	<string>Always snap popout gameplay window to integer scale</string>
+	<string>Ajustar sempre a janela de jogo separada a uma escala inteira</string>
 	<key>Always use popout gameplay window</key>
 	<string>Sempre abrir jogo em uma nova tela</string>
 	<key>An exciting world of video games is within your grasp. To help you get started, we’d like to ask you a few quick questions which will guide you through the following…
@@ -37,7 +37,7 @@
 	<key>Copy files to Game Library folder when adding to library</key>
 	<string>Copiar arquivos para a Biblioteca de Jogos ao adicionar</string>
 	<key>Downloading Data…</key>
-	<string>Downloading Data…</string>
+	<string>A descarregar dados…</string>
 	<key>Edit</key>
 	<string>Editar</string>
 	<key>Game Library Folder Location:</key>
@@ -51,17 +51,17 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 
 Lembre-se que você pode configurar seu teclado e seus controles (ou de outros jogadores) nas Preferências quando quiser.</string>
 	<key>Import Into:</key>
-	<string>Import Into:</string>
+	<string>Importar para:</string>
 	<key>Input:</key>
-	<string>Input:</string>
+	<string>Entrada:</string>
 	<key>Let’s Go!</key>
 	<string>Vamos nessa!</string>
 	<key>Move to Default Location</key>
-	<string>Move to Default Location</string>
+	<string>Mover para a localização predefinida</string>
 	<key>Move...</key>
 	<string>Move...</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>Nova predefinição</string>
 	<key>Next</key>
 	<string>Avançar</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -69,7 +69,7 @@ Lembre-se que você pode configurar seu teclado e seus controles (ou de outros j
 	<key>Organization Methods:</key>
 	<string>Modos de Organização:</string>
 	<key>Reset All</key>
-	<string>Reset All</string>
+	<string>Repor tudo</string>
 	<key>Reset Warnings</key>
 	<string>Reiniciar Avisos</string>
 	<key>Reset all dialog warnings:</key>
@@ -77,7 +77,7 @@ Lembre-se que você pode configurar seu teclado e seus controles (ou de outros j
 	<key>Resolve Issues:</key>
 	<string>Corrigir conflitos de importação:</string>
 	<key>Save Preset</key>
-	<string>Save</string>
+	<string>Guardar predefinição</string>
 	<key>Shader:</key>
 	<string>Shader:</string>
 	<key>System Cores Installation</key>
@@ -86,5 +86,43 @@ Lembre-se que você pode configurar seu teclado e seus controles (ou de outros j
 	<string>Bem vindo ao OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>Gerenciar Janelas:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Além dos núcleos instalados, esta versão comunitária acrescenta funções que não existem no original:
+
+• RetroAchievements — obtenha conquistas em NES, SNES, GBA, Genesis e mais. Inicie sessão em Preferências → Conquistas.
+• Capas — obtenção automática pelo ScreenScraper. Introduza as credenciais em Preferências → Capas.
+• Jogar com… — clique num jogo com o botão direito para escolher o núcleo.
+• Controlos — personalize o teclado e os comandos de cada jogador nas Preferências.</string>
+	<key>Click Go to open your library.</key>
+	<string>Clique em Pronto! para abrir a biblioteca.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Clique em Avançar para escolher os núcleos.</string>
+	<key>Downloading Data...</key>
+	<string>A descarregar dados...</string>
+	<key>Game Scanner</key>
+	<string>Pesquisa de jogos</string>
+	<key>Name:</key>
+	<string>Nome:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>O OpenEmu Reborn é modular e, graças ao trabalho de outros grandes projetos de código aberto, pode emular vários sistemas através de «núcleos». Alguns exigem que selecione e confirme a instalação e utilização. Os seus sistemas e jogos favoritos poderão não funcionar sem estes núcleos.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>O OpenEmu Reborn funciona nativamente em Macs Apple Silicon e Intel. Os núcleos compatíveis são executados diretamente no processador do Mac, sem uma camada de tradução.
+
+Esta configuração instalará os núcleos necessários para começar a jogar. Os núcleos são plugins modulares, um por sistema, que pode adicionar ou remover nas Preferências a qualquer momento.</string>
+	<key>Resolve Issues</key>
+	<string>Resolver problemas</string>
+	<key>Scanner Paused</key>
+	<string>Pesquisa em pausa</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Bem-vindo ao OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Novidades do OpenEmu Reborn</string>
 </dict>
 </plist>

@@ -43,7 +43,7 @@
 	<key>Game Library Folder Location:</key>
 	<string>游戏库文件夹路径：</string>
 	<key>Go</key>
-	<string>走起</string>
+	<string>开始</string>
 	<key>Great! You are all setup now and ready to get gaming!
 
 Remember you can change both your keyboard and gamepad controls for yourself and other players via the Preferences at any time.</key>
@@ -63,7 +63,7 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<key>New Preset</key>
 	<string>新增预设</string>
 	<key>Next</key>
-	<string>下一个</string>
+	<string>下一步</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
 	<string>OpenEmu 是整合而成的，感谢其他伟大的开源项目的工作，使其可以模拟大部分电视游戏系统 (‘核心’)。 有几个选项需要你勾选并确认你要安装并使用这些核心。没有这些核心，你喜欢的系统和游戏可能无法运行。</string>
 	<key>Organization Methods:</key>
@@ -86,5 +86,43 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<string>欢迎使用 OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>窗口管理：</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>除了刚刚安装的核心，这个社区分支还添加了原版没有的功能：
+
+• RetroAchievements — 在 NES、SNES、GBA、Genesis 等平台的游戏中获得成就。请通过“偏好设置”→“成就”登录。
+• 封面图片 — 通过 ScreenScraper 自动获取游戏封面。请在“偏好设置”→“封面图片”中添加凭据。
+• 使用以下核心游玩… — 右键点按任意游戏即可选择运行该游戏的核心。
+• 控制器 — 在偏好设置中为各个玩家自定义键盘和游戏手柄映射。</string>
+	<key>Click Go to open your library.</key>
+	<string>点按“开始”打开资料库。</string>
+	<key>Click Next to choose your cores.</key>
+	<string>点按“下一步”选择核心。</string>
+	<key>Downloading Data...</key>
+	<string>正在下载数据…</string>
+	<key>Game Scanner</key>
+	<string>游戏扫描器</string>
+	<key>Name:</key>
+	<string>名称：</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn 采用模块化设计，借助其他优秀开源项目的成果，通过“核心”模拟多种游戏系统。部分核心需要勾选并确认后才能安装和使用。缺少这些核心时，你喜爱的游戏系统和游戏可能无法运行。</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn 可在 Apple Silicon 和 Intel Mac 上原生运行。兼容的模拟核心直接在 Mac 的处理器上运行，无需转换层。
+
+本设置向导将安装开始游戏所需的系统核心。核心是按游戏系统划分的模块化插件，可随时在偏好设置中添加或移除。</string>
+	<key>Resolve Issues</key>
+	<string>解决问题</string>
+	<key>Scanner Paused</key>
+	<string>扫描已暂停</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>欢迎使用 OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>OpenEmu Reborn 新功能</string>
 </dict>
 </plist>

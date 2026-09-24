@@ -5,7 +5,7 @@
 	<key>Appearance:</key>
 	<string>Mode d’apparence :</string>
 	<key>Auto (region)</key>
-	<string>Auto</string>
+	<string>Automatique (région)</string>
 	<key>Background Thread</key>
 	<string>Thread d’arrière-plan</string>
 	<key>Cancel cover sync for all games</key>
@@ -127,5 +127,27 @@ associés à des boutons :</string>
 	<string>OpenEmu ne répondra pas pendant l’exécution de cette opération.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Passer l'unité du menu d'échelle des points aux pixels</string>
+	<key>Dark</key>
+	<string>Sombre</string>
+	<key>Download additional shaders</key>
+	<string>Télécharger d'autres shaders</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Activer la synchronisation adaptative pour les écrans compatibles (plein écran)</string>
+	<key>Preview achievement banner</key>
+	<string>Aperçu de la bannière de succès</string>
+	<key>Save States</key>
+	<string>Sauvegardes d'état</string>
+	<key>Use new save states view</key>
+	<string>Utiliser la nouvelle vue des sauvegardes d'état</string>
+	<key>Use new screenshots view</key>
+	<string>Utiliser la nouvelle vue des captures d'écran</string>
+	<key>Vibrant</key>
+	<string>Vibrant</string>
+	<key>Vibrant Wood</key>
+	<string>Bois vibrant</string>
+	<key>Wood</key>
+	<string>Bois</string>
 </dict>
 </plist>

@@ -138,5 +138,9 @@
 	<string>Come griglia</string>
 	<key>as List</key>
 	<string>Come elenco</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Reimposta permesso di monitoraggio input…</string>
+	<key>Take Native Screenshot</key>
+	<string>Scatta istantanea a risoluzione nativa</string>
 </dict>
 </plist>

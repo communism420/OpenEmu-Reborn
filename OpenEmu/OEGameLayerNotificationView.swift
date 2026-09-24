@@ -32,7 +32,7 @@ final class OEAchievementBannerView: NSView {
     static let bannerWidth:  CGFloat = 430
     static let bannerHeight: CGFloat = 82
 
-    private let headerLabel = NSTextField(labelWithString: "Achievement Unlocked!")
+    private let headerLabel = NSTextField(labelWithString: NSLocalizedString("Achievement Unlocked", tableName: "ControlLabels", comment: "Achievement banner heading"))
     private let titleLabel  = NSTextField(labelWithString: "")
     private let descriptionLabel = NSTextField(labelWithString: "")
     private let ptsLabel    = NSTextField(labelWithString: "")
@@ -119,7 +119,9 @@ final class OEAchievementBannerView: NSView {
     func show(title: String, description: String, badgeURL: String, points: UInt32) {
         titleLabel.stringValue = title
         descriptionLabel.stringValue = description
-        ptsLabel.stringValue   = points > 0 ? "+\(points) pts" : ""
+        ptsLabel.stringValue = points > 0
+            ? String(format: NSLocalizedString("+%u pts", comment: "Achievement banner points earned"), points)
+            : ""
 
         imageTask?.cancel()
         currentBadgeURL = nil
@@ -427,7 +429,7 @@ final class OERetroAchievementsIndicatorStackView: NSStackView {
 
     func showLeaderboard(id: UInt32, display: String) {
         let label = leaderboardViews[id] ?? makeChip(color: .systemBlue)
-        label.stringValue = "Leaderboard: \(display)"
+        label.stringValue = String(format: NSLocalizedString("Leaderboard: %@", comment: ""), display)
         if leaderboardViews[id] == nil {
             leaderboardViews[id] = label
         }
@@ -437,7 +439,7 @@ final class OERetroAchievementsIndicatorStackView: NSStackView {
 
     func updateLeaderboard(id: UInt32, display: String) {
         guard let label = leaderboardViews[id] else { return }
-        label.stringValue = "Leaderboard: \(display)"
+        label.stringValue = String(format: NSLocalizedString("Leaderboard: %@", comment: ""), display)
         resetLeaderboardDismissTimer(id: id)
         updateArrangedSubviews()
     }
@@ -526,7 +528,7 @@ final class OERetroAchievementsIndicatorStackView: NSStackView {
         for view in arrangedSubviews { removeArrangedSubview(view); view.removeFromSuperview() }
 
         if let currentChallengeID = challengeOrder.last, let title = challengeTitles[currentChallengeID] {
-            challengeChip.stringValue = "Challenge: \(title)"
+            challengeChip.stringValue = String(format: NSLocalizedString("Challenge: %@", comment: ""), title)
             addArrangedSubview(challengeChip)
         }
         if !progressLabel.isHidden { addArrangedSubview(progressLabel) }
@@ -560,7 +562,7 @@ final class OERetroAchievementsIndicatorStackView: NSStackView {
 final class OEGameLayerNotificationView: NSImageView {
     
     static let OEShowNotificationsKey = "OEShowNotifications"
-    
+
     public var disableNotifications: Bool = false
     
     lazy var quicksaveImage     = NSImage(named: "hud_quicksave_notification")
@@ -569,19 +571,10 @@ final class OEGameLayerNotificationView: NSImageView {
     lazy var rewindImage        = NSImage(named: "hud_rewind_notification")
     lazy var stepForwardImage   = NSImage(named: "hud_stepforward_notification")
     lazy var stepBackwardImage  = NSImage(named: "hud_stepbackward_notification")
-    /// Hardcore overlay image. Falls back to an SF Symbol when no custom asset exists
-    /// so the indicator works before final art ships.
-    lazy var hardcoreImage: NSImage? = {
-        if let named = NSImage(named: "hud_hardcore_notification") { return named }
-        let config = NSImage.SymbolConfiguration(pointSize: 64, weight: .bold)
-        return NSImage(systemSymbolName: "lock.shield.fill", accessibilityDescription: "Hardcore Mode")?
-            .withSymbolConfiguration(config)
-    }()
 
     var isFastForwarding: Bool  = false
     var isRewinding: Bool       = false
-    var isHardcoreMode: Bool    = false
-    
+
     override var wantsUpdateLayer: Bool { return true }
     
     var showNotifications: Bool {
@@ -621,13 +614,14 @@ final class OEGameLayerNotificationView: NSImageView {
         }
     }
 
-    @objc public func showHardcore(enabled: Bool) {
-        performNotification(img: hardcoreImage, enabled: enabled, state: &isHardcoreMode)
-        if enabled {
-            postAccessibilityNotification(announcement: NSLocalizedString("Hardcore Mode", tableName: "ControlLabels", comment: ""))
-        }
+    /// Hardcore mode has no HUD overlay of its own — the game-start info popover
+    /// already shows a "Hardcore Mode" pill, so a persistent lock icon on top of
+    /// gameplay was redundant. VoiceOver users still get an announcement.
+    @objc public func announceHardcoreModeChange(enabled: Bool) {
+        guard enabled else { return }
+        postAccessibilityNotification(announcement: NSLocalizedString("Hardcore Mode", tableName: "ControlLabels", comment: ""))
     }
-    
+
     @objc public func showQuickSave() {
         performShowHideNotification(img: quicksaveImage)
         postAccessibilityNotification(announcement: NSLocalizedString("Quick Save", tableName: "ControlLabels", comment: ""))
@@ -650,7 +644,7 @@ final class OEGameLayerNotificationView: NSImageView {
 
     @objc public func showAchievementUnlocked() {
         let config = NSImage.SymbolConfiguration(pointSize: 64, weight: .regular)
-        let img = NSImage(systemSymbolName: "trophy.fill", accessibilityDescription: "Achievement Unlocked")?
+        let img = NSImage(systemSymbolName: "trophy.fill", accessibilityDescription: NSLocalizedString("Achievement Unlocked", tableName: "ControlLabels", comment: "Achievement icon accessibility description"))?
             .withSymbolConfiguration(config)
         performShowHideNotification(img: img)
         postAccessibilityNotification(announcement: NSLocalizedString("Achievement Unlocked", tableName: "ControlLabels", comment: ""))

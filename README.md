@@ -8,23 +8,24 @@ OpenEmu Reborn keeps the idea that made OpenEmu special: a native Mac app that b
 
 This is an independent fan project maintained by [@communism420](https://github.com/communism420), not an official OpenEmu release or a product endorsed by the original team or OpenEmu-Silicon. The repository was previously named **OpenEmu-Intel**.
 
-## Version 1.0.0
+## Version 1.0.1 (in development)
 
 **1.0.0 starts the OpenEmu Reborn version series.** It does not reset OpenEmu's history, change emulator core versions, or imply that every game has been tested on both architectures.
 
 The current working version includes:
 
+- An interface-language selector in Preferences → Library. The choice is stored with the other settings in the selected data folder and takes effect on the next launch.
 - Native build targets for Apple Silicon and Intel, with architecture checks for the app and core plugins.
 - A first-launch data-folder choice for the library, app preferences, BIOS, saves and other app-owned files.
 - Selective data removal in Settings, with confirmation and a select-all option for categories inside the chosen folder. External game files are not deletion targets.
 - A **No Shader** option through the common renderer, independent of console or core.
 - The library, controller support, save states and emulator integrations inherited from OpenEmu and OpenEmu-Silicon.
 
-The latest local test package is **Intel-only**, not universal. Recent local fixes have not yet been run on a physical Apple Silicon Mac. A successful build is not a compatibility guarantee for every game.
+Check each package's recorded architectures and test results. A successful build is not a compatibility guarantee for every game; Intel gameplay tests do not establish Apple Silicon gameplay compatibility.
 
 ## Download and requirements
 
-There is no published OpenEmu Reborn release yet. Future packages belong on this repository's [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Until then, use the [source-build guide](.github/CONTRIBUTING.md).
+The published app is [OpenEmu Reborn 1.0.0](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.0). The `1.0.1` source version is not a claim that a `1.0.1` archive has been released. New verified packages belong on this repository's [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Developers can use the [source-build guide](.github/CONTRIBUTING.md).
 
 The app's deployment baseline is **macOS 11.0 or later** on an **Apple Silicon or 64-bit Intel Mac**. Individual cores and features may impose additional requirements. Both architectures does not mean every historical MacBook: 32-bit Intel and PowerPC are not supported targets.
 

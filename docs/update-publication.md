@@ -31,8 +31,10 @@ signature checking to make the old key accept an unrelated signature.
 Use a previously verified, certificate-signed app containing all 28 cores.
 For the shared `appcast.xml`, prefer a **universal app**: every executable,
 framework and bundled core must contain both `arm64` and `x86_64`.
-The usual local `OpenEmu-Intel-test/OpenEmu.app` is Intel-only; do not relabel
-that app as universal. Producing compatible binaries is a separate build step.
+The fixed local path `OpenEmu-Intel-test/OpenEmu.app` does not identify its
+architectures: it may contain an Intel-only or universal package. Verify every
+binary before selecting `--arch universal`; do not relabel an Intel-only app.
+Producing compatible binaries is a separate build step.
 
 ```bash
 OPENEMU_SIGN_UPDATE="/absolute/path/to/Sparkle/bin/sign_update" \

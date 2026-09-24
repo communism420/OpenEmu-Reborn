@@ -24,6 +24,15 @@
 
 import Cocoa
 
+extension Notification.Name {
+    /// Posted on the main thread when a background artwork availability check
+    /// or image decode (triggered by a cache miss in `isLocalImageAvailable`
+    /// or `image`) completes. userInfo[OEDBImageObjectIDKey] carries the
+    /// NSManagedObjectID of the OEDBImage that became available.
+    static let oeDBImageDidBecomeAvailable = Notification.Name("OEDBImageDidBecomeAvailableNotification")
+}
+let OEDBImageObjectIDKey = "OEDBImageObjectID"
+
 @objc
 final class OEDBImage: OEDBItem {
     
@@ -144,7 +153,7 @@ final class OEDBImage: OEDBItem {
     @objc(convertToFormat:withProperties:) // OEVersionMigrationController
     func convert(to type: NSBitmapImageRep.FileType, withProperties attributes: [NSBitmapImageRep.PropertyKey : Any]) -> Bool {
         guard
-            let image = image,
+            let image = loadImageSynchronously(),
             let context = managedObjectContext,
             let newURL = write(image, withType: type, withProperties: attributes, in: context)
         else {
@@ -226,14 +235,53 @@ final class OEDBImage: OEDBItem {
         return relativePath
     }
     
-    var image: NSImage? {
-        if let imageURL = imageURL {
-            return NSImage(contentsOf: imageURL)
-        } else {
-            return nil
-        }
+    private static let decodedImageCache: NSCache<NSString, NSImage> = {
+        let cache = NSCache<NSString, NSImage>()
+        cache.countLimit = 500
+        return cache
+    }()
+
+    private var _pendingImageDecodeRelativePath: String?
+
+    /// Migration and integrity checks need a definitive disk read, not the UI
+    /// getter's temporary nil while a background decode is pending. A failed
+    /// migration can delete the old image, so a cache miss must not mean corrupt.
+    func loadImageSynchronously() -> NSImage? {
+        guard let imageURL else { return nil }
+        return NSImage(contentsOf: imageURL)
     }
-    
+
+    /// Synchronous on a cache hit. On a cache miss, kicks off a background
+    /// decode and returns nil immediately (a legal value for this property)
+    /// so scroll-driven datasource calls never block the main thread on
+    /// disk I/O + image decode. Callers should observe
+    /// `.oeDBImageDidBecomeAvailable` and reload once the decode completes.
+    var image: NSImage? {
+        guard let imageURL = imageURL, let key = uuid as NSString? else { return nil }
+
+        if let cached = OEDBImage.decodedImageCache.object(forKey: key) {
+            return cached
+        }
+
+        let currentRelativePath = relativePath
+        if _pendingImageDecodeRelativePath != currentRelativePath {
+            _pendingImageDecodeRelativePath = currentRelativePath
+            let objectID = self.objectID
+            DispatchQueue.global(qos: .utility).async { [weak self] in
+                let decoded = NSImage(contentsOf: imageURL)
+                DispatchQueue.main.async {
+                    guard let self = self, self.relativePath == currentRelativePath else { return }
+                    self._pendingImageDecodeRelativePath = nil
+                    guard let decoded = decoded else { return }
+                    OEDBImage.decodedImageCache.setObject(decoded, forKey: key)
+                    NotificationCenter.default.post(name: .oeDBImageDidBecomeAvailable, object: nil,
+                                                     userInfo: [OEDBImageObjectIDKey: objectID])
+                }
+            }
+        }
+        return nil
+    }
+
     private var _cachedImageURL: URL?
     private var _cachedImageURLRelativePath: String?
 
@@ -268,16 +316,29 @@ final class OEDBImage: OEDBItem {
     private var _cachedIsLocalImageAvailable: Bool?
     private var _cachedIsLocalImageAvailableRelativePath: String?
 
+    /// A cheap on-disk existence check (a single stat() call), answered
+    /// synchronously and cached per relativePath. This intentionally does NOT
+    /// defer to a background check the way `image` does: imageUID() reflects
+    /// identity, not availability, but imageRepresentationType()/
+    /// imageRepresentation() still key off this to choose between the
+    /// placeholder and the real artwork — and IKImageBrowserView caches
+    /// representations by UID, so if this answer changed *after* the browser
+    /// already asked for a representation under a given UID, the browser
+    /// would be told to swap representation kind (placeholder image -> URL)
+    /// for an identity it considers unchanged. It doesn't handle that
+    /// gracefully — cells go blank/black instead of updating. A stat() call
+    /// is cheap enough to answer up front; the actual decode in `image` is
+    /// what needed to move off the main thread.
     var isLocalImageAvailable: Bool {
         let currentRelativePath = relativePath
         if let cached = _cachedIsLocalImageAvailable,
            _cachedIsLocalImageAvailableRelativePath == currentRelativePath {
             return cached
         }
-        let value = (try? imageURL?.checkResourceIsReachable()) ?? false
-        _cachedIsLocalImageAvailable = value
+        let available = (try? imageURL?.checkResourceIsReachable()) ?? false
+        _cachedIsLocalImageAvailable = available
         _cachedIsLocalImageAvailableRelativePath = currentRelativePath
-        return value
+        return available
     }
 
     func invalidateLocalImageAvailabilityCache() {

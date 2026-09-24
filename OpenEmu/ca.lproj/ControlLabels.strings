@@ -63,9 +63,9 @@
 	<key>C</key>
 	<string>C</string>
 	<key>C-Pad</key>
-	<string>C-Pad</string>
+	<string>Creu C</string>
 	<key>C-Stick</key>
-	<string>C-Stick</string>
+	<string>Palanca C</string>
 	<key>Change Disk Side</key>
 	<string>Canvia la cara del disc</string>
 	<key>Clear</key>
@@ -77,7 +77,7 @@
 	<key>Console Reset</key>
 	<string>Reinicia la consola</string>
 	<key>D-Pad</key>
-	<string>D-Pad</string>
+	<string>Creu de control</string>
 	<key>Display Mode</key>
 	<string>Mode de visualització</string>
 	<key>Down</key>
@@ -105,11 +105,11 @@
 	<key>L</key>
 	<string>L</string>
 	<key>L Diff</key>
-	<string>L Diff</string>
+	<string>Dificultat E</string>
 	<key>L Diff A</key>
-	<string>L Diff A</string>
+	<string>Dificultat E A</string>
 	<key>L Diff B</key>
-	<string>L Diff B</string>
+	<string>Dificultat E B</string>
 	<key>L1</key>
 	<string>L1</string>
 	<key>L2</key>
@@ -139,7 +139,7 @@
 	<key>Mode</key>
 	<string>Mode</string>
 	<key>Mode Switch</key>
-	<string>Mode Switch</string>
+	<string>Canvia el mode</string>
 	<key>Mute</key>
 	<string>Silencia</string>
 	<key>Next Display Mode</key>
@@ -165,11 +165,11 @@
 	<key>R</key>
 	<string>R</string>
 	<key>R Diff</key>
-	<string>R Diff</string>
+	<string>Dificultat D</string>
 	<key>R Diff A</key>
-	<string>R Diff A</string>
+	<string>Dificultat D A</string>
 	<key>R Diff B</key>
-	<string>R Diff B</string>
+	<string>Dificultat D B</string>
 	<key>R1</key>
 	<string>R1</string>
 	<key>R2</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Assoliment desbloquejat</string>
+	<key>Hardcore Mode</key>
+	<string>Mode hardcore</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Botons</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>Botó HOME</string>
+	<key>Tilt</key>
+	<string>Inclinació</string>
+	<key>Forward</key>
+	<string>Endavant</string>
+	<key>Backward</key>
+	<string>Enrere</string>
+	<key>Swing</key>
+	<string>Balanceig</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Comandament clàssic</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Botons especials</string>
+	<key>Change Extension</key>
+	<string>Canvia l’accessori</string>
+	<key>Hold Sideways</key>
+	<string>Mantén-lo horitzontal</string>
+	<key>Hold Upright</key>
+	<string>Mantén-lo vertical</string>
+	<key>Sleep</key>
+	<string>Suspèn</string>
+	<key>Stop</key>
+	<string>Atura</string>
+	<key>Slow Motion</key>
+	<string>Càmera lenta</string>
 </dict>
 </plist>

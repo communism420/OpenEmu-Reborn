@@ -53,7 +53,7 @@
 	<key>Library Window</key>
 	<string>遊戲庫視窗</string>
 	<key>Light</key>
-	<string>Light</string>
+	<string>淺色</string>
 	<key>Log HID Events</key>
 	<string>記錄 HID 事件</string>
 	<key>Log Keyboard Events</key>
@@ -107,7 +107,7 @@
 	<key>Show quicksave states in save state category</key>
 	<string>在保存狀態分類中顯示快速保存狀態</string>
 	<key>Sync games without artwork</key>
-	<string>Sync games without artwork</string>
+	<string>同步沒有圖片的遊戲</string>
 	<key>System</key>
 	<string>系統</string>
 	<key>Take screenshots in native size</key>
@@ -127,5 +127,27 @@
 	<string>執行此操作時 OpenEmu 將無響應。</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>將縮放選單單位從點改為像素</string>
+	<key>Dark</key>
+	<string>深色</string>
+	<key>Download additional shaders</key>
+	<string>下載更多著色器</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>在支援的顯示器上啟用適應性同步（全螢幕）</string>
+	<key>Preview achievement banner</key>
+	<string>預覽成就橫幅</string>
+	<key>Save States</key>
+	<string>即時存檔</string>
+	<key>Use new save states view</key>
+	<string>使用新的即時存檔檢視</string>
+	<key>Use new screenshots view</key>
+	<string>使用新的截圖檢視</string>
+	<key>Vibrant</key>
+	<string>半透明</string>
+	<key>Vibrant Wood</key>
+	<string>半透明木紋</string>
+	<key>Wood</key>
+	<string>木紋</string>
 </dict>
 </plist>

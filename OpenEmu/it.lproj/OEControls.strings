@@ -53,7 +53,7 @@ Ricorda che puoi cambiare in qualunque momento i controlli per tastiera e gamepa
 	<key>Import Into:</key>
 	<string>Importa in:</string>
 	<key>Input:</key>
-	<string>Input:</string>
+	<string>Ingresso:</string>
 	<key>Let’s Go!</key>
 	<string>Andiamo!</string>
 	<key>Move to Default Location</key>
@@ -61,7 +61,7 @@ Ricorda che puoi cambiare in qualunque momento i controlli per tastiera e gamepa
 	<key>Move...</key>
 	<string>Sposta...</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>Nuova preimpostazione</string>
 	<key>Next</key>
 	<string>Avanti</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -86,5 +86,43 @@ Ricorda che puoi cambiare in qualunque momento i controlli per tastiera e gamepa
 	<string>Benvenuto in OpenEmu!</string>
 	<key>Window Management:</key>
 	<string>Gestione finestre:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Oltre ai core appena installati, questo fork della comunità aggiunge funzioni assenti nell’originale:
+
+• RetroAchievements: ottieni obiettivi giocando su NES, SNES, GBA, Genesis e altri sistemi. Accedi da Preferenze → Obiettivi.
+• Copertine: scaricale automaticamente da ScreenScraper. Inserisci le credenziali in Preferenze → Copertine.
+• Gioca con…: fai clic destro su un gioco per scegliere il core.
+• Controlli: personalizza i tasti e i controller per ogni giocatore nelle Preferenze.</string>
+	<key>Click Go to open your library.</key>
+	<string>Fai clic su Vai per aprire la libreria.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Fai clic su Avanti per scegliere i core.</string>
+	<key>Downloading Data...</key>
+	<string>Download dei dati...</string>
+	<key>Game Scanner</key>
+	<string>Ricerca giochi</string>
+	<key>Name:</key>
+	<string>Nome:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn è modulare e, grazie ad altri grandi progetti open source, può emulare molti sistemi di gioco tramite i ‘core’. Alcuni richiedono di selezionare e confermare l’installazione e l’uso. I tuoi sistemi e giochi preferiti potrebbero non funzionare senza questi core.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn funziona nativamente sui Mac Apple Silicon e Intel. I core compatibili vengono eseguiti direttamente dal processore del Mac, senza uno strato di traduzione.
+
+Questa configurazione installerà i core necessari per iniziare a giocare. I core sono plugin modulari, uno per sistema, che puoi aggiungere o rimuovere dalle Preferenze in qualsiasi momento.</string>
+	<key>Resolve Issues</key>
+	<string>Risolvi problemi</string>
+	<key>Scanner Paused</key>
+	<string>Ricerca in pausa</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Benvenuto in OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Novità di OpenEmu Reborn</string>
 </dict>
 </plist>

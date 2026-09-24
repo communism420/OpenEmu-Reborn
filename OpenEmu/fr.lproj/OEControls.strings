@@ -61,7 +61,7 @@ Vous pouvez changer à tout moment les contrôles de votre clavier et manette po
 	<key>Move...</key>
 	<string>Déplacer…</string>
 	<key>New Preset</key>
-	<string>New Preset</string>
+	<string>Nouveau préréglage</string>
 	<key>Next</key>
 	<string>Suivant</string>
 	<key>OpenEmu is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
@@ -86,5 +86,43 @@ Vous pouvez changer à tout moment les contrôles de votre clavier et manette po
 	<string>Bienvenue dans OpenEmu !</string>
 	<key>Window Management:</key>
 	<string>Gestion de la fenêtre :</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>En plus des cœurs que vous venez d'installer, cette version communautaire ajoute des fonctions absentes de l'original :
+
+• RetroAchievements — obtenez des succès en jouant sur NES, SNES, GBA, Genesis et bien d'autres. Connectez-vous dans Préférences → Succès.
+• Illustrations — jaquettes automatiques via ScreenScraper. Ajoutez vos identifiants dans Préférences → Illustrations.
+• Jouer avec… — faites un clic droit sur un jeu pour choisir le cœur utilisé.
+• Commandes — personnalisez les touches du clavier et de la manette pour chaque joueur dans les Préférences.</string>
+	<key>Click Go to open your library.</key>
+	<string>Cliquez sur Commencer pour ouvrir votre bibliothèque.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Cliquez sur Suivant pour choisir vos cœurs.</string>
+	<key>Downloading Data...</key>
+	<string>Téléchargement des données...</string>
+	<key>Game Scanner</key>
+	<string>Recherche de jeux</string>
+	<key>Name:</key>
+	<string>Nom :</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn est modulaire et, grâce au travail d'autres excellents projets open source, peut émuler une grande variété de systèmes de jeux vidéo avec des « cœurs ». Pour certains, vous devez cocher et confirmer que vous souhaitez les installer et les utiliser. Vos systèmes et jeux préférés risquent de ne pas fonctionner sans ces cœurs.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn fonctionne nativement sur les Mac Apple Silicon et Intel. Les cœurs d'émulation compatibles s'exécutent directement sur le processeur de votre Mac, sans couche de traduction.
+
+Cette configuration installera les cœurs nécessaires pour commencer à jouer. Les cœurs sont des modules indépendants — un par système — que vous pouvez ajouter ou supprimer à tout moment dans les Préférences.</string>
+	<key>Resolve Issues</key>
+	<string>Résoudre les problèmes</string>
+	<key>Scanner Paused</key>
+	<string>Recherche en pause</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>Bienvenue dans OpenEmu Reborn</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>Nouveautés d'OpenEmu Reborn</string>
 </dict>
 </plist>

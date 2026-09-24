@@ -15,11 +15,11 @@
 	<key>2</key>
 	<string>2</string>
 	<key>2/6 Mode</key>
-	<string>2/6 Mode</string>
+	<string>Режим 2/6</string>
 	<key>3</key>
 	<string>3</string>
 	<key>3D Control Pad</key>
-	<string>3D Control Pad</string>
+	<string>3D-геймпад</string>
 	<key>4</key>
 	<string>4</string>
 	<key>5</key>
@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>Действие</string>
 	<key>Analog</key>
 	<string>Аналог</string>
 	<key>Analog Mode</key>
@@ -43,9 +43,9 @@
 	<key>B</key>
 	<string>B</string>
 	<key>Bottom Left Action</key>
-	<string>Bottom Left Action</string>
+	<string>Нижняя левая кнопка действия</string>
 	<key>Bottom Right Action</key>
-	<string>Bottom Right Action</string>
+	<string>Нижняя правая кнопка действия</string>
 	<key>Button 1</key>
 	<string>Кнопка 1</string>
 	<key>Button 1/Start</key>
@@ -63,9 +63,9 @@
 	<key>C</key>
 	<string>C</string>
 	<key>C-Pad</key>
-	<string>C-Pad</string>
+	<string>Крестовина C</string>
 	<key>C-Stick</key>
-	<string>C-Stick</string>
+	<string>Стик C</string>
 	<key>Change Disk Side</key>
 	<string>Изменить сторону диска</string>
 	<key>Clear</key>
@@ -77,21 +77,21 @@
 	<key>Console Reset</key>
 	<string>Сброс консоли</string>
 	<key>D-Pad</key>
-	<string>D-Pad</string>
+	<string>Крестовина</string>
 	<key>Display Mode</key>
 	<string>Режим отображения</string>
 	<key>Down</key>
 	<string>Вниз</string>
 	<key>Enter</key>
-	<string>Enter</string>
+	<string>Ввод</string>
 	<key>Fast Forward</key>
 	<string>Быстрая перемотка</string>
 	<key>Fire</key>
-	<string>Fire</string>
+	<string>Огонь</string>
 	<key>Fire 1</key>
-	<string>Fire 1</string>
+	<string>Огонь 1</string>
 	<key>Fire 2</key>
-	<string>Fire 2</string>
+	<string>Огонь 2</string>
 	<key>Fullscreen</key>
 	<string>Полный экран</string>
 	<key>Gameplay Buttons</key>
@@ -105,11 +105,11 @@
 	<key>L</key>
 	<string>L</string>
 	<key>L Diff</key>
-	<string>L Diff</string>
+	<string>Сложность слева</string>
 	<key>L Diff A</key>
-	<string>L Diff A</string>
+	<string>Сложность слева: A</string>
 	<key>L Diff B</key>
-	<string>L Diff B</string>
+	<string>Сложность слева: B</string>
 	<key>L1</key>
 	<string>L1</string>
 	<key>L2</key>
@@ -121,7 +121,7 @@
 	<key>Left</key>
 	<string>Налево</string>
 	<key>Left Action</key>
-	<string>Left Action</string>
+	<string>Левая кнопка действия</string>
 	<key>Left Analog</key>
 	<string>Левый аналог</string>
 	<key>Left D-Pad</key>
@@ -129,15 +129,15 @@
 	<key>Left Trigger</key>
 	<string>Левый курок</string>
 	<key>Lid</key>
-	<string>Lid</string>
+	<string>Крышка</string>
 	<key>Load</key>
 	<string>Загрузить</string>
 	<key>Menu</key>
-	<string>Menu</string>
+	<string>Меню</string>
 	<key>Mic</key>
-	<string>Mic</string>
+	<string>Микрофон</string>
 	<key>Mode</key>
-	<string>Mode</string>
+	<string>Режим</string>
 	<key>Mode Switch</key>
 	<string>Переключатель режима</string>
 	<key>Mute</key>
@@ -145,19 +145,19 @@
 	<key>Next Display Mode</key>
 	<string>Следующий режим отображения</string>
 	<key>Option</key>
-	<string>Option</string>
+	<string>Опция</string>
 	<key>Option 1</key>
-	<string>Option 1</string>
+	<string>Опция 1</string>
 	<key>Option 2</key>
-	<string>Option 2</string>
+	<string>Опция 2</string>
 	<key>P</key>
 	<string>P</string>
 	<key>Pause/Resume</key>
 	<string>Пауза</string>
 	<key>Player Start</key>
-	<string>Player Start</string>
+	<string>Старт игрока</string>
 	<key>Power</key>
-	<string>Power</string>
+	<string>Питание</string>
 	<key>Quick Load</key>
 	<string>Быстрая загрузка</string>
 	<key>Quick Save</key>
@@ -165,11 +165,11 @@
 	<key>R</key>
 	<string>R</string>
 	<key>R Diff</key>
-	<string>R Diff</string>
+	<string>Сложность справа</string>
 	<key>R Diff A</key>
-	<string>R Diff A</string>
+	<string>Сложность справа: A</string>
 	<key>R Diff B</key>
-	<string>R Diff B</string>
+	<string>Сложность справа: B</string>
 	<key>R1</key>
 	<string>R1</string>
 	<key>R2</key>
@@ -177,11 +177,11 @@
 	<key>R3</key>
 	<string>R3</string>
 	<key>Rapid Fire Clear</key>
-	<string>Rapid Fire Clear</string>
+	<string>Очистить автоогонь</string>
 	<key>Rapid Fire Reset</key>
-	<string>Rapid Fire Reset</string>
+	<string>Сбросить автоогонь</string>
 	<key>Rapid Fire Toggle</key>
-	<string>Rapid Fire Toggle</string>
+	<string>Переключить автоогонь</string>
 	<key>Reset</key>
 	<string>Сброс</string>
 	<key>Rewind</key>
@@ -189,7 +189,7 @@
 	<key>Right</key>
 	<string>Направо</string>
 	<key>Right Action</key>
-	<string>Right Action</string>
+	<string>Правая кнопка действия</string>
 	<key>Right Analog</key>
 	<string>Правый аналог</string>
 	<key>Right D-Pad</key>
@@ -197,23 +197,23 @@
 	<key>Right Trigger</key>
 	<string>Правый курок</string>
 	<key>Run</key>
-	<string>Run</string>
+	<string>Запуск</string>
 	<key>Save</key>
 	<string>Сохранение</string>
 	<key>Screenshot</key>
 	<string>Снимок экрана</string>
 	<key>Select</key>
-	<string>Select</string>
+	<string>Выбрать</string>
 	<key>Service</key>
-	<string>Service</string>
+	<string>Обслуживание</string>
 	<key>Shake</key>
-	<string>Shake</string>
+	<string>Встряхивание</string>
 	<key>Sound</key>
-	<string>Sound</string>
+	<string>Звук</string>
 	<key>Special Keys</key>
 	<string>Особые кнопки</string>
 	<key>Start</key>
-	<string>Start</string>
+	<string>Старт</string>
 	<key>Step Backward</key>
 	<string>Шаг назад</string>
 	<key>Step Forward</key>
@@ -223,11 +223,11 @@
 	<key>Switches</key>
 	<string>Переключатели</string>
 	<key>TV Black &amp; White</key>
-	<string>TV Black &amp; White</string>
+	<string>Чёрно-белый телевизор</string>
 	<key>TV Color</key>
-	<string>TV Color</string>
+	<string>Цветной телевизор</string>
 	<key>Top Action</key>
-	<string>Top Action</string>
+	<string>Верхняя кнопка действия</string>
 	<key>Trigger L</key>
 	<string>Курок L</string>
 	<key>Trigger R</key>
@@ -241,23 +241,23 @@
 	<key>X</key>
 	<string>X</string>
 	<key>X1 Up</key>
-	<string>X1 Up</string>
+	<string>X1 вверх</string>
 	<key>X2 Right</key>
-	<string>X2 Right</string>
+	<string>X2 вправо</string>
 	<key>X3 Down</key>
-	<string>X3 Down</string>
+	<string>X3 вниз</string>
 	<key>X4 Left</key>
-	<string>X4 Left</string>
+	<string>X4 влево</string>
 	<key>Y</key>
 	<string>Y</string>
 	<key>Y1 Up</key>
-	<string>Y1 Up</string>
+	<string>Y1 вверх</string>
 	<key>Y2 Right</key>
-	<string>Y2 Right</string>
+	<string>Y2 вправо</string>
 	<key>Y3 Down</key>
-	<string>Y3 Down</string>
+	<string>Y3 вниз</string>
 	<key>Y4 Left</key>
-	<string>Y4 Left</string>
+	<string>Y4 влево</string>
 	<key>Z</key>
 	<string>Z</string>
 	<key>▢</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Достижение получено</string>
+	<key>Hardcore Mode</key>
+	<string>Хардкорный режим</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Кнопки</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>Кнопка HOME</string>
+	<key>Tilt</key>
+	<string>Наклон</string>
+	<key>Forward</key>
+	<string>Вперёд</string>
+	<key>Backward</key>
+	<string>Назад</string>
+	<key>Swing</key>
+	<string>Взмах</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Классический контроллер</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Специальные кнопки</string>
+	<key>Change Extension</key>
+	<string>Сменить аксессуар</string>
+	<key>Hold Sideways</key>
+	<string>Держать горизонтально</string>
+	<key>Hold Upright</key>
+	<string>Держать вертикально</string>
+	<key>Sleep</key>
+	<string>Спящий режим</string>
+	<key>Stop</key>
+	<string>Остановить</string>
+	<key>Slow Motion</key>
+	<string>Замедление</string>
 </dict>
 </plist>

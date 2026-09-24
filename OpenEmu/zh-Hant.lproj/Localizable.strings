@@ -13,7 +13,7 @@
 	<key>%@ games you add to OpenEmu will appear in this Console Library</key>
 	<string>加入到 OpenEmu 的 %@ 遊戲會出現在該主機遊戲庫中</string>
 	<key>%ux</key>
-	<string>%ux</string>
+	<string>%u 倍</string>
 	<key>A name is required.</key>
 	<string>名稱為必填。</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
@@ -31,7 +31,7 @@
 	<key>ALERT_MOVE_LIBRARY_HTML</key>
 	<string>OpenEmu 遊戲庫包含一個資料庫檔，若將遊戲庫移動至以下位置，該檔可能會損壞:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;雲同步軟體管理的檔案夾 (如 &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;網路磁碟&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;此外，&lt;b&gt;在多台電腦或用戶之間共用同一遊戲庫&lt;/b&gt;也可能造成毀損。這也適用於將遊戲庫移動到外接 USB 碟。</string>
 	<key>Add</key>
-	<string>Add</string>
+	<string>新增</string>
 	<key>Add Cheat</key>
 	<string>新增金手指</string>
 	<key>Add Cheat…</key>
@@ -55,7 +55,7 @@
 	<key>An error occurred while preparing the setup assistant. (%@) Make sure you are connected to the internet and try again.</key>
 	<string>準備設置助理時出錯。(%@) 確認你已連接網際網路後重試。</string>
 	<key>An issue was detected with one of your controllers.</key>
-	<string>An issue was detected with one of your controllers.</string>
+	<string>偵測到某個控制器有問題。</string>
 	<key>Are you sure you want to delete %ld save states from your OpenEmu library?</key>
 	<string>你確定要從 OpenEmu 資源庫刪除 %ld 個已保存遊戲？</string>
 	<key>Are you sure you want to delete %ld screenshots from your OpenEmu library?</key>
@@ -75,7 +75,7 @@
 	<key>Are you sure you want to quit the game?</key>
 	<string>你確定要退出遊戲？</string>
 	<key>Are you sure you want to remove the collection '%@'?</key>
-	<string>你確定要移除這個收藏？</string>
+	<string>確定要移除收藏集「%@」嗎？</string>
 	<key>Are you sure you want to remove the selected game from the collection?</key>
 	<string>你確定要從收藏移除所選遊戲？</string>
 	<key>Are you sure you want to remove the selected games from the collection?</key>
@@ -205,7 +205,7 @@
 	<key>Device number %lu, %@, has disconnected.</key>
 	<string>設備號 %1$lu, %2$@, 已斷開連接</string>
 	<key>Disc %u</key>
-	<string>Disc %u</string>
+	<string>光碟 %u</string>
 	<key>Disc-based games have special requirements. Please read the disc importing guide.</key>
 	<string>磁盤遊戲有特殊要求。請閱讀磁盤匯入指南。</string>
 	<key>Dismiss</key>
@@ -241,9 +241,9 @@
 	<key>Duplicate Collection</key>
 	<string>創建收藏副本</string>
 	<key>ECM compressed binaries cannot be imported. Please read the disc importing guide.</key>
-	<string>ECM compressed binaries cannot be imported. Please read the disc importing guide.</string>
+	<string>無法匯入以 ECM 壓縮的二進位檔案。請閱讀光碟匯入指南。</string>
 	<key>ECM compressed binary detected.</key>
-	<string>ECM compressed binary detected.</string>
+	<string>偵測到 ECM 壓縮的二進位檔案。</string>
 	<key>ERROR_PLUGIN_IMPORT_ALREADYLOADED</key>
 	<string>此外掛的一個版本已經加載</string>
 	<key>ERROR_PLUGIN_IMPORT_OUTOFSUPPORT</key>
@@ -303,7 +303,7 @@ If not, hold down buttons ①+②.</key>
 	<key>Increase Grid Size</key>
 	<string>增加圖像大小</string>
 	<key>Insert Cart/Disk/Tape…</key>
-	<string>Insert Cart/Disk/Tape…</string>
+	<string>插入卡匣／磁碟／磁帶…</string>
 	<key>Install</key>
 	<string>安裝</string>
 	<key>Install %@</key>
@@ -321,7 +321,7 @@ If not, hold down buttons ①+②.</key>
 	<key>Keyboard</key>
 	<string>鍵盤</string>
 	<key>Keycode 0x%lX</key>
-	<string>Keycode 0x%lX</string>
+	<string>按鍵碼 0x%lX</string>
 	<key>Last Played</key>
 	<string>最近運行</string>
 	<key>Learn More</key>
@@ -363,7 +363,7 @@ If not, hold down buttons ①+②.</key>
 	<key>Mute Audio</key>
 	<string>靜音</string>
 	<key>NOT FOUND: "%@"</key>
-	<string>NOT FOUND: "%@"</string>
+	<string>找不到：「%@」</string>
 	<key>Name</key>
 	<string>名稱</string>
 	<key>Name must not contain “%@.”</key>
@@ -403,7 +403,7 @@ If not, hold down buttons ①+②.</key>
 	<key>Not plain text:</key>
 	<string>不是純文字:</string>
 	<key>OK</key>
-	<string>OK</string>
+	<string>好</string>
 	<key>Only files in the OpenEmu Library folder will be moved to the Trash.</key>
 	<string>只有 OpenEmu 遊戲庫檔案夾裡的檔案會被丟到垃圾桶。</string>
 	<key>Open Collection</key>
@@ -614,9 +614,9 @@ Please do not report problems as we are not responsible for the development of %
 	<key>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
 
 You can go to the Controls preferences to check which associations were affected.</key>
-	<string>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
+	<string>某個控制器的按鈕配置與上次連接 OpenEmu 時偵測到的配置不同。該控制器的部分操作對應已重置。
 
-You can go to the Controls preferences to check which associations were affected.</string>
+你可以前往「控制」偏好設定，查看受影響的對應。</string>
 	<key>The core could not be downloaded. Try installing it from the Cores preferences.</key>
 	<string>核心無法下載。嘗試從核心偏好設置裡安裝。</string>
 	<key>The emulator could not load ROM.</key>
@@ -652,7 +652,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Toggle Fullscreen</key>
 	<string>切換全螢幕</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>自製遊戲</string>
 	<key>Toolbar: Library</key>
 	<string>遊戲庫</string>
 	<key>Toolbar: Save States</key>
@@ -705,8 +705,6 @@ You can go to the Controls preferences to check which associations were affected
 	<string>成功移動遊戲庫。</string>
 	<key>this guide</key>
 	<string>本指南</string>
-	<key>Add Cheat</key>
-	<string>新增金手指</string>
 	<key>Cheat Search…</key>
 	<string>搜尋金手指…</string>
 	<key>Cheat Search</key>
@@ -747,10 +745,848 @@ You can go to the Controls preferences to check which associations were affected
 	<string>前一個值</string>
 	<key>This Value:</key>
 	<string>此值:</string>
-	<key>Cheat Description</key>
-	<string>金手指描述</string>
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>顯示 %2$@ 個相符項目中的前 %1$@ 個，請縮小搜尋範圍</string>
 
+	<key></key>
+	<string></string>
+	<key>%.1f%% unlocked</key>
+	<string>已解鎖 %.1f%%</string>
+	<key>%@ result found 🎯</key>
+	<string>找到 %@ 個結果 🎯</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · 成就 %d / %d · 點數 %d / %d</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · 排名第 %d</string>
+	<key>%d points</key>
+	<string>%d 點</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld 個檔案未符合任何遊戲，將略過。</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>每組代碼為 12 個十六進位字元，例如 80097BA0 270F。以「+」連接多行金手指。</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>每組代碼為 12 個十六進位字元，例如 8033B21D0064。以「+」連接多行金手指。</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;空格&gt;</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>正在檢查新核心。</string>
+	<key>A core update check is already in progress.</key>
+	<string>正在檢查核心更新。</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>「%@」在你的 %@ 中有較新的存檔（來自 %@）。要在遊戲前還原嗎？</string>
+	<key>Account Sign-ins</key>
+	<string>帳號登入資訊</string>
+	<key>Achievement Set</key>
+	<string>成就集</string>
+	<key>Achievement Set:</key>
+	<string>成就集：</string>
+	<key>Achievement set complete</key>
+	<string>成就集已完成</string>
+	<key>Achievements</key>
+	<string>成就</string>
+	<key>Achievements unavailable</key>
+	<string>無法使用成就</string>
+	<key>Achievements…</key>
+	<string>成就…</string>
+	<key>Active Now</key>
+	<string>目前啟用</string>
+	<key>Active: %@</key>
+	<string>目前：%@</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>將重置目前資料夾中的所有 OpenEmu 設定、控制器對應及已儲存的登入資訊。下次啟動時，需要重新選擇資料夾並完成初始設定。
+
+不會刪除遊戲、BIOS、存檔及核心。重新選擇同一資料夾即可繼續使用原遊戲資料庫。macOS 權限不會改變。
+
+確認後無法復原。</string>
+	<key>All achievements earned</key>
+	<string>已獲得全部成就</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>所有剩餘檔案，包括手動加入的檔案。保留用於識別資料夾、鎖定及記錄待處理刪除工作的技術檔案。</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>應用程式偏好設定、視窗設定及初始設定。</string>
+	<key>Apply</key>
+	<string>套用</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>確定要將「%@」還原為先前版本嗎？</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS 與韌體</string>
+	<key>Broker endpoint is nil</key>
+	<string>代理服務端點為空</string>
+	<key>Button %ld</key>
+	<string>按鈕 %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>CUE 索引檔包含無效的引號。</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>CUE 索引檔中沒有檔案名稱</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>CUE 格式要求以 " 包住檔案名稱，但找不到此引號。</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>CUE 格式要求使用 " 引號，但檔案使用了 %@。</string>
+	<key>Caches and Temporary Files</key>
+	<string>快取及暫存檔</string>
+	<key>Challenge Active</key>
+	<string>挑戰進行中</string>
+	<key>Check Again</key>
+	<string>再次檢查</string>
+	<key>Check for Update</key>
+	<string>檢查更新</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>請確認資料磁碟已連接且可寫入。原有設定已保留。</string>
+	<key>Choose</key>
+	<string>選擇</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>選擇 OpenEmu 資料夾</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>選擇圖片資料夾。檔案會依完整名稱與遊戲比對。</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>選擇用來備份即時存檔、電池存檔及 BIOS 檔案的資料夾。選擇 iCloud 雲碟中的資料夾，即可在你的 Mac 之間自動同步。</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>請選擇空資料夾或現有的 OpenEmu 資料夾。</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>為遊戲資料庫、匯入的遊戲、BIOS、存檔、核心、設定、著色器及快取選擇或建立專用資料夾。現有資料不會自動移動。若要繼續使用舊遊戲資料庫，請選擇其 OpenEmu 資料夾。</string>
+	<key>Choose what to remove</key>
+	<string>選擇要移除的內容</string>
+	<key>Completed</key>
+	<string>已完成</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>請連接磁碟後重試，或指定原本的資料夾。遊戲資料庫不會被取代。
+
+%@
+
+%@</string>
+	<key>Continue…</key>
+	<string>繼續…</string>
+	<key>Controller Mappings</key>
+	<string>控制器對應</string>
+	<key>Core supports RetroAchievements</key>
+	<string>核心支援 RetroAchievements</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>無法讀取路徑 %@ 中的檔案。請確認檔案位於該位置且可讀取。</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>因權限問題，無法讀取路徑 %@ 中的檔案。</string>
+	<key>Custom Shader Files</key>
+	<string>自訂著色器檔案</string>
+	<key>D-pad Down</key>
+	<string>方向鍵下</string>
+	<key>D-pad Left</key>
+	<string>方向鍵左</string>
+	<key>D-pad Right</key>
+	<string>方向鍵右</string>
+	<key>D-pad Up</key>
+	<string>方向鍵上</string>
+	<key>Data folder</key>
+	<string>資料夾</string>
+	<key>Delete Settings and Data…</key>
+	<string>刪除設定與資料…</string>
+	<key>Did it work?</key>
+	<string>是否正常運作？</string>
+	<key>Download &amp; Play</key>
+	<string>下載並遊玩</string>
+	<key>East</key>
+	<string>東</string>
+	<key>Edit</key>
+	<string>編輯</string>
+	<key>Edit…</key>
+	<string>編輯…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>模擬器等待核准</string>
+	<key>Enabled</key>
+	<string>已啟用</string>
+	<key>Europe</key>
+	<string>歐洲</string>
+	<key>Failed to launch helper app</key>
+	<string>無法啟動輔助應用程式</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>檔案 %@ 似乎不是純文字檔案。</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>檔案 %@ 不是純文字檔案。</string>
+	<key>File cannot be read</key>
+	<string>無法讀取檔案</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>無法讀取檔案（權限問題）</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Shaders 資料夾內的檔案。儲存在應用程式偏好設定中的預設包含在「OpenEmu 設定」中。</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>已為所選遊戲中的 %ld / %ld 個找到圖片。</string>
+	<key>GDI does not contain any tracks</key>
+	<string>GDI 中沒有軌道</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie 或 Action Replay。以「+」連接多行金手指。</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Game Genie 或 PAR 代碼。以「+」連接多行金手指。</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie 或原始十六進位代碼（XXXX:YY）。以「+」連接多行金手指。</string>
+	<key>Game Library and Games</key>
+	<string>遊戲資料庫與遊戲</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>此資料夾內的遊戲檔案、遊戲資料庫、圖片及金手指。保留外部遊戲。保留的存檔及截圖可能失去在遊戲資料庫中的記錄。</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark（無連字號）或 Game Genie（有連字號）。以「+」連接多行金手指。</string>
+	<key>Hardcore Mode</key>
+	<string>硬核模式</string>
+	<key>Hardcore Reset</key>
+	<string>硬核模式重新啟動</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>在 OpenEmu-Silicon 獲得 RetroAchievements 核准前，硬核模式解鎖的成就將以普通模式儲存。</string>
+	<key>Hash: %@</key>
+	<string>雜湊值：%@</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>輔助程序意外終止</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>如果已啟用 OpenEmu，macOS 可能仍在檢查另一份或重新建置的副本。請結束並重新開啟目前的副本，再次檢查。重置 OpenEmu 設定不會重置 macOS 權限。</string>
+	<key>Image Adjustments…</key>
+	<string>影像調整…</string>
+	<key>Import Artwork from Folder…</key>
+	<string>從資料夾匯入圖片…</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>已安裝的核心與系統外掛</string>
+	<key>Interface Language:</key>
+	<string>介面語言：</string>
+	<key>Invalid CUE sheet format</key>
+	<string>CUE 索引檔格式無效</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>此即時存檔由 OpenEmu 不再包含的核心「%@」建立。遊戲將不載入該存檔而啟動。</string>
+	<key>Japan</key>
+	<string>日本</string>
+	<key>Leaderboard Failed</key>
+	<string>排行榜挑戰失敗</string>
+	<key>Leaderboard Result</key>
+	<string>排行榜結果</string>
+	<key>Leaderboard Started</key>
+	<string>排行榜挑戰開始</string>
+	<key>Leaderboard Submitted</key>
+	<string>已提交排行榜成績</string>
+	<key>Load Anyway</key>
+	<string>仍要載入</string>
+	<key>Locate Folder…</key>
+	<string>指定資料夾…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>請指定先前選擇的 OpenEmu 資料夾。其他資料夾或空資料夾不會取代你的遊戲資料庫。</string>
+	<key>Logged in</key>
+	<string>已登入</string>
+	<key>M3U missing referenced file</key>
+	<string>M3U 參照的檔案遺失</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>M3U 參照了路徑 %@ 中無法存取的檔案。</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mastered</key>
+	<string>已精通</string>
+	<key>Missable</key>
+	<string>可能錯過</string>
+	<key>Missing referenced file</key>
+	<string>參照的檔案遺失</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>多個已安裝核心使用套件識別碼「%@」。請先刪除重複項目再更新。</string>
+	<key>Move the selected data to Trash?</key>
+	<string>將所選資料移至垃圾桶？</string>
+	<key>Move to Trash and Quit</key>
+	<string>移至垃圾桶並結束</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>N64 代碼必須為 12 個十六進位字元（8 位地址 + 4 位值），例如 8033B21D0064。Mupen64Plus 核心不支援較長的 16 位 GameShark Pro / Action Replay 代碼。</string>
+	<key>Newer Save Available</key>
+	<string>有較新的存檔</string>
+	<key>No Core</key>
+	<string>無核心</string>
+	<key>No Shader</key>
+	<string>不使用著色器</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>找不到此遊戲或雜湊值對應的成就集。</string>
+	<key>No achievements were reported for this game.</key>
+	<string>此遊戲未回報任何成就。</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>此核心沒有相容且通過驗證的下載。請再次檢查更新。</string>
+	<key>No matching artwork found.</key>
+	<string>找不到符合的圖片。</string>
+	<key>North</key>
+	<string>北</string>
+	<key>North America</key>
+	<string>北美</string>
+	<key>North-East</key>
+	<string>東北</string>
+	<key>North-West</key>
+	<string>西北</string>
+	<key>Not logged in</key>
+	<string>未登入</string>
+	<key>Not signed in</key>
+	<string>未登入</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>在下一個畫面確認之前，不會刪除任何內容。選擇「OpenEmu 設定」可在下次啟動時重新進行初始設定。</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>OEXPCMatchMaking 代理為空</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>只影響此資料夾內的資料。保留外部檔案及 OpenEmu.app，包括應用程式內建的核心。</string>
+	<key>Open System Settings</key>
+	<string>開啟系統設定</string>
+	<key>OpenEmu Settings</key>
+	<string>OpenEmu 設定</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>儲存在此資料夾中的 OpenEmu 快取及暫存檔。</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>OpenEmu 無法開啟資料夾</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>OpenEmu 無法聯絡資料刪除程序。你的資料未被更動。OpenEmu 即將結束；請重新開啟後重試。
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>OpenEmu 找不到用來啟動遊戲的系統外掛</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>OpenEmu 無法完成刪除所選資料</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>OpenEmu 無法準備資料刪除</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>OpenEmu 無法儲存設定</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>OpenEmu 無法儲存設定。請確認資料磁碟已連接且可寫入。</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>OpenEmu 找不到可用核心。此系統可能尚無可用核心，或你未連接網際網路。</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>OpenEmu 需要重新啟動，才能再次要求輸入監控權限。</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>OpenEmu 截圖及其在此資料夾內的自訂位置。核心產生的截圖包含在「存檔與主機資料」中。</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu 會先結束，再刪除所選資料，包括 Settings.plist 及其鎖定檔。下次啟動時會重新進行初始設定。已刪除檔案可從垃圾桶還原。隱藏的資料夾標記及空的登入資訊儲存檔可能仍會保留。</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>OpenEmu 會先結束，再刪除所選資料。保留應用程式設定及所選資料夾。已刪除檔案可從垃圾桶還原。隱藏的資料夾標記及空的登入資訊儲存檔可能仍會保留。</string>
+	<key>Other Files in This Folder</key>
+	<string>此資料夾中的其他檔案</string>
+	<key>Other Region</key>
+	<string>其他地區</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>PSX GameShark 代碼必須為 12 個十六進位字元（例如 80097BA0 270F）。類型位元組：30=8 位元，80=16 位元。</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>硬核模式禁止暫停</string>
+	<key>Pending submissions completed.</key>
+	<string>待處理的提交已完成。</string>
+	<key>Permission reset</key>
+	<string>權限已重置</string>
+	<key>Play Without Restoring</key>
+	<string>不還原並遊玩</string>
+	<key>Play Without Syncing</key>
+	<string>不同步並遊玩</string>
+	<key>Play With…</key>
+	<string>使用下列核心遊玩…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>與 Sonic &amp; Knuckles 連接遊玩</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>請從「偏好設定 → 成就」重新登入。</string>
+	<key>Progression</key>
+	<string>進度</string>
+	<key>RA: Offline</key>
+	<string>RA：離線</string>
+	<key>Relaunch Now</key>
+	<string>立即重新啟動</string>
+	<key>Remove OpenEmu Data</key>
+	<string>移除 OpenEmu 資料</string>
+	<key>Reset Permission</key>
+	<string>重置權限</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>重置所有設定並結束 OpenEmu？</string>
+	<key>Reset and Quit</key>
+	<string>重置並結束</string>
+	<key>Restart Required</key>
+	<string>需要重新啟動</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>正在重新啟動以套用硬核模式。</string>
+	<key>Restore &amp; Play</key>
+	<string>還原並遊玩</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>RetroAchievements 錯誤</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements 已離線</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>已重新連接 RetroAchievements</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>RetroAchievements 登入失敗</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>無法使用 RetroAchievements</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>無法為本次遊戲階段載入 RetroAchievements。</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>RetroAchievements 已啟用，但找不到此遊戲或雜湊值對應的成就集。</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>RetroAchievements 登入失敗。請從「偏好設定 → 成就」重新登入。</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements：無法辨識遊戲</string>
+	<key>Revert</key>
+	<string>還原</string>
+	<key>Revert to previous version?</key>
+	<string>還原為先前版本？</string>
+	<key>Save Anyway</key>
+	<string>仍要儲存</string>
+	<key>Save Cheat</key>
+	<string>儲存金手指</string>
+	<key>Save State Version Mismatch</key>
+	<string>即時存檔版本不符</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>硬核模式下禁止載入即時存檔。</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>即時存檔、電池存檔、記憶卡及模擬器支援資料夾，包括已安裝的主機內容與設定。</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>即時存檔、倒帶、逐格前進及金手指將停用。</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>儲存在此資料夾中的帳號憑證與登入資訊。</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>已儲存的鍵盤及遊戲控制器對應。</string>
+	<key>Saves and Console Data</key>
+	<string>存檔與主機資料</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>已刪除遊戲的截圖</string>
+	<key>Select</key>
+	<string>選擇</string>
+	<key>Select Backup Folder</key>
+	<string>選擇備份資料夾</string>
+	<key>Signed in</key>
+	<string>已登入</string>
+	<key>Softcore Mode</key>
+	<string>普通模式</string>
+	<key>Softcore enforced</key>
+	<string>已強制使用普通模式</string>
+	<key>Some submissions are pending retry.</key>
+	<string>部分提交正在等待重試。</string>
+	<key>South</key>
+	<string>南</string>
+	<key>South-East</key>
+	<string>東南</string>
+	<key>South-West</key>
+	<string>西南</string>
+	<key>Start</key>
+	<string>開始</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>切換至硬核模式需要重新啟動遊戲。</string>
+	<key>System Main Menu</key>
+	<string>系統主選單</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>CUE 索引檔 %@ 應包含參照 CD 區段的檔案名稱，但未找到。</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>BIOS 資料夾。模擬器支援資料夾中的韌體包含在「存檔與主機資料」中。</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>GDI 檔案 %@ 應包含參照軌道的檔案名稱，但未找到。</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>無法檢查「%@」中的處理器架構：%@</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>無法在「%@」安裝核心，因為「%@」已使用該名稱。</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>安裝位置不安全，無法安裝核心。</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>無法安全安裝核心：%@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>核心下載已結束，但未產生封存檔。</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>核心檔案「%@」不包含所需的 %@ 程式碼。包含的程式碼：%@。</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>取代核心後未產生已安裝的套件。</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>核心更新缺少有效的簽章、大小或處理器資訊。</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>核心更新伺服器未傳回成功的 HTTPS 回應。</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>核心更新的簽章無效。未安裝任何內容。</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>下載的封存檔必須且只能包含一個核心外掛，但找到了 %ld 個。</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>無法為下載的核心「%@」簽章（codesign 狀態 %d）。</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>無法解壓縮下載的核心封存檔。</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>無法安全檢查下載的核心封存檔。</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>下載的核心封存檔大小與預期不符。未安裝任何內容。</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>下載的核心在「%@」處包含不安全的連結。</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>無法為下載的核心簽章：%@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>下載的核心不包含其宣告的可執行檔。</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>下載的核心可執行檔不是 macOS Mach-O 二進位檔案。</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>無法檢查下載的核心檔案「%@」：%@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>下載的核心套件識別碼為「%@」，而非預期的「%@」。</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>下載的核心版本為「%@」，而非預期的「%@」。</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>下載的核心不是有效的外掛套件。</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>下載的核心外掛指向其暫存資料夾以外的位置。</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>模擬器沒有讀取 ROM 的權限。</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>檔案 %@ 不符合 CUE 索引檔格式。</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>已安裝的 Cores 及 Systems 資料夾。保留 OpenEmu.app 內建的核心。</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>無法載入已安裝的核心。已還原原有核心。</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>下次開啟 OpenEmu 時會切換語言。</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>無法完成重置，且部分設定無法還原。請重新連接資料磁碟並檢查權限後再試。</string>
+	<key>The selected data was not deleted</key>
+	<string>所選資料未被刪除</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>軌道數量（%@）與找到的軌道檔案參照數量（%@）在 GDI %@ 中不符。</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>已安裝更新後的核心。請重新啟動 OpenEmu 以使用它；執行中的遊戲會繼續使用原版本。</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>此代碼不符合此系統的已知金手指格式。</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>此核心未宣告支援 RetroAchievements</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>此核心為此系統提供 RetroAchievements 支援。</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>此 OpenEmu Reborn 副本不信任此核心更新來源。</string>
+	<key>This folder cannot be used</key>
+	<string>無法使用此資料夾</string>
+	<key>This save state can't be loaded.</key>
+	<string>無法載入此即時存檔。</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>此即時存檔由 %@ 版本 %@ 建立，但安裝的版本為 %@。載入可能導致當機。</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>等待輔助應用程式連線逾時</string>
+	<key>Track count mismatch</key>
+	<string>軌道數量不符</string>
+	<key>Trigger %@</key>
+	<string>扳機 %@</string>
+	<key>Try Again</key>
+	<string>重試</string>
+	<key>Try again in about %d seconds.</key>
+	<string>請在約 %d 秒後重試。</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>若要載入即時存檔，請在「偏好設定 ▸ RetroAchievements」中關閉硬核模式。</string>
+	<key>Unable to delete default shader preset</key>
+	<string>無法刪除預設著色器組態</string>
+	<key>Unable to delete the active shader</key>
+	<string>無法刪除目前使用的著色器</string>
+	<key>Unavailable</key>
+	<string>無法使用</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>請取消勾選不想更新的遊戲。</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>已解鎖成就 %d / %d · 點數 %d / %d</string>
+	<key>Untitled Achievement</key>
+	<string>未命名成就</string>
+	<key>Update Available</key>
+	<string>有可用更新</string>
+	<key>Use This Folder</key>
+	<string>使用此資料夾</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>正在等待模擬器核心提供 RetroAchievements 遊戲資訊。若此處持續空白，請確認已登入，且目前的核心與遊戲支援 RetroAchievements。</string>
+	<key>West</key>
+	<string>西</string>
+	<key>Win Condition</key>
+	<string>獲勝條件</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>此版本的 OpenEmu 無法開啟你的遊戲資料庫。</string>
+	<key>unknown</key>
+	<string>未知</string>
+	<key> — not yet supported</key>
+	<string> — 尚未支援</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@（%2$d / %3$d）</string>
+	<key>%@ result found</key>
+	<string>找到 %@ 個結果</string>
+	<key>%@ results found</key>
+	<string>找到 %@ 個結果</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>已從雲端同步「%@」的存檔。</string>
+	<key>A New Quest</key>
+	<string>新的冒險</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>存取權杖已過期且無法更新。請重新登入。</string>
+	<key>Action</key>
+	<string>動作</string>
+	<key>Active</key>
+	<string>啟用中</string>
+	<key>Add %@</key>
+	<string>新增 %@</string>
+	<key>All</key>
+	<string>全部</string>
+	<key>All saves are up to date.</key>
+	<string>所有存檔均為最新。</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>將即時存檔、電池存檔和 BIOS 檔案自動備份至任意資料夾。選擇 iCloud Drive 內的資料夾即可在多部 Mac 間同步，也可使用 Dropbox、外接磁碟機或任意本機路徑。</string>
+	<key>Backup Folder</key>
+	<string>備份資料夾</string>
+	<key>Browse Online Cheats</key>
+	<string>瀏覽線上金手指</string>
+	<key>Browse Online Cheats…</key>
+	<string>瀏覽線上金手指…</string>
+	<key>Challenge: %@</key>
+	<string>挑戰：%@</string>
+	<key>Cheat Code</key>
+	<string>金手指代碼</string>
+	<key>Cheat Name</key>
+	<string>金手指名稱</string>
+	<key>Cheat Removed</key>
+	<string>已移除金手指</string>
+	<key>Choose Folder…</key>
+	<string>選擇資料夾…</string>
+	<key>Clear</key>
+	<string>清除</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>按一下以新增或編輯此金手指的備註</string>
+	<key>Click to see the code</key>
+	<string>按一下查看代碼</string>
+	<key>Close</key>
+	<string>關閉</string>
+	<key>Cloud Sync</key>
+	<string>雲端同步</string>
+	<key>Code</key>
+	<string>代碼</string>
+	<key>Code already used</key>
+	<string>此代碼已使用</string>
+	<key>Connected</key>
+	<string>已連線</string>
+	<key>Copy</key>
+	<string>複製</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>無法連接 ScreenScraper，請檢查網路連線。</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>無法連接 ScreenScraper，請檢查網路連線。（%@）</string>
+	<key>Cover Art</key>
+	<string>封面圖片</string>
+	<key>Did this cheat code work for you?</key>
+	<string>此金手指代碼是否對你有效？</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>停用即時存檔載入、倒帶、逐格前進及金手指。排名成就需要啟用此模式。</string>
+	<key>Don't Send</key>
+	<string>不要傳送</string>
+	<key>Download failed: %@</key>
+	<string>下載失敗：%@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>正在從雲端下載「%@」…</string>
+	<key>Downloading…</key>
+	<string>正在下載…</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>無法將授權碼交換為權杖。</string>
+	<key>Filename</key>
+	<string>檔案名稱</string>
+	<key>Game</key>
+	<string>遊戲</string>
+	<key>Gamma:</key>
+	<string>伽瑪：</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Google 雲端硬碟 API 錯誤（HTTP %ld）：%@</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>硬核模式（建議）</string>
+	<key>Help Improve OpenEmu</key>
+	<string>協助改善 OpenEmu</string>
+	<key>I don't know</key>
+	<string>不知道</string>
+	<key>Import</key>
+	<string>匯入</string>
+	<key>Incompatible Cores Moved</key>
+	<string>已移動不相容的核心</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>找到不相容的即時存檔：%ld</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>已安裝：%@
+最新：%@</string>
+	<key>Invalid Backup Folder</key>
+	<string>備份資料夾無效</string>
+	<key>It does not work for me</key>
+	<string>對我無效</string>
+	<key>It works for me</key>
+	<string>對我有效</string>
+	<key>Keep for Now</key>
+	<string>暫時保留</string>
+	<key>Last backed up: %@</key>
+	<string>上次備份：%@</string>
+	<key>Last backup failed</key>
+	<string>上次備份失敗</string>
+	<key>Last synced: %@</key>
+	<string>上次同步：%@</string>
+	<key>Leaderboard: %@</key>
+	<string>排行榜：%@</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>標記此作弊碼對你是否有效</string>
+	<key>Modified</key>
+	<string>已修改</string>
+	<key>No backup yet</key>
+	<string>尚無備份</string>
+	<key>No cheats found</key>
+	<string>找不到作弊碼</string>
+	<key>No folder selected</key>
+	<string>尚未選擇資料夾</string>
+	<key>Not Connected</key>
+	<string>未連線</string>
+	<key>Not Working</key>
+	<string>無效</string>
+	<key>Not set</key>
+	<string>未設定</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>尚未登入 Google Drive。請在偏好設定中登入。</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>尚未登入，將略過 ScreenScraper。OpenVGDB 和 libretro-thumbnails 仍然可用。</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>尚未登入，將不會追蹤成就。</string>
+	<key>Not supported by this emulator.</key>
+	<string>此模擬器不支援。</string>
+	<key>Not synced yet</key>
+	<string>尚未同步</string>
+	<key>Notes</key>
+	<string>備註</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>OAuth 重新導向中缺少授權碼。</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>取得斷裂的皮克羅之劍</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>OpenEmu 會依序從三個來源尋找封面：先是內建的 OpenVGDB 資料庫，接著是 ScreenScraper（若已在下方登入），最後才是 libretro-thumbnails。登入 ScreenScraper 可取得最完整的封面資源，註冊免費。</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>OpenEmu 已將無法在此 Mac 上執行的核心移到 %@。
+
+已移動：%@
+
+相容的替代核心可用時將自動下載。</string>
+	<key>Opening sign-in page…</key>
+	<string>正在開啟登入頁面…</string>
+	<key>Password</key>
+	<string>密碼</string>
+	<key>Password cannot be empty.</key>
+	<string>密碼不可空白。</string>
+	<key>Provider</key>
+	<string>服務供應商</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>備份不包含 ROM。</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>在 retroachievements.org 免費註冊。</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>在 screenscraper.fr 免費註冊。</string>
+	<key>Remove</key>
+	<string>移除</string>
+	<key>Saturation:</key>
+	<string>飽和度：</string>
+	<key>Save</key>
+	<string>儲存</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>已達到 ScreenScraper 的請求頻率限制。請稍後再試。</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>ScreenScraper 拒絕了這些憑證。請檢查使用者名稱和密碼。</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>ScreenScraper 拒絕了這些憑證。請重新輸入密碼並儲存。</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>ScreenScraper 拒絕了你的憑證。請在「偏好設定」→「封面圖片」中檢查使用者名稱和密碼。</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>ScreenScraper 傳回了非預期的回應。</string>
+	<key>Send Crash Reports</key>
+	<string>傳送當機報告</string>
+	<key>Set Status</key>
+	<string>設定狀態</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>目前顯示 %2$@ 條作弊碼中的前 %1$@ 條。請縮小搜尋範圍。</string>
+	<key>Sign In</key>
+	<string>登入</string>
+	<key>Sign Out</key>
+	<string>登出</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>要登出 Google Drive 嗎？</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>登入 RetroAchievements 帳號即可在遊戲時獲得成就。密碼僅用於取得登入權杖，絕不會儲存到磁碟。</string>
+	<key>Sign-in failed: %@</key>
+	<string>登入失敗：%@</string>
+	<key>Signed in to Google Drive.</key>
+	<string>已登入 Google Drive。</string>
+	<key>Signing in…</key>
+	<string>正在登入…</string>
+	<key>Status</key>
+	<string>狀態</string>
+	<key>Supported Systems</key>
+	<string>支援的遊戲系統</string>
+	<key>Sync failed: %@</key>
+	<string>同步失敗：%@</string>
+	<key>Syncing…</key>
+	<string>正在同步…</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>備份資料夾不能位於 OpenEmu 資料資料夾內。請選擇其他位置，例如外接磁碟機或 iCloud Drive 內的資料夾。</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>下列即時存檔由舊版核心建立，現已不再相容。載入它們會導致當機。
+
+受影響的核心：
+%@
+
+你可以暫時保留它們，先備份下列位置的檔案再刪除：
+%@
+也可以立即移除。</string>
+	<key>Upload failed: %@</key>
+	<string>上傳失敗：%@</string>
+	<key>Uploaded %@.</key>
+	<string>已上傳 %@。</string>
+	<key>Uploading %@…</key>
+	<string>正在上傳 %@…</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>使用下方控制項依名稱和所選狀態篩選</string>
+	<key>Username</key>
+	<string>使用者名稱</string>
+	<key>Username cannot be empty.</key>
+	<string>使用者名稱不可空白。</string>
+	<key>Verifying credentials…</key>
+	<string>正在驗證憑證…</string>
+	<key>Verifying…</key>
+	<string>正在驗證…</string>
+	<key>Working</key>
+	<string>有效</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>要在 OpenEmu 當機時自動傳送當機報告嗎？這有助於團隊更快找出並修正問題。
+
+報告包含當機時使用的遊戲名稱、遊戲系統和核心。絕不會包含遊戲檔案、存檔資料或密碼。</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>本機存檔不會受到影響。你可以隨時重新登入。</string>
+	<key>retroachievements.org password</key>
+	<string>retroachievements.org 密碼</string>
+	<key>retroachievements.org username</key>
+	<string>retroachievements.org 使用者名稱</string>
+	<key>screenscraper.fr password</key>
+	<string>screenscraper.fr 密碼</string>
+	<key>screenscraper.fr username</key>
+	<string>screenscraper.fr 使用者名稱</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  （已儲存）</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ 偵測到重複的核心套件：%@。請開啟 %@，移除每個受影響核心的多餘副本。</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  已以 %@ 身分登入</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>登入成功，但 RetroAchievements 未傳回驗證權杖。</string>
+	<key>Invalid user/password combination.</key>
+	<string>使用者名稱與密碼的組合無效。</string>
+	<key>Login failed. Check username and password.</key>
+	<string>登入失敗。請檢查使用者名稱和密碼。</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>找不到可用於建立外掛執行檔的橋接套件或已安裝的 OpenEmu 核心。</string>
+	<key>+%u pts</key>
+	<string>+%u 分</string>
+	<key>No backup found</key>
+	<string>找不到備份</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>核心備份的套件識別碼與預期不符。</string>
+	<key>Invalid HTTP response</key>
+	<string>無效的 HTTP 回應</string>
 </dict>
 </plist>

@@ -127,5 +127,27 @@ bound to buttons:</string>
 	<string>While performing this operation OpenEmu will be unresponsive.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Change scale menu unit from points to pixels</string>
+	<key>Dark</key>
+	<string>Dark</string>
+	<key>Download additional shaders</key>
+	<string>Download additional shaders</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Enable adaptive sync for supported displays (full screen)</string>
+	<key>Preview achievement banner</key>
+	<string>Preview achievement banner</string>
+	<key>Save States</key>
+	<string>Save States</string>
+	<key>Use new save states view</key>
+	<string>Use new save states view</string>
+	<key>Use new screenshots view</key>
+	<string>Use new screenshots view</string>
+	<key>Vibrant</key>
+	<string>Vibrant</string>
+	<key>Vibrant Wood</key>
+	<string>Vibrant Wood</string>
+	<key>Wood</key>
+	<string>Wood</string>
 </dict>
 </plist>

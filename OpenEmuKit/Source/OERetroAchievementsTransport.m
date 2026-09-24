@@ -28,6 +28,7 @@
 #import <limits.h>
 #import <mach-o/dyld.h>
 #import "OERetroAchievementsTransport.h"
+#import "OpenEmuKitPrivate/OEHostLocalization.h"
 
 static NSString *OEStringFromCString(const char *string)
 {
@@ -334,7 +335,9 @@ void oeRetroAchievementsServerCall(const rc_api_request_t *request,
             }
 
             if (![response isKindOfClass:NSHTTPURLResponse.class]) {
-                const char *message = "Invalid HTTP response";
+                char message[256] = {0};
+                const char *localized = NSLocalizedStringFromTableInBundle(@"Invalid HTTP response", nil, OEHostLocalizationBundle(), @"RetroAchievements transport error").UTF8String;
+                if (localized) { strncpy(message, localized, sizeof(message) - 1); }
                 rc_api_server_response_t err = {
                     .body             = message,
                     .body_length      = strlen(message),

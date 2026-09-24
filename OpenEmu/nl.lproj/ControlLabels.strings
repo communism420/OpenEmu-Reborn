@@ -19,7 +19,7 @@
 	<key>3</key>
 	<string>3</string>
 	<key>3D Control Pad</key>
-	<string>3D Control Pad</string>
+	<string>3D-controller</string>
 	<key>4</key>
 	<string>4</string>
 	<key>5</key>
@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>Actie</string>
 	<key>Analog</key>
 	<string>Analoog</string>
 	<key>Analog Mode</key>
@@ -69,9 +69,9 @@
 	<key>Change Disk Side</key>
 	<string>Wissel schijf van kant</string>
 	<key>Clear</key>
-	<string>Clear</string>
+	<string>Wis</string>
 	<key>Configure</key>
-	<string>Configure</string>
+	<string>Configureer</string>
 	<key>Console Pause</key>
 	<string>Console pauze</string>
 	<key>Console Reset</key>
@@ -99,17 +99,17 @@
 	<key>Insert Coin</key>
 	<string>Muntstuk inwerpen</string>
 	<key>Jump</key>
-	<string>Jump</string>
+	<string>Spring</string>
 	<key>Keypad</key>
 	<string>Toetsenpaneel</string>
 	<key>L</key>
 	<string>L</string>
 	<key>L Diff</key>
-	<string>L Diff</string>
+	<string>Moeilijkheid L</string>
 	<key>L Diff A</key>
-	<string>L Diff A</string>
+	<string>Moeilijkheid L A</string>
 	<key>L Diff B</key>
-	<string>L Diff B</string>
+	<string>Moeilijkheid L B</string>
 	<key>L1</key>
 	<string>L1</string>
 	<key>L2</key>
@@ -117,7 +117,7 @@
 	<key>L3</key>
 	<string>L3</string>
 	<key>Last Display Mode</key>
-	<string>Last Display Mode</string>
+	<string>Vorige weergavemodus</string>
 	<key>Left</key>
 	<string>Links</string>
 	<key>Left Action</key>
@@ -129,21 +129,21 @@
 	<key>Left Trigger</key>
 	<string>Linker trigger</string>
 	<key>Lid</key>
-	<string>Lid</string>
+	<string>Deksel</string>
 	<key>Load</key>
 	<string>Laden</string>
 	<key>Menu</key>
 	<string>Menu</string>
 	<key>Mic</key>
-	<string>Mic</string>
+	<string>Microfoon</string>
 	<key>Mode</key>
 	<string>Modus</string>
 	<key>Mode Switch</key>
-	<string>Mode Switch</string>
+	<string>Wissel modus</string>
 	<key>Mute</key>
 	<string>Dempen</string>
 	<key>Next Display Mode</key>
-	<string>Next Display Mode</string>
+	<string>Volgende weergavemodus</string>
 	<key>Option</key>
 	<string>Optie</string>
 	<key>Option 1</key>
@@ -157,7 +157,7 @@
 	<key>Player Start</key>
 	<string>Speler start</string>
 	<key>Power</key>
-	<string>Power</string>
+	<string>Aan/uit</string>
 	<key>Quick Load</key>
 	<string>Snel laden</string>
 	<key>Quick Save</key>
@@ -165,11 +165,11 @@
 	<key>R</key>
 	<string>R</string>
 	<key>R Diff</key>
-	<string>R Diff</string>
+	<string>Moeilijkheid R</string>
 	<key>R Diff A</key>
-	<string>R Diff A</string>
+	<string>Moeilijkheid R A</string>
 	<key>R Diff B</key>
-	<string>R Diff B</string>
+	<string>Moeilijkheid R B</string>
 	<key>R1</key>
 	<string>R1</string>
 	<key>R2</key>
@@ -177,11 +177,11 @@
 	<key>R3</key>
 	<string>R3</string>
 	<key>Rapid Fire Clear</key>
-	<string>Rapid Fire Clear</string>
+	<string>Wis snelvuur</string>
 	<key>Rapid Fire Reset</key>
-	<string>Rapid Fire Reset</string>
+	<string>Zet snelvuur terug</string>
 	<key>Rapid Fire Toggle</key>
-	<string>Rapid Fire Toggle</string>
+	<string>Schakel snelvuur om</string>
 	<key>Reset</key>
 	<string>Opnieuw instellen</string>
 	<key>Rewind</key>
@@ -203,9 +203,9 @@
 	<key>Screenshot</key>
 	<string>Schermafbeelding</string>
 	<key>Select</key>
-	<string>Select</string>
+	<string>Selecteer</string>
 	<key>Service</key>
-	<string>Service</string>
+	<string>Onderhoud</string>
 	<key>Shake</key>
 	<string>Schud</string>
 	<key>Sound</key>
@@ -215,11 +215,11 @@
 	<key>Start</key>
 	<string>Start</string>
 	<key>Step Backward</key>
-	<string>Step Backward</string>
+	<string>Eén beeld terug</string>
 	<key>Step Forward</key>
-	<string>Step Forward</string>
+	<string>Eén beeld vooruit</string>
 	<key>Swap Joysticks</key>
-	<string>Swap Joysticks</string>
+	<string>Wissel joysticks</string>
 	<key>Switches</key>
 	<string>Schakelaars</string>
 	<key>TV Black &amp; White</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>Prestatie ontgrendeld</string>
+	<key>Hardcore Mode</key>
+	<string>Hardcoremodus</string>
+	<key>Wiimote</key>
+	<string>Wiimote</string>
+	<key>Buttons</key>
+	<string>Knoppen</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>HOME-knop</string>
+	<key>Tilt</key>
+	<string>Kantelen</string>
+	<key>Forward</key>
+	<string>Vooruit</string>
+	<key>Backward</key>
+	<string>Achteruit</string>
+	<key>Swing</key>
+	<string>Zwaaien</string>
+	<key>Nunchuk</key>
+	<string>Nunchuk</string>
+	<key>Classic Controller</key>
+	<string>Klassieke controller</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>Speciale knoppen</string>
+	<key>Change Extension</key>
+	<string>Uitbreiding wisselen</string>
+	<key>Hold Sideways</key>
+	<string>Horizontaal houden</string>
+	<key>Hold Upright</key>
+	<string>Verticaal houden</string>
+	<key>Sleep</key>
+	<string>Slaapstand</string>
+	<key>Stop</key>
+	<string>Stoppen</string>
+	<key>Slow Motion</key>
+	<string>Vertraagd afspelen</string>
 </dict>
 </plist>

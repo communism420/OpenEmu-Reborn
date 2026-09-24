@@ -286,6 +286,14 @@ final class CoreUpdater: NSObject {
         }
     }
     
+    /// Whether this core is installed or present in the currently loaded catalog.
+    /// A false result is not permanent: the catalog may not have loaded, and an
+    /// external RetroArch core can be installed separately in Preferences.
+    func canProvideCore(withIdentifier identifier: String) -> Bool {
+        OECorePlugin.corePlugin(bundleIdentifier: identifier) != nil
+            || coresDict[identifier.lowercased()] != nil
+    }
+
     func installCore(for state: OEDBSaveState, withCompletionHandler handler: @escaping (_ plugin: OECorePlugin?, _ error: Error?) -> Void) {
         
         let coreID = state.coreIdentifier.lowercased()
@@ -294,7 +302,6 @@ final class CoreUpdater: NSObject {
             let message = String(format: NSLocalizedString("To launch the save state %@ you will need to install the '%@' Core", comment: ""), state.displayName, coreName)
             installCore(with: download, message: message, completionHandler: handler)
         } else {
-            // TODO: create proper error saying that no core is available for the state
             handler(nil, Errors.noDownloadableCoreForIdentifierError)
         }
     }
@@ -355,7 +362,7 @@ final class CoreUpdater: NSObject {
               let plugin = OECorePlugin.corePlugin(bundleIdentifier: bundleID),
               plugin.url.deletingLastPathComponent().standardizedFileURL == coresDirectory.standardizedFileURL,
               fileManager.fileExists(atPath: backupURL.path) else {
-            completionHandler(NSError(domain: "OpenEmu", code: 404, userInfo: [NSLocalizedDescriptionKey: "No backup found"]))
+            completionHandler(NSError(domain: "OpenEmu", code: 404, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("No backup found", comment: "Core rollback error")]))
             return
         }
         
@@ -368,7 +375,7 @@ final class CoreUpdater: NSObject {
                 throw NSError(
                     domain: "OpenEmu",
                     code: 409,
-                    userInfo: [NSLocalizedDescriptionKey: "The core backup has an unexpected bundle identifier."]
+                    userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("The core backup has an unexpected bundle identifier.", comment: "Core rollback identity error")]
                 )
             }
             try CoreDownload.validateRunningArchitecture(of: backupURL)

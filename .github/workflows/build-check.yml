@@ -17,6 +17,73 @@ on:
     branches: [main]
 
 jobs:
+  swift-source-style:
+    if: inputs.package_intel != true
+    name: Swift source style
+    runs-on: macos-26
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Check shared Swift sources with pinned SwiftLint
+        run: |
+          set -euo pipefail
+          # Intel images currently include SwiftLint, while ARM images do not.
+          # Check both shared projects once before starting the core matrix.
+          lint_dir=$(mktemp -d "$RUNNER_TEMP/openemu-swiftlint.XXXXXX")
+          curl --fail --location --silent --show-error \
+            https://github.com/realm/SwiftLint/releases/download/0.65.1/portable_swiftlint.zip \
+            --output "$lint_dir/portable_swiftlint.zip"
+          (cd "$lint_dir" && echo 'c1e429b0599cf1b516f369a2d9ec04eaf0e436f3c12b637df8851fa52ff694d0  portable_swiftlint.zip' | shasum -a 256 -c -)
+          unzip -q "$lint_dir/portable_swiftlint.zip" -d "$lint_dir"
+          test "$("$lint_dir/swiftlint" version)" = '0.65.1'
+          for lint_project in OpenEmuKit OpenEmu-Shaders; do
+            (cd "$lint_project" && "$lint_dir/swiftlint" lint --no-cache)
+          done
+
+  native-file-panels:
+    needs: swift-source-style
+    if: inputs.package_intel != true
+    name: Native file panels (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-26
+          - arch: x86_64
+            runner: macos-26-intel
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1
+        with:
+          xcode-version: '26.5'
+
+      - name: Guard the affected hosted Intel icon service
+        id: iconservices
+        if: matrix.arch == 'x86_64'
+        run: python3 Scripts/ci-macos-iconservices.py apply
+
+      - name: Test native file panels before building cores
+        timeout-minutes: 10
+        run: |
+          OE_PANEL_TEST_LANGUAGES='en ru de ar' bash Scripts/Tests/test-data-folder-panel.sh --standalone
+
+      - name: Restore the hosted Intel icon service
+        if: always() && matrix.arch == 'x86_64' && steps.iconservices.outcome != 'skipped' && steps.iconservices.outcome != ''
+        run: python3 Scripts/ci-macos-iconservices.py cleanup
+
   intel-test-build:
     if: inputs.package_intel == true
     uses: ./.github/workflows/intel-test-build.yml
@@ -36,10 +103,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
 
       - name: Check vendored core externals are populated
         run: ./Scripts/check-core-sources.sh
+
+      - name: Test native panel timeout diagnostics
+        run: |
+          python3 Scripts/Tests/test-panel-watchdog.py
+          python3 Scripts/Tests/test-ci-macos-iconservices.py
 
       - name: Test CI artifact provenance guards
         run: |
@@ -51,9 +123,11 @@ jobs:
           python3 Scripts/Tests/test-stage-universal-app.py
           python3 Scripts/Tests/test-release-branding.py
           python3 Scripts/Tests/test-core-artifact-reuse.py
+          python3 Scripts/Tests/test-core-build-selection.py
           python3 Scripts/Tests/test-signed-release-app-guards.py
 
   detect-core-changes:
+    needs: [swift-source-style, native-file-panels]
     if: inputs.package_intel != true
     # The `OpenEmu` scheme only builds the main app plus its own dependencies
     # (OpenEmuKit/Base/System) — it never compiles core plugins, so a PR that
@@ -67,10 +141,11 @@ jobs:
       actions: read
     outputs:
       cores: ${{ steps.detect.outputs.cores }}
+      mame: ${{ steps.detect.outputs.mame }}
       reused: ${{ steps.reuse.outputs.verified }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
         with:
           fetch-depth: 0
 
@@ -106,71 +181,35 @@ jobs:
 
       - name: Determine which core schemes to build
         id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          SOURCE_SHA: ${{ github.sha }}
+          REUSE_VERIFIED: ${{ steps.reuse.outputs.verified }}
         run: |
-          # Most cores build through the "OpenEmu + <Name>" combined scheme.
-          # DeSmuME and Dolphin only have a bare "<Name>" scheme — the Build
-          # step below picks the right one per core. MAME is deliberately not
-          # listed here because its source is fetched and compiled by the
-          # dedicated build-mame job below.
-          all_cores='["4DO","Atari800","Bliss","BSNES","CrabEmu","DeSmuME","Dolphin","FCEU","Flycast","Gambatte","GenesisPlus","JollyCV","Mednafen","mGBA","Mupen64Plus","Nestopia","O2EM","Picodrive","PokeMini","Potator","PPSSPP","ProSystem","SNES9x","Stella","VecXGL","VirtualJaguar","blueMSX"]'
-
-          # A couple of core scheme names don't match their top-level
-          # directory name, so the plain "did <core>/ change" check below
-          # needs an explicit override for them. (Not a bash associative
-          # array — macOS's default /bin/bash is 3.2 and doesn't have them.)
-          core_dirs_json='{"Potator":"Potator-Core","Picodrive":"picodrive"}'
-
-          if [ "${{ steps.reuse.outputs.verified }}" = "true" ]; then
-            # The evidence step checked all 56 prior core results and identical
-            # core inputs. These are reused builds, not new successful tests.
+          if [ "$REUSE_VERIFIED" = "true" ]; then
+            # The separate evidence gate checked all 56 original core results
+            # and identical inputs. This is reuse, not a new successful build.
+            echo "cores=[]" >> "$GITHUB_OUTPUT"
+            echo "mame=false" >> "$GITHUB_OUTPUT"
             echo "Reusing the explicitly verified core source run"
-            cores='[]'
-          elif [ "${{ github.event_name }}" != "pull_request" ]; then
-            # Push and workflow_dispatch runs have no PR base to diff against —
-            # build every core and validate the vendored framework sources.
-            echo "Not a pull_request event — building all core schemes"
-            cores="$all_cores"
           else
-            changed=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}")
-            echo "Changed files:"
-            echo "$changed"
-
-            # A change to shared framework code, the workspace, or scheme files
-            # can affect every core's build — fall back to building all of them.
-            # OpenEmuKit/ is included because several cores (Gambatte, FCEU,
-            # GenesisPlus, Mednafen, mGBA, Mupen64Plus, Nestopia, SNES9x, BSNES)
-            # compile .m files directly out of OpenEmuKit/Source/ into their
-            # own plugin targets.
-            if echo "$changed" | grep -qE '^(OpenEmu-SDK/|OpenEmu-metal\.xcworkspace/|OpenEmuKit/|Scripts/)'; then
-              echo "Shared code changed — building all core schemes"
-              cores="$all_cores"
-            else
-              cores=$(CHANGED_FILES="$changed" ALL_CORES="$all_cores" CORE_DIRS="$core_dirs_json" python3 -c "
-          import json, os
-          all_cores = json.loads(os.environ['ALL_CORES'])
-          core_dirs = json.loads(os.environ['CORE_DIRS'])
-          changed = os.environ['CHANGED_FILES'].splitlines()
-          selected_names = {
-              c for c in all_cores
-              if any(f.startswith(core_dirs.get(c, c) + '/') for f in changed)
-          }
-
-          # These plugins compile the shared rcheevos source directly into
-          # their own bundle, so a Vendor/rcheevos change must rebuild them.
-          if any(f.startswith('Vendor/rcheevos/') for f in changed):
-              selected_names.update([
-                  'BSNES', 'FCEU', 'Gambatte', 'GenesisPlus', 'Mednafen',
-                  'mGBA', 'Mupen64Plus', 'Nestopia', 'SNES9x',
-              ])
-
-          selected = [c for c in all_cores if c in selected_names]
-          print(json.dumps(selected))
-          ")
+            if [ "$EVENT_NAME" = "pull_request" ]; then
+              # Both sides of moved/deleted inputs matter; preserve all paths.
+              git diff --no-renames --name-only -z "$PR_BASE" "$SOURCE_SHA" -- > "$RUNNER_TEMP/changed-core-paths"
             fi
+            python3 Scripts/select-core-builds.py --event "$EVENT_NAME" \
+              --changed-paths-null "$RUNNER_TEMP/changed-core-paths" > "$RUNNER_TEMP/core-selection.json"
+            python3 - <<'PY'
+          import json, os, pathlib
+          result = json.loads((pathlib.Path(os.environ['RUNNER_TEMP']) / 'core-selection.json').read_text())
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('cores=' + json.dumps(result['cores']) + '\n')
+              output.write('mame=' + str(result['mame']).lower() + '\n')
+          print(result['reason'])
+          print('Core schemes:', result['cores'], 'MAME:', result['mame'])
+          PY
           fi
-
-          echo "Core schemes to build: $cores"
-          echo "cores=$cores" >> "$GITHUB_OUTPUT"
 
       - name: Preserve core reuse evidence
         if: always()
@@ -199,10 +238,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
 
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1.6.0
         with:
           xcode-version: '26.5'
 
@@ -274,7 +313,7 @@ jobs:
 
   build-mame:
     needs: detect-core-changes
-    if: inputs.package_intel != true && needs.detect-core-changes.outputs.reused != 'true'
+    if: inputs.package_intel != true && needs.detect-core-changes.outputs.reused != 'true' && needs.detect-core-changes.outputs.mame == 'true'
     # MAME's pinned source checkout is about 1 GB even when shallow, and the
     # arcade build takes substantially longer than an ordinary core. Keep it
     # out of the xcodebuild matrix so both native architectures are explicit
@@ -293,10 +332,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
 
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@1242409711ff5721add51979e9e11e23ebb7e5a4 # v1.6.0
         with:
           xcode-version: '26.5'
 
@@ -578,6 +617,7 @@ jobs:
           test "$framework_count" -ge 2
 
   build:
+    needs: native-file-panels
     if: inputs.package_intel != true
     name: Build (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
@@ -613,6 +653,16 @@ jobs:
           ./Scripts/Tests/test-data-folder-setup.sh
           python3 ./Scripts/Tests/test-core-data-folder.py
           ./Mednafen/Tests/test-generated-playlists.sh
+
+      - name: Test localization (${{ matrix.arch }})
+        run: |
+          python3 Scripts/Tests/test-core-build-selection.py
+          python3 Scripts/Tests/test-localizations.py
+          python3 Scripts/Tests/test-system-document-localizations.py
+          bash Scripts/Tests/test-artwork-migration.sh
+          python3 Scripts/check-localizations.py
+          bash Scripts/Tests/test-interface-language.sh
+          bash Scripts/Tests/test-helper-localization.sh
 
       - name: Build OpenEmu (Debug, ${{ matrix.arch }})
         run: |
@@ -667,6 +717,12 @@ jobs:
 
       - name: Verify app architecture (Release, ${{ matrix.arch }})
         run: ./Scripts/verify-bundle-architectures.sh --arch '${{ matrix.arch }}' "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release/OpenEmu.app"
+
+      - name: Verify retained RetroArch integration (${{ matrix.arch }})
+        run: |
+          python3 Scripts/Tests/test-silicon-sync.py
+          bash Scripts/Tests/test-libretro-bridge.sh "$RUNNER_TEMP/OpenEmuDerivedData/Build/Products/Release"
+          bash Scripts/Tests/test-libretro-stub-refresh.sh
 
       - name: Test authenticated core updates (${{ matrix.arch }})
         run: |

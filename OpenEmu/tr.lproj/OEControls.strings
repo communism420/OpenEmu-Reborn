@@ -86,5 +86,43 @@ Remember you can change both your keyboard and gamepad controls for yourself and
 	<string>OpenEmu'ya hoş geldiniz !</string>
 	<key>Window Management:</key>
 	<string>Pencere Yöneticisi:</string>
+	<key>Beyond the cores you just installed, this community fork adds features not in the original:
+
+• RetroAchievements — earn achievements as you play across NES, SNES, GBA, Genesis, and more. Sign in via Preferences → Achievements.
+• Cover Art — automatic box art via ScreenScraper. Add credentials in Preferences → Cover Art.
+• Play With… — right-click any game to choose which core runs it.
+• Controls — customise keyboard and gamepad bindings per player in Preferences.</key>
+	<string>Yeni kurduğunuz çekirdeklerin yanında bu topluluk çatallaması, özgün sürümde olmayan özellikler sunar:
+
+• RetroAchievements — NES, SNES, GBA, Genesis ve daha fazlasında oynarken başarımlar kazanın. Tercihler → Başarımlar üzerinden giriş yapın.
+• Kapak görselleri — ScreenScraper ile otomatik kapaklar. Tercihler → Kapak görselleri bölümüne kimlik bilgilerinizi girin.
+• Şununla oyna… — oyuna sağ tıklayıp çalıştıracak çekirdeği seçin.
+• Denetimler — Tercihler’de her oyuncu için klavye ve oyun kumandası eşlemelerini özelleştirin.</string>
+	<key>Click Go to open your library.</key>
+	<string>Arşivinizi açmak için İleri’ye tıklayın.</string>
+	<key>Click Next to choose your cores.</key>
+	<string>Çekirdeklerinizi seçmek için İleri’ye tıklayın.</string>
+	<key>Downloading Data...</key>
+	<string>Veriler indiriliyor...</string>
+	<key>Game Scanner</key>
+	<string>Oyun tarayıcısı</string>
+	<key>Name:</key>
+	<string>Ad:</string>
+	<key>OpenEmu Reborn is modular, and thanks to the work of other great open source projects, it can emulate a wide variety of video game systems (‘cores’). A select few require you tick and confirm that you want to install and use them. Your favorite game systems and games may not run without these cores.</key>
+	<string>OpenEmu Reborn modülerdir; diğer harika açık kaynak projelerinin çalışmaları sayesinde çok çeşitli oyun sistemlerini (‘çekirdekler’) taklit eder. Bazıları, kurulup kullanılmaları için işaretlemenizi ve onaylamanızı gerektirir. Sevdiğiniz sistemler ve oyunlar bu çekirdekler olmadan çalışmayabilir.</string>
+	<key>OpenEmu Reborn runs natively on both Apple Silicon and Intel Macs. Compatible emulation cores run directly on your Mac’s processor, without a translation layer.
+
+This setup will install the system cores you need to start playing. Cores are modular plugins — one per system — and you can add or remove them anytime from Preferences.</key>
+	<string>OpenEmu Reborn, Apple Silicon ve Intel Mac’lerde yerel olarak çalışır. Uyumlu emülasyon çekirdekleri çeviri katmanı olmadan doğrudan Mac’in işlemcisinde çalışır.
+
+Bu kurulum, oynamaya başlamak için gereken sistem çekirdeklerini kurar. Çekirdekler her sistem için modüler eklentilerdir; Tercihler’den istediğiniz zaman ekleyip kaldırabilirsiniz.</string>
+	<key>Resolve Issues</key>
+	<string>Sorunları çöz</string>
+	<key>Scanner Paused</key>
+	<string>Tarama duraklatıldı</string>
+	<key>Welcome to OpenEmu Reborn</key>
+	<string>OpenEmu Reborn’a hoş geldiniz</string>
+	<key>What’s New in OpenEmu Reborn</key>
+	<string>OpenEmu Reborn’daki yenilikler</string>
 </dict>
 </plist>

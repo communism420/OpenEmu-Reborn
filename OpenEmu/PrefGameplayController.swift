@@ -74,7 +74,7 @@ final class PrefGameplayController: NSViewController {
         guard let gridView = ancestor as? NSGridView else { return }
 
         // ── Build Saturation row ──────────────────────────────────────────
-        let satLabel = NSTextField(labelWithString: "Saturation:")
+        let satLabel = NSTextField(labelWithString: NSLocalizedString("Saturation:", comment: "Gameplay saturation slider label"))
         satLabel.font = .systemFont(ofSize: NSFont.systemFontSize)
 
         let satSlider = NSSlider(value: Double(sat), minValue: 0.5, maxValue: 3.0,
@@ -92,7 +92,7 @@ final class PrefGameplayController: NSViewController {
         satRow.distribution = .fill
 
         // ── Build Gamma row ───────────────────────────────────────────────
-        let gamLabel = NSTextField(labelWithString: "Gamma:")
+        let gamLabel = NSTextField(labelWithString: NSLocalizedString("Gamma:", comment: "Gameplay gamma slider label"))
         gamLabel.font = .systemFont(ofSize: NSFont.systemFontSize)
 
         let gamSlider = NSSlider(value: Double(gam), minValue: 0.5, maxValue: 2.0,

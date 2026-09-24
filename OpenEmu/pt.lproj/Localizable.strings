@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>"%@" in %@</key>
-	<string>"%1$@" in %2$@</string>
+	<string>"%@" em %@</string>
 	<key>%@ copy</key>
 	<string>%@ copiar</string>
 	<key>%@ could not be enabled because its plugin was not found.</key>
@@ -15,13 +15,13 @@
 	<key>%ux</key>
 	<string>%ux</string>
 	<key>A name is required.</key>
-	<string>A name is required.</string>
+	<string>É necessário um nome.</string>
 	<key>ALERT_CORE_GLITCHES_FEEDBACK_HTML</key>
 	<string>&lt;b&gt;If and only if this issue persists&lt;/b&gt;, please submit feedback including:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;The model of Mac you are using &lt;b&gt;and&lt;/b&gt; the version of macOS you have installed&lt;ul&gt;&lt;li&gt;This information is found in  &gt; About this Mac&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;The &lt;b&gt;exact name&lt;/b&gt; of the game you were playing&lt;/li&gt;&lt;li&gt;The crash report of OpenEmuHelperApp&lt;ul&gt;&lt;li&gt;Open Console.app, click on "Crash Reports" or "User Reports" in the sidebar, then look for the latest document with OpenEmuHelperApp in the name&lt;/ul&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Always search for similar feedback previously reported by other users!&lt;/b&gt;&lt;br&gt;If any of this information is omitted, or if similar feedback has already been issued, your issue report may be closed.</string>
 	<key>ALERT_INPUT_MONITORING_HEADLINE</key>
-	<string>OpenEmu requires additional permissions</string>
+	<string>O OpenEmu necessita de permissões adicionais</string>
 	<key>ALERT_INPUT_MONITORING_PART1</key>
-	<string>OpenEmu must be granted the Input Monitoring permission in order to use the keyboard as an input device.</string>
+	<string>É necessário conceder ao OpenEmu a permissão de monitorização de entrada para usar o teclado como dispositivo de entrada.</string>
 	<key>ALERT_INPUT_MONITORING_PART2</key>
 	<string>Toggling the permission may also resolve keyboard input issues.</string>
 	<key>ALERT_INPUT_MONITORING_PART2_MONTEREY</key>
@@ -29,7 +29,7 @@
 	<key>ALERT_INPUT_MONITORING_PART2_TAHOE</key>
 	<string>Click &quot;Open System Settings&quot; below, find OpenEmu in the list, and enable the toggle. Then relaunch the app for the change to take effect.</string>
 	<key>ALERT_MOVE_LIBRARY_HTML</key>
-	<string>The OpenEmu Game Library contains a database file which could get corrupted if the library is moved to the following locations:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Folders managed by cloud synchronization software (like &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Network drives&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;Additionally, &lt;b&gt;sharing the same library between multiple computers or users&lt;/b&gt; may also corrupt it. This also applies to moving the library to external USB drives.</string>
+	<string>A biblioteca de jogos do OpenEmu contém uma base de dados que poderá ficar danificada se for movida para os seguintes locais:&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Pastas geridas por programas de sincronização na nuvem (como o &lt;b&gt;iCloud Drive&lt;/b&gt;)&lt;/li&gt;&lt;li&gt;Unidades de rede&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;Além disso, &lt;b&gt;partilhar a mesma biblioteca entre vários computadores ou utilizadores&lt;/b&gt; também poderá danificá-la. Isto também se aplica a mover a biblioteca para discos USB externos.</string>
 	<key>Add</key>
 	<string>Adicionar</string>
 	<key>Add Cheat</key>
@@ -49,13 +49,13 @@
 	<key>All Homebrew</key>
 	<string>Todos os Homebrews</string>
 	<key>Already in library, but manually deleted or unreachable:</key>
-	<string>Already in library, but manually deleted or unreachable:</string>
+	<string>Já existe na biblioteca, mas foi eliminado manualmente ou está inacessível:</string>
 	<key>Already in library:</key>
-	<string>Already in library:</string>
+	<string>Já existe na biblioteca:</string>
 	<key>An error occurred while preparing the setup assistant. (%@) Make sure you are connected to the internet and try again.</key>
-	<string>An error occurred while preparing the setup assistant. (%@) Make sure you are connected to the internet and try again.</string>
+	<string>Ocorreu um erro ao preparar o assistente de configuração. (%@) Verifique a ligação à Internet e tente novamente.</string>
 	<key>An issue was detected with one of your controllers.</key>
-	<string>An issue was detected with one of your controllers.</string>
+	<string>Foi detetado um problema com um dos seus comandos.</string>
 	<key>Are you sure you want to delete %ld save states from your OpenEmu library?</key>
 	<string>Tem certeza que deseja remover %ld jogos salvos de sua biblioteca OpenEmu?</string>
 	<key>Are you sure you want to delete %ld screenshots from your OpenEmu library?</key>
@@ -75,7 +75,7 @@
 	<key>Are you sure you want to quit the game?</key>
 	<string>Tem certeza que deseja parar o jogo?</string>
 	<key>Are you sure you want to remove the collection '%@'?</key>
-	<string>Tem certeza que deseja remover esta coleção?</string>
+	<string>Tem a certeza de que pretende remover a coleção «%@»?</string>
 	<key>Are you sure you want to remove the selected game from the collection?</key>
 	<string>Tem certeza que deseja remover o jogo selecionado desta coleção?</string>
 	<key>Are you sure you want to remove the selected games from the collection?</key>
@@ -95,23 +95,23 @@
 	<key>Cancel Cover Art Download</key>
 	<string>Cancelar Download de Arte de Capa</string>
 	<key>Category</key>
-	<string>Category</string>
+	<string>Categoria</string>
 	<key>Change Core</key>
 	<string>Mudar Núcleo</string>
 	<key>Change Volume</key>
 	<string>Mudar Volume</string>
 	<key>Changed button for %1$@ to %2$@.</key>
-	<string>Changed button for %1$@ to %2$@.</string>
+	<string>Botão de %1$@ alterado para %2$@.</string>
 	<key>Cheat Description</key>
 	<string>Descrição da Trapaça</string>
 	<key>Check out some excellent homebrew games.</key>
 	<string>Veja alguns jogos homebrew excelentes</string>
 	<key>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</key>
-	<string>Choose Apple menu  &gt; System Preferences, click Security &amp; Privacy then select the Privacy tab. Remove the existing Files and Folders permission for OpenEmu, if exists, and instead grant Full Disk Access.</string>
+	<string>Escolha o menu Apple  &gt; Preferências do Sistema, clique em Segurança e Privacidade e selecione Privacidade. Remova a permissão Ficheiros e Pastas do OpenEmu, se existir, e conceda Acesso Total ao Disco.</string>
 	<key>Choose Library…</key>
 	<string>Escolher Biblioteca…</string>
 	<key>Choose Location…</key>
-	<string>Choose Location…</string>
+	<string>Escolher localização…</string>
 	<key>Choose OpenEmu Library</key>
 	<string>Escolher Biblioteca OpenEmu</string>
 	<key>Choose a valid file.</key>
@@ -123,19 +123,19 @@
 	<key>Configure Shader…</key>
 	<string>Configurar Shader…</string>
 	<key>Console</key>
-	<string>Console</string>
+	<string>Consola</string>
 	<key>Consoles</key>
-	<string>Consoles</string>
+	<string>Consolas</string>
 	<key>Consolidate</key>
 	<string>Consolidar</string>
 	<key>Consolidate Files…</key>
 	<string>Consolidar Arquivos…</string>
 	<key>Consolidating files failed.</key>
-	<string>Consolidating files failed.</string>
+	<string>Falha ao consolidar os ficheiros.</string>
 	<key>Consolidating will copy all of the selected games into the OpenEmu Library folder.</key>
 	<string>Ao Consolidar você copiará todos os jogos selecionados para a Biblioteca do OpenEmu.</string>
 	<key>Contains no data:</key>
-	<string>Contains no data:</string>
+	<string>Não contém dados:</string>
 	<key>Continue</key>
 	<string>Continuar</string>
 	<key>Controls</key>
@@ -147,7 +147,7 @@
 	<key>Copying ROM Files…</key>
 	<string>Copiando ROMs…</string>
 	<key>Copying ROM files failed!</key>
-	<string>Copying ROM files failed!</string>
+	<string>Falha ao copiar os ficheiros ROM!</string>
 	<key>Copying artwork failed!</key>
 	<string>A cópia das Artes de Capa falhou!</string>
 	<key>Core</key>
@@ -169,9 +169,9 @@
 	<key>Create your personal collection of screenshots. To take a screenshot, you can use the keyboard shortcut ⌘ + T while playing a game.</key>
 	<string>Crie sua coleção pessoal de capturas. Para capturar uma tela, você pode utilizar o atalho ⌘ + T enquanto joga um jogo.</string>
 	<key>Decrease Grid Size</key>
-	<string>Decrease Grid Size</string>
+	<string>Diminuir o tamanho da grelha</string>
 	<key>Default %@ preset for %@</key>
-	<string>Default %@ preset for %@</string>
+	<string>Predefinição %@ padrão para %@</string>
 	<key>Default Core</key>
 	<string>Núcleo Padrão</string>
 	<key>Delete</key>
@@ -195,7 +195,7 @@
 	<key>Delete Screenshots</key>
 	<string>Remover Capturas de Tela</string>
 	<key>Delete Shader Preset</key>
-	<string>Delete Shader Preset</string>
+	<string>Eliminar predefinição de shader</string>
 	<key>Description</key>
 	<string>Descrição</string>
 	<key>Deselect All</key>
@@ -205,7 +205,7 @@
 	<key>Device number %lu, %@, has disconnected.</key>
 	<string>O dispositivo número %1$lu, %2$@, foi desconectado.</string>
 	<key>Disc %u</key>
-	<string>Disc %u</string>
+	<string>Disco %u</string>
 	<key>Disc-based games have special requirements. Please read the disc importing guide.</key>
 	<string>Jogos baseados em Disco possuem requerimentos especiais. Por favor leia o guia de importação de discos.</string>
 	<key>Dismiss</key>
@@ -241,13 +241,13 @@
 	<key>Duplicate Collection</key>
 	<string>Duplicar Coleção</string>
 	<key>ECM compressed binaries cannot be imported. Please read the disc importing guide.</key>
-	<string>ECM compressed binaries cannot be imported. Please read the disc importing guide.</string>
+	<string>Não é possível importar binários comprimidos em ECM. Consulte o guia de importação de discos.</string>
 	<key>ECM compressed binary detected.</key>
-	<string>ECM compressed binary detected.</string>
+	<string>Foi detetado um binário comprimido em ECM.</string>
 	<key>ERROR_PLUGIN_IMPORT_ALREADYLOADED</key>
 	<string>Uma versão deste plugin já foi aberta</string>
 	<key>ERROR_PLUGIN_IMPORT_OUTOFSUPPORT</key>
-	<string>This plugin is currently unsupported</string>
+	<string>Este plugin não é atualmente suportado</string>
 	<key>Edit Game Controls…</key>
 	<string>Editar Controles…</string>
 	<key>Enable now</key>
@@ -261,9 +261,9 @@
 	<key>Fetching Games…</key>
 	<string>Buscando Jogos…</string>
 	<key>Files failed to import.</key>
-	<string>Files failed to import.</string>
+	<string>Falha ao importar os ficheiros.</string>
 	<key>Fill Screen</key>
-	<string>Fill Screen</string>
+	<string>Preencher o ecrã</string>
 	<key>Filter by:</key>
 	<string>Filtrar por:</string>
 	<key>Game %ld of %ld</key>
@@ -275,9 +275,9 @@
 	<key>Game requires download</key>
 	<string>O Jogo precisa ser baixado</string>
 	<key>Gameplay</key>
-	<string>Gameplay</string>
+	<string>Jogo</string>
 	<key>Grid Size</key>
-	<string>Grid Size</string>
+	<string>Tamanho da grelha</string>
 	<key>Have you read the guide?</key>
 	<string>Você leu o manual?</string>
 	<key>Hide "%@"</key>
@@ -285,7 +285,7 @@
 	<key>Homebrew Games</key>
 	<string>Jogos Homebrew</string>
 	<key>I understand the risks</key>
-	<string>I understand the risks</string>
+	<string>Compreendo os riscos</string>
 	<key>If there is a red button on the back battery cover, press it.
 If not, hold down buttons ①+②.</key>
 	<string>Se houver um botão vermelho atrás da capa da tampa da bateria, aperte-o.
@@ -293,35 +293,35 @@ Senão, seguro os botões ①+②.</string>
 	<key>If you change the core you current progress will be lost and save states will not work anymore.</key>
 	<string>Se você mudar o Núcleo do console, seu progresso será perdido e seus salvamentos não irão mais funcionar.</string>
 	<key>Ignore</key>
-	<string>Ignore</string>
+	<string>Ignorar</string>
 	<key>In a few days, this core plugin is going to be automatically removed. Once it is removed, any save states created with it will stop working.</key>
-	<string>In a few days, this core plugin is going to be automatically removed. Once it is removed, any save states created with it will stop working.</string>
+	<string>Dentro de alguns dias, este plugin de núcleo será removido automaticamente. Após a remoção, os estados guardados criados com ele deixarão de funcionar.</string>
 	<key>In order to emulate some systems, BIOS files are needed due to increasing complexity of the hardware and software of modern gaming consoles. Please read our %@ for more information.</key>
-	<string>In order to emulate some systems, BIOS files are needed due to increasing complexity of the hardware and software of modern gaming consoles. Please read our %@ for more information.</string>
+	<string>Para emular alguns sistemas são necessários ficheiros BIOS, devido à crescente complexidade do hardware e software das consolas modernas. Consulte %@ para mais informações.</string>
 	<key>In order to play the game it must be downloaded.</key>
 	<string>Você precisa baixar o jogo para poder jogá-lo.</string>
 	<key>Increase Grid Size</key>
-	<string>Increase Grid Size</string>
+	<string>Aumentar o tamanho da grelha</string>
 	<key>Insert Cart/Disk/Tape…</key>
 	<string>Inserir Cart/Disk/Tape…</string>
 	<key>Install</key>
 	<string>Instalar</string>
 	<key>Install %@</key>
-	<string>Install %@</string>
+	<string>Instalar %@</string>
 	<key>Install %@ and Set as Default</key>
-	<string>Install %@ and Set as Default</string>
+	<string>Instalar %@ e definir como predefinição</string>
 	<key>Installing Core</key>
 	<string>Instalando Núcleo</string>
 	<key>Invalid cue sheet format:</key>
-	<string>Invalid cue sheet format:</string>
+	<string>Formato CUE inválido:</string>
 	<key>Invalid gdi format:</key>
-	<string>Invalid gdi format:</string>
+	<string>Formato GDI inválido:</string>
 	<key>Join multi-line cheats with '+' e.g. 000-000+111-111</key>
 	<string>Join multi-line cheats with '+' e.g. 000-000+111-111</string>
 	<key>Keyboard</key>
 	<string>Teclado</string>
 	<key>Keycode 0x%lX</key>
-	<string>Keycode 0x%lX</string>
+	<string>Código de tecla 0x%lX</string>
 	<key>Last Played</key>
 	<string>Última Reprodução</string>
 	<key>Learn More</key>
@@ -329,7 +329,7 @@ Senão, seguro os botões ①+②.</string>
 	<key>Library</key>
 	<string>Biblioteca</string>
 	<key>Load</key>
-	<string>Load</string>
+	<string>Carregar</string>
 	<key>Locate '%@'</key>
 	<string>Localizar '%@'</string>
 	<key>Locate…</key>
@@ -337,13 +337,13 @@ Senão, seguro os botões ①+②.</string>
 	<key>Low Controller Battery</key>
 	<string>Bateria do Controle Fraca</string>
 	<key>MOVE_ALERT_INFO_TEXT</key>
-	<string>OpenEmu must move to your Applications folder in order to work properly.</string>
+	<string>O OpenEmu tem de ser movido para a pasta Aplicações para funcionar corretamente.</string>
 	<key>MOVE_ALERT_MOVE_BUTTON</key>
-	<string>Move to Applications folder</string>
+	<string>Mover para a pasta Aplicações</string>
 	<key>MOVE_ALERT_NEEDS_AUTH</key>
-	<string>You need to authenticate with an administrator name and password to complete this step. Alternatively, you can choose a different location or quit the App and move it manually.</string>
+	<string>Tem de se autenticar com um nome e palavra-passe de administrador para concluir este passo. Em alternativa, escolha outra localização ou feche a aplicação e mova-a manualmente.</string>
 	<key>MOVE_ALERT_TITLE</key>
-	<string>Move to Applications folder</string>
+	<string>Mover para a pasta Aplicações</string>
 	<key>Make sure your internet connection is active and download a suitable core.</key>
 	<string>Certifique que sua conexão de internet está ativa e baixe um núcleo apropriado.</string>
 	<key>Make your Wiimote discoverable</key>
@@ -351,23 +351,23 @@ Senão, seguro os botões ①+②.</string>
 	<key>Missing Core</key>
 	<string>Núcleo Não Encontrado</string>
 	<key>Missing referenced file:</key>
-	<string>Missing referenced file:</string>
+	<string>Falta um ficheiro referenciado:</string>
 	<key>Move to Trash</key>
 	<string>Mover para a Lixeira</string>
 	<key>Moving Library…</key>
-	<string>Moving Library…</string>
+	<string>A mover a biblioteca…</string>
 	<key>Moving the Game Library is not recommended</key>
-	<string>Moving the Game Library is not recommended</string>
+	<string>Não é recomendado mover a biblioteca de jogos</string>
 	<key>Must not be compressed:</key>
-	<string>Must not be compressed:</string>
+	<string>Não pode estar comprimido:</string>
 	<key>Mute Audio</key>
 	<string>Mutar Som</string>
 	<key>NOT FOUND: "%@"</key>
-	<string>NOT FOUND: "%@"</string>
+	<string>NÃO ENCONTRADO: "%@"</string>
 	<key>Name</key>
 	<string>Nome</string>
 	<key>Name must not contain “%@.”</key>
-	<string>Name must not contain “%@.”</string>
+	<string>O nome não pode conter «%@».</string>
 	<key>New Collection</key>
 	<string>Nova Coleção</string>
 	<key>New Collection from Selection</key>
@@ -375,7 +375,7 @@ Senão, seguro os botões ①+②.</string>
 	<key>New Folder</key>
 	<string>Nova Pasta</string>
 	<key>New Shader Preset</key>
-	<string>New Shader Preset</string>
+	<string>Nova predefinição de shader</string>
 	<key>New Smart Collection</key>
 	<string>Nova Coleção Inteligente</string>
 	<key>No</key>
@@ -391,17 +391,17 @@ Senão, seguro os botões ①+②.</string>
 	<key>No game played yet!</key>
 	<string>Nenhum jogo ainda foi jogado!</string>
 	<key>No parameters available.</key>
-	<string>No parameters available.</string>
+	<string>Sem parâmetros disponíveis.</string>
 	<key>No permission to open:</key>
-	<string>No permission to open:</string>
+	<string>Sem permissão para abrir:</string>
 	<key>No valid system detected:</key>
-	<string>No valid system detected:</string>
+	<string>Não foi detetado um sistema válido:</string>
 	<key>None</key>
 	<string>Nenhum</string>
 	<key>Not assigned</key>
-	<string>Not assigned</string>
+	<string>Não atribuído</string>
 	<key>Not plain text:</key>
-	<string>Not plain text:</string>
+	<string>Não é texto simples:</string>
 	<key>OK</key>
 	<string>OK</string>
 	<key>Only files in the OpenEmu Library folder will be moved to the Trash.</key>
@@ -411,9 +411,9 @@ Senão, seguro os botões ①+②.</string>
 	<key>Open Library</key>
 	<string>Abrir Biblioteca</string>
 	<key>Open System Preferences</key>
-	<string>Open System Preferences</string>
+	<string>Abrir Preferências do Sistema</string>
 	<key>OpenEmu could not download required data from the internet</key>
-	<string>OpenEmu could not download required data from the internet</string>
+	<string>O OpenEmu não conseguiu descarregar os dados necessários da Internet</string>
 	<key>OpenEmu could not find a Core to launch the game</key>
 	<string>O OpenEmu não encontrou um Núcleo para iniciar o jogo</string>
 	<key>OpenEmu includes a save state feature that allows you to continue playing exactly where you left off.</key>
@@ -427,9 +427,9 @@ Senão, seguro os botões ①+②.</string>
 	<key>Options</key>
 	<string>Opções</string>
 	<key>Parameters</key>
-	<string>Parameters</string>
+	<string>Parâmetros</string>
 	<key>Paste parameters</key>
-	<string>Paste parameters</string>
+	<string>Colar parâmetros</string>
 	<key>Pause Game</key>
 	<string>Pausar Jogo</string>
 	<key>Pause/Restart</key>
@@ -465,7 +465,7 @@ Senão, seguro os botões ①+②.</string>
 	<key>Quit Game</key>
 	<string>Parar Jogo</string>
 	<key>Quit OpenEmu</key>
-	<string>Quit OpenEmu</string>
+	<string>Sair do OpenEmu</string>
 	<key>Rating</key>
 	<string>Classificação</string>
 	<key>Recently Added</key>
@@ -475,9 +475,9 @@ Senão, seguro os botões ①+②.</string>
 	<key>Remove Collection</key>
 	<string>Remover Coleção</string>
 	<key>Remove Game</key>
-	<string>Remove Game</string>
+	<string>Remover jogo</string>
 	<key>Remove Games</key>
-	<string>Remove Games</string>
+	<string>Remover jogos</string>
 	<key>Rename</key>
 	<string>Renomear</string>
 	<key>Rename "%@"</key>
@@ -485,15 +485,15 @@ Senão, seguro os botões ①+②.</string>
 	<key>Rename Game</key>
 	<string>Renomear Jogo</string>
 	<key>Rename Shader Preset</key>
-	<string>Rename Shader Preset</string>
+	<string>Mudar nome da predefinição de shader</string>
 	<key>Rename Special Save State or something?</key>
 	<string>Renomear Salvamento Especial ou algo do tipo?</string>
 	<key>Reopen without loading state</key>
-	<string>Reopen without loading state</string>
+	<string>Reabrir sem carregar o estado</string>
 	<key>Required files are missing.</key>
 	<string>Estão faltando arquivos necessários.</string>
 	<key>Reset parameters</key>
-	<string>Reset parameters</string>
+	<string>Repor parâmetros</string>
 	<key>Resolve %ld Issue</key>
 	<string>Resolver %ld Conflito</string>
 	<key>Resolve %ld Issues</key>
@@ -507,7 +507,7 @@ Senão, seguro os botões ①+②.</string>
 	<key>Resume Game</key>
 	<string>Continuar Jogo</string>
 	<key>Retry</key>
-	<string>Retry</string>
+	<string>Tentar novamente</string>
 	<key>SHARE_STANDARD_MENU_ITEM_TITLE</key>
 	<string>Compartilhar…</string>
 	<key>Save As:</key>
@@ -549,7 +549,7 @@ Senão, seguro os botões ①+②.</string>
 	<key>Select Shader</key>
 	<string>Selecionar Shader</string>
 	<key>Shader Parameters</key>
-	<string>Shader Parameters</string>
+	<string>Parâmetros do shader</string>
 	<key>Share</key>
 	<string>Compartilhar</string>
 	<key>Show in Finder</key>
@@ -557,15 +557,15 @@ Senão, seguro os botões ①+②.</string>
 	<key>Since version 2.1, OpenEmu requires a GPU which supports Metal. Metal is available on all Macs that support macOS 10.14 or later.
 
 As OpenEmu does not work with your current hardware/software configuration, it will now close.</key>
-	<string>Since version 2.1, OpenEmu requires a GPU which supports Metal. Metal is available on all Macs that support macOS 10.14 or later.
+	<string>Desde a versão 2.1, o OpenEmu exige uma GPU compatível com Metal. O Metal está disponível em todos os Macs compatíveis com macOS 10.14 ou posterior.
 
-As OpenEmu does not work with your current hardware/software configuration, it will now close.</string>
+Como o OpenEmu não funciona com a sua configuração atual de hardware e software, será agora fechado.</string>
 	<key>Slot %ld</key>
 	<string>Espaço %ld</string>
 	<key>Some migrations failed to complete properly</key>
 	<string>Algumas migrações não foram concluídas com sucesso.</string>
 	<key>Sometimes a crash may occur while loading a save state because of incompatibilities between different versions of the same core. Do you want to open the game without loading a save state?</key>
-	<string>Sometimes a crash may occur while loading a save state because of incompatibilities between different versions of the same core. Do you want to open the game without loading a save state?</string>
+	<string>Por vezes, carregar um estado guardado pode causar uma falha devido a incompatibilidades entre versões do mesmo núcleo. Pretende abrir o jogo sem carregar um estado guardado?</string>
 	<key>Special thanks to everyone that made
 OpenEmu possible. To find out more
 about our contributors, emulator cores,
@@ -587,7 +587,7 @@ e apontar bugs por favor visite-nos no GitHub.</string>
 	<key>System</key>
 	<string>Sistema</string>
 	<key>System Default</key>
-	<string>System Default</string>
+	<string>Predefinição do sistema</string>
 	<key>System Files</key>
 	<string>Arquivos do Sistema</string>
 	<key>Takes you to the %@ project website</key>
@@ -599,13 +599,13 @@ Please do not report problems as we are not responsible for the development of %
 
 Por favor não reporte problemas pois não somos os responsáveis pelo desenvolvimento do %2$@.</string>
 	<key>The %@ core has quit unexpectedly</key>
-	<string>The %@ core has quit unexpectedly</string>
+	<string>O núcleo %@ terminou inesperadamente</string>
 	<key>The %@ core has quit unexpectedly after loading a save state</key>
-	<string>The %@ core has quit unexpectedly after loading a save state</string>
+	<string>O núcleo %@ terminou inesperadamente após carregar um estado guardado</string>
 	<key>The %@ core plugin is deprecated</key>
-	<string>The %@ core plugin is deprecated</string>
+	<string>O plugin de núcleo %@ está obsoleto</string>
 	<key>The %@ core plugin is deprecated, and will be removed soon</key>
-	<string>The %@ core plugin is deprecated, and will be removed soon</string>
+	<string>O plugin de núcleo %@ está obsoleto e será removido em breve</string>
 	<key>The OpenEmu Library could not be found.</key>
 	<string>A Biblioteca OpenEmu não pôde ser encontrada.</string>
 	<key>The System plugin could not be found!</key>
@@ -615,13 +615,13 @@ Por favor não reporte problemas pois não somos os responsáveis pelo desenvolv
 	<key>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
 
 You can go to the Controls preferences to check which associations were affected.</key>
-	<string>The button profile for one of your controllers does not match the profile detected the last time it was connected to OpenEmu. Some of the controls associated to the affected controller were reset.
+	<string>O perfil de botões de um dos seus comandos não corresponde ao detetado na última ligação ao OpenEmu. Alguns controlos associados a esse comando foram repostos.
 
-You can go to the Controls preferences to check which associations were affected.</string>
+Pode consultar as preferências de Controlos para verificar quais os mapeamentos afetados.</string>
 	<key>The core could not be downloaded. Try installing it from the Cores preferences.</key>
 	<string>O núcleo não pôde ser encontrado. Tente instalá-lo através do painel Núcleos nas preferências.</string>
 	<key>The emulator could not load ROM.</key>
-	<string>The emulator could not load the ROM.</string>
+	<string>O emulador não conseguiu carregar a ROM.</string>
 	<key>The file you selected doesn't exist</key>
 	<string>O arquivo que você selecionou não existe</string>
 	<key>The game '%@' could not be started because a rom file could not be found. Do you want to locate it?</key>
@@ -633,7 +633,7 @@ You can go to the Controls preferences to check which associations were affected
 	<key>This cannot be undone.</key>
 	<string>Isso não pode ser desfeito.</string>
 	<key>This core plugin will not be available in the future. Once it is removed, any save states created with it will stop working.</key>
-	<string>This core plugin will not be available in the future. Once it is removed, any save states created with it will stop working.</string>
+	<string>Este plugin de núcleo não estará disponível no futuro. Após a remoção, os estados guardados criados com ele deixarão de funcionar.</string>
 	<key>This save state was created with a different core. Do you want to switch to that core now?</key>
 	<string>Este estado de salvamento foi criado com um núcleo diferente. Deseja mudar para aquele Núcleo agora?</string>
 	<key>This will remove all items from the queue. Items that finished importing will be preserved in your library.</key>
@@ -641,29 +641,29 @@ You can go to the Controls preferences to check which associations were affected
 	<key>Title:</key>
 	<string>Título:</string>
 	<key>To assign a new key or button to %@, press this button, then press the desired key or button on your keyboard or gamepad.</key>
-	<string>To assign a new key or button to %@, press this button, then press the desired key or button on your keyboard or gamepad.</string>
+	<string>Para atribuir uma nova tecla ou botão a %@, prima este botão e depois a tecla ou botão pretendido no teclado ou comando.</string>
 	<key>To launch the save state %@ you will need to install the '%@' Core</key>
 	<string>Para abrir este estado de salvamento %1$@ você precisará instalar o Núcleo '%2$@'</string>
 	<key>To run this core you need the following:
 
 %@Drag and drop the required file(s) onto the game library window and try again.</key>
-	<string>To run this core you need the following:
+	<string>Para executar este núcleo precisa do seguinte:
 
-%@Drag and drop the required file(s) onto the game library window and try again.</string>
+%@Arraste os ficheiros necessários para a janela da biblioteca de jogos e tente novamente.</string>
 	<key>Toggle Fullscreen</key>
 	<string>Alterna para Tela Cheia</string>
 	<key>Toolbar: Homebrew</key>
-	<string>Homebrew</string>
+	<string>Barra de ferramentas: jogos amadores</string>
 	<key>Toolbar: Library</key>
 	<string>Biblioteca</string>
 	<key>Toolbar: Save States</key>
-	<string>Save States</string>
+	<string>Barra de ferramentas: estados guardados</string>
 	<key>Toolbar: Screenshots</key>
-	<string>Screenshots</string>
+	<string>Barra de ferramentas: capturas de ecrã</string>
 	<key>Trash downloaded Files</key>
-	<string>Trash downloaded Files</string>
+	<string>Mover ficheiros descarregados para o Lixo</string>
 	<key>Unexpected error:</key>
-	<string>Unexpected error:</string>
+	<string>Erro inesperado:</string>
 	<key>Unmute Audio</key>
 	<string>Desmutar Áudio</string>
 	<key>Update</key>
@@ -677,13 +677,13 @@ You can go to the Controls preferences to check which associations were affected
 	<key>View Guide in Browser</key>
 	<string>Ver Manual no Navegador</string>
 	<key>View Mode</key>
-	<string>View Mode</string>
+	<string>Modo de visualização</string>
 	<key>Volume</key>
 	<string>Volume</string>
 	<key>Warning</key>
 	<string>Atenção</string>
 	<key>We suggest you switch to the %@ core plugin as soon as possible.</key>
-	<string>We suggest you switch to the %@ core plugin as soon as possible.</string>
+	<string>Recomendamos que mude para o plugin de núcleo %@ assim que possível.</string>
 	<key>With OpenEmu you can save your progress at any time using save states. We will even make auto saves for you, when you leave a game. Come back here to get an overview of all your saves.</key>
 	<string>Com o OpenEmu você pode salvar seu progresso a qualquer momento usando os salvamentos. Nós também faremos salvamentos automaticos para você, quando fechar um jogo. Volte aqui para ter uma visão geral dos seus salvamentos</string>
 	<key>Won't be able to recognize it as special save state…</key>
@@ -699,15 +699,13 @@ You can go to the Controls preferences to check which associations were affected
 	<key>You need to restart the application to commit the change</key>
 	<string>Você precisa reiniciar a aplicação para que as alterações tenham efeito</string>
 	<key>Your Mac is too old for this version of OpenEmu</key>
-	<string>Your Mac is too old for this version of OpenEmu</string>
+	<string>O seu Mac é demasiado antigo para esta versão do OpenEmu</string>
 	<key>Your game finished importing, do you want to play it now?</key>
 	<string>A importação do jogo terminou, deseja jogar agora?</string>
 	<key>Your library was moved sucessfully.</key>
 	<string>Sua biblioteca foi movida com sucesso.</string>
 	<key>this guide</key>
 	<string>este manual</string>
-	<key>Add Cheat</key>
-	<string>Adicionar Trapaça</string>
 	<key>Cheat Search…</key>
 	<string>Buscar Trapaças…</string>
 	<key>Cheat Search</key>
@@ -748,10 +746,846 @@ You can go to the Controls preferences to check which associations were affected
 	<string>Valor anterior</string>
 	<key>This Value:</key>
 	<string>Este valor:</string>
-	<key>Cheat Description</key>
-	<string>Descrição da Trapaça</string>
 	<key>Showing first %1$@ of %2$@ matches, narrow your search</key>
 	<string>A mostrar as primeiras %1$@ de %2$@ correspondências, refine a pesquisa</string>
 
+	<key> — not yet supported</key>
+	<string> — ainda não suportado</string>
+	<key>%.1f%% unlocked</key>
+	<string>%.1f%% desbloqueado</string>
+	<key>%1$@ (%2$d of %3$d)</key>
+	<string>%1$@ (%2$d de %3$d)</string>
+	<key>%@ result found</key>
+	<string>%@ resultado encontrado</string>
+	<key>%@ result found 🎯</key>
+	<string>%@ resultado encontrado 🎯</string>
+	<key>%@ results found</key>
+	<string>%@ resultados encontrados</string>
+	<key>%@ · %d of %d achievements · %d of %d points</key>
+	<string>%@ · %d de %d conquistas · %d de %d pontos</string>
+	<key>%@ · Rank #%d</key>
+	<string>%@ · Posição n.º %d</string>
+	<key>%d points</key>
+	<string>%d pontos</string>
+	<key>%ld file(s) did not match any game and will be skipped.</key>
+	<string>%ld ficheiros não correspondem a nenhum jogo e serão ignorados.</string>
+	<key>'%@' save synced from cloud.</key>
+	<string>Gravação de '%@' sincronizada da nuvem.</string>
+	<key>12 hex chars per code, e.g. 80097BA0 270F. Join multi-line cheats with '+'.</key>
+	<string>12 caracteres hexadecimais por código, por exemplo 80097BA0 270F. Una as linhas de um código com '+'.</string>
+	<key>12 hex chars per code, e.g. 8033B21D0064. Join multi-line cheats with '+'.</key>
+	<string>12 caracteres hexadecimais por código, por exemplo 8033B21D0064. Una as linhas de um código com '+'.</string>
+	<key>&lt;space&gt;</key>
+	<string>&lt;espaço&gt;</string>
+	<key>A New Quest</key>
+	<string>Uma nova missão</string>
+	<key>A check for new cores is already in progress.</key>
+	<string>Já está em curso uma procura de novos núcleos.</string>
+	<key>A core update check is already in progress.</key>
+	<string>Já está em curso uma procura de atualizações dos núcleos.</string>
+	<key>A newer save for '%@' is available in your %@ (from %@). Restore it before playing?</key>
+	<string>Está disponível uma gravação mais recente de '%@' em %@ (de %@). Restaurar antes de jogar?</string>
+	<key>Access token expired and could not be refreshed. Please sign in again.</key>
+	<string>O token de acesso expirou e não foi possível renová-lo. Inicie sessão novamente.</string>
+	<key>Account Sign-ins</key>
+	<string>Sessões das contas</string>
+	<key>Achievement Set</key>
+	<string>Conjunto de conquistas</string>
+	<key>Achievement Set:</key>
+	<string>Conjunto de conquistas:</string>
+	<key>Achievement set complete</key>
+	<string>Conjunto de conquistas concluído</string>
+	<key>Achievements</key>
+	<string>Conquistas</string>
+	<key>Achievements unavailable</key>
+	<string>Conquistas indisponíveis</string>
+	<key>Achievements…</key>
+	<string>Conquistas…</string>
+	<key>Action</key>
+	<string>Ação</string>
+	<key>Active</key>
+	<string>Ativo</string>
+	<key>Active Now</key>
+	<string>Ativos agora</string>
+	<key>Active: %@</key>
+	<string>Ativo: %@</string>
+	<key>Add %@</key>
+	<string>Adicionar %@</string>
+	<key>All</key>
+	<string>Todos</string>
+	<key>All OpenEmu preferences, controller mappings and saved sign-ins in the current data folder will be reset. On the next launch, you will choose a data folder and complete setup again.
+
+Games, BIOS, saves and cores will not be deleted. Choose the same data folder again to keep using its library. macOS permissions will not change.
+
+This cannot be undone after confirmation.</key>
+	<string>Serão repostas todas as definições do OpenEmu, os mapeamentos dos comandos e as sessões guardadas na pasta de dados atual. No próximo arranque, terá de escolher uma pasta de dados e repetir a configuração.
+
+Os jogos, BIOS, gravações e núcleos não serão eliminados. Escolha a mesma pasta para continuar a usar a biblioteca. As permissões do macOS não serão alteradas.
+
+Não é possível anular após confirmar.</string>
+	<key>All achievements earned</key>
+	<string>Todas as conquistas obtidas</string>
+	<key>All remaining files, including files you added manually. Technical folder identity, lock and pending removal records are kept.</key>
+	<string>Todos os ficheiros restantes, incluindo os adicionados manualmente. São mantidos a identificação técnica da pasta, o bloqueio e os registos de eliminação pendente.</string>
+	<key>All saves are up to date.</key>
+	<string>Todas as gravações estão atualizadas.</string>
+	<key>App preferences, window settings and first-time setup.</key>
+	<string>Preferências da aplicação, definições das janelas e configuração inicial.</string>
+	<key>Apply</key>
+	<string>Aplicar</string>
+	<key>Are you sure you want to revert '%@' to the previous version?</key>
+	<string>Tem a certeza de que pretende reverter '%@' para a versão anterior?</string>
+	<key>Automatically back up save states, battery saves, and BIOS files to any folder. Choose a folder inside iCloud Drive to sync across your Macs, or use Dropbox, an external drive, or any local path.</key>
+	<string>Faça cópias automáticas dos estados, gravações em bateria e ficheiros BIOS para qualquer pasta. Escolha uma pasta no iCloud Drive para sincronizar entre os seus Macs, ou use o Dropbox, um disco externo ou qualquer pasta local.</string>
+	<key>BIOS and Firmware</key>
+	<string>BIOS e firmware</string>
+	<key>Backup Folder</key>
+	<string>Pasta de cópias de segurança</string>
+	<key>Broker endpoint is nil</key>
+	<string>O ponto de ligação do intermediário está vazio</string>
+	<key>Browse Online Cheats</key>
+	<string>Procurar códigos de batota online</string>
+	<key>Browse Online Cheats…</key>
+	<string>Procurar códigos de batota online…</string>
+	<key>Button %ld</key>
+	<string>Botão %ld</string>
+	<key>CUE sheet contains an invalid quotation mark.</key>
+	<string>O ficheiro CUE contém uma aspa inválida.</string>
+	<key>CUE sheet does not contain any file name</key>
+	<string>O ficheiro CUE não contém nomes de ficheiros</string>
+	<key>CUE sheet format requires " quotation marks around file names but none were found.</key>
+	<string>O formato CUE exige aspas " à volta dos nomes dos ficheiros, mas não foram encontradas.</string>
+	<key>CUE sheet format requires " quotation marks, but instead uses %@.</key>
+	<string>O formato CUE exige aspas ", mas utiliza %@.</string>
+	<key>Caches and Temporary Files</key>
+	<string>Caches e ficheiros temporários</string>
+	<key>Challenge Active</key>
+	<string>Desafio ativo</string>
+	<key>Challenge: %@</key>
+	<string>Desafio: %@</string>
+	<key>Cheat Code</key>
+	<string>Código de batota</string>
+	<key>Cheat Name</key>
+	<string>Nome do código de batota</string>
+	<key>Cheat Removed</key>
+	<string>Código de batota removido</string>
+	<key>Check Again</key>
+	<string>Verificar novamente</string>
+	<key>Check for Update</key>
+	<string>Procurar atualização</string>
+	<key>Check that the data disk is connected and writable. The previous settings were kept.</key>
+	<string>Verifique se o disco de dados está ligado e permite escrita. As definições anteriores foram mantidas.</string>
+	<key>Choose</key>
+	<string>Escolher</string>
+	<key>Choose Folder…</key>
+	<string>Escolher pasta…</string>
+	<key>Choose OpenEmu Data Folder</key>
+	<string>Escolher a pasta de dados do OpenEmu</string>
+	<key>Choose a folder of artwork images. Files are matched to games by exact name.</key>
+	<string>Escolha uma pasta de capas. Os ficheiros são associados aos jogos pelo nome exato.</string>
+	<key>Choose a folder to back up your save states, battery saves, and BIOS files. Pick a folder inside iCloud Drive to sync automatically across your Macs.</key>
+	<string>Escolha uma pasta para guardar cópias dos estados, das gravações em bateria e dos ficheiros BIOS. Escolha uma pasta no iCloud Drive para sincronizar automaticamente entre os seus Macs.</string>
+	<key>Choose an empty folder or an existing OpenEmu data folder.</key>
+	<string>Escolha uma pasta vazia ou uma pasta de dados do OpenEmu existente.</string>
+	<key>Choose or create a dedicated folder for your game library, imported games, BIOS, saves, cores, settings, shaders and caches. Existing data is not moved automatically. To keep using an old library, select its OpenEmu data folder.</key>
+	<string>Escolha ou crie uma pasta dedicada à biblioteca, jogos importados, BIOS, gravações, núcleos, definições, shaders e caches. Os dados existentes não são movidos automaticamente. Para continuar a usar uma biblioteca antiga, selecione a respetiva pasta de dados do OpenEmu.</string>
+	<key>Choose what to remove</key>
+	<string>Escolha o que eliminar</string>
+	<key>Clear</key>
+	<string>Limpar</string>
+	<key>Click to add or edit notes for this cheat</key>
+	<string>Clique para adicionar ou editar notas deste código de batota</string>
+	<key>Click to see the code</key>
+	<string>Clique para ver o código</string>
+	<key>Close</key>
+	<string>Fechar</string>
+	<key>Cloud Sync</key>
+	<string>Sincronização na nuvem</string>
+	<key>Code</key>
+	<string>Código</string>
+	<key>Code already used</key>
+	<string>O código já está em uso</string>
+	<key>Completed</key>
+	<string>Concluído</string>
+	<key>Connect the disk and try again, or locate the same folder. Your library will not be replaced.
+
+%@
+
+%@</key>
+	<string>Ligue o disco e tente novamente, ou localize a mesma pasta. A sua biblioteca não será substituída.
+
+%@
+
+%@</string>
+	<key>Connected</key>
+	<string>Ligado</string>
+	<key>Continue…</key>
+	<string>Continuar…</string>
+	<key>Controller Mappings</key>
+	<string>Mapeamentos dos comandos</string>
+	<key>Copy</key>
+	<string>Copiar</string>
+	<key>Core supports RetroAchievements</key>
+	<string>O núcleo suporta RetroAchievements</string>
+	<key>Could not reach ScreenScraper — check your connection.</key>
+	<string>Não foi possível contactar o ScreenScraper — verifique a ligação.</string>
+	<key>Could not reach ScreenScraper — check your connection. (%@)</key>
+	<string>Não foi possível contactar o ScreenScraper — verifique a ligação. (%@)</string>
+	<key>Could not read file at path %@. Make sure the file is at the indicated location and can be read.</key>
+	<string>Não foi possível ler o ficheiro em %@. Verifique se está no local indicado e pode ser lido.</string>
+	<key>Could not read file due to permission problem at path %@.</key>
+	<string>Não foi possível ler o ficheiro em %@ devido a um problema de permissões.</string>
+	<key>Cover Art</key>
+	<string>Capas</string>
+	<key>Custom Shader Files</key>
+	<string>Ficheiros de shaders personalizados</string>
+	<key>D-pad Down</key>
+	<string>Botão direcional para baixo</string>
+	<key>D-pad Left</key>
+	<string>Botão direcional para a esquerda</string>
+	<key>D-pad Right</key>
+	<string>Botão direcional para a direita</string>
+	<key>D-pad Up</key>
+	<string>Botão direcional para cima</string>
+	<key>Data folder</key>
+	<string>Pasta de dados</string>
+	<key>Delete Settings and Data…</key>
+	<string>Eliminar definições e dados…</string>
+	<key>Did it work?</key>
+	<string>Funcionou?</string>
+	<key>Did this cheat code work for you?</key>
+	<string>Este código de batota funcionou consigo?</string>
+	<key>Disables save state loading, rewind, frame advance, and cheats. Required for ranked achievements.</key>
+	<string>Desativa o carregamento de estados, o retrocesso, o avanço por fotogramas e os códigos de batota. Necessário para conquistas de classificação.</string>
+	<key>Don't Send</key>
+	<string>Não enviar</string>
+	<key>Download &amp; Play</key>
+	<string>Descarregar e jogar</string>
+	<key>Download failed: %@</key>
+	<string>Falha ao descarregar: %@</string>
+	<key>Downloading '%@' from cloud…</key>
+	<string>A descarregar '%@' da nuvem…</string>
+	<key>Downloading…</key>
+	<string>A descarregar…</string>
+	<key>East</key>
+	<string>Este</string>
+	<key>Edit</key>
+	<string>Editar</string>
+	<key>Edit…</key>
+	<string>Editar…</string>
+	<key>Emulator Awaiting Approval</key>
+	<string>Emulador a aguardar aprovação</string>
+	<key>Enabled</key>
+	<string>Ativado</string>
+	<key>Europe</key>
+	<string>Europa</string>
+	<key>Failed to exchange authorization code for tokens.</key>
+	<string>Não foi possível trocar o código de autorização por tokens.</string>
+	<key>Failed to launch helper app</key>
+	<string>Não foi possível iniciar a aplicação auxiliar</string>
+	<key>File %@ does not seem to be a plain text file.</key>
+	<string>O ficheiro %@ não parece ser um ficheiro de texto simples.</string>
+	<key>File %@ is not a plain text file.</key>
+	<string>O ficheiro %@ não é um ficheiro de texto simples.</string>
+	<key>File cannot be read</key>
+	<string>Não é possível ler o ficheiro</string>
+	<key>File cannot be read (permission problem)</key>
+	<string>Não é possível ler o ficheiro (problema de permissões)</string>
+	<key>Filename</key>
+	<string>Nome do ficheiro</string>
+	<key>Files in the Shaders folder. Presets saved in app preferences are included under OpenEmu Settings.</key>
+	<string>Ficheiros na pasta Shaders. As predefinições guardadas nas preferências estão incluídas em Definições do OpenEmu.</string>
+	<key>Found artwork for %ld of %ld selected games.</key>
+	<string>Foram encontradas capas para %ld de %ld jogos selecionados.</string>
+	<key>GDI does not contain any tracks</key>
+	<string>O GDI não contém faixas</string>
+	<key>Game</key>
+	<string>Jogo</string>
+	<key>Game Genie or Action Replay. Join multi-line cheats with '+'.</key>
+	<string>Game Genie ou Action Replay. Una as linhas de um código com '+'.</string>
+	<key>Game Genie or PAR codes. Join multi-line cheats with '+'.</key>
+	<string>Códigos Game Genie ou PAR. Una as linhas de um código com '+'.</string>
+	<key>Game Genie or raw hex (XXXX:YY). Join multi-line cheats with '+'.</key>
+	<string>Game Genie ou código hexadecimal (XXXX:YY). Una as linhas de um código com '+'.</string>
+	<key>Game Library and Games</key>
+	<string>Biblioteca e jogos</string>
+	<key>Game files, the library database, artwork and cheats inside this folder. External games are kept. Kept saves and screenshots may lose their library records.</key>
+	<string>Ficheiros de jogos, base de dados da biblioteca, capas e códigos de batota nesta pasta. Os jogos externos são mantidos. As gravações e capturas mantidas poderão perder os seus registos na biblioteca.</string>
+	<key>GameShark (no dash) or Game Genie (with dash). Join multi-line cheats with '+'.</key>
+	<string>GameShark (sem hífen) ou Game Genie (com hífen). Una as linhas de um código com '+'.</string>
+	<key>Gamma:</key>
+	<string>Gama:</string>
+	<key>Google Drive API error (HTTP %ld): %@</key>
+	<string>Erro da API do Google Drive (HTTP %ld): %@</string>
+	<key>Hardcore Mode</key>
+	<string>Modo hardcore</string>
+	<key>Hardcore Reset</key>
+	<string>Reinício do modo hardcore</string>
+	<key>Hardcore mode (recommended)</key>
+	<string>Modo hardcore (recomendado)</string>
+	<key>Hardcore unlocks will save as Softcore until OpenEmu-Silicon is approved by RetroAchievements.</key>
+	<string>As conquistas hardcore serão guardadas como softcore até o OpenEmu-Silicon ser aprovado pelo RetroAchievements.</string>
+	<key>Hash: %@</key>
+	<string>Hash: %@</string>
+	<key>Help Improve OpenEmu</key>
+	<string>Ajude a melhorar o OpenEmu</string>
+	<key>Helper unexpectedly terminated</key>
+	<string>O processo auxiliar terminou inesperadamente</string>
+	<key>I don't know</key>
+	<string>Não sei</string>
+	<key>If OpenEmu is already enabled, macOS may still be checking a different or newly rebuilt copy. Quit and reopen this copy, then check again. Resetting OpenEmu settings does not reset macOS permissions.</key>
+	<string>Se o OpenEmu já estiver ativado, o macOS poderá estar a verificar outra cópia ou uma recém-compilada. Feche e reabra esta cópia e verifique novamente. Repor as definições do OpenEmu não repõe as permissões do macOS.</string>
+	<key>Image Adjustments…</key>
+	<string>Ajustes de imagem…</string>
+	<key>Import</key>
+	<string>Importar</string>
+	<key>Import Artwork from Folder…</key>
+	<string>Importar capas de uma pasta…</string>
+	<key>Incompatible Cores Moved</key>
+	<string>Núcleos incompatíveis movidos</string>
+	<key>Incompatible save states found: %ld</key>
+	<string>Estados guardados incompatíveis encontrados: %ld</string>
+	<key>Installed Cores and System Plugins</key>
+	<string>Núcleos e plugins de sistema instalados</string>
+	<key>Installed: %@
+Latest: %@</key>
+	<string>Instalada: %@
+Mais recente: %@</string>
+	<key>Interface Language:</key>
+	<string>Idioma da interface:</string>
+	<key>Invalid Backup Folder</key>
+	<string>Pasta de cópias de segurança inválida</string>
+	<key>Invalid CUE sheet format</key>
+	<string>Formato CUE inválido</string>
+	<key>It does not work for me</key>
+	<string>Não funciona comigo</string>
+	<key>It was created with “%@”, a core OpenEmu no longer includes. The game will start without it.</key>
+	<string>Foi criado com “%@”, um núcleo que já não está incluído no OpenEmu. O jogo será iniciado sem carregar esse estado.</string>
+	<key>It works for me</key>
+	<string>Funciona comigo</string>
+	<key>Japan</key>
+	<string>Japão</string>
+	<key>Keep for Now</key>
+	<string>Manter por agora</string>
+	<key>Last backed up: %@</key>
+	<string>Última cópia de segurança: %@</string>
+	<key>Last backup failed</key>
+	<string>A última cópia de segurança falhou</string>
+	<key>Last synced: %@</key>
+	<string>Última sincronização: %@</string>
+	<key>Leaderboard Failed</key>
+	<string>Tentativa de classificação falhada</string>
+	<key>Leaderboard Result</key>
+	<string>Resultado na classificação</string>
+	<key>Leaderboard Started</key>
+	<string>Tentativa de classificação iniciada</string>
+	<key>Leaderboard Submitted</key>
+	<string>Resultado enviado à classificação</string>
+	<key>Leaderboard: %@</key>
+	<string>Classificação: %@</string>
+	<key>Load Anyway</key>
+	<string>Carregar mesmo assim</string>
+	<key>Locate Folder…</key>
+	<string>Localizar pasta…</string>
+	<key>Locate the OpenEmu data folder you previously selected. A different or empty folder will not replace your library.</key>
+	<string>Localize a pasta de dados do OpenEmu escolhida anteriormente. Uma pasta diferente ou vazia não substituirá a biblioteca.</string>
+	<key>Logged in</key>
+	<string>Sessão iniciada</string>
+	<key>M3U missing referenced file</key>
+	<string>Falta um ficheiro referenciado pelo M3U</string>
+	<key>M3U referencing unreachable file at path %@.</key>
+	<string>O M3U referencia um ficheiro inacessível em %@.</string>
+	<key>MD5</key>
+	<string>MD5</string>
+	<key>Mark if the cheat worked for you or not</key>
+	<string>Indique se o código de batota funcionou consigo</string>
+	<key>Mastered</key>
+	<string>Dominado</string>
+	<key>Missable</key>
+	<string>Pode ser perdido</string>
+	<key>Missing referenced file</key>
+	<string>Falta um ficheiro referenciado</string>
+	<key>Modified</key>
+	<string>Modificado</string>
+	<key>More than one installed core uses bundle identifier "%@". Remove the duplicate before updating.</key>
+	<string>Mais de um núcleo instalado usa o identificador de pacote "%@". Remova o duplicado antes de atualizar.</string>
+	<key>Move the selected data to Trash?</key>
+	<string>Mover os dados selecionados para o Lixo?</string>
+	<key>Move to Trash and Quit</key>
+	<string>Mover para o Lixo e sair</string>
+	<key>N64 codes must be 12 hex characters (8-char address + 4-char value), e.g. 8033B21D0064. Longer 16-char GameShark Pro / Action Replay codes are not supported by the Mupen64Plus core.</key>
+	<string>Os códigos N64 devem ter 12 caracteres hexadecimais (8 para o endereço + 4 para o valor), por exemplo 8033B21D0064. O núcleo Mupen64Plus não suporta os códigos GameShark Pro / Action Replay de 16 caracteres.</string>
+	<key>Newer Save Available</key>
+	<string>Está disponível uma gravação mais recente</string>
+	<key>No Core</key>
+	<string>Sem núcleo</string>
+	<key>No Shader</key>
+	<string>Sem shader</string>
+	<key>No achievement set was found for this game/hash.</key>
+	<string>Não foi encontrado um conjunto de conquistas para este jogo/hash.</string>
+	<key>No achievements were reported for this game.</key>
+	<string>Não foram recebidas conquistas para este jogo.</string>
+	<key>No backup yet</key>
+	<string>Ainda não há cópia de segurança</string>
+	<key>No cheats found</key>
+	<string>Não foram encontrados códigos de batota</string>
+	<key>No compatible, verified download is available for this core. Check for updates again.</key>
+	<string>Não existe uma descarga compatível e verificada para este núcleo. Procure atualizações novamente.</string>
+	<key>No folder selected</key>
+	<string>Nenhuma pasta selecionada</string>
+	<key>No matching artwork found.</key>
+	<string>Não foram encontradas capas correspondentes.</string>
+	<key>North</key>
+	<string>Norte</string>
+	<key>North America</key>
+	<string>América do Norte</string>
+	<key>North-East</key>
+	<string>Nordeste</string>
+	<key>North-West</key>
+	<string>Noroeste</string>
+	<key>Not Connected</key>
+	<string>Não ligado</string>
+	<key>Not Working</key>
+	<string>Não funciona</string>
+	<key>Not logged in</key>
+	<string>Sessão não iniciada</string>
+	<key>Not set</key>
+	<string>Não definido</string>
+	<key>Not signed in</key>
+	<string>Sessão não iniciada</string>
+	<key>Not signed in to Google Drive. Please sign in via Preferences.</key>
+	<string>Não iniciou sessão no Google Drive. Inicie sessão nas Preferências.</string>
+	<key>Not signed in — ScreenScraper will be skipped. OpenVGDB and libretro-thumbnails are still active.</key>
+	<string>Sem sessão iniciada — o ScreenScraper será ignorado. O OpenVGDB e o libretro-thumbnails continuam ativos.</string>
+	<key>Not signed in — achievements will not be tracked.</key>
+	<string>Sem sessão iniciada — as conquistas não serão registadas.</string>
+	<key>Not supported by this emulator.</key>
+	<string>Não suportado por este emulador.</string>
+	<key>Not synced yet</key>
+	<string>Ainda não sincronizado</string>
+	<key>Notes</key>
+	<string>Notas</string>
+	<key>Nothing is removed until you confirm on the next screen. Select OpenEmu Settings to repeat first-time setup on the next launch.</key>
+	<string>Nada será eliminado até confirmar no ecrã seguinte. Selecione Definições do OpenEmu para repetir a configuração inicial no próximo arranque.</string>
+	<key>OAuth redirect missing authorization code.</key>
+	<string>Falta o código de autorização no redirecionamento OAuth.</string>
+	<key>OEXPCMatchMaking proxy was nil</key>
+	<string>O proxy OEXPCMatchMaking está vazio</string>
+	<key>Obtain the Broken Picori Blade</key>
+	<string>Obtenha a Lâmina Picori partida</string>
+	<key>Only data inside this folder is affected. External files and OpenEmu.app, including its bundled cores, are kept.</key>
+	<string>Só são afetados os dados nesta pasta. Os ficheiros externos e o OpenEmu.app, incluindo os núcleos integrados, são mantidos.</string>
+	<key>Open System Settings</key>
+	<string>Abrir Definições do Sistema</string>
+	<key>OpenEmu Settings</key>
+	<string>Definições do OpenEmu</string>
+	<key>OpenEmu caches and temporary files stored in this folder.</key>
+	<string>Caches e ficheiros temporários do OpenEmu nesta pasta.</string>
+	<key>OpenEmu cannot open its data folder</key>
+	<string>O OpenEmu não consegue abrir a pasta de dados</string>
+	<key>OpenEmu could not contact its data-removal worker. Your data is unchanged. OpenEmu will now quit; open it again to retry.
+
+%@</key>
+	<string>O OpenEmu não conseguiu contactar o processo de eliminação de dados. Os dados não foram alterados. O OpenEmu vai fechar; abra-o novamente para tentar de novo.
+
+%@</string>
+	<key>OpenEmu could not find a system plugin to launch the game</key>
+	<string>O OpenEmu não encontrou um plugin de sistema para iniciar o jogo</string>
+	<key>OpenEmu could not finish deleting the selected data</key>
+	<string>O OpenEmu não conseguiu terminar a eliminação dos dados selecionados</string>
+	<key>OpenEmu could not prepare data removal</key>
+	<string>O OpenEmu não conseguiu preparar a eliminação de dados</string>
+	<key>OpenEmu could not save its settings</key>
+	<string>O OpenEmu não conseguiu guardar as definições</string>
+	<key>OpenEmu could not save its settings. Check that the data disk is connected and writable.</key>
+	<string>O OpenEmu não conseguiu guardar as definições. Verifique se o disco de dados está ligado e permite escrita.</string>
+	<key>OpenEmu couldn't find a core to use. One may not be available for this system yet, or you may not be connected to the internet.</key>
+	<string>O OpenEmu não encontrou um núcleo. Poderá ainda não existir um para este sistema ou poderá não estar ligado à Internet.</string>
+	<key>OpenEmu looks up cover art in three places: first the built-in OpenVGDB database, then ScreenScraper (if you're signed in below), and finally libretro-thumbnails as a last resort. Signing in to ScreenScraper gives the best coverage — registration is free.</key>
+	<string>O OpenEmu procura capas em três fontes: primeiro na base de dados integrada OpenVGDB, depois no ScreenScraper (se iniciar sessão abaixo) e por último no libretro-thumbnails. Iniciar sessão no ScreenScraper oferece a melhor cobertura — o registo é gratuito.</string>
+	<key>OpenEmu moved cores that cannot run on this Mac to %@.
+
+Moved: %@
+
+Compatible replacements will download automatically when available.</key>
+	<string>O OpenEmu moveu os núcleos incompatíveis com este Mac para %@.
+
+Movidos: %@
+
+As alternativas compatíveis serão descarregadas automaticamente quando estiverem disponíveis.</string>
+	<key>OpenEmu needs to relaunch to request Input Monitoring access again.</key>
+	<string>O OpenEmu precisa de reiniciar para voltar a pedir acesso à monitorização de entrada.</string>
+	<key>OpenEmu screenshots and their custom in-folder location. Core-owned screenshots are included under Saves and Console Data.</key>
+	<string>Capturas do OpenEmu e a sua localização personalizada dentro da pasta. As capturas dos núcleos estão incluídas em Gravações e dados das consolas.</string>
+	<key>OpenEmu will quit, then remove the selected data, including Settings.plist and its lock file. Its next launch will repeat first-time setup. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>O OpenEmu vai fechar e eliminar os dados selecionados, incluindo Settings.plist e o ficheiro de bloqueio. No próximo arranque, repetirá a configuração inicial. Os ficheiros eliminados podem ser recuperados do Lixo. Poderão ficar marcadores ocultos e um armazenamento de sessões vazio.</string>
+	<key>OpenEmu will quit, then remove the selected data. Your app settings and chosen data folder will be kept. Removed files can be recovered from Trash. Hidden folder markers and an empty sign-in store may remain.</key>
+	<string>O OpenEmu vai fechar e eliminar os dados selecionados. As definições e a pasta escolhida serão mantidas. Os ficheiros eliminados podem ser recuperados do Lixo. Poderão ficar marcadores ocultos e um armazenamento de sessões vazio.</string>
+	<key>Opening sign-in page…</key>
+	<string>A abrir a página de início de sessão…</string>
+	<key>Other Files in This Folder</key>
+	<string>Outros ficheiros nesta pasta</string>
+	<key>Other Region</key>
+	<string>Outra região</string>
+	<key>PSX GameShark codes must be 12 hex characters (e.g. 80097BA0 270F). Type byte: 30=8-bit, 80=16-bit.</key>
+	<string>Os códigos PSX GameShark devem ter 12 caracteres hexadecimais (por exemplo 80097BA0 270F). Byte de tipo: 30=8 bits, 80=16 bits.</string>
+	<key>Password</key>
+	<string>Palavra-passe</string>
+	<key>Password cannot be empty.</key>
+	<string>A palavra-passe não pode estar vazia.</string>
+	<key>Pause Blocked in Hardcore</key>
+	<string>Pausa bloqueada no modo hardcore</string>
+	<key>Pending submissions completed.</key>
+	<string>Os resultados pendentes foram enviados.</string>
+	<key>Permission reset</key>
+	<string>Permissão reposta</string>
+	<key>Play Without Restoring</key>
+	<string>Jogar sem restaurar</string>
+	<key>Play Without Syncing</key>
+	<string>Jogar sem sincronizar</string>
+	<key>Play With…</key>
+	<string>Jogar com…</string>
+	<key>Play locked on to Sonic &amp; Knuckles</key>
+	<string>Jogar ligado a Sonic &amp; Knuckles</string>
+	<key>Please sign in again from Preferences → Achievements.</key>
+	<string>Inicie sessão novamente em Preferências → Conquistas.</string>
+	<key>Progression</key>
+	<string>Progresso</string>
+	<key>Provider</key>
+	<string>Fornecedor</string>
+	<key>RA: Offline</key>
+	<string>RA: sem ligação</string>
+	<key>ROMs are not included in the backup.</key>
+	<string>As ROM não estão incluídas na cópia de segurança.</string>
+	<key>Register at retroachievements.org — it's free.</key>
+	<string>Registe-se em retroachievements.org — é gratuito.</string>
+	<key>Register at screenscraper.fr — it's free.</key>
+	<string>Registe-se em screenscraper.fr — é gratuito.</string>
+	<key>Relaunch Now</key>
+	<string>Reiniciar agora</string>
+	<key>Remove</key>
+	<string>Remover</string>
+	<key>Remove OpenEmu Data</key>
+	<string>Eliminar dados do OpenEmu</string>
+	<key>Reset Permission</key>
+	<string>Repor permissão</string>
+	<key>Reset all settings and quit OpenEmu?</key>
+	<string>Repor todas as definições e sair do OpenEmu?</string>
+	<key>Reset and Quit</key>
+	<string>Repor e sair</string>
+	<key>Restart Required</key>
+	<string>É necessário reiniciar</string>
+	<key>Restarting to apply hardcore mode.</key>
+	<string>A reiniciar para aplicar o modo hardcore.</string>
+	<key>Restore &amp; Play</key>
+	<string>Restaurar e jogar</string>
+	<key>RetroAchievements</key>
+	<string>RetroAchievements</string>
+	<key>RetroAchievements Error</key>
+	<string>Erro de RetroAchievements</string>
+	<key>RetroAchievements Offline</key>
+	<string>RetroAchievements sem ligação</string>
+	<key>RetroAchievements Reconnected</key>
+	<string>Ligação ao RetroAchievements restabelecida</string>
+	<key>RetroAchievements Sign-In Failed</key>
+	<string>Falha ao iniciar sessão no RetroAchievements</string>
+	<key>RetroAchievements Unavailable</key>
+	<string>RetroAchievements indisponível</string>
+	<key>RetroAchievements could not load for this session.</key>
+	<string>Não foi possível carregar o RetroAchievements para esta sessão.</string>
+	<key>RetroAchievements is enabled, but no achievement set was found for this game/hash.</key>
+	<string>O RetroAchievements está ativado, mas não foi encontrado um conjunto de conquistas para este jogo/hash.</string>
+	<key>RetroAchievements sign-in failed. Please sign in again from Preferences → Achievements.</key>
+	<string>Falha ao iniciar sessão no RetroAchievements. Inicie sessão novamente em Preferências → Conquistas.</string>
+	<key>RetroAchievements: Game Not Recognized</key>
+	<string>RetroAchievements: jogo não reconhecido</string>
+	<key>Revert</key>
+	<string>Reverter</string>
+	<key>Revert to previous version?</key>
+	<string>Reverter para a versão anterior?</string>
+	<key>Saturation:</key>
+	<string>Saturação:</string>
+	<key>Save</key>
+	<string>Guardar</string>
+	<key>Save Anyway</key>
+	<string>Guardar mesmo assim</string>
+	<key>Save Cheat</key>
+	<string>Guardar código de batota</string>
+	<key>Save State Version Mismatch</key>
+	<string>A versão do estado não corresponde</string>
+	<key>Save state loading is disabled in hardcore mode.</key>
+	<string>O carregamento de estados guardados está desativado no modo hardcore.</string>
+	<key>Save states, battery saves, memory cards and emulator support folders, including installed console content and configuration.</key>
+	<string>Estados guardados, gravações em bateria, cartões de memória e pastas de suporte dos emuladores, incluindo conteúdos e configurações de consolas instalados.</string>
+	<key>Save states, rewind, frame advance, and cheats will be disabled.</key>
+	<string>Serão desativados os estados guardados, o retrocesso, o avanço por fotogramas e os códigos de batota.</string>
+	<key>Saved account credentials and sign-in information in this folder.</key>
+	<string>Credenciais e informações de sessões guardadas nesta pasta.</string>
+	<key>Saved keyboard and game controller mappings.</key>
+	<string>Mapeamentos guardados do teclado e dos comandos.</string>
+	<key>Saves and Console Data</key>
+	<string>Gravações e dados das consolas</string>
+	<key>ScreenScraper rate limit reached. Try again later.</key>
+	<string>Foi atingido o limite de pedidos do ScreenScraper. Tente novamente mais tarde.</string>
+	<key>ScreenScraper rejected these credentials. Check your username and password.</key>
+	<string>O ScreenScraper rejeitou as credenciais. Verifique o nome de utilizador e a palavra-passe.</string>
+	<key>ScreenScraper rejected these credentials. Re-enter your password and save.</key>
+	<string>O ScreenScraper rejeitou as credenciais. Volte a introduzir a palavra-passe e guarde.</string>
+	<key>ScreenScraper rejected your credentials. Check your username and password in Preferences → Cover Art.</key>
+	<string>O ScreenScraper rejeitou as credenciais. Verifique o nome de utilizador e a palavra-passe em Preferências → Capas.</string>
+	<key>ScreenScraper returned an unexpected response.</key>
+	<string>O ScreenScraper devolveu uma resposta inesperada.</string>
+	<key>Screenshots of Deleted Games</key>
+	<string>Capturas de ecrã dos jogos eliminados</string>
+	<key>Select</key>
+	<string>Selecionar</string>
+	<key>Select Backup Folder</key>
+	<string>Selecionar pasta de cópias de segurança</string>
+	<key>Send Crash Reports</key>
+	<string>Enviar relatórios de falhas</string>
+	<key>Set Status</key>
+	<string>Definir estado</string>
+	<key>Showing first %1$@ of %2$@ cheats. Narrow your search.</key>
+	<string>A mostrar os primeiros %1$@ de %2$@ códigos de batota. Refine a pesquisa.</string>
+	<key>Sign In</key>
+	<string>Iniciar sessão</string>
+	<key>Sign Out</key>
+	<string>Terminar sessão</string>
+	<key>Sign Out of Google Drive?</key>
+	<string>Terminar sessão no Google Drive?</string>
+	<key>Sign in to your RetroAchievements account to earn achievements while playing. Your password is used only to obtain a login token and is never stored on disk.</key>
+	<string>Inicie sessão na sua conta RetroAchievements para obter conquistas enquanto joga. A palavra-passe só é usada para obter um token de acesso e nunca é guardada no disco.</string>
+	<key>Sign-in failed: %@</key>
+	<string>Falha ao iniciar sessão: %@</string>
+	<key>Signed in</key>
+	<string>Sessão iniciada</string>
+	<key>Signed in to Google Drive.</key>
+	<string>Sessão iniciada no Google Drive.</string>
+	<key>Signing in…</key>
+	<string>A iniciar sessão…</string>
+	<key>Softcore Mode</key>
+	<string>Modo softcore</string>
+	<key>Softcore enforced</key>
+	<string>Modo softcore obrigatório</string>
+	<key>Some submissions are pending retry.</key>
+	<string>Alguns resultados aguardam nova tentativa de envio.</string>
+	<key>South</key>
+	<string>Sul</string>
+	<key>South-East</key>
+	<string>Sudeste</string>
+	<key>South-West</key>
+	<string>Sudoeste</string>
+	<key>Start</key>
+	<string>Iniciar</string>
+	<key>Status</key>
+	<string>Estado</string>
+	<key>Supported Systems</key>
+	<string>Sistemas suportados</string>
+	<key>Switching to hardcore mode requires restarting the game.</key>
+	<string>É necessário reiniciar o jogo para mudar para o modo hardcore.</string>
+	<key>Sync failed: %@</key>
+	<string>Falha de sincronização: %@</string>
+	<key>Syncing…</key>
+	<string>A sincronizar…</string>
+	<key>System Main Menu</key>
+	<string>Menu principal do sistema</string>
+	<key>The .cue sheet %@ should contain file names referencing CD segments but none could be found.</key>
+	<string>O ficheiro .cue %@ deveria conter nomes de ficheiros dos segmentos de CD, mas não foram encontrados.</string>
+	<key>The BIOS folder. Firmware inside emulator support folders is included under Saves and Console Data.</key>
+	<string>A pasta BIOS. O firmware nas pastas de suporte dos emuladores está incluído em Gravações e dados das consolas.</string>
+	<key>The GDI %@ should contain file names referencing tracks but none could be found.</key>
+	<string>O GDI %@ deveria conter nomes de ficheiros das faixas, mas não foram encontrados.</string>
+	<key>The architectures in "%@" could not be checked: %@</key>
+	<string>Não foi possível verificar as arquiteturas em "%@": %@</string>
+	<key>The backup folder cannot be inside the OpenEmu data folder. Please choose a different location, such as a folder on an external drive or inside iCloud Drive.</key>
+	<string>A pasta de cópias não pode estar dentro da pasta de dados do OpenEmu. Escolha outro local, como uma pasta num disco externo ou no iCloud Drive.</string>
+	<key>The core cannot be installed at "%@" because that name is already used by "%@".</key>
+	<string>Não é possível instalar o núcleo em "%@" porque esse nome já é usado por "%@".</string>
+	<key>The core could not be installed because its destination is unsafe.</key>
+	<string>Não foi possível instalar o núcleo porque o destino não é seguro.</string>
+	<key>The core could not be installed safely: %@</key>
+	<string>Não foi possível instalar o núcleo em segurança: %@</string>
+	<key>The core download finished without producing an archive.</key>
+	<string>A descarga do núcleo terminou sem gerar um arquivo comprimido.</string>
+	<key>The core file "%@" does not contain the required %@ code. It contains: %@.</key>
+	<string>O ficheiro do núcleo "%@" não contém o código %@ necessário. Contém: %@.</string>
+	<key>The core replacement did not produce an installed bundle.</key>
+	<string>A substituição do núcleo não produziu um pacote instalado.</string>
+	<key>The core update is missing valid signature, size, or processor information.</key>
+	<string>A atualização do núcleo não tem assinatura, tamanho ou informação de processador válidos.</string>
+	<key>The core update server did not return a successful HTTPS response.</key>
+	<string>O servidor de atualizações dos núcleos não devolveu uma resposta HTTPS bem-sucedida.</string>
+	<key>The core update signature is invalid. Nothing has been installed.</key>
+	<string>A assinatura da atualização do núcleo é inválida. Nada foi instalado.</string>
+	<key>The downloaded archive must contain exactly one core plugin, but %ld were found.</key>
+	<string>O arquivo descarregado deve conter exatamente um plugin de núcleo, mas foram encontrados %ld.</string>
+	<key>The downloaded core "%@" could not be signed (codesign status %d).</key>
+	<string>Não foi possível assinar o núcleo descarregado "%@" (estado codesign %d).</string>
+	<key>The downloaded core archive could not be extracted.</key>
+	<string>Não foi possível extrair o arquivo do núcleo descarregado.</string>
+	<key>The downloaded core archive could not be inspected safely.</key>
+	<string>Não foi possível inspecionar em segurança o arquivo do núcleo descarregado.</string>
+	<key>The downloaded core archive has an unexpected size. Nothing has been installed.</key>
+	<string>O arquivo do núcleo descarregado tem um tamanho inesperado. Nada foi instalado.</string>
+	<key>The downloaded core contains an unsafe link at "%@".</key>
+	<string>O núcleo descarregado contém uma ligação insegura em "%@".</string>
+	<key>The downloaded core could not be signed: %@</key>
+	<string>Não foi possível assinar o núcleo descarregado: %@</string>
+	<key>The downloaded core does not contain its declared executable.</key>
+	<string>O núcleo descarregado não contém o executável declarado.</string>
+	<key>The downloaded core executable is not a macOS Mach-O binary.</key>
+	<string>O executável do núcleo descarregado não é um binário Mach-O do macOS.</string>
+	<key>The downloaded core file "%@" could not be inspected: %@</key>
+	<string>Não foi possível inspecionar o ficheiro do núcleo descarregado "%@": %@</string>
+	<key>The downloaded core has bundle identifier "%@" instead of the expected "%@".</key>
+	<string>O núcleo descarregado tem o identificador de pacote "%@" em vez do esperado "%@".</string>
+	<key>The downloaded core has version "%@" instead of the expected "%@".</key>
+	<string>O núcleo descarregado tem a versão "%@" em vez da esperada "%@".</string>
+	<key>The downloaded core is not a valid plugin bundle.</key>
+	<string>O núcleo descarregado não é um pacote de plugin válido.</string>
+	<key>The downloaded core plugin points outside its temporary folder.</key>
+	<string>O plugin de núcleo descarregado aponta para fora da sua pasta temporária.</string>
+	<key>The emulator does not have read permissions to the ROM.</key>
+	<string>O emulador não tem permissão para ler a ROM.</string>
+	<key>The file %@ does not respect the CUE sheet format.</key>
+	<string>O ficheiro %@ não respeita o formato CUE.</string>
+	<key>The following save states were created with older core versions and are no longer compatible. Loading them would cause a crash.
+
+Affected cores:
+%@
+
+You can keep them now and back up the files in:
+%@
+before deleting, or remove them immediately.</key>
+	<string>Os seguintes estados foram criados com versões antigas dos núcleos e já não são compatíveis. Carregá-los causaria uma falha.
+
+Núcleos afetados:
+%@
+
+Pode mantê-los por agora e fazer uma cópia dos ficheiros em:
+%@
+antes de os eliminar, ou removê-los imediatamente.</string>
+	<key>The installed Cores and Systems folders. Cores bundled inside OpenEmu.app are kept.</key>
+	<string>As pastas Cores e Systems instaladas. Os núcleos incluídos no OpenEmu.app são mantidos.</string>
+	<key>The installed core could not be loaded. The previous core has been restored.</key>
+	<string>Não foi possível carregar o núcleo instalado. O núcleo anterior foi restaurado.</string>
+	<key>The language changes the next time you open OpenEmu.</key>
+	<string>O idioma será alterado da próxima vez que abrir o OpenEmu.</string>
+	<key>The reset could not finish, and some settings could not be restored. Reconnect the data disk and check its permissions before trying again.</key>
+	<string>Não foi possível concluir a reposição nem restaurar algumas definições. Volte a ligar o disco de dados e verifique as permissões antes de tentar novamente.</string>
+	<key>The selected data was not deleted</key>
+	<string>Os dados selecionados não foram eliminados</string>
+	<key>The track count (%@) and the track file references found (%@) in the GDI %@ do not match.</key>
+	<string>O número de faixas (%@) e as referências a ficheiros encontradas (%@) no GDI %@ não correspondem.</string>
+	<key>The updated core is installed. Restart OpenEmu to use it; running games keep the previous version.</key>
+	<string>O núcleo atualizado está instalado. Reinicie o OpenEmu para o usar; os jogos em execução mantêm a versão anterior.</string>
+	<key>This code doesn't match a known cheat format for this system.</key>
+	<string>Este código não corresponde a um formato de batota conhecido para este sistema.</string>
+	<key>This core has not declared RetroAchievements support</key>
+	<string>Este núcleo não declara suporte para RetroAchievements</string>
+	<key>This core supports RetroAchievements for this system.</key>
+	<string>Este núcleo suporta RetroAchievements para este sistema.</string>
+	<key>This core update feed is not trusted by this copy of OpenEmu Reborn.</key>
+	<string>Esta cópia do OpenEmu Reborn não confia nesta fonte de atualizações do núcleo.</string>
+	<key>This folder cannot be used</key>
+	<string>Não é possível usar esta pasta</string>
+	<key>This save state can't be loaded.</key>
+	<string>Não é possível carregar este estado guardado.</string>
+	<key>This save state was created with %@ version %@, but version %@ is installed. Loading it may cause a crash.</key>
+	<string>Este estado foi criado com %@ versão %@, mas está instalada a versão %@. Carregá-lo poderá causar uma falha.</string>
+	<key>Timeout waiting for connection from helper app</key>
+	<string>Tempo de espera esgotado para a ligação da aplicação auxiliar</string>
+	<key>Track count mismatch</key>
+	<string>O número de faixas não corresponde</string>
+	<key>Trigger %@</key>
+	<string>Gatilho %@</string>
+	<key>Try Again</key>
+	<string>Tentar novamente</string>
+	<key>Try again in about %d seconds.</key>
+	<string>Tente novamente dentro de cerca de %d segundos.</string>
+	<key>Turn off hardcore mode in Preferences ▸ RetroAchievements to load save states.</key>
+	<string>Para carregar estados guardados, desative o modo hardcore em Preferências ▸ RetroAchievements.</string>
+	<key>Unable to delete default shader preset</key>
+	<string>Não é possível eliminar a predefinição de shader padrão</string>
+	<key>Unable to delete the active shader</key>
+	<string>Não é possível eliminar o shader ativo</string>
+	<key>Unavailable</key>
+	<string>Indisponível</string>
+	<key>Uncheck any game you don't want to update.</key>
+	<string>Desmarque os jogos que não pretende atualizar.</string>
+	<key>Unlocked %d of %d achievements · %d of %d points</key>
+	<string>%d de %d conquistas desbloqueadas · %d de %d pontos</string>
+	<key>Untitled Achievement</key>
+	<string>Conquista sem título</string>
+	<key>Update Available</key>
+	<string>Atualização disponível</string>
+	<key>Upload failed: %@</key>
+	<string>Falha ao enviar: %@</string>
+	<key>Uploaded %@.</key>
+	<string>%@ enviado.</string>
+	<key>Uploading %@…</key>
+	<string>A enviar %@…</string>
+	<key>Use This Folder</key>
+	<string>Usar esta pasta</string>
+	<key>Use the controls below to filter by name and the status you chose</key>
+	<string>Use os controlos abaixo para filtrar pelo nome e pelo estado escolhido</string>
+	<key>Username</key>
+	<string>Nome de utilizador</string>
+	<key>Username cannot be empty.</key>
+	<string>O nome de utilizador não pode estar vazio.</string>
+	<key>Verifying credentials…</key>
+	<string>A verificar credenciais…</string>
+	<key>Verifying…</key>
+	<string>A verificar…</string>
+	<key>Waiting for RetroAchievements game metadata from the emulator core. If this stays empty, confirm you are signed in and the active core/game supports RetroAchievements.</key>
+	<string>A aguardar os metadados do jogo RetroAchievements do núcleo. Se continuar vazio, confirme que iniciou sessão e que o núcleo e o jogo ativos suportam RetroAchievements.</string>
+	<key>West</key>
+	<string>Oeste</string>
+	<key>Win Condition</key>
+	<string>Condição de vitória</string>
+	<key>Working</key>
+	<string>Funciona</string>
+	<key>Would you like to automatically send crash reports when OpenEmu crashes? This helps the team find and fix bugs faster.
+
+Reports include the game title, system, and core in use at the time of the crash. No game files, save data, or passwords are ever included.</key>
+	<string>Pretende enviar automaticamente relatórios quando o OpenEmu falhar? Isto ajuda a equipa a encontrar e corrigir erros mais depressa.
+
+Os relatórios incluem o título do jogo, sistema e núcleo usados no momento da falha. Nunca incluem ficheiros de jogos, gravações ou palavras-passe.</string>
+	<key>Your library can’t be opened with this version of OpenEmu.</key>
+	<string>Não é possível abrir a biblioteca com esta versão do OpenEmu.</string>
+	<key>Your local saves will not be affected. You can sign back in at any time.</key>
+	<string>As gravações locais não serão afetadas. Pode voltar a iniciar sessão a qualquer momento.</string>
+	<key>retroachievements.org password</key>
+	<string>Palavra-passe de retroachievements.org</string>
+	<key>retroachievements.org username</key>
+	<string>Nome de utilizador de retroachievements.org</string>
+	<key>screenscraper.fr password</key>
+	<string>Palavra-passe de screenscraper.fr</string>
+	<key>screenscraper.fr username</key>
+	<string>Nome de utilizador de screenscraper.fr</string>
+	<key>unknown</key>
+	<string>desconhecido</string>
+	<key>••••••••  (saved)</key>
+	<string>••••••••  (guardada)</string>
+	<key>⚠ Duplicate core bundles detected: %@. Open %@ and remove the extra copy of each affected core.</key>
+	<string>⚠ Foram detetados pacotes de núcleos duplicados: %@. Abra %@ e remova a cópia extra de cada núcleo afetado.</string>
+	<key>✓  Signed in as %@</key>
+	<string>✓  Sessão iniciada como %@</string>
+	<key>Login succeeded but RetroAchievements returned no token.</key>
+	<string>A sessão foi iniciada, mas o RetroAchievements não devolveu nenhum token de autenticação.</string>
+	<key>Invalid user/password combination.</key>
+	<string>A combinação de nome de utilizador e palavra-passe é inválida.</string>
+	<key>Login failed. Check username and password.</key>
+	<string>Não foi possível iniciar sessão. Verifica o nome de utilizador e a palavra-passe.</string>
+	<key>No bridge bundle or installed OpenEmu core found to seed the plugin executable.</key>
+	<string>Não foi encontrado um módulo de ligação nem um núcleo OpenEmu instalado para criar o executável do módulo.</string>
+	<key>+%u pts</key>
+	<string>+%u pts</string>
+	<key>No backup found</key>
+	<string>Não foi encontrada uma cópia de segurança</string>
+	<key>The core backup has an unexpected bundle identifier.</key>
+	<string>A cópia de segurança do núcleo tem um identificador de pacote inesperado.</string>
+	<key>Invalid HTTP response</key>
+	<string>Resposta HTTP inválida</string>
 </dict>
 </plist>

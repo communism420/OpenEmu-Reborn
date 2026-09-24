@@ -269,11 +269,11 @@ final class GameControlsBarView: NSView {
         let gam = doc?.imageGamma ?? 1.0
 
         let (satView, _, satLbl) = makeAdjustmentRow(
-            label: "Saturation:", value: sat, minValue: 0.5, maxValue: 3.0, y: 55, width: 260,
+            label: NSLocalizedString("Saturation:", comment: ""), value: sat, minValue: 0.5, maxValue: 3.0, y: 55, width: 260,
             action: #selector(saturationChanged(_:))
         )
         let (gamView, _, gamLbl) = makeAdjustmentRow(
-            label: "Gamma:", value: gam, minValue: 0.5, maxValue: 2.0, y: 15, width: 260,
+            label: NSLocalizedString("Gamma:", comment: ""), value: gam, minValue: 0.5, maxValue: 2.0, y: 15, width: 260,
             action: #selector(gammaChanged(_:))
         )
         satAdjustLabel = satLbl

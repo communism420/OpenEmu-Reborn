@@ -7,7 +7,7 @@
 	<key>Always Hide HUD</key>
 	<string>Sempre Esconder Controles</string>
 	<key>Back Up…</key>
-	<string>Back Up…</string>
+	<string>Criar cópia de segurança…</string>
 	<key>Bring All to Front</key>
 	<string>Trazer para Frente</string>
 	<key>Check for Updates…</key>
@@ -31,7 +31,7 @@
 	<key>Edit Smart Collection</key>
 	<string>Editar Coleção Inteligente</string>
 	<key>Export Collection</key>
-	<string>Export Collection</string>
+	<string>Exportar coleção</string>
 	<key>Export Library…</key>
 	<string>Exportar Biblioteca…</string>
 	<key>File</key>
@@ -57,11 +57,11 @@
 	<key>Hide Others</key>
 	<string>Ocultar Outros</string>
 	<key>Import Collection</key>
-	<string>Import Collection</string>
+	<string>Importar coleção</string>
 	<key>Jump to Selection</key>
 	<string>Pular para Seleção</string>
 	<key>Last Display Mode</key>
-	<string>Last Display Mode</string>
+	<string>Modo de apresentação anterior</string>
 	<key>Last Played</key>
 	<string>Últimos Jogados</string>
 	<key>Launch Game…</key>
@@ -69,7 +69,7 @@
 	<key>Load State</key>
 	<string>Carregar Estado</string>
 	<key>Log Responder Chain</key>
-	<string>Log Responder Chain</string>
+	<string>Registar a cadeia de resposta</string>
 	<key>Minimize</key>
 	<string>Minimizar</string>
 	<key>New Collection Folder</key>
@@ -77,7 +77,7 @@
 	<key>New Smart Collection…</key>
 	<string>Nova Coleção Inteligente</string>
 	<key>Next Display Mode</key>
-	<string>Next Display Mode</string>
+	<string>Modo de apresentação seguinte</string>
 	<key>OpenEmu Web Site</key>
 	<string>Web Site OpenEmu Reborn</string>
 	<key>Organize Library…</key>
@@ -91,7 +91,7 @@
 	<key>Print…</key>
 	<string>Imprimir…</string>
 	<key>Quit OpenEmu</key>
-	<string>Quit OpenEmu Reborn</string>
+	<string>Sair do OpenEmu Reborn</string>
 	<key>Redo</key>
 	<string>Refazer</string>
 	<key>Release Notes</key>
@@ -101,7 +101,7 @@
 	<key>Select All</key>
 	<string>Selecionar Tudo</string>
 	<key>Send a Donation…</key>
-	<string>Send a Donation…</string>
+	<string>Fazer um donativo…</string>
 	<key>Services</key>
 	<string>Serviços</string>
 	<key>Show All</key>
@@ -138,5 +138,9 @@
 	<string>Grid</string>
 	<key>as List</key>
 	<string>Lista</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>Repor permissão de monitorização de entrada…</string>
+	<key>Take Native Screenshot</key>
+	<string>Capturar à resolução nativa</string>
 </dict>
 </plist>

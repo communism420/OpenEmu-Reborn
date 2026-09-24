@@ -13,6 +13,7 @@ static NSTimer *timer;
 static NSUInteger samples;
 static NSMutableSet<NSString *> *locatorReads;
 static NSUInteger bootstrapSuiteRequests;
+static NSString *nativePrompt;
 
 static NSString *canonical(NSString *path) {
     return path.stringByStandardizingPath.stringByResolvingSymlinksInPath;
@@ -157,8 +158,13 @@ static void tick(void) {
     requireUnconfigured();
     require(panel.canChooseDirectories && !panel.canChooseFiles, @"expected actual data-folder picker");
     NSString *title = [NSBundle.mainBundle localizedStringForKey:@"Choose OpenEmu Data Folder" value:nil table:nil];
-    NSString *prompt = [NSBundle.mainBundle localizedStringForKey:@"Use This Folder" value:nil table:nil];
-    require([panel.title isEqualToString:title] && [panel.prompt isEqualToString:prompt], @"actual localized data-folder panel not identified");
+    // Each NSOpenPanel creates a remote service connection. The geometry
+    // sampler must not create a second unused panel on every timer tick.
+    if(!nativePrompt) {
+        @autoreleasepool { nativePrompt = [[NSOpenPanel openPanel].prompt copy]; }
+        require(nativePrompt.length > 0, @"native panel reference label unavailable");
+    }
+    require([panel.title isEqualToString:title] && [panel.prompt isEqualToString:nativePrompt], @"actual localized data-folder panel not identified");
     if([language isEqualToString:@"ru"]) require(![title isEqualToString:@"Choose OpenEmu Data Folder"], @"Russian app localization must be active");
 
     NSScreen *screen = panel.screen ?: NSScreen.mainScreen;
@@ -184,7 +190,10 @@ static void tick(void) {
     if(localButtons) {
         require(NSContainsRect(tolerance, screenRect(choose)) && NSContainsRect(tolerance, screenRect(cancel)), @"native action buttons must fit on screen");
         require(NSContainsRect(panel.frame, screenRect(choose)) && NSContainsRect(panel.frame, screenRect(cancel)), @"native action buttons must fit inside the panel");
+        require(!NSIntersectsRect(screenRect(choose), screenRect(cancel)), @"native action buttons must not overlap");
     }
+    require(panel.frame.size.width >= panel.minSize.width && panel.frame.size.height >= panel.minSize.height,
+            @"panel must respect the native control minimum size");
     if(samples < 12) return;
     [timer invalidate];
     event(@"PRIVATE_BOOTSTRAP_AND_MODAL_GEOMETRY_VERIFIED");

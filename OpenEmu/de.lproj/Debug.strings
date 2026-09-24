@@ -127,5 +127,27 @@ gelegte analoge Eingaben:</string>
 	<string>Während dieser Aktion wird OpenEmu nicht mehr reagieren.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Einheit im Skalierungsmenü von Punkten zu Pixeln ändern</string>
+	<key>Dark</key>
+	<string>Dunkel</string>
+	<key>Download additional shaders</key>
+	<string>Weitere Shader laden</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Adaptive Synchronisierung für unterstützte Bildschirme aktivieren (Vollbild)</string>
+	<key>Preview achievement banner</key>
+	<string>Erfolgsbanner anzeigen</string>
+	<key>Save States</key>
+	<string>Speicherstände</string>
+	<key>Use new save states view</key>
+	<string>Neue Speicherstandansicht verwenden</string>
+	<key>Use new screenshots view</key>
+	<string>Neue Bildschirmfotoansicht verwenden</string>
+	<key>Vibrant</key>
+	<string>Lebhaft</string>
+	<key>Vibrant Wood</key>
+	<string>Lebhafte Holzoptik</string>
+	<key>Wood</key>
+	<string>Holz</string>
 </dict>
 </plist>

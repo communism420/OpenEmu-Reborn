@@ -101,7 +101,7 @@
 	<key>Select All</key>
 	<string>全選</string>
 	<key>Send a Donation…</key>
-	<string>Send a Donation…</string>
+	<string>捐款…</string>
 	<key>Services</key>
 	<string>服務</string>
 	<key>Show All</key>
@@ -138,5 +138,9 @@
 	<string>圖像顯示</string>
 	<key>as List</key>
 	<string>清單檢視</string>
+	<key>Reset Input Monitoring Permission…</key>
+	<string>重置輸入監控權限…</string>
+	<key>Take Native Screenshot</key>
+	<string>擷取原生解析度截圖</string>
 </dict>
 </plist>

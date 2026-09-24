@@ -36,7 +36,6 @@ protocol CachedLastPlayedInfoItem {}
 extension String: CachedLastPlayedInfoItem {}
 extension OEDBRom: CachedLastPlayedInfoItem {}
 
-@NSApplicationMain
 @objc(OEApplicationDelegate)
 @objcMembers
 class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
@@ -247,7 +246,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             let folder = database.databaseFolderURL
             if folder.standardizedFileURL.path == root.path {
                 // A custom library at the data root does not own every category.
-                for name in ["Library.storedata", "Library.storedata-wal", "Library.storedata-shm", "roms", "Artwork", "Cheats", "ImportQueue.plist"] {
+                for name in ["Library.storedata", "Library.storedata-wal", "Library.storedata-shm", "roms", "Artwork", "Cheats", "CheatDatabase", "CheatFeedback", "ImportQueue.plist"] {
                     try add(root.appendingPathComponent(name), category: .library)
                 }
             } else {
@@ -343,7 +342,11 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
 
         // Trigger Objective-C +initialize methods in these classes.
         _ = OEControllerDescription.self
-        
+
+        // registerClass() caches installed plugins. Update supported RetroArch
+        // stubs before that cache exists, retaining the picker and translator.
+        if !OEDataFolderSetup.isRunningUnitTests { refreshStaleRetroArchStubs() }
+
         OECorePlugin.registerClass()
         OESystemPlugin.registerClass()
         
@@ -586,7 +589,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     /// Walks every installed `*-RetroArch.oecoreplugin` and refreshes any
     /// stub whose `OEBridgeVersion` doesn't match the running app's
     /// `OELibretroBridgeVersion`. The bridge code is bundled with the app at
-    /// `Contents/Resources/OpenEmuLibretroBridge.oecoreplugin`, so a fresh
+    /// `Contents/PlugIns/OpenEmuLibretroBridge.oecoreplugin`, so a fresh
     /// OpenEmu update silently propagates translator fixes into every
     /// already-installed RA stub on next launch — no user action required.
     ///
@@ -624,7 +627,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
             let plistURL = stub.appendingPathComponent("Contents/Info.plist")
             guard
                 let data  = try? Data(contentsOf: plistURL),
-                var plist = (try? PropertyListSerialization.propertyList(from: data, options: [.mutableContainers], format: nil)) as? [String: Any]
+                let plist = (try? PropertyListSerialization.propertyList(from: data, options: [], format: nil)) as? [String: Any]
             else {
                 failed.append((stub.lastPathComponent, "Info.plist unreadable"))
                 continue
@@ -634,32 +637,8 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
                 continue
             }
 
-            guard let exeName = plist["CFBundleExecutable"] as? String else {
-                failed.append((stub.lastPathComponent, "CFBundleExecutable missing"))
-                continue
-            }
-            let stubExe = stub.appendingPathComponent("Contents/MacOS/\(exeName)")
-
             do {
-                if FileManager.default.fileExists(atPath: stubExe.path) {
-                    try FileManager.default.removeItem(at: stubExe)
-                }
-                try FileManager.default.copyItem(at: bridgeExe, to: stubExe)
-
-                plist["OEBridgeVersion"] = runningVersion
-                let newData = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
-                try newData.write(to: plistURL)
-
-                let task = Process()
-                task.executableURL = URL(fileURLWithPath: "/usr/bin/codesign")
-                task.arguments     = ["--force", "--sign", "-", stub.path]
-                try task.run()
-                task.waitUntilExit()
-                guard task.terminationStatus == 0 else {
-                    failed.append((stub.lastPathComponent, "codesign exit \(task.terminationStatus)"))
-                    continue
-                }
-
+                try OELibretroStubRefresh.refresh(stub: stub, bridgeExecutable: bridgeExe, version: runningVersion)
                 refreshed.append(stub.deletingPathExtension().lastPathComponent)
                 os_log(.info, log: .default, "Bridge auto-refresh: updated %{public}@ to bridge version %{public}@", stub.lastPathComponent, runningVersion)
             } catch {
@@ -863,21 +842,21 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
         let count = incompatibleSaveStates.count
 
         let alert = NSAlert()
-        alert.messageText = "\(count) Incompatible Save State\(count == 1 ? "" : "s") Found"
-        alert.informativeText = """
+        alert.messageText = String(format: NSLocalizedString("Incompatible save states found: %ld", comment: ""), count)
+        alert.informativeText = String(format: NSLocalizedString("""
             The following save states were created with older core versions and are no longer \
             compatible. Loading them would cause a crash.
 
             Affected cores:
-            \(affectedCores)
+            %@
 
             You can keep them now and back up the files in:
-            \(database.stateFolderURL.path)
+            %@
             before deleting, or remove them immediately.
-            """
+            """, comment: ""), affectedCores, database.stateFolderURL.path)
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Delete Save States")
-        alert.addButton(withTitle: "Keep for Now")
+        alert.addButton(withTitle: NSLocalizedString("Delete Save States", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Keep for Now", comment: ""))
 
         if alert.runModal() == .alertFirstButtonReturn {
             os_log(.info, log: .default, "Removing %d incompatible save state(s).", count)
@@ -1338,12 +1317,8 @@ extension AppDelegate: NSMenuDelegate {
             OEPreferencesController.shared.addObserver(self, forKeyPath: "values.\(OEAppearance.Application.key)", options: [.initial], context: &appearancePrefChangedKVOContext)
             return
         }
-        // Refresh stale RetroArch stub bridges before any plugin enumeration so
-        // newly-refreshed stubs load with the current translator code in this
-        // same launch — not the next one.
         // The host owns core update URLs; leave installed plugin plists and
         // their code signatures untouched when checking for updates.
-        refreshStaleRetroArchStubs()
 
         atexit {
             // Always remove the XPC broker registered with launchd.

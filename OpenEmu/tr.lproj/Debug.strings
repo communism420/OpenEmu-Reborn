@@ -126,5 +126,27 @@
 	<string>Bu işlem gerçekleştirilirken OpenEmu işlevsiz kalacaktır.</string>
 	<key>XPC</key>
 	<string>XPC</string>
+	<key>Change scale menu unit from points to pixels</key>
+	<string>Ölçek menüsü birimini noktadan piksele değiştir</string>
+	<key>Dark</key>
+	<string>Koyu</string>
+	<key>Download additional shaders</key>
+	<string>Ek gölgelendiriciler indir</string>
+	<key>Enable adaptive sync for supported displays (full screen)</key>
+	<string>Desteklenen ekranlarda uyarlanabilir eşzamanlamayı etkinleştir (tam ekran)</string>
+	<key>Preview achievement banner</key>
+	<string>Başarım bildirimini önizle</string>
+	<key>Save States</key>
+	<string>Kayıt durumları</string>
+	<key>Use new save states view</key>
+	<string>Yeni kayıt durumları görünümünü kullan</string>
+	<key>Use new screenshots view</key>
+	<string>Yeni ekran görüntüleri görünümünü kullan</string>
+	<key>Vibrant</key>
+	<string>Yarı saydam</string>
+	<key>Vibrant Wood</key>
+	<string>Yarı saydam ahşap</string>
+	<key>Wood</key>
+	<string>Ahşap</string>
 </dict>
 </plist>

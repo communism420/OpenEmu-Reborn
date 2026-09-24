@@ -19,7 +19,7 @@
 	<key>3</key>
 	<string>3</string>
 	<key>3D Control Pad</key>
-	<string>3D Control Pad</string>
+	<string>3D コントロールパッド</string>
 	<key>4</key>
 	<string>4</string>
 	<key>5</key>
@@ -35,7 +35,7 @@
 	<key>A</key>
 	<string>A</string>
 	<key>Action</key>
-	<string>Action</string>
+	<string>アクション</string>
 	<key>Analog</key>
 	<string>アナログ</string>
 	<key>Analog Mode</key>
@@ -43,9 +43,9 @@
 	<key>B</key>
 	<string>B</string>
 	<key>Bottom Left Action</key>
-	<string>Bottom Left Action</string>
+	<string>左下のアクション</string>
 	<key>Bottom Right Action</key>
-	<string>Bottom Right Action</string>
+	<string>右下のアクション</string>
 	<key>Button 1</key>
 	<string>ボタン 1</string>
 	<key>Button 1/Start</key>
@@ -69,9 +69,9 @@
 	<key>Change Disk Side</key>
 	<string>ディスクを変更</string>
 	<key>Clear</key>
-	<string>Clear</string>
+	<string>クリア</string>
 	<key>Configure</key>
-	<string>Configure</string>
+	<string>設定</string>
 	<key>Console Pause</key>
 	<string>コンソールを一時停止</string>
 	<key>Console Reset</key>
@@ -83,7 +83,7 @@
 	<key>Down</key>
 	<string>下</string>
 	<key>Enter</key>
-	<string>Enter</string>
+	<string>決定</string>
 	<key>Fast Forward</key>
 	<string>早送り</string>
 	<key>Fire</key>
@@ -99,7 +99,7 @@
 	<key>Insert Coin</key>
 	<string>コイン投入</string>
 	<key>Jump</key>
-	<string>Jump</string>
+	<string>ジャンプ</string>
 	<key>Keypad</key>
 	<string>キーパッド</string>
 	<key>L</key>
@@ -133,13 +133,13 @@
 	<key>Load</key>
 	<string>ロード</string>
 	<key>Menu</key>
-	<string>Menu</string>
+	<string>メニュー</string>
 	<key>Mic</key>
 	<string>マイク</string>
 	<key>Mode</key>
 	<string>モード</string>
 	<key>Mode Switch</key>
-	<string>Mode Switch</string>
+	<string>モード切り替え</string>
 	<key>Mute</key>
 	<string>ミュート</string>
 	<key>Next Display Mode</key>
@@ -157,7 +157,7 @@
 	<key>Player Start</key>
 	<string>プレイヤー開始</string>
 	<key>Power</key>
-	<string>Power</string>
+	<string>電源</string>
 	<key>Quick Load</key>
 	<string>クイックロード</string>
 	<key>Quick Save</key>
@@ -207,7 +207,7 @@
 	<key>Service</key>
 	<string>サービス</string>
 	<key>Shake</key>
-	<string>Shake</string>
+	<string>振る</string>
 	<key>Sound</key>
 	<string>サウンド</string>
 	<key>Special Keys</key>
@@ -219,7 +219,7 @@
 	<key>Step Forward</key>
 	<string>後ろにステップ</string>
 	<key>Swap Joysticks</key>
-	<string>Swap Joysticks</string>
+	<string>ジョイスティックを入れ替え</string>
 	<key>Switches</key>
 	<string>スイッチ</string>
 	<key>TV Black &amp; White</key>
@@ -227,11 +227,11 @@
 	<key>TV Color</key>
 	<string>テレビタイプ カラー</string>
 	<key>Top Action</key>
-	<string>Top Action</string>
+	<string>上部のアクション</string>
 	<key>Trigger L</key>
-	<string>Trigger L</string>
+	<string>左トリガー</string>
 	<key>Trigger R</key>
-	<string>Trigger R</string>
+	<string>右トリガー</string>
 	<key>Up</key>
 	<string>上</string>
 	<key>Volume Down</key>
@@ -268,5 +268,47 @@
 	<string>◯</string>
 	<key>✕</key>
 	<string>✕</string>
+	<key>Achievement Unlocked</key>
+	<string>実績を解除</string>
+	<key>Hardcore Mode</key>
+	<string>ハードコアモード</string>
+	<key>Wiimote</key>
+	<string>Wiiリモコン</string>
+	<key>Buttons</key>
+	<string>ボタン</string>
+	<key>+</key>
+	<string>+</string>
+	<key>Home</key>
+	<string>HOMEボタン</string>
+	<key>Tilt</key>
+	<string>傾き</string>
+	<key>Forward</key>
+	<string>前方</string>
+	<key>Backward</key>
+	<string>後方</string>
+	<key>Swing</key>
+	<string>振る</string>
+	<key>Nunchuk</key>
+	<string>ヌンチャク</string>
+	<key>Classic Controller</key>
+	<string>クラシックコントローラ</string>
+	<key>Zl</key>
+	<string>ZL</string>
+	<key>Zr</key>
+	<string>ZR</string>
+	<key>Special Buttons</key>
+	<string>特殊ボタン</string>
+	<key>Change Extension</key>
+	<string>拡張機器を切り替える</string>
+	<key>Hold Sideways</key>
+	<string>横向きに持つ</string>
+	<key>Hold Upright</key>
+	<string>縦向きに持つ</string>
+	<key>Sleep</key>
+	<string>スリープ</string>
+	<key>Stop</key>
+	<string>停止</string>
+	<key>Slow Motion</key>
+	<string>スローモーション</string>
 </dict>
 </plist>
