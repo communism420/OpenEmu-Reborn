@@ -6,7 +6,7 @@
       <title>blueMSX 2.9.1294</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/blueMSX-arm64.oecoreplugin.zip" length="981572" type="application/octet-stream" sparkle:version="2.9.1294" sparkle:shortVersionString="2.9.1294" sparkle:edSignature="ncg+hj7mRzieqXISm4pIdcCtosRlBA6dC84dtFv62p0ntkjCXvdx4JUtlwNgKHLuI/xBNre5+/rd3d6vknyADQ==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/blueMSX-arm64.oecoreplugin.zip" length="981572" type="application/octet-stream" sparkle:version="2.9.1294" sparkle:shortVersionString="2.9.1294" sparkle:edSignature="3badaF6v2OnGFlfPOIbxgqpOkUgNmL80M1UyXCE4NSo1/GnvL9f3ZX5V138WHvrXfl0YSZaoPUD4UYIT+ZabBA==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

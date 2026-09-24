@@ -6,7 +6,7 @@
       <title>PokeMini 0.6.1</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/PokeMini-x86_64.oecoreplugin.zip" length="60946" type="application/octet-stream" sparkle:version="0.6.1" sparkle:shortVersionString="0.6.1" sparkle:edSignature="P+Q+25KdcwmQJmcOD/ryex4oH4wWeiwYl+bjy8kqw7ry9GfIZJRYo/59q5qtUWakIoZ/oStKLCZEFs66qlMZDQ==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/PokeMini-x86_64.oecoreplugin.zip" length="60946" type="application/octet-stream" sparkle:version="0.6.1" sparkle:shortVersionString="0.6.1" sparkle:edSignature="s40Xh7GbMLdKCwKiZi+MYZp97Yp/Ew7kVmvyF8nPG0Ueo8WLWd57uBaSTiZIeI9Re/vhdzxXeuVQKPTZBihuDQ==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

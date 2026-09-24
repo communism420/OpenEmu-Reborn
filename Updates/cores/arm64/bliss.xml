@@ -6,7 +6,7 @@
       <title>Bliss 2.1.3</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Bliss-arm64.oecoreplugin.zip" length="101637" type="application/octet-stream" sparkle:version="2.1.3" sparkle:shortVersionString="2.1.3" sparkle:edSignature="VGML7EsVlAZKijVMvl+y4+3huSHWFmIBCExv7Mg8KCUvezyk7xXJaagpFQPnBvtQGKpg60s4Ml6dqbktM7j+Cw==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Bliss-arm64.oecoreplugin.zip" length="101637" type="application/octet-stream" sparkle:version="2.1.3" sparkle:shortVersionString="2.1.3" sparkle:edSignature="AScIV7M7o0ua+NvaFmEbFY5tFppapqUKtHptDpxXJjdVXpmYpf4CeshfSZjqe32EcqiSSvGbgcA6re2oLxD/AA==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

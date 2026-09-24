@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — CrabEmu (x86_64)</title>
     <item>
-      <title>CrabEmu 0.2.1.270</title>
+      <title>CrabEmu 0.2.1.271</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/CrabEmu-x86_64.oecoreplugin.zip" length="127343" type="application/octet-stream" sparkle:version="0.2.1.270" sparkle:shortVersionString="0.2.1.270" sparkle:edSignature="jtXMQhuPXI6fwwi/fP2P5Gw6Rppi1cerLZlLZwjHSUxmlmeU6gS7p7xtzovx38OsLTxCSZepG5e5OE0QVhFdBw==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/CrabEmu-x86_64.oecoreplugin.zip" length="127683" type="application/octet-stream" sparkle:version="0.2.1.271" sparkle:shortVersionString="0.2.1.271" sparkle:edSignature="XrOgK0ZSUzNqYJ5fj1MWmvMeeXsD4qsh6GokATw6c3EpfW7YfuD6JF+Yy5uSYhQPPyzJUfuAc3mZ1Bu0kN3jCg==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

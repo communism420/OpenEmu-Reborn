@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — Gambatte (x86_64)</title>
     <item>
-      <title>Gambatte 0.5.5</title>
+      <title>Gambatte 0.5.6</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Gambatte-x86_64.oecoreplugin.zip" length="427943" type="application/octet-stream" sparkle:version="0.5.5" sparkle:shortVersionString="0.5.5" sparkle:edSignature="PuGssbTEmMicK/L/8lsb+KHL36Sb6ARpH5EtnN1lfNU0fXiPrZOYCn5SuTojkQPr5ngA3wVLzoexS9fTSy2QCQ==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Gambatte-x86_64.oecoreplugin.zip" length="433212" type="application/octet-stream" sparkle:version="0.5.6" sparkle:shortVersionString="0.5.6" sparkle:edSignature="GnfR9kFVjeqOVkver3zKxcjdO2F3wrv2rdzKYP6fzs2t5Dptyk+UcDcMFsNkZaFUSPw+ZcCKTlQ2WniEOfTnAg==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

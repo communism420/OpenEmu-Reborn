@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — mGBA (x86_64)</title>
     <item>
-      <title>mGBA 0.10.10.1</title>
+      <title>mGBA 0.10.10.2</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/mGBA-x86_64.oecoreplugin.zip" length="416628" type="application/octet-stream" sparkle:version="0.10.10.1" sparkle:shortVersionString="0.10.10.1" sparkle:edSignature="HsClm8ZZOkRaAKVy2NvKaiCKj37/svt1mKi1C/geCZjcu2OFoqvWKO+dcjATefx6h1Ei3zC4AGqgwX+jNHzYAQ==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/mGBA-x86_64.oecoreplugin.zip" length="422847" type="application/octet-stream" sparkle:version="0.10.10.2" sparkle:shortVersionString="0.10.10.2" sparkle:edSignature="s5B2ZWbvUv0hbkEwkmZlwHkMsLhF5lv4aqgtwlEA5054eRs+aBow9rToUKNQEYi+GgXFJKPcc2wWE8onYUmrBA==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

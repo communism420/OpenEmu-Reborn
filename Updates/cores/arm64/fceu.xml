@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — FCEU (arm64)</title>
     <item>
-      <title>FCEU 2.6.11</title>
+      <title>FCEU 2.6.12</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/FCEU-arm64.oecoreplugin.zip" length="550736" type="application/octet-stream" sparkle:version="2.6.11" sparkle:shortVersionString="2.6.10" sparkle:edSignature="N/RYiiu3E27fRKmYkCVjufmXS10a83OR/8xTDXonjAY6ZZvgQGHjizQ5OqDRzvP6XMIalZHUWENC4kB1s+PlBw==" sparkle:hardwareRequirements="arm64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/FCEU-arm64.oecoreplugin.zip" length="556172" type="application/octet-stream" sparkle:version="2.6.12" sparkle:shortVersionString="2.6.10" sparkle:edSignature="wQv/VvsQeWowU+sH6BiOvI9dg/gdsYi0xzNPkxiWcbylXL0qn/tZLAByaSebrc/atEPvs7a2SmLGW+uxjVXYAA==" sparkle:hardwareRequirements="arm64" />
     </item>
   </channel>
 </rss>

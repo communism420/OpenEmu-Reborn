@@ -3,10 +3,10 @@
   <channel>
     <title>OpenEmu Reborn — Stella (x86_64)</title>
     <item>
-      <title>Stella 3.9.3.4</title>
+      <title>Stella 3.9.3.5</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Stella-x86_64.oecoreplugin.zip" length="373443" type="application/octet-stream" sparkle:version="3.9.3.4" sparkle:shortVersionString="3.9.3.4" sparkle:edSignature="lsg26tT2aDrQpb70iZWDOu2uAKTqd9WlTHtIMhkPRKCndJMTUt6tepyzdoZ2MJ/1LKOVpZInLapmwmGu/cWbBA==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Stella-x86_64.oecoreplugin.zip" length="561992" type="application/octet-stream" sparkle:version="3.9.3.5" sparkle:shortVersionString="3.9.3.5" sparkle:edSignature="gGV5TZai6W26+lgohTtJyIjl/dOmtropwAj8Pl7M3A8YBsJ74Wo4E7+VTJeIFD2HvB3WHE9/dIdVUKfKOC8UBw==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

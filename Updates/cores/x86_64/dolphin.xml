@@ -6,7 +6,7 @@
       <title>Dolphin 5.0.16211.2</title>
       <sparkle:minimumSystemVersion>11.5</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/Dolphin-x86_64.oecoreplugin.zip" length="9836851" type="application/octet-stream" sparkle:version="5.0.16211.2" sparkle:shortVersionString="5.0.16211.2" sparkle:edSignature="WPTFMnbskFfVYUXQuIg1d65r9KT+mRzaPnFL5NPKfvsVyeqXi/TTUv4IcbshMff2jsNpRv3avMuVA/GlmjHbCg==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/Dolphin-x86_64.oecoreplugin.zip" length="9836851" type="application/octet-stream" sparkle:version="5.0.16211.2" sparkle:shortVersionString="5.0.16211.2" sparkle:edSignature="Iavpuvp/Tb5D+e5OPdC55NlkU7ELPC7dYKtxsijDk6p/NvtmitmKl+bjaY+p1fktXcrXSavAFWdxCNA84/gpBQ==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>

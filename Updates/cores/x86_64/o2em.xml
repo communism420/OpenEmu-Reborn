@@ -6,7 +6,7 @@
       <title>O2EM 1.18.2</title>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
       <sparkle:hardwareRequirements>x86_64</sparkle:hardwareRequirements>
-      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.0/O2EM-x86_64.oecoreplugin.zip" length="43076" type="application/octet-stream" sparkle:version="1.18.2" sparkle:shortVersionString="1.18.2" sparkle:edSignature="AUnWj9OGzjFazO+5o9We6YOhNhA6l9+tiwrnJFy/IQV/2AgN2gVrwiTIcTISLECcDGuk0olWsf7L5k+AKNoZDA==" sparkle:hardwareRequirements="x86_64" />
+      <enclosure url="https://github.com/communism420/OpenEmu-Reborn/releases/download/cores-reborn-v1.0.1/O2EM-x86_64.oecoreplugin.zip" length="43076" type="application/octet-stream" sparkle:version="1.18.2" sparkle:shortVersionString="1.18.2" sparkle:edSignature="i1GIg6P/2+DNSPoTIN5ZIc8p7nb2CXqTpWkemHdnrHdsiCuJRGVTc4EmqAIgd9jt4pm2djIKbR1EDA3KGGCpBA==" sparkle:hardwareRequirements="x86_64" />
     </item>
   </channel>
 </rss>
