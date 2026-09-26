@@ -122,6 +122,53 @@ class LocalPolicyTests(unittest.TestCase):
         self.snapshot["changed_files"] = sorted(expected)
         self.validate()
 
+    def test_only_exact_post_publication_documentation_paths_allowed(self):
+        expected = {
+            "README.md",
+            "README.ru.md",
+            "AGENTS.md",
+            "docs/updates.md",
+            "docs/project-identity.md",
+            "docs/intel-test-build.md",
+            ".github/SECURITY.md",
+            ".github/SUPPORT.md",
+            ".github/CONTRIBUTING.md",
+            "docs/progress-report-template.md",
+            "docs/retro-achievements/retroachievements-community-guide.md",
+        }
+        self.assertEqual(MODULE.POST_PUBLICATION_DOCUMENTATION_PATHS, expected)
+        self.assertEqual(len(expected), 11)
+        self.snapshot["changed_files"] = sorted(expected)
+        self.validate()
+        for path in expected:
+            with self.subTest(path=path):
+                self.snapshot["changed_files"] = [path]
+                self.validate()
+
+    def test_existing_update_publication_documentation_path_remains_allowed(self):
+        self.assertIn("docs/update-publication.md", MODULE.ALLOWED_CHANGES)
+        self.snapshot["changed_files"] = ["docs/update-publication.md"]
+        self.validate()
+
+    def test_unreviewed_documentation_paths_require_full_build(self):
+        for path in (
+                "docs/new.md", "docs/releases/v1.0.1.md", ".github/README.md",
+                ".github/workflows/documentation.yml", "README-new.md", "readme.md"):
+            with self.subTest(path=path):
+                self.snapshot["changed_files"] = [path]
+                with self.assertRaisesRegex(ValueError, "unsupported source changes"):
+                    self.validate()
+
+    def test_post_publication_documentation_must_remain_regular_nonexecutable_files(self):
+        for path in MODULE.POST_PUBLICATION_DOCUMENTATION_PATHS:
+            for mode in ("", "100755", "120000"):
+                candidate = copy.deepcopy(self.snapshot)
+                candidate["changed_files"] = [path]
+                candidate["current_modes"][path] = mode
+                with self.subTest(path=path, mode=mode), self.assertRaisesRegex(
+                        ValueError, "regular source files"):
+                    MODULE.check_local(MODULE.REFERENCE, candidate)
+
     def test_exact_archive_inspection_and_signed_app_smoke_paths_allowed(self):
         self.snapshot["changed_files"] = [
             "Scripts/update_archive.py", "Scripts/Tests/test-app-update-publication.py",

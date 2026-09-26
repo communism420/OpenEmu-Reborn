@@ -1,6 +1,6 @@
 # Progress Report Template — OpenEmu Reborn
 
-This is a template for future reports, not an existing release or verification record. Reborn has no published releases and Issues are disabled; confirm Discussions/Issues availability before using those sections, or publish a documentation PR. App `1.0.0` is not a core version, and the latest local fixes have not been runtime-tested on Apple Silicon.
+This is a template for future reports, not an existing release or verification record. Published builds are listed on the [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Issues are disabled; confirm Discussions/Issues availability before using those sections, or publish a documentation PR. App `1.0.0` is not a core version. For the signed 1.0.1 ZIP's native Intel/Apple Silicon startup, storage and relaunch smoke evidence, and the limits of gameplay and in-place update testing, see [Project identity](project-identity.md).
 
 Reusable template for two related but distinct content types:
 

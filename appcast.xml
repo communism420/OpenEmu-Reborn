@@ -8,6 +8,44 @@
     <description>OpenEmu Reborn updates. Historical upstream entries retain their original release identity.</description>
     <language>en</language>
     <item>
+      <title>OpenEmu Reborn 1.0.1</title>
+      <description>
+        <![CDATA[
+        <h2>OpenEmu Reborn 1.0.1</h2>
+        <h3>OpenEmu Reborn 1.0.1</h3>
+        <p>An independent, fan-maintained continuation of OpenEmu-Silicon for Apple Silicon and 64-bit Intel Macs. This is not an official OpenEmu release.</p>
+        <h3>What&#x27;s new</h3>
+        <ul>
+        <li>Incorporates 13 upstream OpenEmu-Silicon commits while preserving Reborn&#x27;s Intel support, selected data folder and authenticated updates.</li>
+        <li>Keeps both native OpenEmu cores and optional external RetroArch/libretro cores. External cores must match the running app&#x27;s processor architecture.</li>
+        <li>Adds Preferences → Library → Interface Language. Quit and reopen the same app to apply a selection; System Default follows macOS.</li>
+        <li>Completes missing app-owned translation entries across the existing languages, including helper messages and the French fallback for Canadian French. This does not imply native-speaker review of every phrase or translation of macOS-owned windows.</li>
+        <li>Improves native file-panel sizing and restored-frame handling, respecting AppKit minimum sizes and localized button labels.</li>
+        <li>Includes native-core, cheat and achievement improvements, the shared RetroAchievements library update and VirtualJaguar&#x27;s 4:3 correction.</li>
+        <li>Refreshes external RetroArch wrappers with bridge version 5 so BIOS and save paths follow the attached game&#x27;s data folder.</li>
+        <li>Keeps asynchronous artwork loading while avoiding false missing-cover results during library migration and integrity checks.</li>
+        </ul>
+        <h3>Existing data and compatibility</h3>
+        <p>Version 1.0.1 is internal build 24. Existing bundle identifiers, the selected data folder, update key and persistent signing identity are retained. New preferences are stored alongside existing settings without resetting unrelated values.</p>
+        <p>Back up your library and saves before updating. Save states can depend on the core version and processor architecture. Core changes activate after restart.</p>
+        <p>The universal package includes all 28 native cores. Core and application versions are independent; integration revisions do not claim a new underlying emulator. The macOS baseline is 11.0, but individual cores or features may require newer systems. Build and startup checks are not a promise of compatibility with every game or Mac.</p>
+        <p>Reborn 1.0.0/build 23 uses the same update key. Older experimental builds through build 22 need one manual installation because they contain another publisher&#x27;s key.</p>
+        <h3>Security and sources</h3>
+        <p>The release uses the maintainer&#x27;s persistent self-signed certificate and signed update archives. It is not Apple-notarized. Another Mac may require the normal macOS Open Anyway approval. Do not disable Gatekeeper or install a trusted root certificate. Input Monitoring remains a separate permission controlled by you and macOS; no private signing keys are distributed.</p>
+        <p>Complete corresponding Reborn and MAME source archives, component license notices, checksums and verification records accompany the GitHub release. Licenses remain component-specific, including BSD and GPL terms. Do not charge for a package containing the non-commercial Picodrive component. ROMs and BIOS files are not included.</p>
+        ]]>
+      </description>
+      <pubDate>Thu, 24 Sep 2026 03:53:23 +0000</pubDate>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <enclosure
+        url="https://github.com/communism420/OpenEmu-Reborn/releases/download/v1.0.1/OpenEmu-Reborn-universal.zip"
+        sparkle:version="24"
+        sparkle:shortVersionString="1.0.1"
+        sparkle:edSignature="aUV67WuCT20QXSX0XqDDrF0zBIc7HBipP9GWGmzNCdb9Dh5K17RrsJkB81kQmw3pGivp0ZPZ1wd7yFpxbEs3Dg=="
+        length="244529490"
+        type="application/octet-stream"/>
+    </item>
+    <item>
       <title>OpenEmu Reborn 1.0.0</title>
       <description>
         <![CDATA[

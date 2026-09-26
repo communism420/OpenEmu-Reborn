@@ -2,15 +2,15 @@
 
 ## Release gate
 
-This change prepares a Reborn-owned update channel. Do not ship the configured
+The application uses a Reborn-owned update channel. Do not ship the configured
 URLs until the corresponding archives are public, their hashes/signatures have
 been verified, and both complete catalogs are published. A successful CI run or
 a reachable XML file alone is not a working update service.
 
-The published application is **1.0.0**, internal build **23**. Current sources
-prepare **1.0.1**, internal build **24**; this does not advertise or publish a
-new update. Internal build numbers increase independently of the public
-application version.
+The published application is [**1.0.1**](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.1),
+internal build **24**. Internal build numbers increase independently of the
+public application version. Changing a source version alone does not publish
+release archives or advertise an update.
 
 ## Trust and processor selection
 

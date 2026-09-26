@@ -2,11 +2,11 @@
 
 ## Supported Versions
 
-OpenEmu Reborn `1.0.0` is the new application's development version line. No
-Reborn release has been published yet. This independent fan-maintained project
-does not promise a security-support period or response deadline. Upstream
-OpenEmu-Silicon version numbers and security claims do not automatically apply
-to Reborn; emulator cores retain their own versions and upstream policies.
+The current published app is [OpenEmu Reborn `1.0.1`](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.1)
+(internal build `24`). This independent fan-maintained project does not promise
+a security-support period or response deadline. Upstream OpenEmu-Silicon version
+numbers and security claims do not automatically apply to Reborn; emulator cores
+retain their own versions and upstream policies.
 
 ## Reporting a Vulnerability
 
