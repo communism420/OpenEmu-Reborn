@@ -2,7 +2,7 @@
 
 [RetroAchievements](https://retroachievements.org) is a community platform that adds an achievement system to classic games played through emulators. OpenEmu Reborn integrates RA support through [rcheevos](https://github.com/RetroAchievements/rcheevos), the same client library used by RetroArch and other supported emulators.
 
-This guide is for **users and contributors** testing inherited RA behavior. Developers should read [the implementation guide](retroachievements-implementation-guide.md). The [#438 compliance evidence](retroachievements-compliance-evidence.md) describes upstream OpenEmu-Silicon work, not new Reborn approval or runtime verification. Reborn `1.0.0` is an app version, not a core update; the latest local fixes have not been runtime-tested on Apple Silicon. See [Project identity](../project-identity.md).
+This guide is for **users and contributors** testing inherited RA behavior. Developers should read [the implementation guide](retroachievements-implementation-guide.md). The [#438 compliance evidence](retroachievements-compliance-evidence.md) describes upstream OpenEmu-Silicon work, not new Reborn approval or runtime verification. Reborn `1.0.0` is an app version, not a core update. The signed 1.0.1 ZIP's native Intel/Apple Silicon startup, storage and relaunch smoke tests do not establish RA or all-core gameplay compatibility; see [Project identity](../project-identity.md) for evidence and limits.
 
 ---
 
@@ -59,7 +59,7 @@ The table below summarizes inherited native-core integrations, not a Reborn per-
 
 - A RetroAchievements account — free at [retroachievements.org](https://retroachievements.org)
 - A ROM of a game with an achievement set (browse the [game list](https://retroachievements.org/gameList.php))
-- An OpenEmu Reborn build containing the RA integration; no Reborn release has been published yet
+- An OpenEmu Reborn build containing the RA integration, available on the [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases); support depends on the system, core and game
 
 ### Enabling RA in OpenEmu Reborn
 

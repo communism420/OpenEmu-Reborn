@@ -14,11 +14,17 @@ host-only changes unless a core rebuild is explicitly requested.
 
 The source targets Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs
 running macOS 11 or later. This is not support for literally every Mac or every
-game. Recent local fixes have not been runtime-tested on Apple Silicon; do not
-infer ARM gameplay verification from an Intel build or a source-level change.
+game.
 
-The published app release is `1.0.0` (build `23`). The current source version is
-`1.0.1` (build `24`); source version changes do not publish release archives.
+The exact signed 1.0.1 ZIP passed native startup, selected-data-folder storage
+and relaunch smoke checks on Intel and Apple Silicon in
+[run 35925403042](https://github.com/communism420/OpenEmu-Reborn/actions/runs/35925403042)
+and again during [PR #7](https://github.com/communism420/OpenEmu-Reborn/pull/7).
+These checks do not establish all-core gameplay compatibility or a complete
+in-place Sparkle update replacement; those are separate verification scopes.
+
+The published app release is [OpenEmu Reborn `1.0.1`](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.1)
+(build `24`). Source version changes alone do not publish release archives.
 Repository Issues are currently disabled. Use a documentation or draft PR for non-confidential proposed changes
 and test reports. Use Releases, Issues, Discussions, or private vulnerability
 reporting only when the relevant repository feature is available. Do not send

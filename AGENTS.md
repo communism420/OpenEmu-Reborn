@@ -20,7 +20,7 @@ OpenEmu Reborn is an independent, fan-maintained revival based on OpenEmu-Silico
 
 The goal is to honor the original OpenEmu spirit — a beautifully designed, first-class native macOS game emulation frontend — while making the same source tree work reliably on both current Mac processor architectures.
 
-**Version and verification scope:** `1.0.0` starts the OpenEmu Reborn application version line; it does not reset or update emulator-core versions. This is not a claim of support for every Mac. The latest local fixes have not been runtime-tested on Apple Silicon. See [docs/project-identity.md](docs/project-identity.md). Preserve existing bundle identifiers, storage paths, `OpenEmu-Intel-test`, and the local signing identity; rebranding alone is not permission to migrate them or rebuild cores.
+**Version and verification scope:** `1.0.0` starts the OpenEmu Reborn application version line; it does not reset or update emulator-core versions. This is not a claim of support for every Mac. The signed 1.0.1 ZIP passed native Intel/Apple Silicon startup, selected-data-folder storage and relaunch smoke tests, not all-core gameplay or full in-place Sparkle replacement. See [docs/project-identity.md](docs/project-identity.md) for evidence and limits. Preserve existing bundle identifiers, storage paths, `OpenEmu-Intel-test`, and the local signing identity; rebranding alone is not permission to migrate them or rebuild cores.
 
 **The maintainer is not a professional developer.** If you are writing explanations, commit messages, or comments, please use plain language. Avoid jargon where a plain word works just as well.
 
@@ -261,7 +261,7 @@ Replace `<N>` with the actual PR number and `<CoreName>` with the scheme name (e
 
 The issue tracker at `communism420/OpenEmu-Reborn` is the primary place for bug reports, feature requests, core integration work, and release checklists.
 
-**Current repository state:** Issues are disabled. Reborn `1.0.0` is published; `1.0.1` is the current source version, not yet a published release. Do not enable repository features, promise an unpublished release/Discussion, or send Reborn reports to an upstream tracker. While Issues are disabled, describe the concern and test plan in a PR; the issue commands and issue-link rules below apply only when Issues are available.
+**Current repository state:** Issues are disabled. Reborn `1.0.1` (internal build `24`) is published. Do not enable repository features, promise an unpublished release/Discussion, or send Reborn reports to an upstream tracker. While Issues are disabled, describe the concern and test plan in a PR; the issue commands and issue-link rules below apply only when Issues are available.
 
 **Issue templates** — always use the appropriate template:
 

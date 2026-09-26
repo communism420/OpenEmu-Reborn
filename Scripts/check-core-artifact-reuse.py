@@ -42,6 +42,24 @@ RELEASE_METADATA_PATHS = frozenset({"appcast.xml"} | {
     f"Updates/cores/{architecture}/{name.lower()}.xml"
     for architecture in ARCHITECTURES for name in (*CORES, "oecores")
 })
+# Exact reviewed post-publication documentation paths only. Their contents are
+# not core binary inputs. docs/intel-test-build.md may be copied as the outer
+# README of a separately requested test package, never into an app/core bundle.
+# Reuse retains the original core source SHA; it never relabels old artifacts.
+# Do not replace this list with a docs/**, .github/** or other directory glob.
+POST_PUBLICATION_DOCUMENTATION_PATHS = frozenset({
+    "README.md",
+    "README.ru.md",
+    "AGENTS.md",
+    "docs/updates.md",
+    "docs/project-identity.md",
+    "docs/intel-test-build.md",
+    ".github/SECURITY.md",
+    ".github/SUPPORT.md",
+    ".github/CONTRIBUTING.md",
+    "docs/progress-report-template.md",
+    "docs/retro-achievements/retroachievements-community-guide.md",
+})
 ALLOWED_CHANGES = frozenset({
     "OpenEmu/AppDelegate.swift", "OpenEmu/OEDataFolderSetup.swift",
     "OpenEmu/OpenEmuTests/ImportFailureTests.swift", SCHEME,
@@ -51,7 +69,7 @@ ALLOWED_CHANGES = frozenset({
     "Scripts/Tests/test-signed-release-app.py", "Scripts/Tests/test-signed-release-app-guards.py",
     ".github/signed-app-smoke.json",
     "docs/update-publication.md",
-}) | RELEASE_METADATA_PATHS
+}) | RELEASE_METADATA_PATHS | POST_PUBLICATION_DOCUMENTATION_PATHS
 
 
 def require(condition, message):

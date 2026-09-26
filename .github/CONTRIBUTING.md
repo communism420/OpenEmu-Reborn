@@ -1,8 +1,8 @@
 # Contributing to OpenEmu Reborn
 
-OpenEmu Reborn is an independent, fan-maintained revival based on [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon), targeting Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting. Version `1.0.0` starts a new application version line, not new emulator-core versions. Recent local fixes still need Apple Silicon runtime verification; see [project identity and scope](../docs/project-identity.md).
+OpenEmu Reborn is an independent, fan-maintained revival based on [OpenEmu-Silicon](https://github.com/OpenEmu-Silicon/OpenEmu-Silicon), targeting Apple Silicon (`arm64`) and 64-bit Intel (`x86_64`) Macs. Contributions of all kinds are welcome — code, documentation, testing, triage, and compatibility reporting. Version `1.0.0` starts a new application version line, not new emulator-core versions. For the signed 1.0.1 ZIP's native Intel/Apple Silicon startup, storage and relaunch smoke evidence, and the limits of gameplay and in-place update testing, see [project identity and scope](../docs/project-identity.md).
 
-Issues are currently disabled and no Reborn release has been published. Use a [pull request](https://github.com/communism420/OpenEmu-Reborn/pulls) for a proposed change or non-confidential report. References below to Issues or Discussions apply only if those features are enabled; do not open Reborn reports in upstream repositories instead.
+Issues are currently disabled. Published builds are available on the [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Use a [pull request](https://github.com/communism420/OpenEmu-Reborn/pulls) for a proposed change or non-confidential report. References below to Issues or Discussions apply only if those features are enabled; do not open Reborn reports in upstream repositories instead.
 
 ---
 

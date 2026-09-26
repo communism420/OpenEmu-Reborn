@@ -8,11 +8,11 @@ OpenEmu Reborn keeps the idea that made OpenEmu special: a native Mac app that b
 
 This is an independent fan project maintained by [@communism420](https://github.com/communism420), not an official OpenEmu release or a product endorsed by the original team or OpenEmu-Silicon. The repository was previously named **OpenEmu-Intel**.
 
-## Version 1.0.1 (in development)
+## Version 1.0.1
 
 **1.0.0 starts the OpenEmu Reborn version series.** It does not reset OpenEmu's history, change emulator core versions, or imply that every game has been tested on both architectures.
 
-The current working version includes:
+Version 1.0.1 includes:
 
 - An interface-language selector in Preferences → Library. The choice is stored with the other settings in the selected data folder and takes effect on the next launch.
 - Native build targets for Apple Silicon and Intel, with architecture checks for the app and core plugins.
@@ -25,7 +25,7 @@ Check each package's recorded architectures and test results. A successful build
 
 ## Download and requirements
 
-The published app is [OpenEmu Reborn 1.0.0](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.0). The `1.0.1` source version is not a claim that a `1.0.1` archive has been released. New verified packages belong on this repository's [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Developers can use the [source-build guide](.github/CONTRIBUTING.md).
+The published app is [OpenEmu Reborn 1.0.1](https://github.com/communism420/OpenEmu-Reborn/releases/tag/v1.0.1), internal build **24**. Check the release's package details and verification notes before downloading. Published packages are listed on this repository's [Releases page](https://github.com/communism420/OpenEmu-Reborn/releases). Developers can use the [source-build guide](.github/CONTRIBUTING.md).
 
 The app's deployment baseline is **macOS 11.0 or later** on an **Apple Silicon or 64-bit Intel Mac**. Individual cores and features may impose additional requirements. Both architectures does not mean every historical MacBook: 32-bit Intel and PowerPC are not supported targets.
 
@@ -35,7 +35,7 @@ ROMs and BIOS files are not supplied. Use your own game files and the BIOS requi
 
 ### Signing and permissions
 
-Local test packages are not notarized releases. A signature does not automatically grant Input Monitoring permission or guarantee that another Mac will allow the app to open. Follow the [test-build guide](docs/intel-test-build.md); do not disable system-wide security protections.
+The published 1.0.1 package is self-signed, not notarized by Apple. macOS may require your normal approval to open it, and Input Monitoring permission remains a separate user choice. The signature does not grant these permissions or guarantee launch on another Mac. Follow the [test-build guide](docs/intel-test-build.md); do not disable system-wide security protections.
 
 The maintainer's private signing key stays on the maintainer's Mac. Users do not need that key, a paid developer account or Xcode to run a compatible packaged app. Building from source is a separate workflow.
 
